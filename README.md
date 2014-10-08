@@ -1,4 +1,4 @@
-Term06MapleSyrup
+Team06MapleSyrup
 
 ======================
 
