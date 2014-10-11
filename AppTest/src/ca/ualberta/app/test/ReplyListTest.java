@@ -12,27 +12,27 @@ public class ReplyListTest extends TestCase {
 		ReplyList replyList = new ReplyList();
 		List<Reply> repList = replyList.getList();
 		ArrayList<Reply> repArrayList = replyList.getArrayList();
-		assertTrue("Empty Answer List", repList.size() == 0);
-		assertTrue("Empty Answer Array List", repArrayList.size() == 0);
+		assertTrue("Empty Reply List", repList.size() == 0);
+		assertTrue("Empty Reply Array List", repArrayList.size() == 0);
 	}
 	
-	public void testaddAnswer(){
-		String answerString = "A answer";
-		Reply answer = new Reply(answerString);
-		ReplyList answerList = new ReplyList();
-		answerList.addReply(answer);
-		ArrayList<Reply> ansArrayList = answerList.getArrayList();
-		assertTrue("Answer List Size", ansArrayList.size() == 1);
-		assertTrue("Answer List contains answer", ansArrayList.contains(answer));
+	public void testaddReply(){
+		String replyString = "A Reply";
+		Reply reply = new Reply(replyString);
+		ReplyList replyList = new ReplyList();
+		replyList.addReply(reply);
+		ArrayList<Reply> repArrayList = replyList.getArrayList();
+		assertTrue("Reply List Size", repArrayList.size() == 1);
+		assertTrue("Reply List contains reply", repArrayList.contains(reply));
 	}
 	
-	public void testremoveAnswer(){
-		String answerString = "A answer";
-		Reply answer = new Reply(answerString);
-		ReplyList answerList = new ReplyList();
-		answerList.addReply(answer);
-		answerList.removeReply(0);
-		ArrayList<Reply> ansArrayList = answerList.getArrayList();
-		assertTrue("Answer List Size", ansArrayList.size() == 0);
+	public void testremoveReply(){
+		String replyString = "A reply";
+		Reply reply = new Reply(replyString);
+		ReplyList replyList = new ReplyList();
+		replyList.addReply(reply);
+		replyList.removeReply(0);
+		ArrayList<Reply> repArrayList = replyList.getArrayList();
+		assertTrue("Reply List Size", repArrayList.size() == 0);
 	}
 }
