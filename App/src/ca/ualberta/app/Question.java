@@ -7,6 +7,7 @@ public class Question {
 	long upvoteCount;
 	long downvoteCount;
 	long answerCount;
+	
 	public Question(String question) {
 		this.question = question;
 		answerList = new AnswerList();
@@ -16,8 +17,8 @@ public class Question {
 		answerCount = 0;
 	}
 	public void addAnswer(Answer newAnswer){
-		answerCount = answerList.size();
 		answerList.addAnswer(newAnswer);
+		answerCount = answerList.size();
 	}
 	
 	public void addReply(Reply newReply){

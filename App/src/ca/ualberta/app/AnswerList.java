@@ -17,7 +17,7 @@ public class AnswerList {
 
 	// return an ArrayList
 	public ArrayList<Answer> getArrayList() {
-
+		
 		return answerList;
 	}
 
