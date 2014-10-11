@@ -13,6 +13,11 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -27,15 +32,24 @@ public final class R {
         public static final int action_settings=0x7f080000;
     }
     public static final class layout {
-        public static final int activity_login=0x7f030000;
+        public static final int activity_answer=0x7f030000;
+        public static final int activity_author_profile=0x7f030001;
+        public static final int activity_login=0x7f030002;
+        public static final int activity_question_list=0x7f030003;
     }
     public static final class menu {
-        public static final int login=0x7f070000;
+        public static final int answer=0x7f070000;
+        public static final int author_profile=0x7f070001;
+        public static final int login=0x7f070002;
+        public static final int question_list=0x7f070003;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050002;
+        public static final int title_activity_answer=0x7f050004;
+        public static final int title_activity_author_profile=0x7f050005;
+        public static final int title_activity_question_list=0x7f050003;
     }
     public static final class style {
         /** 

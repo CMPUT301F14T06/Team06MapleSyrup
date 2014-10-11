@@ -14,13 +14,25 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="ca.ualberta.app.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".QuestionListActivity"
+            android:label="@string/title_activity_question_list" >
+        </activity>
+        <activity
+            android:name=".AnswerActivity"
+            android:label="@string/title_activity_answer" >
+        </activity>
+        <activity
+            android:name=".AuthorProfileActivity"
+            android:label="@string/title_activity_author_profile" >
         </activity>
     </application>
 
