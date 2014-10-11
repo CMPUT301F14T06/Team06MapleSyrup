@@ -34,7 +34,14 @@ public class QuestionList {
 	}
 
 	// get the item at current position
-	public Question get(int position) {
+	public Question getQuestion(int position) {
 		return questionList.get(position);
+	}
+	
+	public AnswerList getAnswers(int position) {
+		return questionList.get(position).answerList;
+	}
+	public ReplyList getReplys(int position) {
+		return questionList.get(position).replyList;
 	}
 }

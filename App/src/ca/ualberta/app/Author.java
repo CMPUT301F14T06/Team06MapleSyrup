@@ -1,7 +1,5 @@
 package ca.ualberta.app;
 
-import java.util.ArrayList;
-
 public class Author extends User{
 	final static boolean loginState = true;
 	String userName;
@@ -9,6 +7,7 @@ public class Author extends User{
 	String email;
 	QuestionList favorite;
 	QuestionList questionList;
+	
 	
 	
 }
