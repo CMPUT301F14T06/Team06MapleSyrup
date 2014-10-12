@@ -6,9 +6,11 @@ public class Author extends User {
 	String authorName;
 	int authorID;
 	String email;
-
+	//authorName is initial as loginName, but can be change later
+	//loginName is unique and unable to be change once is created
 	public Author(String loginName, int authorID) {
 		this.loginName = loginName;
+		this.authorName = loginName;
 		this.authorID = authorID;
 	}
 
