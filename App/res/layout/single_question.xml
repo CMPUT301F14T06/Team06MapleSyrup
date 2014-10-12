@@ -71,7 +71,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/QuestionPopTextView"
         android:background="#333333"
-        android:src="@drawable/arrowDown" />
+        android:src="@drawable/arrow_down" />
 
     <ImageButton
         android:id="@+id/upvoteButton"
@@ -80,7 +80,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/localizeButton"
         android:background="#333333"
-        android:src="@drawable/arrowUp" />
+        android:src="@drawable/arrow_up" />
 
     <TextView
         android:id="@+id/QuestionPopTextView"

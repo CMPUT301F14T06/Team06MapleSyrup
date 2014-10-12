@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ca.ualberta.app.AuthorProfileActivity" >
+    tools:context="ca.ualberta.app.activity.AuthorProfileActivity" >
 
     <item
         android:id="@+id/action_settings"

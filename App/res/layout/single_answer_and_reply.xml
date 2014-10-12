@@ -54,7 +54,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="#333333"
-        android:src="@drawable/arrowUp" />
+        android:src="@drawable/arrow_up" />
 
     <TextView
         android:id="@+id/answerPopTextView"
@@ -73,7 +73,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/answerPopTextView"
         android:background="#333333"
-        android:src="@drawable/arrowDown" />
+        android:src="@drawable/arrow_down" />
 
     <ListView
         android:id="@+id/answerReplyListView"
