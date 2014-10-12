@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/answerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="36dp"
+        android:text="Answer/Reply"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/answerReplyButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/answerTextView"
+        android:layout_marginRight="15dp"
+        android:text="Reply"
+        android:textColor="#66FF00" />
+
+    <Button
+        android:id="@+id/answerEditButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/answerReplyButton"
+        android:layout_toLeftOf="@+id/answerReplyButton"
+        android:text="Edit"
+        android:textColor="#66FF00" />
+
+    <Button
+        android:id="@+id/answerRemoveButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/answerEditButton"
+        android:layout_toLeftOf="@+id/answerEditButton"
+        android:text="Remove"
+        android:textColor="#66FF00" />
+
+    <ImageButton
+        android:id="@+id/answerUpvoteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#333333"
+        android:src="@drawable/arrowUp" />
+
+    <TextView
+        android:id="@+id/answerPopTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/answerUpvoteButton"
+        android:text="#"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/answerPopTextView"
+        android:background="#333333"
+        android:src="@drawable/arrowDown" />
+
+    <ListView
+        android:id="@+id/answerReplyListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/answerTextView"
+        android:layout_below="@+id/imageButton1" >
+    </ListView>
+
+</RelativeLayout>
