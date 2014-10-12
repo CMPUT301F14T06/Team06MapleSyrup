@@ -1,6 +1,7 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AuthorList {
 	ArrayList<Author> authorList;
@@ -10,13 +11,12 @@ public class AuthorList {
 	}
 
 	// return a List
-	public ArrayList<Author> getList() {
+	public List<Author> getList() {
 		return authorList;
 	}
 
 	// return an ArrayList
 	public ArrayList<Author> getArrayList() {
-
 		return authorList;
 	}
 

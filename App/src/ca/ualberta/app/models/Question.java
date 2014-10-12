@@ -1,7 +1,14 @@
 package ca.ualberta.app.models;
 
+/**
+ * @author  bicheng
+ */
 public class Question extends AuthorInputs {
 
+	/**
+	 * @uml.property  name="answerList"
+	 * @uml.associationEnd  
+	 */
 	AnswerList answerList;
 	String title;
 	long answerCount;
