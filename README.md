@@ -15,5 +15,3 @@ Jingjing Liang
 Liwen Chen
 
 Xiaocong Zhou
-
-Liwen Chen
