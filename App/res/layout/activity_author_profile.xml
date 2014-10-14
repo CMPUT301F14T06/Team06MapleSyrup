@@ -2,15 +2,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#333333"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ca.ualberta.app.activity.AuthorProfileActivity" >
+    tools:context="ca.ualberta.app.AuthorProfileActivity" >
 
-    <TextView
+    <ImageView
+        android:id="@+id/profielPicImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/user" />
+
+    <TextView
+        android:id="@+id/authorNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/profielPicImageView"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/profielPicImageView"
+        android:text="Author Name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:textColor="#66FF00" />
+
+    <TextView
+        android:id="@+id/myQuestiontextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profielPicImageView"
+        android:layout_centerHorizontal="true"
+        android:text="My Question"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="#FF9900" />
+
+    <ListView
+        android:id="@+id/answerOfMyquestionListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/myQuestiontextView"
+        android:background="#CCCCCC" >
+
+    </ListView>
 
 </RelativeLayout>
