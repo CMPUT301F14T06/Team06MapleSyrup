@@ -1,23 +1,22 @@
 package ca.ualberta.app.models;
 
-/**
- * @author  bicheng
- */
-public class Question extends AuthorInputs {
+public class Question extends InputsModel {
 
-	/**
-	 * @uml.property  name="answerList"
-	 * @uml.associationEnd  
-	 */
 	AnswerList answerList;
 	String title;
 	long answerCount;
+	ReplyList replyList;
 
-	public Question(String content, String author, String title) {
-		super(content, author);
+	public Question(String content, String authorLoginName, String title) {
+		super(content, authorLoginName);
 		this.title = title;
+		replyList = new ReplyList();
 		answerList = new AnswerList();
 		answerCount = 0;
+	}
+
+	public void addReply(Reply newReply) {
+		replyList.addReply(newReply);
 	}
 
 	public void addAnswer(Answer newAnswer) {

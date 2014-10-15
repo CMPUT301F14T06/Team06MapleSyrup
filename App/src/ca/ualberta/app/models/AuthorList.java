@@ -22,7 +22,7 @@ public class AuthorList {
 
 	// if Login name exist then login otherwise create a new account
 	public boolean addAuthor(String newLoginName) {
-		if (authorExist(newLoginName)) {
+		if (authorExist(newLoginName) == null) {
 			return false;
 		} else {
 			Author newAuthor = new Author(newLoginName, authorList.size() + 1);
@@ -31,17 +31,25 @@ public class AuthorList {
 		}
 	}
 
-	public boolean authorExist(String newAuthorName) {
-		boolean contains = false;
+	public String getAuthorNameByLoginName(String loginName) {
+		String authorName;
+		int existPosition;
+		existPosition = authorExist(loginName);
+		authorName = authorList.get(existPosition).getAuthorName();
+		return authorName;
+	}
+
+	public Integer authorExist(String newLoginName) {
+		Integer existPosition = null;
 		// TODO Auto-generated method stub
 		for (int i = 0; i < authorList.size(); i++) {
 			if (authorList.get(i).getLoginName().trim()
-					.equals(newAuthorName.trim())) {
-				contains = true;
+					.equals(newLoginName.trim())) {
+				existPosition = i;
 				break;
 			}
 		}
-		return contains;
+		return existPosition;
 	}
 
 	public int size() {

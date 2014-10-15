@@ -3,40 +3,23 @@ package ca.ualberta.app.models;
 import java.io.File;
 import java.util.Date;
 
-/**
- * @author  bicheng
- */
-public abstract class AuthorInputs {
-	/**
-	 * @uml.property  name="content"
-	 */
+
+public abstract class InputsModel {
+
 	String content;
 	File image;
-	String author;
-	/**
-	 * @uml.property  name="timestamp"
-	 */
+	String authorLoginName;
 	Date timestamp;
 	long upvoteCount;
 	long downvoteCount;
-	/**
-	 * @uml.property  name="replyList"
-	 * @uml.associationEnd  
-	 */
-	ReplyList replyList;
 
-	public AuthorInputs(String content, String author) {
-		replyList = new ReplyList();
+	public InputsModel(String content, String authorLoginName) {
 		timestamp = new Date();
 		this.content = content;
-		this.author = author;
+		this.authorLoginName = authorLoginName;
 		upvoteCount = 0;
 		downvoteCount = 0;
 
-	}
-
-	public void addReply(Reply newReply) {
-		replyList.addReply(newReply);
 	}
 
 	public void editContent(String newContent) {
@@ -51,26 +34,16 @@ public abstract class AuthorInputs {
 	//
 	// }
 
-	/**
-	 * @return
-	 * @uml.property  name="content"
-	 */
 	public String getContent() {
 		return content;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="timestamp"
-	 */
+
 	public Date getTimestamp() {
 		return timestamp;
 	}
 
-	/**
-	 * @param timestamp
-	 * @uml.property  name="timestamp"
-	 */
+
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
