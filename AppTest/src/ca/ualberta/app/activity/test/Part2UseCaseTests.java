@@ -91,7 +91,7 @@ public class Part2UseCaseTests extends TestCase {
 //		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
 //				"A title", image);
-//		image = Bitmap.createBitmap(20, 20, Bitmap.Config.ALPHA_8);
+//		image = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
 //		question.setImage(image);
 //		assertTrue("Author cannot add picture",
 //				question.hasImage());
@@ -100,7 +100,7 @@ public class Part2UseCaseTests extends TestCase {
 //	public void testSysadminChangePicSize() {
 //		Sysadmin sysadmin = new Sysadmin("loginName", 1);
 //		Author author = new Author("loginName2", 2);
-//		Bitmap image = Bitmap.createBitmap(20, 20, Bitmap.Config.ALPHA_8);
+//		Bitmap image = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
 //		Question question = new Question("A question", author.getAuthorName(),
 //				"A title", image);
 //		assertTrue("Picture is larger than 64Kb",
@@ -110,7 +110,7 @@ public class Part2UseCaseTests extends TestCase {
 //	public void testSortQuestionByPicture() {
 //		Author author = new Author("loginName", 1);
 //		Bitmap image1 = null;
-//		Bitmap image = Bitmap.createBitmap(20, 20, Bitmap.Config.ALPHA_8);
+//		Bitmap image = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
 //		Question question1 = new Question("1st question",
 //				author.getAuthorName(), "A title", image);
 //		Question question2 = new Question("2nd question",
