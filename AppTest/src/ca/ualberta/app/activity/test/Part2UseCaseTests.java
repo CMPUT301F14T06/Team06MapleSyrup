@@ -15,9 +15,9 @@ import junit.framework.TestCase;
 public class Part2UseCaseTests extends TestCase {
 //	public void testUserBrowse() {
 //		User user = new User();
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question q = new Question("A question", "A author", "A title",
-//				imageList);
+//				image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(q);
 //		ArrayList<Question> qList = questionList.getArrayList();
@@ -25,10 +25,10 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testUserViewAnswer() {
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question q = new Question("A question", "A author", "A title",
-//				imageList);
-//		Answer answer = new Answer("A answer", "A author", imageList);
+//				image);
+//		Answer answer = new Answer("A answer", "A author", image);
 //		InputsListModel questionList = new InputsListModel();
 //		q.addAnswer(answer);
 //		questionList.addQuestion(q);
@@ -38,9 +38,9 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testUserViewReply() {
 //		User user = new User();
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question q = new Question("A question", "A author", "A title",
-//				imageList);
+//				image);
 //		Reply reply = new Reply("A reply", "A author");
 //		InputsListModel questionList = new InputsListModel();
 //		q.addReply(reply);
@@ -51,9 +51,9 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testAuthorCreateQuestion() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
 //		assertTrue("Author cannot Create Question", questionList.size() != 0);
@@ -61,11 +61,11 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testAuthorAnswerQuestion() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		Answer answer = new Answer("A Answer", author.getAuthorName(),
-//				imageList);
+//				image);
 //		question.addAnswer(answer);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
@@ -75,9 +75,9 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testAuthorReplyQuestion() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		Reply reply = new Reply("A reply", "A author");
 //		question.addReply(reply);
 //		InputsListModel questionList = new InputsListModel();
@@ -88,38 +88,33 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testAuthorAddPicture() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
-//		Bitmap image = Bitmap.createBitmap(20, 20, Bitmap.Config.ALPHA_8);
-//		imageList.add(image);
-//		question.setImageList(imageList);
+//				"A title", image);
+//		image = Bitmap.createBitmap(20, 20, Bitmap.Config.ALPHA_8);
+//		question.setImage(image);
 //		assertTrue("Author cannot add picture",
-//				question.getImageList().size() != 0);
+//				question.hasImage());
 //	}
 //
 //	public void testSysadminChangePicSize() {
 //		Sysadmin sysadmin = new Sysadmin("loginName", 1);
 //		Author author = new Author("loginName2", 2);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
 //		Bitmap image = Bitmap.createBitmap(20, 20, Bitmap.Config.ALPHA_8);
-//		imageList.add(image);
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		assertTrue("Picture is larger than 64Kb",
 //				image.getWidth() * image.getHeight() > 64);
 //	}
 //
 //	public void testSortQuestionByPicture() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
-//		ArrayList<Bitmap> imageList1 = new ArrayList<Bitmap>();
+//		Bitmap image1 = null;
 //		Bitmap image = Bitmap.createBitmap(20, 20, Bitmap.Config.ALPHA_8);
-//		imageList.add(image);
 //		Question question1 = new Question("1st question",
-//				author.getAuthorName(), "A title", imageList);
+//				author.getAuthorName(), "A title", image);
 //		Question question2 = new Question("2nd question",
-//				author.getAuthorName(), "A title", imageList1);
+//				author.getAuthorName(), "A title", image1);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question1);
 //		questionList.addQuestion(question2);
@@ -130,11 +125,11 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testSortQuestionByScore() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question1 = new Question("1st question",
-//				author.getAuthorName(), "A title", imageList);
+//				author.getAuthorName(), "A title", image);
 //		Question question2 = new Question("2nd question",
-//				author.getAuthorName(), "A title", imageList);
+//				author.getAuthorName(), "A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		question1.upvote();
 //		questionList.addQuestion(question1);
@@ -146,11 +141,11 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testUpvoteQuestion() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question1 = new Question("1st question",
-//				author.getAuthorName(), "A title", imageList);
+//				author.getAuthorName(), "A title", image);
 //		Question question2 = new Question("2nd question",
-//				author.getAuthorName(), "A title", imageList);
+//				author.getAuthorName(), "A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		question1.upvote();
 //		question2.downvote();
@@ -164,13 +159,13 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testUpvoteAnswer() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		Answer answer1 = new Answer("1st Answer", author.getAuthorName(),
-//				imageList);
+//				image);
 //		Answer answer2 = new Answer("2nd Answer", author.getAuthorName(),
-//				imageList);
+//				image);
 //		question.addAnswer(answer1);
 //		question.addAnswer(answer2);
 //		answer1.upvote();
@@ -187,13 +182,13 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testAnswerCounterOfAQuestion() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		Answer answer1 = new Answer("1st Answer", author.getAuthorName(),
-//				imageList);
+//				image);
 //		Answer answer2 = new Answer("2nd Answer", author.getAuthorName(),
-//				imageList);
+//				image);
 //		question.addAnswer(answer1);
 //		question.addAnswer(answer2);
 //		InputsListModel questionList = new InputsListModel();
@@ -205,9 +200,9 @@ public class Part2UseCaseTests extends TestCase {
 //	public void testSearchQuestion() {
 //		String content = "A question";
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
 //		Question result = questionList.search(content);
@@ -218,11 +213,11 @@ public class Part2UseCaseTests extends TestCase {
 //	public void testSearchAnswer() {
 //		String content = "A Answer";
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		Answer answer = new Answer("A Answer", author.getAuthorName(),
-//				imageList);
+//				image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
 //		questionList.getQuestion(0).addAnswer(answer);
@@ -233,9 +228,9 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testAuthorAskedQuestionCache() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
 //		CacheController cacheController = new CacheController();
@@ -247,13 +242,13 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testReadQuestionAndAnswerCache() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", imageList);
+//				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
 //		Answer answer = new Answer("A Answer", author.getAuthorName(),
-//				imageList);
+//				image);
 //		questionList.getQuestion(0).addAnswer(answer);
 //		CacheController cacheController = new CacheController();
 //		cacheController.cacheQuestions(questionList);
@@ -269,11 +264,11 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testFavouriteQuestions() {
 //		Author author = new Author("loginName", 1);
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question1 = new Question("Favoutive question",
-//				author.getAuthorName(), "A title", imageList);
+//				author.getAuthorName(), "A title", image);
 //		Question question2 = new Question("normal question",
-//				author.getAuthorName(), "A title", imageList);
+//				author.getAuthorName(), "A title", image);
 //		author.favorite.addQuestion(question1);
 //		author.favorite.addQuestion(question2);
 //		InputsListModel questionList = new InputsListModel();
@@ -290,10 +285,10 @@ public class Part2UseCaseTests extends TestCase {
 //	public void testPushContent() {
 //		Author author = new Author("loginName", 1);
 //		// shut down Internet
-//		ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+//		Bitmap image = null;
 //		Question question = new Question("A question", author.getLoginName(),
-//				"A title", imageList);
-//		Answer answer = new Answer("A Answer", author.getLoginName(), imageList);
+//				"A title", image);
+//		Answer answer = new Answer("A Answer", author.getLoginName(), image);
 //		Reply reply = new Reply("A reply", author.getLoginName());
 //
 //		InputsListModel questionList = new InputsListModel();

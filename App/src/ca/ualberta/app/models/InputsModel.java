@@ -1,6 +1,5 @@
 package ca.ualberta.app.models;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import android.graphics.Bitmap;
@@ -9,7 +8,7 @@ public abstract class InputsModel {
 	String title;
 	String content;
 	String authorLoginName;
-	ArrayList<Bitmap> imageList;
+	Bitmap image;
 	Date timestamp;
 	long answerCount;
 	long upvoteCount;
@@ -18,10 +17,9 @@ public abstract class InputsModel {
 
 	// Question contains replyList and answerList
 	public InputsModel(String content, String authorLoginName, String title,
-			ArrayList<Bitmap> imageList) {
+			Bitmap image) {
 		timestamp = new Date();
-		this.imageList = new ArrayList<Bitmap>();
-		this.imageList = imageList;
+		this.image = image;
 		this.content = content;
 		this.authorLoginName = authorLoginName;
 		answerCount = 0;
@@ -31,10 +29,9 @@ public abstract class InputsModel {
 
 	// Answer contain replyList
 	public InputsModel(String content, String authorLoginName,
-			ArrayList<Bitmap> imageList) {
+			Bitmap image) {
 		timestamp = new Date();
-		this.imageList = new ArrayList<Bitmap>();
-		this.imageList = imageList;
+		this.image = image;
 		this.content = content;
 		this.authorLoginName = authorLoginName;
 		answerCount = 0;
@@ -50,15 +47,15 @@ public abstract class InputsModel {
 	}
 
 	public boolean hasImage() {
-		return (imageList.size() != 0);
+		return (image.getByteCount() != 0);
 	}
 
-	public void setImageList(ArrayList<Bitmap> imageList) {
-		this.imageList = imageList;
+	public void setImage(Bitmap image) {
+		this.image = image;
 	}
 
-	public ArrayList<Bitmap> getImageList() {
-		return imageList;
+	public Bitmap getImage() {
+		return image;
 	}
 
 	public void editContent(String newContent) {

@@ -7,11 +7,10 @@ import android.graphics.Bitmap;
 public class Question extends InputsModel {
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
-	ArrayList<Bitmap> imageList;
 
 	public Question(String content, String authorLoginName, String title,
-			ArrayList<Bitmap> imageList) {
-		super(content, authorLoginName, title, imageList);
+			Bitmap image) {
+		super(content, authorLoginName, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
 	}

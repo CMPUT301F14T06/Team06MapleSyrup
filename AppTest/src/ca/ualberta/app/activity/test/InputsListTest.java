@@ -22,9 +22,9 @@ public class InputsListTest extends TestCase {
 		String questionString = "A Question";
 		String authorString = "An Author";
 		String titleString = "A title";
-		ArrayList<Bitmap> imageList = new  ArrayList<Bitmap>();
+		Bitmap image = null;
 		Question question = new Question(questionString, authorString,
-				titleString, imageList);
+				titleString, image);
 		InputsListModel questionList = new InputsListModel();
 		questionList.addQuestion(question);
 		ArrayList<Question> quesArrayList = questionList.getArrayList();
@@ -37,9 +37,9 @@ public class InputsListTest extends TestCase {
 		String questionString = "A question";
 		String authorString = "An Author";
 		String titleString = "A title";
-		ArrayList<Bitmap> imageList = new  ArrayList<Bitmap>();
+		Bitmap image = null;
 		Question question = new Question(questionString, authorString,
-				titleString, imageList);
+				titleString, image);
 		InputsListModel questionList = new InputsListModel();
 		questionList.addQuestion(question);
 		questionList.removeQuestion(0);

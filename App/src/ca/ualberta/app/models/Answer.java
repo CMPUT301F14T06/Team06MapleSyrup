@@ -9,10 +9,9 @@ public class Answer extends InputsModel {
 	ArrayList<Reply> replyList;
 
 	public Answer(String content, String authorLoginName,
-			ArrayList<Bitmap> imageList) {
-		super(content, authorLoginName, imageList);
+			Bitmap image) {
+		super(content, authorLoginName, image);
 		replyList = new ArrayList<Reply>();
-
 	}
 
 	public void addReply(Reply newReply) {
