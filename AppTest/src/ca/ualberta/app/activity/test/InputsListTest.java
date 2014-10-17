@@ -22,10 +22,10 @@ public class InputsListTest extends TestCase {
 
 	public void testAddQuestion() {
 		String questionString = "A Question";
-		int userID = 123;
+		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
-		Question question = new Question(questionString, userID, titleString,
+		Question question = new Question(questionString, userName, titleString,
 				image);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
@@ -37,11 +37,11 @@ public class InputsListTest extends TestCase {
 
 	public void testRemoveQuestion() {
 		String questionString = "A question";
-		int userID = 123;
+		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
 
-		Question question = new Question(questionString, userID, titleString,
+		Question question = new Question(questionString, userName, titleString,
 				image);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
@@ -53,12 +53,12 @@ public class InputsListTest extends TestCase {
 	public void testAddReplyToQ(){
 		String questionString = "A question";
 		String ReplyString = "A Reply";
-		int userID = 123;
+		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
 		
-		Question question = new Question(questionString, userID, titleString, image);
-		Reply reply = new Reply(ReplyString, userID);
+		Question question = new Question(questionString, userName, titleString, image);
+		Reply reply = new Reply(ReplyString, userName);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
 		inputListController.addReplyToQ(reply, 0);
@@ -68,12 +68,12 @@ public class InputsListTest extends TestCase {
 	 public void testAddAnswerToQ(){
 		String questionString = "A question";
 		String AnswerString = "A answer";
-		int userID = 123;
+		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
 		
-		Question question = new Question(questionString, userID, titleString, image);
-		Answer answer = new Answer(AnswerString, userID, image);
+		Question question = new Question(questionString, userName, titleString, image);
+		Answer answer = new Answer(AnswerString, userName, image);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
 		inputListController.addAnswerToQ(answer, 0);
@@ -84,13 +84,13 @@ public class InputsListTest extends TestCase {
 		String questionString = "A question";
 		String AnswerString = "A answer";
 		String ReplyString = "A Reply";
-		int userID = 123;
+		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
 		
-		Question question = new Question(questionString, userID, titleString, image);
-		Answer answer = new Answer(AnswerString, userID, image);
-		Reply reply = new Reply(ReplyString, userID);
+		Question question = new Question(questionString, userName, titleString, image);
+		Answer answer = new Answer(AnswerString, userName, image);
+		Reply reply = new Reply(ReplyString, userName);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
 		inputListController.addAnswerToQ(answer, 0);

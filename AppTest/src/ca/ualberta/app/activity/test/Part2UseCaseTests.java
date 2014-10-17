@@ -1,15 +1,15 @@
 package ca.ualberta.app.activity.test;
 
-import java.util.ArrayList;
-
-import android.graphics.Bitmap;
-
-import ca.ualberta.app.models.Answer;
-import ca.ualberta.app.models.Author;
-import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.InputsListModel;
-import ca.ualberta.app.models.Reply;
-import ca.ualberta.app.models.User;
+//import java.util.ArrayList;
+//
+//import android.graphics.Bitmap;
+//
+//import ca.ualberta.app.models.Answer;
+//import ca.ualberta.app.models.Author;
+//import ca.ualberta.app.models.Question;
+//import ca.ualberta.app.models.InputsListModel;
+//import ca.ualberta.app.models.Reply;
+//import ca.ualberta.app.models.User;
 import junit.framework.TestCase;
 
 public class Part2UseCaseTests extends TestCase {

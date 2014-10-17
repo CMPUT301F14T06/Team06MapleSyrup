@@ -20,30 +20,28 @@ public class AuthorList {
 		return authorList;
 	}
 
-	public boolean setUserName(String userName, int userID) {
-		// TODO Auto-generated method stub
-		if (authorExist(userName) != null) {
+	public boolean setUserName(String userName, String newUserName) {
+		if (authorExistPosition(newUserName) != null) {
 			return false;
 		} else {
-			authorList.get(userID - 1).setUserName(userName);
+			authorList.get(authorExistPosition(userName)).setUserName(newUserName);
 			return true;
 		}
 	}
 
 	// if Login name exist then login otherwise create a new account
-	public boolean addAuthor(String newLoginName) {
-		if (authorExist(newLoginName) != null) {
+	public boolean addAuthor(String newUserName) {
+		if (authorExistPosition(newUserName) != null) {
 			return false;
 		} else {
-			Author newAuthor = new Author(newLoginName, authorList.size() + 1);
+			Author newAuthor = new Author(newUserName);
 			authorList.add(newAuthor);
 			return true;
 		}
 	}
 
-	public Integer authorExist(String newLoginName) {
+	public Integer authorExistPosition(String newLoginName) {
 		Integer existPosition = null;
-		// TODO Auto-generated method stub
 		for (int i = 0; i < authorList.size(); i++) {
 			if (authorList.get(i).getUserName().trim()
 					.equals(newLoginName.trim())) {
@@ -54,16 +52,6 @@ public class AuthorList {
 		return existPosition;
 	}
 	
-	public static String getUserName(int userID){
-		if(userID >= 1){
-			authorList.get(userID - 1).getUserName();
-		}
-		else{
-			authorList.get(0).getUserName();
-		}
-		return "";
-		
-	}
 	
 	public int size() {
 		return authorList.size();

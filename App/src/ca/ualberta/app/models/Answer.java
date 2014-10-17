@@ -8,9 +8,9 @@ import android.graphics.Bitmap;
 public class Answer extends InputsModel {
 	ArrayList<Reply> replyList;
 
-	public Answer(String content, int userID,
+	public Answer(String content, String userName,
 			Bitmap image) {
-		super(content, userID, image);
+		super(content, userName, image);
 		replyList = new ArrayList<Reply>();
 	}
 

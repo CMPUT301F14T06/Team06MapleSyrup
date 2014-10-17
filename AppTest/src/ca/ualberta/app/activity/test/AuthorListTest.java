@@ -31,6 +31,6 @@ public class AuthorListTest extends TestCase {
 		ArrayList<Author> authorArrayList = authorList.getArrayList();
 		assertEquals("Answer List Size", authorArrayList.size(), 1);
 		assertTrue("Author doesnt exist",
-				authorList.authorExist(loginNameString) != null);
+				authorList.authorExistPosition(loginNameString) != null);
 	}
 }

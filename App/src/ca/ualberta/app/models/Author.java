@@ -1,18 +1,15 @@
 package ca.ualberta.app.models;
 
-
 public class Author extends User {
-	//final static boolean loginState = true;
+	// final static boolean loginState = true;
 
 	String userName;
-	int userID;
 	String email;
-	
-	
-	public Author(String userName, int userID) {
+
+	public Author(String userName) {
 		super();
 		this.userName = userName;
-		this.userID = userID;
+
 	}
 
 	public void setUserName(String userName) {
@@ -25,10 +22,6 @@ public class Author extends User {
 
 	public String getUserName() {
 		return this.userName;
-	}
-	
-	public int getID() {
-		return this.userID;
 	}
 
 	public String getEmail() {
