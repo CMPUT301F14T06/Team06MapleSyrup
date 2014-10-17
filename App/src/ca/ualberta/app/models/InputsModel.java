@@ -22,7 +22,7 @@ public abstract class InputsModel {
 		this.image = image;
 		this.content = content;
 		this.userID = userID;
-		userName = getUserName();
+		//userName = getUserName();
 		answerCount = 0;
 		upvoteCount = 0;
 		downvoteCount = 0;

@@ -53,11 +53,18 @@ public class AuthorList {
 		}
 		return existPosition;
 	}
+	
 	public static String getUserName(int userID){
-		authorList.get(userID - 1).getUserName();
+		if(userID >= 1){
+			authorList.get(userID - 1).getUserName();
+		}
+		else{
+			authorList.get(0).getUserName();
+		}
 		return "";
 		
 	}
+	
 	public int size() {
 		return authorList.size();
 	}

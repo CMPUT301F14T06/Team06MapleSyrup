@@ -14,7 +14,7 @@ public class QuestionTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userID,
 				titleString, image);
-		assertTrue("Question is not equal",
+		assertTrue("question is not equal",
 				questionString.equals(question.getContent()));
 	}
 
