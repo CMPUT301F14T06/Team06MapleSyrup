@@ -16,8 +16,7 @@ public class Part2UseCaseTests extends TestCase {
 //	public void testUserBrowse() {
 //		User user = new User();
 //		Bitmap image = null;
-//		Question q = new Question("A question", "A author", "A title",
-//				image);
+//		Question q = new Question("A question", 1, "A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(q);
 //		ArrayList<Question> qList = questionList.getArrayList();
@@ -26,9 +25,8 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testUserViewAnswer() {
 //		Bitmap image = null;
-//		Question q = new Question("A question", "A author", "A title",
-//				image);
-//		Answer answer = new Answer("A answer", "A author", image);
+//		Question q = new Question("A question", 1, "A title", image);
+//		Answer answer = new Answer("A answer", 1, image);
 //		InputsListModel questionList = new InputsListModel();
 //		q.addAnswer(answer);
 //		questionList.addQuestion(q);
@@ -39,9 +37,8 @@ public class Part2UseCaseTests extends TestCase {
 //	public void testUserViewReply() {
 //		User user = new User();
 //		Bitmap image = null;
-//		Question q = new Question("A question", "A author", "A title",
-//				image);
-//		Reply reply = new Reply("A reply", "A author");
+//		Question q = new Question("A question", 1, "A title", image);
+//		Reply reply = new Reply("A reply", 1);
 //		InputsListModel questionList = new InputsListModel();
 //		q.addReply(reply);
 //		questionList.addQuestion(q);
@@ -50,9 +47,9 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testAuthorCreateQuestion() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
@@ -60,12 +57,11 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testAuthorAnswerQuestion() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
-//		Answer answer = new Answer("A Answer", author.getAuthorName(),
-//				image);
+//		Answer answer = new Answer("A Answer", 1, image);
 //		question.addAnswer(answer);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
@@ -74,11 +70,11 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testAuthorReplyQuestion() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
-//		Reply reply = new Reply("A reply", "A author");
+//		Reply reply = new Reply("A reply", 1);
 //		question.addReply(reply);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
@@ -87,34 +83,32 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testAuthorAddPicture() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
-//				"A title", image);
+//		int userID = 123;
+//		Question question = new Question("A question", userID, "A title", image);
 //		image = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
 //		question.setImage(image);
-//		assertTrue("Author cannot add picture",
-//				question.hasImage());
+//		assertTrue("Author cannot add picture", question.hasImage());
 //	}
 //
 //	public void testSysadminChangePicSize() {
-//		Sysadmin sysadmin = new Sysadmin("loginName", 1);
-//		Author author = new Author("loginName2", 2);
+//		Sysadmin sysadmin = new Sysadmin("userName", 1);
+//		Author author = new Author("userName2", 2);
 //		Bitmap image = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
-//		assertTrue("Picture is larger than 64Kb",
-//				image.getByteCount() > 64);
+//		assertTrue("Picture is larger than 64Kb", image.getByteCount() > 64);
 //	}
 //
 //	public void testSortQuestionByPicture() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image1 = null;
 //		Bitmap image = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
-//		Question question1 = new Question("1st question",
-//				author.getAuthorName(), "A title", image);
-//		Question question2 = new Question("2nd question",
-//				author.getAuthorName(), "A title", image1);
+//		Question question1 = new Question("1st question", 1,
+//				"A title", image);
+//		Question question2 = new Question("2nd question", 1,
+//				"A title", image1);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question1);
 //		questionList.addQuestion(question2);
@@ -124,12 +118,12 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testSortQuestionByScore() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question1 = new Question("1st question",
-//				author.getAuthorName(), "A title", image);
-//		Question question2 = new Question("2nd question",
-//				author.getAuthorName(), "A title", image);
+//		Question question1 = new Question("1st question", 1,
+//				"A title", image);
+//		Question question2 = new Question("2nd question", 1,
+//				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		question1.upvote();
 //		questionList.addQuestion(question1);
@@ -140,12 +134,12 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testUpvoteQuestion() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question1 = new Question("1st question",
-//				author.getAuthorName(), "A title", image);
-//		Question question2 = new Question("2nd question",
-//				author.getAuthorName(), "A title", image);
+//		Question question1 = new Question("1st question", 1,
+//				"A title", image);
+//		Question question2 = new Question("2nd question", 1,
+//				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		question1.upvote();
 //		question2.downvote();
@@ -158,14 +152,12 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testUpvoteAnswer() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
-//		Answer answer1 = new Answer("1st Answer", author.getAuthorName(),
-//				image);
-//		Answer answer2 = new Answer("2nd Answer", author.getAuthorName(),
-//				image);
+//		Answer answer1 = new Answer("1st Answer", 1, image);
+//		Answer answer2 = new Answer("2nd Answer", 1, image);
 //		question.addAnswer(answer1);
 //		question.addAnswer(answer2);
 //		answer1.upvote();
@@ -181,14 +173,12 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testAnswerCounterOfAQuestion() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question",1,
 //				"A title", image);
-//		Answer answer1 = new Answer("1st Answer", author.getAuthorName(),
-//				image);
-//		Answer answer2 = new Answer("2nd Answer", author.getAuthorName(),
-//				image);
+//		Answer answer1 = new Answer("1st Answer", 1, image);
+//		Answer answer2 = new Answer("2nd Answer", 1, image);
 //		question.addAnswer(answer1);
 //		question.addAnswer(answer2);
 //		InputsListModel questionList = new InputsListModel();
@@ -199,9 +189,9 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testSearchQuestion() {
 //		String content = "A question";
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
@@ -212,12 +202,11 @@ public class Part2UseCaseTests extends TestCase {
 //
 //	public void testSearchAnswer() {
 //		String content = "A Answer";
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
-//		Answer answer = new Answer("A Answer", author.getAuthorName(),
-//				image);
+//		Answer answer = new Answer("A Answer", 1, image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
 //		questionList.getQuestion(0).addAnswer(answer);
@@ -227,9 +216,9 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testAuthorAskedQuestionCache() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
@@ -241,14 +230,13 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testReadQuestionAndAnswerCache() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getAuthorName(),
+//		Question question = new Question("A question", 1,
 //				"A title", image);
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
-//		Answer answer = new Answer("A Answer", author.getAuthorName(),
-//				image);
+//		Answer answer = new Answer("A Answer", 1, image);
 //		questionList.getQuestion(0).addAnswer(answer);
 //		CacheController cacheController = new CacheController();
 //		cacheController.cacheQuestions(questionList);
@@ -258,17 +246,17 @@ public class Part2UseCaseTests extends TestCase {
 //		InputsListModel qList = cacheController.loadQuestions();
 //
 //		assertTrue("Questions are not cached", qList.equals(questionList));
-//		assertTrue("Answers are not cached",
-//				qList.getAnswerList(0).get(0).equals(answerList.get(0)));
+//		assertTrue("Answers are not cached", qList.getAnswerList(0).get(0)
+//				.equals(answerList.get(0)));
 //	}
 //
 //	public void testFavouriteQuestions() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		Bitmap image = null;
-//		Question question1 = new Question("Favoutive question",
-//				author.getAuthorName(), "A title", image);
-//		Question question2 = new Question("normal question",
-//				author.getAuthorName(), "A title", image);
+//		Question question1 = new Question("Favoutive question", 1, "A title",
+//				image);
+//		Question question2 = new Question("normal question", 1, "A title",
+//				image);
 //		author.favorite.addQuestion(question1);
 //		author.favorite.addQuestion(question2);
 //		InputsListModel questionList = new InputsListModel();
@@ -283,13 +271,12 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testPushContent() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		// shut down Internet
 //		Bitmap image = null;
-//		Question question = new Question("A question", author.getLoginName(),
-//				"A title", image);
-//		Answer answer = new Answer("A Answer", author.getLoginName(), image);
-//		Reply reply = new Reply("A reply", author.getLoginName());
+//		Question question = new Question("A question", 1, "A title", image);
+//		Answer answer = new Answer("A Answer", 1, image);
+//		Reply reply = new Reply("A reply", 1);
 //
 //		InputsListModel questionList = new InputsListModel();
 //		questionList.addQuestion(question);
@@ -307,10 +294,10 @@ public class Part2UseCaseTests extends TestCase {
 //	}
 //
 //	public void testAuthorSetUserName() {
-//		Author author = new Author("loginName", 1);
+//		Author author = new Author("userName", 1);
 //		String userName = "newUserName";
-//		author.setName(userName);
+//		author.setUserName(userName);
 //		assertTrue("Author cannot set UserName",
-//				userName.equals(author.getAuthorName()));
+//				userName.equals(author.getUserName()));
 //	}
 }

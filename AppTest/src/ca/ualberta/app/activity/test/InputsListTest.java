@@ -20,11 +20,11 @@ public class InputsListTest extends TestCase {
 
 	public void testaddQuestion() {
 		String questionString = "A Question";
-		String authorString = "An Author";
+		int userID = 123;
 		String titleString = "A title";
 		Bitmap image = null;
-		Question question = new Question(questionString, authorString,
-				titleString, image);
+		Question question = new Question(questionString, userID, titleString,
+				image);
 		InputsListModel questionList = new InputsListModel();
 		questionList.addQuestion(question);
 		ArrayList<Question> quesArrayList = questionList.getArrayList();
@@ -35,11 +35,12 @@ public class InputsListTest extends TestCase {
 
 	public void testremoveQuestion() {
 		String questionString = "A question";
-		String authorString = "An Author";
+		int userID = 123;
 		String titleString = "A title";
 		Bitmap image = null;
-		Question question = new Question(questionString, authorString,
-				titleString, image);
+
+		Question question = new Question(questionString, userID, titleString,
+				image);
 		InputsListModel questionList = new InputsListModel();
 		questionList.addQuestion(question);
 		questionList.removeQuestion(0);

@@ -7,7 +7,8 @@ import android.graphics.Bitmap;
 public abstract class InputsModel {
 	String title;
 	String content;
-	String authorLoginName;
+	int userID;
+	String userName;
 	Bitmap image;
 	Date timestamp;
 	long answerCount;
@@ -16,34 +17,33 @@ public abstract class InputsModel {
 	long score;
 
 	// Question contains replyList and answerList
-	public InputsModel(String content, String authorLoginName, String title,
-			Bitmap image) {
+	public InputsModel(String content, int userID, String title, Bitmap image) {
 		timestamp = new Date();
 		this.image = image;
 		this.content = content;
-		this.authorLoginName = authorLoginName;
+		this.userID = userID;
+		userName = getUserName();
 		answerCount = 0;
 		upvoteCount = 0;
 		downvoteCount = 0;
 	}
 
 	// Answer contain replyList
-	public InputsModel(String content, String authorLoginName,
-			Bitmap image) {
+	public InputsModel(String content, int userID, Bitmap image) {
 		timestamp = new Date();
 		this.image = image;
 		this.content = content;
-		this.authorLoginName = authorLoginName;
+		this.userID = userID;
 		answerCount = 0;
 		upvoteCount = 0;
 		downvoteCount = 0;
 	}
 
 	// Reply
-	public InputsModel(String content, String authorLoginName) {
+	public InputsModel(String content, int userID) {
 		timestamp = new Date();
 		this.content = content;
-		this.authorLoginName = authorLoginName;
+		this.userID = userID;
 	}
 
 	public boolean hasImage() {
@@ -68,6 +68,10 @@ public abstract class InputsModel {
 
 	public Date getTimestamp() {
 		return timestamp;
+	}
+
+	public String getUserName() {
+		return AuthorList.getUserName(userID);
 	}
 
 	public void setTimestamp(Date timestamp) {

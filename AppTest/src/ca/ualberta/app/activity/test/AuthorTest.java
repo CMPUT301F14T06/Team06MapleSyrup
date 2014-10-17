@@ -5,18 +5,14 @@ import ca.ualberta.app.models.Author;
 
 public class AuthorTest extends TestCase {
 	public void testAuthor() {
-		String loginName = "loginname";
-		String authorName = "an author";
+		String userName = "loginname";
 		String email = "A Eamil";
 		int userID = 123456;
-		Author author = new Author(loginName, userID);
-		author.setName(authorName);
+		Author author = new Author(userName, userID);
 		author.setEmail(email);
 
 		assertTrue("Author Login Name is not equal",
-				loginName.equals(author.getLoginName()));
-		assertTrue("Author Name is not equal",
-				authorName.equals(author.getAuthorName()));
+				userName.equals(author.getUserName()));
 		assertTrue("Author Email is not equal", email.equals(author.getEmail()));
 		assertTrue("Author ID is not equal", userID == (author.getID()));
 	}

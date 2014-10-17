@@ -4,39 +4,31 @@ package ca.ualberta.app.models;
 public class Author extends User {
 	//final static boolean loginState = true;
 
-	String loginName;
-	String authorName;
-	int authorID;
+	String userName;
+	int userID;
 	String email;
 	
-	//authorName is initial as loginName, but can be change later
-	//loginName is unique and unable to be change once is created
-	public Author(String loginName, int authorID) {
+	
+	public Author(String userName, int userID) {
 		super();
-		this.loginName = loginName;
-		this.authorName = loginName;
-		this.authorID = authorID;
+		this.userName = userName;
+		this.userID = userID;
 	}
 
-	public void setName(String authorName) {
-		// TODO Auto-generated method stub
-		this.authorName = authorName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public void setEmail(String authorEmail) {
 		this.email = authorEmail;
 	}
 
-	public String getLoginName() {
-		return this.loginName;
-	}
-
-	public String getAuthorName() {
-		return this.authorName;
+	public String getUserName() {
+		return this.userName;
 	}
 	
 	public int getID() {
-		return this.authorID;
+		return this.userID;
 	}
 
 	public String getEmail() {

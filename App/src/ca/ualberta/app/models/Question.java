@@ -8,9 +8,9 @@ public class Question extends InputsModel {
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
 
-	public Question(String content, String authorLoginName, String title,
+	public Question(String content, int userID, String title,
 			Bitmap image) {
-		super(content, authorLoginName, title, image);
+		super(content, userID, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
 	}
