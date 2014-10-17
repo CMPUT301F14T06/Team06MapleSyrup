@@ -12,8 +12,8 @@ public class AuthorListTest extends TestCase {
 		AuthorList authorlist = new AuthorList();
 		List<Author> authorList = authorlist.getList();
 		ArrayList<Author> authorArrayList = authorlist.getArrayList();
-		assertTrue("Empty Author List", authorList.size() == 0);
-		assertTrue("Empty Author Array List", authorArrayList.size() == 0);
+		assertEquals("Empty Author List", authorList.size(), 0);
+		assertEquals("Empty Author Array List", authorArrayList.size(), 0);
 	}
 
 	public void testAddAuthor() {
@@ -21,15 +21,16 @@ public class AuthorListTest extends TestCase {
 		AuthorList authorlist = new AuthorList();
 		authorlist.addAuthor(loginNameString);
 		ArrayList<Author> authorArrayList = authorlist.getArrayList();
-		assertTrue("Answer List Size", authorArrayList.size() == 1);
+		assertEquals("Answer List Size", authorArrayList.size(), 1);
 	}
 
 	public void testAuthorExist() {
 		String loginNameString = "loginName";
-		AuthorList authorlist = new AuthorList();
-		authorlist.addAuthor(loginNameString);
-		ArrayList<Author> authorArrayList = authorlist.getArrayList();
-		assertTrue("Answer List Size", authorArrayList.size() == 1);
-		assertTrue("Author doesnt exist", authorlist.authorExist(loginNameString) == true);
+		AuthorList authorList = new AuthorList();
+		authorList.addAuthor(loginNameString);
+		ArrayList<Author> authorArrayList = authorList.getArrayList();
+		assertEquals("Answer List Size", authorArrayList.size(), 1);
+		assertTrue("Author doesnt exist",
+				authorList.authorExist(loginNameString) != null);
 	}
 }

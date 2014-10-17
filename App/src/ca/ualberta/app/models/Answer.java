@@ -1,12 +1,25 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.graphics.Bitmap;
 
 public class Answer extends InputsModel {
+	ArrayList<Reply> replyList;
+
 	public Answer(String content, String authorLoginName,
-			ArrayList<Bitmap> image) {
-		super(content, authorLoginName, image);
+			ArrayList<Bitmap> imageList) {
+		super(content, authorLoginName, imageList);
+		replyList = new ArrayList<Reply>();
+
+	}
+
+	public void addReply(Reply newReply) {
+		replyList.add(newReply);
+	}
+
+	public List<Reply> getReplyList() {
+		return replyList;
 	}
 }

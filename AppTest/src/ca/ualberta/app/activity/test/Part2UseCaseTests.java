@@ -3,12 +3,10 @@ package ca.ualberta.app.activity.test;
 import java.util.ArrayList;
 
 import ca.ualberta.app.models.Answer;
-import ca.ualberta.app.models.AnswerList;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionList;
+import ca.ualberta.app.models.InputsListModel;
 import ca.ualberta.app.models.Reply;
-import ca.ualberta.app.models.ReplyList;
 import ca.ualberta.app.models.User;
 import junit.framework.TestCase;
 

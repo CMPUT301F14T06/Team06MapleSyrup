@@ -22,21 +22,13 @@ public class AuthorList {
 
 	// if Login name exist then login otherwise create a new account
 	public boolean addAuthor(String newLoginName) {
-		if (authorExist(newLoginName) == null) {
+		if (authorExist(newLoginName) != null) {
 			return false;
 		} else {
 			Author newAuthor = new Author(newLoginName, authorList.size() + 1);
 			this.authorList.add(newAuthor);
 			return true;
 		}
-	}
-
-	public String getAuthorNameByLoginName(String loginName) {
-		String authorName;
-		int existPosition;
-		existPosition = authorExist(loginName);
-		authorName = authorList.get(existPosition).getAuthorName();
-		return authorName;
 	}
 
 	public Integer authorExist(String newLoginName) {
