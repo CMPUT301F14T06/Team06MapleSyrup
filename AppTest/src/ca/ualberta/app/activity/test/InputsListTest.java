@@ -5,35 +5,37 @@ import java.util.List;
 
 import android.graphics.Bitmap;
 
+import ca.ualberta.app.models.Answer;
+import ca.ualberta.app.models.InputsListController;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.InputsListModel;
+import ca.ualberta.app.models.Reply;
 import junit.framework.TestCase;
 
 public class InputsListTest extends TestCase {
 	public void testQuestionList() {
-		InputsListModel questionList = new InputsListModel();
-		List<Question> quesList = questionList.getList();
-		ArrayList<Question> quesArrayList = questionList.getArrayList();
+		InputsListController inputListController = new InputsListController();
+		List<Question> quesList = inputListController.getQuestionList().getList();
+		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
 		assertTrue("Empty Question List", quesList.size() == 0);
 		assertTrue("Empty Question Array List", quesArrayList.size() == 0);
 	}
 
-	public void testaddQuestion() {
+	public void testAddQuestion() {
 		String questionString = "A Question";
 		int userID = 123;
 		String titleString = "A title";
 		Bitmap image = null;
 		Question question = new Question(questionString, userID, titleString,
 				image);
-		InputsListModel questionList = new InputsListModel();
-		questionList.addQuestion(question);
-		ArrayList<Question> quesArrayList = questionList.getArrayList();
+		InputsListController inputListController = new InputsListController();
+		inputListController.addQuestion(question);
+		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
 		assertTrue("Question List Size", quesArrayList.size() == 1);
 		assertTrue("Question List contains question",
 				quesArrayList.contains(question));
 	}
 
-	public void testremoveQuestion() {
+	public void testRemoveQuestion() {
 		String questionString = "A question";
 		int userID = 123;
 		String titleString = "A title";
@@ -41,10 +43,58 @@ public class InputsListTest extends TestCase {
 
 		Question question = new Question(questionString, userID, titleString,
 				image);
-		InputsListModel questionList = new InputsListModel();
-		questionList.addQuestion(question);
-		questionList.removeQuestion(0);
-		ArrayList<Question> quesArrayList = questionList.getArrayList();
+		InputsListController inputListController = new InputsListController();
+		inputListController.addQuestion(question);
+		inputListController.removeQuestion(0);
+		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
 		assertTrue("Question List Size", quesArrayList.size() == 0);
 	}
+	
+	public void testAddReplyToQ(){
+		String questionString = "A question";
+		String ReplyString = "A Reply";
+		int userID = 123;
+		String titleString = "A title";
+		Bitmap image = null;
+		
+		Question question = new Question(questionString, userID, titleString, image);
+		Reply reply = new Reply(ReplyString, userID);
+		InputsListController inputListController = new InputsListController();
+		inputListController.addQuestion(question);
+		inputListController.addReplyToQ(reply, 0);
+		assertTrue("Cannot add reply to Question",inputListController.getReplys(0).contains(reply));
+	}
+	
+	 public void testAddAnswerToQ(){
+		String questionString = "A question";
+		String AnswerString = "A answer";
+		int userID = 123;
+		String titleString = "A title";
+		Bitmap image = null;
+		
+		Question question = new Question(questionString, userID, titleString, image);
+		Answer answer = new Answer(AnswerString, userID, image);
+		InputsListController inputListController = new InputsListController();
+		inputListController.addQuestion(question);
+		inputListController.addAnswerToQ(answer, 0);
+		assertTrue("Cannot add answer to Question",inputListController.getAnswers(0).contains(answer));
+	 }
+	 
+	 public void testAddReplyToA(){
+		String questionString = "A question";
+		String AnswerString = "A answer";
+		String ReplyString = "A Reply";
+		int userID = 123;
+		String titleString = "A title";
+		Bitmap image = null;
+		
+		Question question = new Question(questionString, userID, titleString, image);
+		Answer answer = new Answer(AnswerString, userID, image);
+		Reply reply = new Reply(ReplyString, userID);
+		InputsListController inputListController = new InputsListController();
+		inputListController.addQuestion(question);
+		inputListController.addAnswerToQ(answer, 0);
+		inputListController.addReplyToA(reply, 0, 0);
+		assertTrue("Cannot add reply to answer",inputListController.getReplysOfAnswer(0, 0).contains(reply));
+	 }
 }

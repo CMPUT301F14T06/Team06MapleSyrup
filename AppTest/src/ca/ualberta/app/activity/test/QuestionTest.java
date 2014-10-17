@@ -18,7 +18,7 @@ public class QuestionTest extends TestCase {
 				questionString.equals(question.getContent()));
 	}
 
-	public void testaddAnswer() {
+	public void testAddAnswer() {
 		String questionString = "A qustion";
 		String answerString = "A answer";
 		int userID = 123;
@@ -32,7 +32,7 @@ public class QuestionTest extends TestCase {
 				answerString.equals(answer.getContent()));
 	}
 
-	public void testaddReply() {
+	public void testAddReply() {
 		String questionString = "A qustion";
 		String replyString = "A reply";
 		int userID = 123;

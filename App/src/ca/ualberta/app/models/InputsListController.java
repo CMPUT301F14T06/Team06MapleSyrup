@@ -54,6 +54,10 @@ public class InputsListController {
 		return getQuestionList().getReplys(position);
 	}
 
+	public ArrayList<Reply> getReplysOfAnswer(int q_position, int a_position) {
+		return getQuestionList().getReplysOfAnswer(q_position, a_position);
+	}
+	
 	public List<Answer> getAnswerList(int position) {
 		return getQuestionList().getAnswerList(position);
 	}
