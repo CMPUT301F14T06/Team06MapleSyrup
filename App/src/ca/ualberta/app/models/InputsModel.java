@@ -49,7 +49,7 @@ public abstract class InputsModel {
 		this.authorLoginName = authorLoginName;
 	}
 
-	public boolean hasImageList() {
+	public boolean hasImage() {
 		return (imageList.size() != 0);
 	}
 
@@ -83,5 +83,10 @@ public abstract class InputsModel {
 
 	public void downvote() {
 		downvoteCount++;
+	}
+
+	public long getUpvoteCount() {
+		// TODO Auto-generated method stub
+		return upvoteCount - downvoteCount;
 	}
 }

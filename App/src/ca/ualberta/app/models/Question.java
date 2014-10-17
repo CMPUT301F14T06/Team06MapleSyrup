@@ -1,7 +1,6 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.graphics.Bitmap;
 
@@ -26,11 +25,4 @@ public class Question extends InputsModel {
 		answerCount = answerList.size();
 	}
 
-	public List<Reply> getReplyList() {
-		return replyList;
-	}
-
-	public List<Answer> getAnswerList() {
-		return answerList;
-	}
 }

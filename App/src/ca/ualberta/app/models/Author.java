@@ -12,6 +12,7 @@ public class Author extends User {
 	//authorName is initial as loginName, but can be change later
 	//loginName is unique and unable to be change once is created
 	public Author(String loginName, int authorID) {
+		super();
 		this.loginName = loginName;
 		this.authorName = loginName;
 		this.authorID = authorID;

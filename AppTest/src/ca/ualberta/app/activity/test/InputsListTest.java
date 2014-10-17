@@ -9,7 +9,7 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.InputsListModel;
 import junit.framework.TestCase;
 
-public class QuestionListTest extends TestCase {
+public class InputsListTest extends TestCase {
 	public void testQuestionList() {
 		InputsListModel questionList = new InputsListModel();
 		List<Question> quesList = questionList.getList();

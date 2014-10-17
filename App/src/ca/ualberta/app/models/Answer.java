@@ -22,4 +22,9 @@ public class Answer extends InputsModel {
 	public List<Reply> getReplyList() {
 		return replyList;
 	}
+
+	public ArrayList<Reply> getReplyArrayList() {
+		// TODO Auto-generated method stub
+		return replyList;
+	}
 }

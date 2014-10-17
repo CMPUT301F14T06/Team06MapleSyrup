@@ -25,7 +25,6 @@ public class InputsListModel {
 	public void addQuestion(Question newQuestion) {
 		this.questionList.add(newQuestion);
 	}
-
 	public void removeQuestion(int position) {
 		questionList.remove(position);
 	}
@@ -46,4 +45,13 @@ public class InputsListModel {
 	public ArrayList<Reply> getReplys(int position) {
 		return questionList.get(position).replyList;
 	}
+	public List<Answer> getAnswerList(int position) {
+		return questionList.get(position).answerList;
+	}
+
+	public List<Reply> getReplyList(int position) {
+		return questionList.get(position).replyList;
+	}
+
+	
 }
