@@ -9,55 +9,54 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
 
+    <ImageButton
+        android:id="@+id/longinButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="86dp"
+        android:background="@drawable/login2" />
 
-	<ImageButton
-	    android:id="@+id/longinButton"
-	    android:layout_width="150dp"
-	    android:layout_height="150dp"
-	    android:layout_alignParentTop="true"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginTop="86dp"
-	    android:background="@drawable/login2" />
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/usernameButton"
+        android:layout_alignLeft="@+id/longinButton"
+        android:ems="10" >
 
-	<EditText
-	    android:id="@+id/usernameEditText"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignBottom="@+id/usernameButton"
-	    android:layout_alignLeft="@+id/longinButton"
-	    android:ems="10" >
+        <requestFocus />
+    </EditText>
 
-	    <requestFocus />
-	</EditText>
+    <ImageButton
+        android:id="@+id/usernameButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/longinButton"
+        android:layout_marginTop="50dp"
+        android:layout_toLeftOf="@+id/usernameEditText"
+        android:background="@drawable/user1" />
 
-	<ImageButton
-	    android:id="@+id/usernameButton"
-	    android:layout_width="70dp"
-	    android:layout_height="70dp"
-	    android:layout_below="@+id/longinButton"
-	    android:layout_marginTop="50dp"
-	    android:layout_toLeftOf="@+id/usernameEditText"
-	    android:background="@drawable/user1" />
+    <TextView
+        android:id="@+id/usernametextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usernameEditText"
+        android:layout_toLeftOf="@+id/usernameEditText"
+        android:text="User Name"
+        android:textColor="#66FF00"
+        android:textStyle="bold|italic" />
 
-	<TextView
-	    android:id="@+id/usernametextView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/usernameEditText"
-	    android:layout_toLeftOf="@+id/usernameEditText"
-	    android:text="User Name"
-	    android:textStyle="bold|italic"
-	    android:textColor="#66FF00" />
-
-	<TextView
-	    android:id="@+id/current1Question"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/longinButton"
-	    android:layout_centerHorizontal="true"
-	    android:text="Login"
-	    android:textAppearance="?android:attr/textAppearanceLarge"
-	    android:textStyle="bold"
-	    android:textColor="#66FF00" />
+    <TextView
+        android:id="@+id/current1Question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/longinButton"
+        android:layout_centerHorizontal="true"
+        android:text="Login"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#66FF00"
+        android:textStyle="bold" />
 
 </RelativeLayout>

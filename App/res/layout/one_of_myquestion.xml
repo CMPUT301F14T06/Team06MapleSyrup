@@ -23,8 +23,8 @@
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/MyQuestionTextView"
         android:layout_alignParentRight="true"
-        android:text="Remove"
-        android:background="#999999" />
+        android:background="#999999"
+        android:text="Remove" />
 
     <ListView
         android:id="@+id/answerOfMyquestionListView"
@@ -32,7 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/MyQuestionTextView" >
-
     </ListView>
 
     <Button
