@@ -81,7 +81,6 @@ public abstract class InputsModel {
 	}
 
 	public long getUpvoteCount() {
-		// TODO Auto-generated method stub
 		return upvoteCount - downvoteCount;
 	}
 }

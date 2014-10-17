@@ -71,4 +71,14 @@ public class InputsListModel {
 		return questionList.get(position).replyList;
 	}
 
+	public InputsListModel sortByPicture() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public InputsListModel sortByScore() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
