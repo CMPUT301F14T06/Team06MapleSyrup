@@ -104,7 +104,7 @@ public class Part2UseCaseTests extends TestCase {
 //		Question question = new Question("A question", author.getAuthorName(),
 //				"A title", image);
 //		assertTrue("Picture is larger than 64Kb",
-//				image.getWidth() * image.getHeight() > 64);
+//				image.getByteCount() > 64);
 //	}
 //
 //	public void testSortQuestionByPicture() {
