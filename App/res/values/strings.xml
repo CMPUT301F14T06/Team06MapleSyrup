@@ -8,5 +8,9 @@
     <string name="title_activity_answer">AnswerActivity</string>
     <string name="title_activity_author_profile">AuthorProfileActivity</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_new_question">NewQuestionActivity</string>
+    <string name="title_activity_new_answer">NewAnswerActivity</string>
+    <string name="title_activity_edit_inputs">EditInputsActivity</string>
+    <string name="title_activity_new_input">NewInputActivity</string>
 
 </resources>
