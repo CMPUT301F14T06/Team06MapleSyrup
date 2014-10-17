@@ -269,9 +269,9 @@ public class Part2UseCaseTests extends TestCase {
 		// may need to test on a different phone
 	}
 
-	public void testFreshestComments() {
-
-	}
+//	public void testFreshestComments() {
+//		
+//	}
 
 	public void testAuthorSetUserName() {
 		Author author = new Author("userName");

@@ -65,7 +65,7 @@ public class InputsListController {
 	public List<Reply> getReplyList(int position) {
 		return getQuestionList().getReplyList(position);
 	}
-	
+
 	public Question searchQuestion(String content) {
 		// TODO Auto-generated method stub
 		return null;
