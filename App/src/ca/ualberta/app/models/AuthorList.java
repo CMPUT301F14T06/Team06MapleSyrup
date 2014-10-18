@@ -40,11 +40,11 @@ public class AuthorList {
 		}
 	}
 
-	public Integer authorExistPosition(String newLoginName) {
+	public Integer authorExistPosition(String newUserName) {
 		Integer existPosition = null;
 		for (int i = 0; i < authorList.size(); i++) {
 			if (authorList.get(i).getUserName().trim()
-					.equals(newLoginName.trim())) {
+					.equals(newUserName.trim())) {
 				existPosition = i;
 				break;
 			}
