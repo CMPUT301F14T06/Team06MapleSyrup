@@ -66,12 +66,12 @@ public class InputsListController {
 		return getQuestionList().getReplyList(position);
 	}
 
-	public Question searchQuestion(String content) {
+	public InputsListModel searchQuestion(String key) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Answer searchAnswer(String content) {
+	public InputsListModel searchAnswer(String key) {
 		// TODO Auto-generated method stub
 		return null;
 	}

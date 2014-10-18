@@ -179,9 +179,9 @@ public class Part2UseCaseTests extends TestCase {
 				"A title", null);
 		InputsListController inputsListController = new InputsListController();
 		inputsListController.addQuestion(question);
-		Question result = inputsListController.searchQuestion(content);
+		InputsListModel resultList = inputsListController.searchQuestion(content);
 		assertTrue("Search is not working well",
-				result.getContent().equals(content));
+				resultList.getQuestion(0).getContent().equals(content));
 	}
 
 	public void testSearchAnswer() {
@@ -193,9 +193,9 @@ public class Part2UseCaseTests extends TestCase {
 		InputsListController inputsListController = new InputsListController();
 		inputsListController.addQuestion(question);
 		inputsListController.getQuestion(0).addAnswer(answer);
-		Answer result = inputsListController.searchAnswer(content);
+		InputsListModel resultList = inputsListController.searchAnswer(content);
 		assertTrue("Search is not working well",
-				result.getContent().equals(content));
+				resultList.getQuestion(0).getContent().equals(content));
 	}
 
 	public void testAuthorAskedQuestionCache() {
