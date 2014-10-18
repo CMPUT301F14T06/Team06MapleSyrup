@@ -1,0 +1,98 @@
+storyboard-1:As a user, I want browse questions. After I open the app, a list of
+ all questions is displayed on the screen.
+
+storyboard-2: Then, as a user,I want to view a question and its answers. I click
+ the "view" button on the in the text box of that question. A new window of the
+ selected question and its answers opens.
+
+storyboard-3: As a user,I want to view the replies to a question or a answer.
+ After I click the "view" button on the in the text box of a question, list of 
+ question and its' answers is displayed, and a botton to show replies for the
+ question and each of the answer is displayed at the bottom of the text boxes of
+ the question and the text boxes of all answers. so I click the "Reply List"
+ button, and a list of replies appears in a new window.
+
+storyboard-4-1: Now, as a user, I want to ask questions. I click the "Back"
+ button on the top-mid of the screen. Then, the list of all questions will
+ appear again. Now I find and click the button "Ask A Question" on the top of
+ the question list. Then, a toast appears and notice me that "If you want to ask
+ a question, please log in first." Hence, I click the "Log In" button on the top
+ left corner on the screen. In a new window, I type in my user name and click
+ the log in button at the middle of the screen, and click the "Current Question"
+ button. Then the main question appears again.
+
+storyboard-4-2: Now, I click the "Ask A Question" button again, and I type in my
+ question into the edit text box. Finally, I click the "Submit" button, and my
+ new question is updated on the main question list. 
+
+storyboard-5:As a user, after posting my own question, I want to answer other users'
+ questions by making an answer. Hence, I find some questions that I want to
+ answer and click the "Answer" button on the bottom right corner of the
+ question's text box. A new interface appears; in this new interface, I enter my
+ answer to the current question in the edit text box at the bottom of the
+ screen. After typing in my answer, I click the "Submit" button (on the bottom
+ right corner of the screen) to submit my answer. After that, the list of all
+ question will appear again. I want to check if my answer has been uploaded, so
+ I click the "View" button of that question and I find my answer has been
+ posted on the list of answer now.
+
+storyboard-6:I have posted and answered some questions, but I still have lots
+ of time. As a user, I decide to reply to questions and answers to clarify things.
+ First, I click the "View" button of a question; then, I click the "Reply List"
+ button and read through the reply list for the question or answers that I want
+ to clarify something. I find a button called "Reply" in each text box and click
+ it. A new window rises and I type in my reply in the edit text box and click
+ the "Submit" button under it to reply the question or the answers to clarify things.
+ After that, the app returns to the previous window. No matter if my devise connects
+ to the internet, my replies, questions and answers will be pushed online once
+ I get connectivity.
+
+storyboard-7: Suddenly, as an author I find that I need to attach a picture to my
+ questions or my answers to complete the description, so I click the "Profile"
+ button at the top left corner of the screen. Then click "My Questions", and choose
+ one of my question.
+
+ Then a window for editing comes up and I click the
+ "Choose picture(s)" button to upload picture(s) from the local directory (or
+ from the camera). Finally, I click the "Submit" button to submit the new
+ question/answer with my picture, and the app return to the previous window.
+
+storyboard-8: I still have some time to read more questions; However I find that
+ there are too many questions, I want to sort questions by if they have
+ pictures, or sort questions by date, or some scoring system in ascending or
+ descending. I choose one of the 3 sorting methods on the top of the window. A
+ moment later, the list is refreshed and sorted by the sorting method i choose.
+ Note that, no matter which sorting method I have used, the most upvoted
+ question and most upvoted answer are always shown at the top of the list.
+
+storyboard-9:Finally, I find some questions and answers I want to read. I am amazed by the
+ interesting questions and answers, hence I click the up arrow on the left side
+ of the text box of them to upvote them. Then, the number of voting is updated.
+ I also find some boring questions and answers that waste my time, so I click
+ the the down arrow below the number of voting to downvote those questions and
+ answers.
+
+storyboard-10: Unfortunately, I still can not find some questions or answers
+ I want after sorting. Hence, I decide to type in the keywords or question ID
+ to search bar to search for the questions or answers I want. A moment later,
+ the current list is updated and the most relative search results are listed in
+ the list. Note that, if I don't choose any sorting methods, the list will be
+ sorted automatically by POST DATE.
+
+storyboard-11: I have find all questions and answers that I read or
+ questions and answers that I want to read them when I am not on the internet.
+ I click the "Localize" buttons under those questions and answers.
+ Then, I click the "Local Questions" button to view my local questions.
+
+storyboard-12: Some of the questions are my favorite, so I
+ check the "Favorite" check box in the left side of the text box of those
+ question to mark my favorite questions; those question will be automaticly saved,
+ hence, they are always available to be read and replied regardless of network
+ connectivity.
+
+storyboard-13: At the end of the story, I want to set my user name and my profile
+ picture, so I click the "profile" button again, and click "Setting" button.
+ Then I click the "Reset User Name"/"Upload Profile Picture" button to open the name-setting window. In
+ the window, I type in my new user name on the edit text box at the bottom of
+ the screen/I selected and upload a profile picture, and click the "OK" button
+ to commit the change in my user name/profile picture.
