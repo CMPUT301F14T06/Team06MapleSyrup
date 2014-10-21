@@ -1,41 +1,69 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!-- The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
- <Button
-        android:id="@+id/askQuestionButton"
-        android:layout_width="140dp"
+    android:orientation="vertical" >
+
+    <fragment
+        android:id="@+id/fragement_main"
+        android:name="ca.ualberta.app.activity.FragmentMain"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10" />
+
+    <fragment
+        android:id="@+id/fragement_search"
+        android:name="ca.ualberta.app.activity.FragmentSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10" />
+
+    <fragment
+        android:id="@+id/fragement_profile"
+        android:name="ca.ualberta.app.activity.FragmentProfile"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10" />
+
+    <!-- menu -->
+
+    <RadioGroup
+        android:id="@+id/main_menu"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Ask"
-        android:textStyle="bold|italic"
-        android:textColor="#66FF00" />
+        android:background="@drawable/toolbar_bg"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/sortButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Sort"
-        android:textStyle="bold|italic"
-        android:textColor="#66FF00" />
+        <RadioButton
+            android:id="@+id/main_button"
+            style="@style/main_menu_bottom"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:drawableTop="@drawable/icon_main"
+            android:text="@string/main_home" />
 
-    <ListView
-        android:id="@+id/answerReplyListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sortButton"
-        android:layout_below="@+id/askQuestionButton"
-        android:background="#999999" >
+        <RadioButton
+            android:id="@+id/add_button"
+            style="@style/main_menu_bottom"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/icon_add"
+            android:text="@string/main_news" />
 
-    </ListView>
+        <RadioButton
+            android:id="@+id/search_button"
+            style="@style/main_menu_bottom"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/icon_search"
+            android:text="@string/menu_search" />
 
-</RelativeLayout>
+        <RadioButton
+            android:id="@+id/profile_button"
+            style="@style/main_menu_bottom"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/icon_profile"
+            android:text="@string/main_profile" />
+    </RadioGroup>
+
+</LinearLayout>

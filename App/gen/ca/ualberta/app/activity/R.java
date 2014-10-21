@@ -29,20 +29,30 @@ public final class R {
         public static final int arrow_down=0x7f020000;
         public static final int arrow_up=0x7f020001;
         public static final int ic_launcher=0x7f020002;
-        public static final int login1=0x7f020003;
-        public static final int login2=0x7f020004;
-        public static final int profile=0x7f020005;
-        public static final int question=0x7f020006;
-        public static final int question1=0x7f020007;
-        public static final int setting=0x7f020008;
-        public static final int user=0x7f020009;
-        public static final int user1=0x7f02000a;
+        public static final int icon=0x7f020003;
+        public static final int icon_add=0x7f020004;
+        public static final int icon_main=0x7f020005;
+        public static final int icon_profile=0x7f020006;
+        public static final int icon_search=0x7f020007;
+        public static final int login1=0x7f020008;
+        public static final int login2=0x7f020009;
+        public static final int menu_btn_bg=0x7f02000a;
+        public static final int menu_btn_bg_onclick=0x7f02000b;
+        public static final int menu_btn_bg_selected=0x7f02000c;
+        public static final int profile=0x7f02000d;
+        public static final int question=0x7f02000e;
+        public static final int question1=0x7f02000f;
+        public static final int setting=0x7f020010;
+        public static final int toolbar_bg=0x7f020011;
+        public static final int user=0x7f020012;
+        public static final int user1=0x7f020013;
     }
     public static final class id {
-        public static final int MyQuestionTextView=0x7f080017;
-        public static final int QuestionPopTextView=0x7f080020;
-        public static final int action_settings=0x7f080022;
-        public static final int answerButton=0x7f08001c;
+        public static final int MyQuestionTextView=0x7f08001e;
+        public static final int QuestionPopTextView=0x7f080027;
+        public static final int action_settings=0x7f08002a;
+        public static final int add_button=0x7f08001a;
+        public static final int answerButton=0x7f080023;
         public static final int answerEditButton=0x7f080002;
         public static final int answerOfMyquestionListView=0x7f08000b;
         public static final int answerPopTextView=0x7f080005;
@@ -51,26 +61,33 @@ public final class R {
         public static final int answerReplyListView=0x7f080007;
         public static final int answerTextView=0x7f080000;
         public static final int answerUpvoteButton=0x7f080004;
-        public static final int askQuestionButton=0x7f080015;
         public static final int authorNameTextView=0x7f080009;
-        public static final int backButton=0x7f080021;
+        public static final int backButton=0x7f080028;
         public static final int current1Question=0x7f080014;
         public static final int currentQuestionButton=0x7f08000c;
-        public static final int downButton=0x7f08001e;
-        public static final int editMyquestionButton=0x7f080019;
+        public static final int downButton=0x7f080025;
+        public static final int editMyquestionButton=0x7f080020;
+        public static final int fragement_main=0x7f080015;
+        public static final int fragement_profile=0x7f080017;
+        public static final int fragement_search=0x7f080016;
         public static final int imageButton1=0x7f080006;
         public static final int localQuestionButton=0x7f08000e;
-        public static final int localizeButton=0x7f08001f;
+        public static final int localizeButton=0x7f080026;
         public static final int longinButton=0x7f080010;
+        public static final int main_button=0x7f080019;
+        public static final int main_menu=0x7f080018;
         public static final int myQuestiontextView=0x7f08000a;
+        public static final int one_title=0x7f08001d;
         public static final int profielPicImageView=0x7f080008;
         public static final int profileButton=0x7f08000d;
-        public static final int questionTextView=0x7f08001b;
-        public static final int removeMyquestionButton=0x7f080018;
-        public static final int replyButton=0x7f08001a;
+        public static final int profile_button=0x7f08001c;
+        public static final int questionTextView=0x7f080022;
+        public static final int removeMyquestionButton=0x7f08001f;
+        public static final int replyButton=0x7f080021;
+        public static final int search_button=0x7f08001b;
         public static final int settingButton=0x7f08000f;
-        public static final int sortButton=0x7f080016;
-        public static final int upvoteButton=0x7f08001d;
+        public static final int titleTv=0x7f080029;
+        public static final int upvoteButton=0x7f080024;
         public static final int usernameButton=0x7f080012;
         public static final int usernameEditText=0x7f080011;
         public static final int usernametextView=0x7f080013;
@@ -78,14 +95,18 @@ public final class R {
     public static final class layout {
         public static final int activity_answer=0x7f030000;
         public static final int activity_author_profile=0x7f030001;
-        public static final int activity_dashboard=0x7f030002;
-        public static final int activity_edit_inputs=0x7f030003;
-        public static final int activity_login=0x7f030004;
-        public static final int activity_main=0x7f030005;
-        public static final int activity_new_input=0x7f030006;
-        public static final int one_of_myquestion=0x7f030007;
-        public static final int single_answer_and_reply=0x7f030008;
-        public static final int single_question=0x7f030009;
+        public static final int activity_create_inputs=0x7f030002;
+        public static final int activity_dashboard=0x7f030003;
+        public static final int activity_edit_inputs=0x7f030004;
+        public static final int activity_login=0x7f030005;
+        public static final int activity_main=0x7f030006;
+        public static final int fragment_main=0x7f030007;
+        public static final int fragment_profile=0x7f030008;
+        public static final int fragment_search=0x7f030009;
+        public static final int one_of_myquestion=0x7f03000a;
+        public static final int single_answer_and_reply=0x7f03000b;
+        public static final int single_question=0x7f03000c;
+        public static final int title_bar=0x7f03000d;
     }
     public static final class menu {
         public static final int answer=0x7f070000;
@@ -102,24 +123,45 @@ public final class R {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050002;
-        public static final int title_activity_answer=0x7f050004;
-        public static final int title_activity_author_profile=0x7f050005;
-        public static final int title_activity_dashboard=0x7f050006;
-        public static final int title_activity_edit_inputs=0x7f050009;
-        public static final int title_activity_new_answer=0x7f050008;
-        public static final int title_activity_new_input=0x7f05000a;
-        public static final int title_activity_new_question=0x7f050007;
-        public static final int title_activity_question_list=0x7f050003;
+        public static final int main_home=0x7f050004;
+        public static final int main_news=0x7f050005;
+        public static final int main_profile=0x7f050006;
+        public static final int menu_search=0x7f050007;
+        public static final int title_activity_answer=0x7f050009;
+        public static final int title_activity_author_profile=0x7f05000a;
+        public static final int title_activity_dashboard=0x7f05000b;
+        public static final int title_activity_edit_inputs=0x7f05000e;
+        public static final int title_activity_main=0x7f050003;
+        public static final int title_activity_new_answer=0x7f05000d;
+        public static final int title_activity_new_input=0x7f05000f;
+        public static final int title_activity_new_question=0x7f05000c;
+        public static final int title_activity_question_list=0x7f050008;
     }
     public static final class style {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
+
+
+
+
+
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
+
+
+
+
+
+
+
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -138,5 +180,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        public static final int main_menu_bottom=0x7f060002;
     }
 }
