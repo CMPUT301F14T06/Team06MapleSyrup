@@ -8,8 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ca.ualberta.app.activity.AuthorProfileActivity" >
 
-<<<<<<< HEAD
-=======
+
     <Button
         android:id="@+id/fav_questin"
         android:layout_width="wrap_content"
@@ -55,5 +54,4 @@
         android:layout_alignRight="@+id/nameTextView"
         android:text="local_cache" />
 
->>>>>>> 17cba614457c91e3f1185af4ac94448392e7906e
 </RelativeLayout>
