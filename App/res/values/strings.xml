@@ -22,4 +22,5 @@
     <string name="question_state">Answers: 0 | Vote: 0 | Replies: 0</string>
     <string name="single_question">Question decription</string>
     <color name="question_selected">#CCCCCC</color>
+    <string name="question_title">Question Title</string>
 </resources>

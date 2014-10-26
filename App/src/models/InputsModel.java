@@ -12,7 +12,6 @@ public abstract class InputsModel {
 	Date timestamp;
 	long answerCount;
 	long upvoteCount;
-	long downvoteCount;
 	long score;
 
 	// Question contains replyList and answerList
@@ -23,7 +22,6 @@ public abstract class InputsModel {
 		this.userName = userName;
 		answerCount = 0;
 		upvoteCount = 0;
-		downvoteCount = 0;
 	}
 
 	// Answer contain replyList
@@ -34,7 +32,6 @@ public abstract class InputsModel {
 		this.userName = userName;
 		answerCount = 0;
 		upvoteCount = 0;
-		downvoteCount = 0;
 	}
 
 	// Reply
@@ -76,11 +73,8 @@ public abstract class InputsModel {
 		upvoteCount++;
 	}
 
-	public void downvote() {
-		downvoteCount++;
-	}
 
 	public long getUpvoteCount() {
-		return upvoteCount - downvoteCount;
+		return upvoteCount;
 	}
 }
