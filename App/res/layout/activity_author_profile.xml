@@ -2,52 +2,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ca.ualberta.app.activity.AuthorProfileActivity" >
 
-    <ImageView
-        android:id="@+id/profielPicImageView"
+    <Button
+        android:id="@+id/fav_questin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/local_cache"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="fav_questin" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/user" />
 
     <TextView
-        android:id="@+id/authorNameTextView"
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/profielPicImageView"
-        android:layout_marginTop="18dp"
-        android:layout_toRightOf="@+id/profielPicImageView"
-        android:text="Author Name"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:textColor="#66FF00" />
-
-    <TextView
-        android:id="@+id/myQuestiontextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profielPicImageView"
-        android:layout_centerHorizontal="true"
-        android:text="My Question"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold"
-        android:textColor="#FF9900" />
-
-    <ListView
-        android:id="@+id/answerOfMyquestionListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageButton1"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/myQuestiontextView"
-        android:background="#CCCCCC" >
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_toRightOf="@+id/imageButton1"
+        android:text="Name" />
 
-    </ListView>
+    <Button
+        android:id="@+id/my_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fav_questin"
+        android:layout_alignRight="@+id/fav_questin"
+        android:layout_below="@+id/fav_questin"
+        android:text="My_question" />
+
+    <Button
+        android:id="@+id/local_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fav_questin"
+        android:layout_alignLeft="@+id/imageButton1"
+        android:layout_alignRight="@+id/nameTextView"
+        android:text="local_cache" />
 
 </RelativeLayout>
