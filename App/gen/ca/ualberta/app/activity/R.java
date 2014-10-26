@@ -52,7 +52,6 @@ public final class R {
     }
     public static final class id {
         public static final int MyQuestionTextView=0x7f09001b;
-        public static final int TextView01=0x7f090023;
         public static final int action_settings=0x7f090025;
         public static final int add_button=0x7f090016;
         public static final int answerEditButton=0x7f090002;
@@ -80,6 +79,7 @@ public final class R {
         public static final int profile_button=0x7f090018;
         public static final int questionListView=0x7f09001a;
         public static final int questionStateTextView=0x7f09001f;
+        public static final int questionTitleTextView=0x7f090023;
         public static final int removeMyquestionButton=0x7f09001c;
         public static final int saveQuestionButton=0x7f090021;
         public static final int search_button=0x7f090017;

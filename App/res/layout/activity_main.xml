@@ -8,21 +8,21 @@
 
     <fragment
         android:id="@+id/fragement_main"
-        android:name="activity.FragmentMain"
+        android:name="ca.ualberta.app.activity.FragmentMain"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10" />
 
     <fragment
         android:id="@+id/fragement_search"
-        android:name="activity.FragmentSearch"
+        android:name="ca.ualberta.app.activity.FragmentSearch"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10" />
 
     <fragment
         android:id="@+id/fragement_profile"
-        android:name="activity.FragmentProfile"
+        android:name="ca.ualberta.app.activity.FragmentProfile"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10" />
