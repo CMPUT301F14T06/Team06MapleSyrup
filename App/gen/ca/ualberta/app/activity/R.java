@@ -53,7 +53,11 @@ public final class R {
     public static final class id {
         public static final int MyQuestionTextView=0x7f09001b;
         public static final int action_settings=0x7f090027;
+<<<<<<< HEAD
         public static final int add_button=0x7f090012;
+=======
+        public static final int add_button=0x7f090016;
+>>>>>>> 17cba614457c91e3f1185af4ac94448392e7906e
         public static final int answerEditButton=0x7f090002;
         public static final int answerOfMyquestionListView=0x7f09001d;
         public static final int answerPopTextView=0x7f090005;
@@ -63,6 +67,7 @@ public final class R {
         public static final int answerTextView=0x7f090000;
         public static final int answerUpvoteButton=0x7f090004;
         public static final int authorNameTextView=0x7f090020;
+<<<<<<< HEAD
         public static final int current1Question=0x7f09000c;
         public static final int editMyquestionButton=0x7f09001e;
         public static final int favouriteQuestionButton=0x7f090022;
@@ -77,10 +82,30 @@ public final class R {
         public static final int main_menu=0x7f090010;
         public static final int one_title=0x7f090015;
         public static final int profile_button=0x7f090014;
+=======
+        public static final int current1Question=0x7f090010;
+        public static final int editMyquestionButton=0x7f09001e;
+        public static final int fav_questin=0x7f090008;
+        public static final int favouriteQuestionButton=0x7f090022;
+        public static final int fragement_main=0x7f090011;
+        public static final int fragement_profile=0x7f090013;
+        public static final int fragement_search=0x7f090012;
+        public static final int imageButton1=0x7f090006;
+        public static final int local_cache=0x7f090009;
+        public static final int longinButton=0x7f09000c;
+        public static final int main_button=0x7f090015;
+        public static final int main_menu=0x7f090014;
+        public static final int my_question=0x7f09000b;
+        public static final int nameTextView=0x7f09000a;
+        public static final int one_title=0x7f090019;
+        public static final int profile_button=0x7f090018;
+        public static final int questionListView=0x7f09001a;
+>>>>>>> 17cba614457c91e3f1185af4ac94448392e7906e
         public static final int questionStateTextView=0x7f090021;
         public static final int questionTitleTextView=0x7f090025;
         public static final int removeMyquestionButton=0x7f09001c;
         public static final int saveQuestionButton=0x7f090023;
+<<<<<<< HEAD
         public static final int search_button=0x7f090013;
         public static final int singleQuestionTextView=0x7f090024;
         public static final int spinner1=0x7f090017;
@@ -90,6 +115,14 @@ public final class R {
         public static final int usernameButton=0x7f09000a;
         public static final int usernameEditText=0x7f090009;
         public static final int usernametextView=0x7f09000b;
+=======
+        public static final int search_button=0x7f090017;
+        public static final int singleQuestionTextView=0x7f090024;
+        public static final int titleTv=0x7f090026;
+        public static final int usernameButton=0x7f09000e;
+        public static final int usernameEditText=0x7f09000d;
+        public static final int usernametextView=0x7f09000f;
+>>>>>>> 17cba614457c91e3f1185af4ac94448392e7906e
         public static final int viewAuthorButton=0x7f09001f;
     }
     public static final class layout {
