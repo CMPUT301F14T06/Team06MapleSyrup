@@ -52,43 +52,45 @@ public final class R {
     }
     public static final class id {
         public static final int MyQuestionTextView=0x7f09001b;
-        public static final int action_settings=0x7f090025;
-        public static final int add_button=0x7f090016;
+        public static final int action_settings=0x7f090027;
+        public static final int add_button=0x7f090012;
         public static final int answerEditButton=0x7f090002;
-        public static final int answerOfMyquestionListView=0x7f09000b;
+        public static final int answerOfMyquestionListView=0x7f09001d;
         public static final int answerPopTextView=0x7f090005;
         public static final int answerRemoveButton=0x7f090003;
         public static final int answerReplyButton=0x7f090001;
         public static final int answerReplyListView=0x7f090007;
         public static final int answerTextView=0x7f090000;
         public static final int answerUpvoteButton=0x7f090004;
-        public static final int authorNameTextView=0x7f090009;
-        public static final int current1Question=0x7f090010;
-        public static final int editMyquestionButton=0x7f09001d;
-        public static final int favouriteQuestionButton=0x7f090020;
-        public static final int fragement_main=0x7f090011;
-        public static final int fragement_profile=0x7f090013;
-        public static final int fragement_search=0x7f090012;
+        public static final int authorNameTextView=0x7f090020;
+        public static final int current1Question=0x7f09000c;
+        public static final int editMyquestionButton=0x7f09001e;
+        public static final int favouriteQuestionButton=0x7f090022;
+        public static final int fragement_main=0x7f09000d;
+        public static final int fragement_profile=0x7f09000f;
+        public static final int fragement_search=0x7f09000e;
         public static final int imageButton1=0x7f090006;
-        public static final int longinButton=0x7f09000c;
-        public static final int main_button=0x7f090015;
-        public static final int main_menu=0x7f090014;
-        public static final int myQuestiontextView=0x7f09000a;
-        public static final int one_title=0x7f090019;
-        public static final int profielPicImageView=0x7f090008;
-        public static final int profile_button=0x7f090018;
-        public static final int questionListView=0x7f09001a;
-        public static final int questionStateTextView=0x7f09001f;
-        public static final int questionTitleTextView=0x7f090023;
+        public static final int linearLayout1=0x7f090016;
+        public static final int listView1=0x7f09001a;
+        public static final int longinButton=0x7f090008;
+        public static final int main_button=0x7f090011;
+        public static final int main_menu=0x7f090010;
+        public static final int one_title=0x7f090015;
+        public static final int profile_button=0x7f090014;
+        public static final int questionStateTextView=0x7f090021;
+        public static final int questionTitleTextView=0x7f090025;
         public static final int removeMyquestionButton=0x7f09001c;
-        public static final int saveQuestionButton=0x7f090021;
-        public static final int search_button=0x7f090017;
-        public static final int singleQuestionTextView=0x7f090022;
-        public static final int titleTv=0x7f090024;
-        public static final int usernameButton=0x7f09000e;
-        public static final int usernameEditText=0x7f09000d;
-        public static final int usernametextView=0x7f09000f;
-        public static final int viewAuthorButton=0x7f09001e;
+        public static final int saveQuestionButton=0x7f090023;
+        public static final int search_button=0x7f090013;
+        public static final int singleQuestionTextView=0x7f090024;
+        public static final int spinner1=0x7f090017;
+        public static final int spinner2=0x7f090018;
+        public static final int spinner3=0x7f090019;
+        public static final int titleTv=0x7f090026;
+        public static final int usernameButton=0x7f09000a;
+        public static final int usernameEditText=0x7f090009;
+        public static final int usernametextView=0x7f09000b;
+        public static final int viewAuthorButton=0x7f09001f;
     }
     public static final class layout {
         public static final int activity_answer=0x7f030000;
@@ -119,24 +121,20 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int author_name=0x7f050010;
+        public static final int author_name=0x7f05000c;
         public static final int hello_world=0x7f050002;
         public static final int main_home=0x7f050004;
         public static final int main_news=0x7f050005;
         public static final int main_profile=0x7f050006;
         public static final int menu_search=0x7f050007;
-        public static final int question_state=0x7f050011;
-        public static final int question_title=0x7f050013;
-        public static final int single_question=0x7f050012;
-        public static final int title_activity_answer=0x7f050009;
-        public static final int title_activity_author_profile=0x7f05000a;
-        public static final int title_activity_dashboard=0x7f05000b;
-        public static final int title_activity_edit_inputs=0x7f05000e;
+        public static final int question_state=0x7f05000d;
+        public static final int question_title=0x7f05000f;
+        public static final int single_question=0x7f05000e;
+        public static final int title_activity_answer=0x7f050008;
+        public static final int title_activity_author_profile=0x7f050009;
+        public static final int title_activity_create_input=0x7f05000b;
+        public static final int title_activity_login=0x7f05000a;
         public static final int title_activity_main=0x7f050003;
-        public static final int title_activity_new_answer=0x7f05000d;
-        public static final int title_activity_new_input=0x7f05000f;
-        public static final int title_activity_new_question=0x7f05000c;
-        public static final int title_activity_question_list=0x7f050008;
     }
     public static final class style {
         /** 

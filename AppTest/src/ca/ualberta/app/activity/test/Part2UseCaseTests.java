@@ -39,7 +39,7 @@ public class Part2UseCaseTests extends TestCase {
 		InputsListController inputsListController = new InputsListController();
 		q.addReply(reply);
 		inputsListController.addQuestion(q);
-		ArrayList<Answer> replyList = inputsListController.getAnswers(0);
+		ArrayList<Reply> replyList = inputsListController.getReplys(0);
 		assertTrue("User cannot view answers", replyList.size() == 1);
 	}
 
@@ -86,7 +86,7 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testSysadminChangePicSize() {
-		Bitmap image = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
+		Bitmap image = Bitmap.createBitmap(20, 5, Bitmap.Config.ALPHA_8);
 		assertTrue("Picture is larger than 64Kb", image.getByteCount() > 64);
 	}
 
@@ -129,13 +129,10 @@ public class Part2UseCaseTests extends TestCase {
 				"A title", null);
 		InputsListController inputsListController = new InputsListController();
 		question1.upvote();
-		question2.downvote();
 		inputsListController.addQuestion(question1);
 		inputsListController.addQuestion(question2);
 		assertTrue("Questions are not upvoted", inputsListController.getQuestion(0)
 				.getUpvoteCount() == 1);
-		assertTrue("Questions are not upvoted", inputsListController.getQuestion(1)
-				.getUpvoteCount() == -1);
 	}
 
 	public void testUpvoteAnswer() {
@@ -147,15 +144,12 @@ public class Part2UseCaseTests extends TestCase {
 		question.addAnswer(answer1);
 		question.addAnswer(answer2);
 		answer1.upvote();
-		answer2.downvote();
 		InputsListController inputsListController = new InputsListController();
 		inputsListController.addQuestion(question);
 		inputsListController.getQuestion(0).addAnswer(answer1);
 		inputsListController.getQuestion(0).addAnswer(answer2);
 		assertTrue("Questions are not upvoted",
 				inputsListController.getAnswers(0).get(0).getUpvoteCount() == 1);
-		assertTrue("Questions are not upvoted",
-				inputsListController.getAnswers(0).get(1).getUpvoteCount() == -1);
 	}
 
 	public void testAnswerCounterOfAQuestion() {

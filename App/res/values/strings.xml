@@ -9,15 +9,11 @@
     <string name="main_news">Ask Question</string>
     <string name="main_profile">My profile</string>
     <string name="menu_search">Search</string>
-    
-    <string name="title_activity_question_list">QuestionListActivity</string>
+
     <string name="title_activity_answer">AnswerActivity</string>
     <string name="title_activity_author_profile">AuthorProfileActivity</string>
-    <string name="title_activity_dashboard">DashboardActivity</string>
-    <string name="title_activity_new_question">NewQuestionActivity</string>
-    <string name="title_activity_new_answer">NewAnswerActivity</string>
-    <string name="title_activity_edit_inputs">EditInputsActivity</string>
-    <string name="title_activity_new_input">NewInputActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_create_input">ADD A Question</string>
     <string name="author_name">Author Name</string>
     <string name="question_state">Answers: 0 | Vote: 0 | Replies: 0</string>
     <string name="single_question">Question decription</string>

@@ -72,6 +72,7 @@ public class MainActivity extends FragmentActivity {
 							startActivity(intent);
 						}
 					});
+					
 					break;
 
 				case R.id.search_button:
