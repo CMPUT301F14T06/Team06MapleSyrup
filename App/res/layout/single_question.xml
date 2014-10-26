@@ -2,94 +2,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
+    android:background="#CCCCCC"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/replyButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/questionTextView"
-        android:text="Reply"
-        android:textColor="#66FF00" />
-
-    <Button
-        android:id="@+id/answerButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:layout_alignTop="@+id/replyButton"
-        android:layout_toLeftOf="@+id/replyButton"
-        android:text="Answer"
-        android:textColor="#66FF00" />
-
-    <ListView
-        android:id="@+id/answerReplyListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/questionTextView"
-        android:layout_below="@+id/answerButton" >
-    </ListView>
-
     <TextView
-        android:id="@+id/questionTextView"
+        android:id="@+id/singleQuestionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/upvoteButton"
-        android:layout_toRightOf="@+id/downButton"
-        android:text="Question:"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/localizeButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/QuestionPopTextView"
-        android:text="Localize"
-        android:textColor="#66FF00" />
-
-    <Button
-        android:id="@+id/backButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/localizeButton"
-        android:text="Back"
-        android:textColor="#66FF00" />
+        android:layout_toRightOf="@+id/viewAuthorButton"
+        android:text="@string/single_question"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageButton
-        android:id="@+id/downButton"
+    <ImageView
+        android:id="@+id/viewAuthorButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/QuestionPopTextView"
-        android:background="#333333"
-        android:src="@drawable/arrow_down" />
-
-    <ImageButton
-        android:id="@+id/upvoteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/localizeButton"
-        android:background="#333333"
-        android:src="@drawable/arrow_up" />
+        android:layout_alignParentTop="true"
+        android:src="@drawable/profile" />
 
     <TextView
-        android:id="@+id/QuestionPopTextView"
+        android:id="@+id/authorNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/upvoteButton"
-        android:text="#"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#FFFFFF" />
+        android:layout_below="@+id/viewAuthorButton"
+        android:text="@string/author_name" />
+
+    <TextView
+        android:id="@+id/questionStateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/favouriteQuestionButton"
+        android:layout_toRightOf="@+id/favouriteQuestionButton"
+        android:text="@string/question_state"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageButton
+        android:id="@+id/saveQuestionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/authorNameTextView"
+        android:src="@android:drawable/ic_menu_save" />
+
+    <ImageButton
+        android:id="@+id/favouriteQuestionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/saveQuestionButton"
+        android:layout_toRightOf="@+id/saveQuestionButton"
+        android:src="@android:drawable/btn_star_big_off" />
 
 </RelativeLayout>

@@ -18,4 +18,8 @@
     <string name="title_activity_new_answer">NewAnswerActivity</string>
     <string name="title_activity_edit_inputs">EditInputsActivity</string>
     <string name="title_activity_new_input">NewInputActivity</string>
+    <string name="author_name">Author Name</string>
+    <string name="question_state">Answers: 0 | Vote: 0 | Replies: 0</string>
+    <string name="single_question">Question decription</string>
+    <color name="question_selected">#CCCCCC</color>
 </resources>
