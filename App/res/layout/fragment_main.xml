@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-     >
+    android:orientation="vertical" >
 
     <include
         android:id="@+id/one_title"
         layout="@layout/title_bar" />
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/sortBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/one_title" >
 
         <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/sortByPic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            />
+            tools:listitem="@android:layout/simple_list_item_1" />
 
         <Spinner
-            android:id="@+id/spinner3"
+            android:id="@+id/sortByScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-           />
+            tools:listitem="@android:layout/simple_list_item_1" />
+
+        <Spinner
+            android:id="@+id/sortByDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:listitem="@android:layout/simple_list_item_1" />
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/questionListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1" >
+        android:layout_height="wrap_content" 
+        android:layout_below="@+id/sortBar" >
+
     </ListView>
 
 </RelativeLayout>

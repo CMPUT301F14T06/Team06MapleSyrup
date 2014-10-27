@@ -22,7 +22,8 @@ public class MainActivity extends FragmentActivity {
 	private RadioGroup bottom_Rg;
 	private RadioButton add_button;
 
-	// private RadioButton main_button, search_button, profile_button;
+	private RadioButton main_button, search_button, profile_button;
+	private int lastCheckedId = R.id.main_button;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,10 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		bottom_Rg = (RadioGroup) findViewById(R.id.main_menu);
-		// main_button = (RadioButton) findViewById(R.id.main_button);
+		main_button = (RadioButton) findViewById(R.id.main_button);
 		add_button = (RadioButton) findViewById(R.id.add_button);
-		// search_button = (RadioButton) findViewById(R.id.search_button);
-		// profile_button = (RadioButton) findViewById(R.id.profile_button);
+		search_button = (RadioButton) findViewById(R.id.search_button);
+		profile_button = (RadioButton) findViewById(R.id.profile_button);
 		fragments = new Fragment[3];
 
 		fragmentManager = getSupportFragmentManager();
@@ -65,6 +66,17 @@ public class MainActivity extends FragmentActivity {
 
 				case R.id.add_button:
 					// go to Create Question activity
+					switch (lastCheckedId) {
+					case R.id.main_button:
+						main_button.performClick();
+						break;
+					case R.id.search_button:
+						search_button.performClick();
+						break;
+					case R.id.profile_button:
+						profile_button.performClick();
+						break;
+					}
 					add_button.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							Intent intent = new Intent(MainActivity.this,
@@ -72,7 +84,7 @@ public class MainActivity extends FragmentActivity {
 							startActivity(intent);
 						}
 					});
-					
+
 					break;
 
 				case R.id.search_button:
@@ -86,6 +98,7 @@ public class MainActivity extends FragmentActivity {
 				default:
 					break;
 				}
+				lastCheckedId = checkedId;
 			}
 		});
 	}

@@ -9,14 +9,26 @@
     <string name="main_news">Ask Question</string>
     <string name="main_profile">My profile</string>
     <string name="menu_search">Search</string>
+    
+    <string name="sort_label1">Sort By Picture</string>
+    <string name="sort_label2">Sort By Score</string>
+    <string name="sort_label3">Sort By Date</string>
 
-    <string name="title_activity_answer">AnswerActivity</string>
+    <string-array name="list_type">
+        <item>Descending</item>
+        <item>Ascending</item>
+    </string-array>
+
+       <string name="title_activity_answer">AnswerActivity</string>
     <string name="title_activity_author_profile">AuthorProfileActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_create_input">ADD A Question</string>
     <string name="author_name">Author Name</string>
     <string name="question_state">Answers: 0 | Vote: 0 | Replies: 0</string>
     <string name="single_question">Question decription</string>
+
     <color name="question_selected">#CCCCCC</color>
+
     <string name="question_title">Question Title</string>
-</resources>
+
+</resources>
