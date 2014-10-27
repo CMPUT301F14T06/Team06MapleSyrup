@@ -79,6 +79,4 @@
         android:layout_toLeftOf="@+id/takeAPhotoButton"
         android:text="Submit" />
 
-    
-
 </RelativeLayout>
