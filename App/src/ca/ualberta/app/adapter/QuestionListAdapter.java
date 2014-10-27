@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
 
+import java.util.ArrayList;
+import ca.ualberta.app.activity.R;
+import ca.ualberta.app.models.Question;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -30,13 +34,15 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		if(question!=null){
 			TextView questionTitleText=(TextView)convertView.findViewById(R.id.questionTitleTextView);
 			questionTitleText.setText("a question");
+			TextView questionText=(TextView)convertView.findViewById(R.id.singleQuestionTextView);
+			questionText.setText("question context");
 			
-			//if(question.getStatus()){
-			//	convertView.setBackgroundColor(Color.CYAN);
-			//}
-			//else{
-			//	convertView.setBackgroundColor(Color.WHITE);
-			//}
+			if(question.getStatus()){
+				convertView.setBackgroundColor(Color.DKGRAY);
+			}
+			else{
+				convertView.setBackgroundColor(Color.WHITE);
+			}
 			
 		}
 		

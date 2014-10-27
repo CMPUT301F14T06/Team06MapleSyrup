@@ -23,19 +23,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.AnswerActivity"
+            android:name="ca.ualberta.ca.AnswerActivity"
             android:label="@string/title_activity_answer" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.AuthorProfileActivity"
+            android:name="ca.ualberta.ca.AuthorProfileActivity"
             android:label="@string/title_activity_author_profile" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.CreateInputsActivity"
+            android:name="ca.ualberta.ca.CreateInputsActivity"
             android:label="@string/title_activity_create_input" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.LoginActivity"
+            android:name="ca.ualberta.ca.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
     </application>
