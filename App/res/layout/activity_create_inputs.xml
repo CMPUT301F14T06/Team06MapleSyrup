@@ -9,8 +9,77 @@
     tools:context="ca.ualberta.app.activity.CreateInputsActivity" >
 
     <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Title :" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/contentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/titleTextView"
+        android:layout_below="@+id/titleTextView"
+        android:text="Content :" />
+
+    <EditText
+        android:id="@+id/contentEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/takeAPhotoButton"
+        android:layout_alignLeft="@+id/contentTextView"
+        android:layout_alignRight="@+id/editText1"
+        android:layout_below="@+id/contentTextView"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/submitButton"
+        android:layout_alignBottom="@+id/submitButton"
+        android:layout_alignLeft="@+id/contentEditText"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/contentEditText"
+        android:layout_marginBottom="21dp"
+        android:layout_toRightOf="@+id/cancelButton"
+        android:text="Submit" />
+
+    <ImageButton
+        android:id="@+id/takeAPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submitButton"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/cancelButton"
+        android:src="@android:drawable/ic_menu_camera" />
+
+    <ImageButton
+        android:id="@+id/addAPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submitButton"
+        android:layout_alignRight="@+id/submitButton"
+        android:src="@android:drawable/ic_menu_gallery" />
 
 </RelativeLayout>
