@@ -45,11 +45,18 @@
             android:text="@string/main_home" />
 
         <RadioButton
-            android:id="@+id/add_button"
+            android:id="@+id/fav_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/icon_add"
-            android:text="@string/main_news" />
+            android:text="@string/main_fav" />
+
+        <RadioButton
+            android:id="@+id/add_button"
+            style="@style/main_menu_bottom"
+            android:layout_height="match_parent"
+            android:drawableTop="@android:drawable/ic_menu_add"
+            android:text="@string/main_add" />
 
         <RadioButton
             android:id="@+id/search_button"

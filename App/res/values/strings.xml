@@ -6,17 +6,17 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="main_home">Main</string>
-    <string name="main_news">Ask Question</string>
+    <string name="main_fav">My Favourite</string>
+    <string name="main_add">Ask Question</string>
     <string name="main_profile">My profile</string>
     <string name="menu_search">Search</string>
     
-    <string name="sort_label1">Sort By Picture</string>
-    <string name="sort_label2">Sort By Score</string>
-    <string name="sort_label3">Sort By Date</string>
+    <string name="sort_label">Choose Sort By:</string>
 
     <string-array name="list_type">
-        <item>Descending</item>
-        <item>Ascending</item>
+         <item>Sort By Date</item>
+        <item>Sort By Picture</item>
+        <item>Sort By Score</item>
     </string-array>
 
        <string name="title_activity_answer">AnswerActivity</string>

@@ -9,42 +9,21 @@
         android:id="@+id/one_title"
         layout="@layout/title_bar" />
 
-    <LinearLayout
+    <Spinner
         android:id="@+id/sortBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/one_title" >
-
-        <Spinner
-            android:id="@+id/sortByPic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:listitem="@android:layout/simple_list_item_1" />
-
-        <Spinner
-            android:id="@+id/sortByScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:listitem="@android:layout/simple_list_item_1" />
-
-        <Spinner
-            android:id="@+id/sortByDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:listitem="@android:layout/simple_list_item_1" />
-    </LinearLayout>
+        android:layout_below="@+id/one_title"
+        android:entries="@array/list_type"
+        android:prompt="@string/sort_label"
+        tools:listitem="@android:layout/simple_list_item_1" />
 
     <ListView
         android:id="@+id/questionListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_below="@+id/sortBar" >
-
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sortBar" />
 
 </RelativeLayout>

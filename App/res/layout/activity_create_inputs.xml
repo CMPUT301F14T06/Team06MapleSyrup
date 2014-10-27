@@ -9,8 +9,76 @@
     tools:context="ca.ualberta.app.activity.CreateInputsActivity" >
 
     <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Title :" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/contentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/titleTextView"
+        android:layout_below="@+id/titleTextView"
+        android:text="Content :" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/contentTextView"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/takeAPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
+        android:layout_toLeftOf="@+id/addAPhotoButton"
+        android:src="@android:drawable/ic_menu_camera" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText2"
+        android:layout_toLeftOf="@+id/submitButton"
+        android:text="Cancel" />
+
+    <ImageButton
+        android:id="@+id/addAPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_alignTop="@+id/submitButton"
+        android:src="@android:drawable/ic_menu_gallery" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cancelButton"
+        android:layout_alignBottom="@+id/cancelButton"
+        android:layout_toLeftOf="@+id/takeAPhotoButton"
+        android:text="Submit" />
+
+    
 
 </RelativeLayout>
