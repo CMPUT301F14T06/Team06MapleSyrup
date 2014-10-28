@@ -20,9 +20,8 @@ public class MainActivity extends FragmentActivity {
 	private FragmentManager fragmentManager;
 	private FragmentTransaction fragmentTransaction;
 	private RadioGroup bottom_Rg;
-	private RadioButton add_button;
-
-	private RadioButton main_button, search_button, profile_button;
+	private RadioButton main_button, fav_button, add_button, search_button,
+			profile_button;
 	private int lastCheckedId = R.id.main_button;
 
 	@Override
@@ -33,17 +32,20 @@ public class MainActivity extends FragmentActivity {
 
 		bottom_Rg = (RadioGroup) findViewById(R.id.main_menu);
 		main_button = (RadioButton) findViewById(R.id.main_button);
+		fav_button = (RadioButton) findViewById(R.id.fav_button);
 		add_button = (RadioButton) findViewById(R.id.add_button);
 		search_button = (RadioButton) findViewById(R.id.search_button);
 		profile_button = (RadioButton) findViewById(R.id.profile_button);
-		fragments = new Fragment[3];
+		fragments = new Fragment[4];
 
 		fragmentManager = getSupportFragmentManager();
 		fragments[0] = fragmentManager.findFragmentById(R.id.fragement_main);
-		fragments[1] = fragmentManager.findFragmentById(R.id.fragement_search);
-		fragments[2] = fragmentManager.findFragmentById(R.id.fragement_profile);
+		fragments[1] = fragmentManager.findFragmentById(R.id.fragement_fav);
+		fragments[2] = fragmentManager.findFragmentById(R.id.fragement_search);
+		fragments[3] = fragmentManager.findFragmentById(R.id.fragement_profile);
 		fragmentTransaction = fragmentManager.beginTransaction()
-				.hide(fragments[0]).hide(fragments[1]).hide(fragments[2]);
+				.hide(fragments[0]).hide(fragments[1]).hide(fragments[2])
+				.hide(fragments[3]);
 		fragmentTransaction.show(fragments[0]).commit();
 
 		setFragmentIndicator();
@@ -58,17 +60,24 @@ public class MainActivity extends FragmentActivity {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				fragmentTransaction = fragmentManager.beginTransaction()
 						.hide(fragments[0]).hide(fragments[1])
-						.hide(fragments[2]);
+						.hide(fragments[2]).hide(fragments[3]);
 				switch (checkedId) {
 				case R.id.main_button:
 					fragmentTransaction.show(fragments[0]).commit();
 					break;
-
+					
+				case R.id.fav_button:
+					fragmentTransaction.show(fragments[1]).commit();
+					break;
+					
 				case R.id.add_button:
 					// go to Create Question activity
 					switch (lastCheckedId) {
 					case R.id.main_button:
 						main_button.performClick();
+						break;
+					case R.id.fav_button:
+						fav_button.performClick();
 						break;
 					case R.id.search_button:
 						search_button.performClick();
@@ -84,15 +93,14 @@ public class MainActivity extends FragmentActivity {
 							startActivity(intent);
 						}
 					});
-
 					break;
 
 				case R.id.search_button:
-					fragmentTransaction.show(fragments[1]).commit();
+					fragmentTransaction.show(fragments[2]).commit();
 					break;
 
 				case R.id.profile_button:
-					fragmentTransaction.show(fragments[2]).commit();
+					fragmentTransaction.show(fragments[3]).commit();
 					break;
 
 				default:

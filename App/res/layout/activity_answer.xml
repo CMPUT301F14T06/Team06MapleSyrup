@@ -11,49 +11,49 @@
 
 
     <TextView
-        android:id="@+id/answerTextView"
+        android:id="@+id/answer_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="36dp"
-        android:text="Answer/Reply"
+        android:text="@string/answer"
         android:textColor="#FFFFFF" />
 
     <Button
-        android:id="@+id/answerReplyButton"
+        android:id="@+id/answer_reply_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="80dp"
         android:layout_height="35dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/answerTextView"
+        android:layout_below="@+id/answer_textView"
         android:layout_marginRight="15dp"
-        android:text="Reply"
+        android:text="@string/reply"
         android:textColor="#66FF00" />
 
     <Button
-        android:id="@+id/answerEditButton"
+        android:id="@+id/answer_edit_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="80dp"
         android:layout_height="35dp"
-        android:layout_alignTop="@+id/answerReplyButton"
-        android:layout_toLeftOf="@+id/answerReplyButton"
-        android:text="Edit"
+        android:layout_alignTop="@+id/answer_reply_button"
+        android:layout_toLeftOf="@+id/answer_reply_button"
+        android:text="@string/edit"
         android:textColor="#66FF00" />
 
     <Button
-        android:id="@+id/answerRemoveButton"
+        android:id="@+id/answer_remove_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="80dp"
         android:layout_height="35dp"
-        android:layout_alignTop="@+id/answerEditButton"
-        android:layout_toLeftOf="@+id/answerEditButton"
-        android:text="Remove"
+        android:layout_alignTop="@+id/answer_edit_button"
+        android:layout_toLeftOf="@+id/answer_edit_button"
+        android:text="@string/remove"
         android:textColor="#66FF00" />
 
     <ImageButton
-        android:id="@+id/answerUpvoteButton"
+        android:id="@+id/answer_upvote_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -62,29 +62,29 @@
         android:src="@drawable/arrow_up" />
 
     <TextView
-        android:id="@+id/answerPopTextView"
+        android:id="@+id/answerPop_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/answerUpvoteButton"
+        android:layout_below="@+id/answer_upvote_button"
         android:text="#"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#FFFFFF" />
 
     <ImageButton
-        android:id="@+id/addAImageButton"
+        android:id="@+id/add_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/answerPopTextView"
+        android:layout_below="@+id/answerPop_textView"
         android:background="#333333"
         android:src="@drawable/arrow_down" />
 
     <ListView
-        android:id="@+id/answerReplyListView"
+        android:id="@+id/answer_reply_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/answerTextView"
-        android:layout_below="@+id/addAImageButton" >
+        android:layout_alignLeft="@+id/answer_textView"
+        android:layout_below="@+id/add_image_button" >
     </ListView>
 </RelativeLayout>

@@ -19,7 +19,6 @@ public class FragmentMain extends Fragment {
 	private QuestionListAdapter adapter=null;
 	private ListView questionList=null;
 	private InputsListModel currentQuestionList = null;
-
 	private ListView questionListView;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +33,9 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		questionListView = (ListView) getView().findViewById(R.id.questionListView);
+		titleBar = (TextView) getView().findViewById(R.id.titleTv);
+		titleBar.setText("Main");
+		questionListView = (ListView) getView().findViewById(R.id.question_listView);
 		
 	}
 }

@@ -14,6 +14,13 @@
         android:layout_weight="10" />
 
     <fragment
+        android:id="@+id/fragement_fav"
+        android:name="ca.ualberta.app.activity.FragmentFavorite"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10" />
+
+    <fragment
         android:id="@+id/fragement_search"
         android:name="ca.ualberta.app.activity.FragmentSearch"
         android:layout_width="fill_parent"
@@ -41,36 +48,36 @@
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
             android:checked="true"
-            android:drawableTop="@drawable/icon_main"
-            android:text="@string/main_home" />
+            android:drawableTop="@drawable/main_icon"
+            android:text="@string/menu_home" />
 
         <RadioButton
             android:id="@+id/fav_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/icon_add"
-            android:text="@string/main_fav" />
+            android:drawableTop="@drawable/fav_icon"
+            android:text="@string/menu_fav" />
 
         <RadioButton
             android:id="@+id/add_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
-            android:drawableTop="@android:drawable/ic_menu_add"
-            android:text="@string/main_add" />
+            android:drawableTop="@drawable/add_icon"
+            android:text="@string/menu_add" />
 
         <RadioButton
             android:id="@+id/search_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/icon_search"
+            android:drawableTop="@drawable/search_icon"
             android:text="@string/menu_search" />
 
         <RadioButton
             android:id="@+id/profile_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/icon_profile"
-            android:text="@string/main_profile" />
+            android:drawableTop="@drawable/profile_icon"
+            android:text="@string/menu_profile" />
     </RadioGroup>
 
 </LinearLayout>

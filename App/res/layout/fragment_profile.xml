@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -8,11 +8,52 @@
         android:id="@+id/one_title"
         layout="@layout/title_bar" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:text="this is profile"
-        android:textColor="#000000" />
+    <Button
+        android:id="@+id/fav_questin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="@string/fav_question" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/local_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fav_questin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="28dp"
+        android:text="@string/local_question" />
+
+    <Button
+        android:id="@+id/my_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/fav_questin"
+        android:layout_marginTop="29dp"
+        android:text="@string/my_question" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/changePhotoButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/changePhotoButton"
+        android:layout_toRightOf="@+id/changePhotoButton"
+        android:text="@string/author_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageButton
+        android:id="@+id/changePhotoButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/one_title"
+        android:src="@drawable/user" />
+
+</RelativeLayout>

@@ -10,7 +10,7 @@
     tools:context=".LoginActivity" >
 
     <ImageButton
-        android:id="@+id/longinButton"
+        android:id="@+id/longin_button"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
@@ -19,40 +19,40 @@
         android:background="@drawable/login2" />
 
     <EditText
-        android:id="@+id/usernameEditText"
+        android:id="@+id/username_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/usernameButton"
-        android:layout_alignLeft="@+id/longinButton"
+        android:layout_alignBottom="@+id/username_button"
+        android:layout_alignLeft="@+id/longin_button"
         android:ems="10" >
 
         <requestFocus />
     </EditText>
 
     <ImageButton
-        android:id="@+id/usernameButton"
+        android:id="@+id/username_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_below="@+id/longinButton"
+        android:layout_below="@+id/longin_button"
         android:layout_marginTop="50dp"
-        android:layout_toLeftOf="@+id/usernameEditText"
+        android:layout_toLeftOf="@+id/username_editText"
         android:background="@drawable/user1" />
 
     <TextView
-        android:id="@+id/usernametextView"
+        android:id="@+id/username_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameEditText"
-        android:layout_toLeftOf="@+id/usernameEditText"
-        android:text="User Name"
+        android:layout_below="@+id/username_editText"
+        android:layout_toLeftOf="@+id/username_editText"
+        android:text="@string/author_name"
         android:textColor="#66FF00"
         android:textStyle="bold|italic" />
 
     <TextView
-        android:id="@+id/current1Question"
+        android:id="@+id/currentQ_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/longinButton"
+        android:layout_below="@+id/longin_button"
         android:layout_centerHorizontal="true"
         android:text="Login"
         android:textAppearance="?android:attr/textAppearanceLarge"

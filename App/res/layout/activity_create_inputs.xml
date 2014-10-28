@@ -2,81 +2,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="ca.ualberta.app.activity.CreateInputsActivity" >
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/create_input_menu" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/title_textView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/title" />
+
+            <EditText
+                android:id="@+id/title_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/title_textView"
+                android:ems="10" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/content_textView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/title_editText"
+                android:text="@string/content" />
+
+            <EditText
+                android:id="@+id/content_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/content_textView"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+
+                <requestFocus />
+            </EditText>
+        </RelativeLayout>
+    </ScrollView>
+
+    <RadioGroup
+        android:id="@+id/create_input_menu"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Title :" />
+        android:background="@drawable/toolbar_bg"
+        android:orientation="horizontal" >
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:ems="10" />
+        <RadioButton
+            android:id="@+id/submit_button"
+            style="@style/create_menu_bottom"
+            android:layout_height="fill_parent"
+            android:text="@string/submit" />
 
-    <TextView
-        android:id="@+id/contentTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/titleTextView"
-        android:layout_below="@+id/titleTextView"
-        android:text="Content :" />
+        <RadioButton
+            android:id="@+id/cancel_button"
+            style="@style/create_menu_bottom"
+            android:layout_height="fill_parent"
+            android:text="@string/cancel" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/contentTextView"
-        android:ems="10"
-        android:inputType="textMultiLine" >
+        <RadioButton
+            android:id="@+id/search_button"
+            style="@style/create_menu_bottom"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.3"
+            android:drawableLeft="@drawable/photo_icon32" />
 
-        <requestFocus />
-    </EditText>
-
-    <ImageButton
-        android:id="@+id/takeAPhotoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
-        android:layout_toLeftOf="@+id/addAPhotoButton"
-        android:src="@android:drawable/ic_menu_camera" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText2"
-        android:layout_toLeftOf="@+id/submitButton"
-        android:text="Cancel" />
-
-    <ImageButton
-        android:id="@+id/addAPhotoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_alignTop="@+id/submitButton"
-        android:src="@android:drawable/ic_menu_gallery" />
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/cancelButton"
-        android:layout_alignBottom="@+id/cancelButton"
-        android:layout_toLeftOf="@+id/takeAPhotoButton"
-        android:text="Submit" />
+        <RadioButton
+            android:id="@+id/profile_button"
+            style="@style/create_menu_bottom"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.3"
+            android:drawableLeft="@drawable/picture_icon32" />
+    </RadioGroup>
 
 </RelativeLayout>

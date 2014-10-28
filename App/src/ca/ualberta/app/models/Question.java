@@ -7,14 +7,12 @@ import android.graphics.Bitmap;
 public class Question extends InputsModel {
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
-	Boolean selected=false;
+	Boolean selected = false;
 
-	public Question(String content, String userName, String title,
-			Bitmap image, Boolean selected) {
+	public Question(String content, String userName, String title, Bitmap image) {
 		super(content, userName, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
-		this.selected = selected;
 	}
 
 	public void addReply(Reply newReply) {
@@ -25,18 +23,17 @@ public class Question extends InputsModel {
 		answerList.add(newAnswer);
 		answerCount = answerList.size();
 	}
-	
-	public boolean getStatus(){
+
+	public boolean getStatus() {
 		return this.selected;
 	}
-	
-	public void select(){
-		this.selected=true;
+
+	public void select() {
+		this.selected = true;
 	}
-	
-	public void unSelect(){
-		this.selected=false;
+
+	public void unSelect() {
+		this.selected = false;
 	}
-	
 
 }
