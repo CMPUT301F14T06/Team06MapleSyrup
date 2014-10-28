@@ -7,13 +7,16 @@ import android.graphics.Bitmap;
 public class Question extends InputsModel {
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
-	Boolean selected = false;
+	Boolean selected=false;
 
-	public Question(String content, String userName, String title, Bitmap image) {
+	public Question(String content, String userName, String title,
+			Bitmap image, Boolean selected) {
 		super(content, userName, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
+		this.selected = selected;
 	}
+
 
 	public void addReply(Reply newReply) {
 		replyList.add(newReply);

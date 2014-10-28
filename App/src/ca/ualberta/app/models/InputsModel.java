@@ -5,9 +5,9 @@ import java.util.Date;
 import android.graphics.Bitmap;
 
 public abstract class InputsModel {
-	String title;
-	String content;
-	String userName;
+	public String title;
+	public	String content;
+	public	String userName;
 	Bitmap image;
 	Date timestamp;
 	long answerCount;
