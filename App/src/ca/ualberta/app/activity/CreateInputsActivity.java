@@ -5,14 +5,25 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class CreateInputsActivity extends Activity {
-
+	private RadioGroup create_menu;
+	private RadioButton submit;
+	private RadioButton cancel;
+	private RadioButton galary;
+	private RadioButton photo;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_inputs);
-		
+		create_menu = (RadioGroup) findViewById(R.id.create_input_menu);
+		submit = (RadioButton) findViewById(R.id.submit_button);
+		cancel = (RadioButton) findViewById(R.id.cancel_button);
+		photo = (RadioButton) findViewById(R.id.take_pic);
+		galary = (RadioButton) findViewById(R.id.add_pic);
 	}
 
 	@Override

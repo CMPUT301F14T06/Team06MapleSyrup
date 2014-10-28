@@ -77,14 +77,14 @@
             android:text="@string/cancel" />
 
         <RadioButton
-            android:id="@+id/search_button"
+            android:id="@+id/take_pic"
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
             android:layout_weight="0.3"
             android:drawableLeft="@drawable/photo_icon32" />
 
         <RadioButton
-            android:id="@+id/profile_button"
+            android:id="@+id/add_pic"
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
             android:layout_weight="0.3"
