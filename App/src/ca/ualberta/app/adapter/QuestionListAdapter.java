@@ -33,9 +33,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		
 		if(question!=null){
 			TextView questionTitleText=(TextView)convertView.findViewById(R.id.questionTitleTextView);
-			questionTitleText.setText("a question");
+			questionTitleText.setText(question.title);
 			TextView questionText=(TextView)convertView.findViewById(R.id.singleQuestionTextView);
-			questionText.setText("question context");
+			questionText.setText(question.content);
+			TextView authorText=(TextView)convertView.findViewById(R.id.authorNameTextView);
+			authorText.setText(question.userName);
 			
 			if(question.getStatus()){
 				convertView.setBackgroundColor(Color.DKGRAY);
