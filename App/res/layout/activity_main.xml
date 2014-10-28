@@ -48,7 +48,7 @@
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
             android:checked="true"
-            android:drawableTop="@drawable/main_icon"
+            android:drawableTop="@drawable/home_icon"
             android:text="@string/menu_home" />
 
         <RadioButton
@@ -76,7 +76,7 @@
             android:id="@+id/profile_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/profile_icon"
+            android:drawableTop="@drawable/user_icon"
             android:text="@string/menu_profile" />
     </RadioGroup>
 
