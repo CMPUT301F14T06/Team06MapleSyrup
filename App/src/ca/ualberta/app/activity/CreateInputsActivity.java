@@ -1,14 +1,18 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.models.InputsListModel;
+import ca.ualberta.app.models.Question;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -19,6 +23,10 @@ public class CreateInputsActivity extends Activity {
 	private RadioButton cancel;
 	private RadioButton galary;
 	private RadioButton photo;
+	private EditText titleText=null;
+	private EditText contentText=null;
+	private Question newContent = null;
+	private Bitmap testImage = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,9 @@ public class CreateInputsActivity extends Activity {
 		cancel = (RadioButton) findViewById(R.id.cancel_button);
 		photo = (RadioButton) findViewById(R.id.take_pic);
 		galary = (RadioButton) findViewById(R.id.add_pic);
+		titleText=(EditText)findViewById(R.id.title_editText);
+		contentText=(EditText)findViewById(R.id.content_editText);
+		
 		create_menu_Rg
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -39,6 +50,11 @@ public class CreateInputsActivity extends Activity {
 						case R.id.submit_button:
 							submit.setOnClickListener(new OnClickListener() {
 								public void onClick(View v) {
+									String title=titleText.getText().toString();
+									String content=contentText.getText().toString();
+									FragmentMain.currentQuestionList = new InputsListModel();
+									newContent =new Question(content,"Current user ^_^",title,testImage);
+									FragmentMain.currentQuestionList.addQuestion(newContent);
 									Intent intent = new Intent(
 											CreateInputsActivity.this,
 											MainActivity.class);

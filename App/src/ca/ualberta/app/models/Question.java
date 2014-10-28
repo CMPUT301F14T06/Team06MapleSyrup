@@ -10,11 +10,10 @@ public class Question extends InputsModel {
 	Boolean selected=false;
 
 	public Question(String content, String userName, String title,
-			Bitmap image, Boolean selected) {
+			Bitmap image) {
 		super(content, userName, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
-		this.selected = selected;
 	}
 
 

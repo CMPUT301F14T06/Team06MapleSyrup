@@ -7,18 +7,16 @@ import ca.ualberta.app.models.Question;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
 
 public class FragmentMain extends Fragment {
 	private QuestionListAdapter adapter=null;
-	private InputsListModel currentQuestionList = null;
+	public static InputsListModel currentQuestionList = null;
 	private Question newQuestion = null;
 	private Bitmap testImage = null;
 	private ListView questionListView=null;
@@ -34,16 +32,25 @@ public class FragmentMain extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		currentQuestionList = new InputsListModel();
-		newQuestion =new Question("Question1","Name1","Title1",testImage,false);
+		newQuestion =new Question("Question1","Name1","Title1",testImage);
 		currentQuestionList.addQuestion(newQuestion);
-		newQuestion =new Question("Question2","Name2","Title2",testImage,false);
+		newQuestion =new Question("Question2","Name2","Title2",testImage);
 		currentQuestionList.addQuestion(newQuestion);
-		newQuestion =new Question("Question3","Name3","Title3",testImage,false);
+		newQuestion =new Question("Question3","Name3","Title3",testImage);
 		currentQuestionList.addQuestion(newQuestion);
 
 		questionListView = (ListView) getView().findViewById(R.id.question_listView);
 		adapter=new QuestionListAdapter(getActivity(),R.layout.single_question,currentQuestionList.getArrayList());
 		questionListView.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
 		
 	}
+	public void onActivityResume(Bundle savedInstanceState) {
+		super.onResume();
+		questionListView = (ListView) getView().findViewById(R.id.question_listView);
+		adapter=new QuestionListAdapter(getActivity(),R.layout.single_question,currentQuestionList.getArrayList());
+		questionListView.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
+	}	
+
 }
