@@ -40,5 +40,26 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">fill_parent</item>
     </style>
+    
+    <style name="question_button">
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:background">@drawable/question_btn_bg</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    
+    <style name="profile_menu">
+        <item name="android:button">@null</item>
+        <item name="android:drawablePadding">10dip</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:layout_marginLeft">5dip</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@drawable/profile_btn_bg</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
 
 </resources>

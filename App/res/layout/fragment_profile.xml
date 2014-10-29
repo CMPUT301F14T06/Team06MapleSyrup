@@ -8,52 +8,71 @@
         android:id="@+id/one_title"
         layout="@layout/title_bar" />
 
-    <Button
-        android:id="@+id/fav_questin"
+    <ImageButton
+        android:id="@+id/changePhotoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:text="@string/fav_question" />
-
-    <Button
-        android:id="@+id/local_cache"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/fav_questin"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="28dp"
-        android:text="@string/local_question" />
-
-    <Button
-        android:id="@+id/my_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/fav_questin"
-        android:layout_marginTop="29dp"
-        android:text="@string/my_question" />
+        android:layout_below="@+id/one_title"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/user_icon48"
+        android:contentDescription="@string/desc" />
 
     <TextView
-        android:id="@+id/userName"
+        android:id="@+id/setAuthorName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/changePhotoButton"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/changePhotoButton"
         android:layout_toRightOf="@+id/changePhotoButton"
+        android:gravity="center"
         android:text="@string/author_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ImageButton
-        android:id="@+id/changePhotoButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <RadioGroup
+        android:id="@+id/profile_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/one_title"
-        android:src="@drawable/user" />
+        android:layout_below="@+id/changePhotoButton"
+        android:layout_marginTop="22dp"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/local_cache"
+            style="@style/profile_menu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/save_icon32"
+            android:text="@string/local_question" />
+
+        <RadioButton
+            android:id="@+id/fav_question"
+            style="@style/profile_menu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/star_fav_icon32"
+            android:text="@string/fav_question" />
+
+        <RadioButton
+            android:id="@+id/my_question"
+            style="@style/profile_menu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/my_question_icon"
+            android:text="@string/my_question" />
+    </RadioGroup>
+
+    <RadioButton
+        android:id="@+id/login"
+        style="@style/profile_menu"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/profile_menu"
+        android:layout_marginTop="46dp"
+        android:drawableLeft="@drawable/login"
+        android:text="@string/login" />
 
 </RelativeLayout>

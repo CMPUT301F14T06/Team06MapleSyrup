@@ -44,7 +44,7 @@
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/main_button"
+            android:id="@+id/main_menu_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
             android:checked="true"
@@ -52,28 +52,28 @@
             android:text="@string/menu_home" />
 
         <RadioButton
-            android:id="@+id/fav_button"
+            android:id="@+id/fav_menu_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/fav_icon"
             android:text="@string/menu_fav" />
 
         <RadioButton
-            android:id="@+id/add_button"
+            android:id="@+id/add_menu_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/add_icon"
             android:text="@string/menu_add" />
 
         <RadioButton
-            android:id="@+id/search_button"
+            android:id="@+id/search_menu_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/search_icon"
             android:text="@string/menu_search" />
 
         <RadioButton
-            android:id="@+id/profile_button"
+            android:id="@+id/profile_menu_button"
             style="@style/main_menu_bottom"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/user_icon"

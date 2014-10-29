@@ -20,9 +20,8 @@ public class MainActivity extends FragmentActivity {
 	private FragmentManager fragmentManager;
 	private FragmentTransaction fragmentTransaction;
 	private RadioGroup bottom_Rg;
-	private RadioButton main_button, fav_button, add_button, search_button,
-			profile_button;
-	private int lastCheckedId = R.id.main_button;
+	private RadioButton main_Rb, fav_Rb, add_Rb, search_Rb, profile_Rb;
+	private int lastCheckedId = R.id.main_menu_button;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +30,11 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		bottom_Rg = (RadioGroup) findViewById(R.id.main_menu);
-		main_button = (RadioButton) findViewById(R.id.main_button);
-		fav_button = (RadioButton) findViewById(R.id.fav_button);
-		add_button = (RadioButton) findViewById(R.id.add_button);
-		search_button = (RadioButton) findViewById(R.id.search_button);
-		profile_button = (RadioButton) findViewById(R.id.profile_button);
+		main_Rb = (RadioButton) findViewById(R.id.main_menu_button);
+		fav_Rb = (RadioButton) findViewById(R.id.fav_menu_button);
+		add_Rb = (RadioButton) findViewById(R.id.add_menu_button);
+		search_Rb = (RadioButton) findViewById(R.id.search_menu_button);
+		profile_Rb = (RadioButton) findViewById(R.id.profile_menu_button);
 		fragments = new Fragment[4];
 
 		fragmentManager = getSupportFragmentManager();
@@ -62,31 +61,31 @@ public class MainActivity extends FragmentActivity {
 						.hide(fragments[0]).hide(fragments[1])
 						.hide(fragments[2]).hide(fragments[3]);
 				switch (checkedId) {
-				case R.id.main_button:
+				case R.id.main_menu_button:
 					fragmentTransaction.show(fragments[0]).commit();
 					break;
-					
-				case R.id.fav_button:
+
+				case R.id.fav_menu_button:
 					fragmentTransaction.show(fragments[1]).commit();
 					break;
-					
-				case R.id.add_button:
+
+				case R.id.add_menu_button:
 					// go to Create Question activity
 					switch (lastCheckedId) {
-					case R.id.main_button:
-						main_button.performClick();
+					case R.id.main_menu_button:
+						main_Rb.performClick();
 						break;
-					case R.id.fav_button:
-						fav_button.performClick();
+					case R.id.fav_menu_button:
+						fav_Rb.performClick();
 						break;
-					case R.id.search_button:
-						search_button.performClick();
+					case R.id.search_menu_button:
+						search_Rb.performClick();
 						break;
-					case R.id.profile_button:
-						profile_button.performClick();
+					case R.id.profile_menu_button:
+						profile_Rb.performClick();
 						break;
 					}
-					add_button.setOnClickListener(new OnClickListener() {
+					add_Rb.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							Intent intent = new Intent(MainActivity.this,
 									CreateInputsActivity.class);
@@ -95,11 +94,11 @@ public class MainActivity extends FragmentActivity {
 					});
 					break;
 
-				case R.id.search_button:
+				case R.id.search_menu_button:
 					fragmentTransaction.show(fragments[2]).commit();
 					break;
 
-				case R.id.profile_button:
+				case R.id.profile_menu_button:
 					fragmentTransaction.show(fragments[3]).commit();
 					break;
 

@@ -3,58 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CCCCCC"
-    android:orientation="vertical" >
-
-    <ImageView
-        android:id="@+id/viewAuthorButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/profile" />
-
-    <TextView
-        android:id="@+id/authorNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/viewAuthorButton"
-        android:text="@string/author_name" />
+    android:orientation="horizontal" >
 
     <TextView
         android:id="@+id/questionStateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/favouriteQuestionButton"
-        android:layout_toRightOf="@+id/favouriteQuestionButton"
+        android:layout_alignTop="@+id/question_menu"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/question_menu"
         android:text="@string/question_state"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <ImageButton
-        android:id="@+id/saveQuestionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/authorNameTextView"
-        android:src="@android:drawable/ic_menu_save" />
-
-    <ImageButton
-        android:id="@+id/favouriteQuestionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/saveQuestionButton"
-        android:layout_toRightOf="@+id/saveQuestionButton"
-        android:src="@android:drawable/btn_star_big_off" />
-
-    <TextView
-        android:id="@+id/singleQuestionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/authorNameTextView"
-        android:layout_alignRight="@+id/questionStateTextView"
-        android:layout_marginRight="18dp"
-        android:text="@string/single_question"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/questionTitleTextView"
@@ -64,5 +24,67 @@
         android:layout_alignParentTop="true"
         android:text="@string/question_title"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/singleQuestionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/questionStateTextView"
+        android:layout_below="@+id/questionTitleTextView"
+        android:text="@string/single_question"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <RadioGroup
+        android:id="@+id/question_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/authorNameTextView"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/save_button"
+            style="@style/question_button"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/save_icon32"
+            android:text="@string/save" />
+
+        <RadioButton
+            android:id="@+id/fav_button"
+            style="@style/question_button"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/star_fav_empty_icon32"
+            android:text="@string/favorite" />
+
+        <RadioButton
+            android:id="@+id/add_button"
+            style="@style/question_button"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/hand_pro_icon32"
+            android:text="@string/upvote" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/authorNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/question_menu"
+        android:layout_below="@+id/singleQuestionTextView"
+        android:gravity="center"
+        android:text="@string/author_name" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/singleQuestionTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/authorNameTextView"
+        android:contentDescription="@string/desc"
+        android:src="@drawable/user_icon48" />
 
 </RelativeLayout>

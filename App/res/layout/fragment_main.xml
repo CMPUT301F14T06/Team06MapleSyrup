@@ -20,54 +20,10 @@
         android:prompt="@string/sort_label"
         tools:listitem="@android:layout/simple_list_item_1" />
 
-    <TextView
-        android:id="@+id/mostVoteQText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/sort_spinner"
-        android:text="@string/most_voteQ" />
-
-    <TextView
-        android:id="@+id/mostVoteQ_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/mostVoteQText"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/mostVoteAText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/mostVoteQ_textView"
-        android:text="@string/most_voteA" />
-
-    <TextView
-        android:id="@+id/mostVoteA_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/mostVoteAText"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/currentQ_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/mostVoteA_textView"
-        android:text="@string/current_question" />
-
     <ListView
         android:id="@+id/question_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/currentQ_textView" />
+        android:layout_below="@+id/sort_spinner" />
 
 </RelativeLayout>
