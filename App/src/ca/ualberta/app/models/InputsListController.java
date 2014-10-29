@@ -6,8 +6,6 @@ import java.util.List;
 
 import ca.ualberta.app.models.InputsListModel;
 
-
-
 public class InputsListController {
 	
 	InputsListModel inputsListModel = new InputsListModel();

@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
 
-import java.util.ArrayList;
-import ca.ualberta.app.activity.R;
-import ca.ualberta.app.models.Question;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -22,6 +19,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		super(context, textViewResourceId, objects);
 	}
 	
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
 		if (convertView == null) {
