@@ -30,6 +30,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/title_textView"
                 android:ems="10" >
+
+                <requestFocus />
             </EditText>
 
             <TextView
@@ -49,8 +51,6 @@
                 android:layout_below="@+id/content_textView"
                 android:ems="10"
                 android:inputType="textMultiLine" >
-
-                <requestFocus />
             </EditText>
         </RelativeLayout>
     </ScrollView>

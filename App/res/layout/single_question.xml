@@ -31,8 +31,10 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/questionStateTextView"
         android:layout_below="@+id/questionTitleTextView"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="@string/single_question"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <RadioGroup
         android:id="@+id/question_menu"

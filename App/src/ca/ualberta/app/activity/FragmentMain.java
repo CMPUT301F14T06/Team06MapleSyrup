@@ -2,6 +2,7 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.models.InputsListController;
 import ca.ualberta.app.models.InputsListModel;
 import ca.ualberta.app.models.Question;
 import android.graphics.Bitmap;
@@ -17,16 +18,14 @@ import android.widget.TextView;
 
 public class FragmentMain extends Fragment {
 	private QuestionListAdapter adapter = null;
-	public static InputsListModel currentQuestionList = null;
-	private Question newQuestion = null;
-	private Bitmap testImage = null;
+	private InputsListModel currentQuestionList = null;
 	private TextView titleBar = null;
 	private ListView questionListView = null;
+	private String FILENAME = "questionList.sav";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		currentQuestionList = new InputsListModel();
 		return inflater.inflate(R.layout.fragment_main, container, false);
 	}
 
@@ -35,30 +34,30 @@ public class FragmentMain extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Main");
-		currentQuestionList = new InputsListModel();
-		newQuestion = new Question("Question1", "Name1", "Title1", testImage);
-		currentQuestionList.addQuestion(newQuestion);
-		newQuestion = new Question("Question2", "Name2", "Title2", testImage);
-		currentQuestionList.addQuestion(newQuestion);
-		newQuestion = new Question("Question3", "Name3", "Title3", testImage);
-		currentQuestionList.addQuestion(newQuestion);
-
+		currentQuestionList = InputsListController.loadFromFile(getActivity()
+				.getApplicationContext(), FILENAME);
 		questionListView = (ListView) getView().findViewById(
 				R.id.question_listView);
 		adapter = new QuestionListAdapter(getActivity(),
 				R.layout.single_question, currentQuestionList.getArrayList());
 		questionListView.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
-
+		updateList();
 	}
 
-	public void onActivityResume(Bundle savedInstanceState) {
+	@Override
+	public void onResume() {
 		super.onResume();
-		questionListView = (ListView) getView().findViewById(
-				R.id.question_listView);
-		adapter = new QuestionListAdapter(getActivity(),
-				R.layout.single_question, currentQuestionList.getArrayList());
-		questionListView.setAdapter(adapter);
+		updateList();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		updateList();
+	}
+	private void updateList(){
+		currentQuestionList = InputsListController.loadFromFile(getActivity()
+				.getApplicationContext(), FILENAME);
 		adapter.notifyDataSetChanged();
 	}
 

@@ -1,25 +1,35 @@
 package ca.ualberta.app.models;
 
-
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import ca.ualberta.app.models.InputsListModel;
 
-
-
 public class InputsListController {
-	
+
 	InputsListModel inputsListModel = new InputsListModel();
-	private  InputsListModel questionList = null;
-	
-	public InputsListModel getQuestionList(){
+	private InputsListModel questionList = null;
+
+	public InputsListModel getQuestionList() {
 		if (questionList == null) {
 			questionList = new InputsListModel();
 		}
-			return questionList;
+		return questionList;
 	}
-	
+
 	public void addQuestion(Question newQuestion) {
 		getQuestionList().addQuestion(newQuestion);
 	}
@@ -59,7 +69,7 @@ public class InputsListController {
 	public ArrayList<Reply> getReplysOfAnswer(int q_position, int a_position) {
 		return getQuestionList().getReplysOfAnswer(q_position, a_position);
 	}
-	
+
 	public List<Answer> getAnswerList(int position) {
 		return getQuestionList().getAnswerList(position);
 	}
@@ -77,5 +87,40 @@ public class InputsListController {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	public static InputsListModel loadFromFile(Context context, String FILENAME) {
+		InputsListModel questionList = null;
+		try {
+			FileInputStream fis = context.openFileInput(FILENAME);
+			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+			Gson gson = new Gson();
+			// Following line from
+			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
+			Type listType = new TypeToken<InputsListModel>() {
+			}.getType();
+			questionList = gson.fromJson(in, listType);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		if (questionList == null)
+			return questionList = new InputsListModel();
+		return questionList;
+	}
+
+	public static void saveInFile(Context context,
+			InputsListModel questionList, String FILENAME) {
+		try {
+			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+			Gson gson = new Gson();
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			gson.toJson(questionList, osw);
+			osw.flush();
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

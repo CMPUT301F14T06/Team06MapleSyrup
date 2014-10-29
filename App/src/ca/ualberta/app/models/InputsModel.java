@@ -6,8 +6,8 @@ import android.graphics.Bitmap;
 
 public abstract class InputsModel {
 	public String title;
-	public	String content;
-	public	String userName;
+	public String content;
+	public String userName;
 	Bitmap image;
 	Date timestamp;
 	long answerCount;
@@ -15,9 +15,11 @@ public abstract class InputsModel {
 	long score;
 
 	// Question contains replyList and answerList
-	public InputsModel(String content, String userName, String title, Bitmap image) {
+	public InputsModel(String title, String content, String userName,
+			Bitmap image) {
 		timestamp = new Date();
 		this.image = image;
+		this.title = title;
 		this.content = content;
 		this.userName = userName;
 		answerCount = 0;
@@ -48,7 +50,7 @@ public abstract class InputsModel {
 	public void setImage(Bitmap image) {
 		this.image = image;
 	}
-	
+
 	public Bitmap getImage() {
 		return image;
 	}
@@ -72,7 +74,6 @@ public abstract class InputsModel {
 	public void upvote() {
 		upvoteCount++;
 	}
-
 
 	public long getUpvoteCount() {
 		return upvoteCount;

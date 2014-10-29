@@ -1,6 +1,7 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.models.InputsListController;
 import ca.ualberta.app.models.InputsListModel;
 import ca.ualberta.app.models.Question;
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class CreateInputsActivity extends Activity {
@@ -23,10 +25,12 @@ public class CreateInputsActivity extends Activity {
 	private RadioButton cancel;
 	private RadioButton galary;
 	private RadioButton photo;
-	private EditText titleText=null;
-	private EditText contentText=null;
+	private EditText titleText = null;
+	private EditText contentText = null;
 	private Question newContent = null;
 	private Bitmap testImage = null;
+	private InputsListModel questionList;
+	private String FILENAME = "questionList.sav";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,57 +41,35 @@ public class CreateInputsActivity extends Activity {
 		cancel = (RadioButton) findViewById(R.id.cancel_button);
 		photo = (RadioButton) findViewById(R.id.take_pic);
 		galary = (RadioButton) findViewById(R.id.add_pic);
-		titleText=(EditText)findViewById(R.id.title_editText);
-		contentText=(EditText)findViewById(R.id.content_editText);
-		
-		create_menu_Rg
-				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		titleText = (EditText) findViewById(R.id.title_editText);
+		contentText = (EditText) findViewById(R.id.content_editText);
 
-					@Override
-					public void onCheckedChanged(RadioGroup group, int checkedId) {
+		submit.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				String title = titleText.getText().toString();
+				String content = contentText.getText().toString();
+				if (title.trim().length() == 0)
+					noTitleEntered();
+				questionList = InputsListController.loadFromFile(
+						getApplicationContext(), FILENAME);
+				newContent = new Question(title, content, "Current user ^_^",
+						testImage);
+				questionList.addQuestion(newContent);
+				InputsListController.saveInFile(getApplicationContext(),
+						questionList, FILENAME);
+				Intent intent = new Intent(CreateInputsActivity.this,
+						MainActivity.class);
+				startActivity(intent);
+			}
+		});
+		cancel.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(CreateInputsActivity.this,
+						MainActivity.class);
+				startActivity(intent);
+			}
+		});
 
-						switch (checkedId) {
-						case R.id.submit_button:
-							submit.setOnClickListener(new OnClickListener() {
-								public void onClick(View v) {
-									String title=titleText.getText().toString();
-									String content=contentText.getText().toString();
-									FragmentMain.currentQuestionList = new InputsListModel();
-									newContent =new Question(content,"Current user ^_^",title,testImage);
-									FragmentMain.currentQuestionList.addQuestion(newContent);
-									Intent intent = new Intent(
-											CreateInputsActivity.this,
-											MainActivity.class);
-									startActivity(intent);
-								}
-							});
-							break;
-
-						case R.id.cancel_button:
-							cancel.setOnClickListener(new OnClickListener() {
-								public void onClick(View v) {
-									Intent intent = new Intent(
-											CreateInputsActivity.this,
-											MainActivity.class);
-									startActivity(intent);
-								}
-							});
-							break;
-
-						case R.id.take_pic:
-
-							break;
-
-						case R.id.add_pic:
-
-							break;
-
-						default:
-							break;
-						}
-
-					}
-				});
 	}
 
 	@Override
@@ -108,4 +90,14 @@ public class CreateInputsActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	private void noTitleEntered() {
+		Toast.makeText(this, "Please fill in the Title", Toast.LENGTH_SHORT)
+				.show();
+	}
+	//
+	// private void noContentEntered() {
+	// Toast.makeText(this, "Please fill in the Title",
+	// Toast.LENGTH_SHORT).show();
+	// }
 }

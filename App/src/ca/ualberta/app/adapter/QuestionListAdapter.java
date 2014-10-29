@@ -18,36 +18,39 @@ import android.widget.TextView;
 
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 
-	public QuestionListAdapter(Context context, int textViewResourceId, ArrayList<Question> objects) {
+	public QuestionListAdapter(Context context, int textViewResourceId,
+			ArrayList<Question> objects) {
 		super(context, textViewResourceId, objects);
 	}
-	
+
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent){
+	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(this.getContext());
-			convertView = inflater.inflate(R.layout.single_question,null);
+			convertView = inflater.inflate(R.layout.single_question, null);
 		}
-		
-		Question question=this.getItem(position);
-		
-		if(question!=null){
-			TextView questionTitleText=(TextView)convertView.findViewById(R.id.questionTitleTextView);
+
+		Question question = this.getItem(position);
+
+		if (question != null) {
+			TextView questionTitleText = (TextView) convertView
+					.findViewById(R.id.questionTitleTextView);
 			questionTitleText.setText(question.title);
-			TextView questionText=(TextView)convertView.findViewById(R.id.singleQuestionTextView);
+			TextView questionText = (TextView) convertView
+					.findViewById(R.id.singleQuestionTextView);
 			questionText.setText(question.content);
-			TextView authorText=(TextView)convertView.findViewById(R.id.authorNameTextView);
+			TextView authorText = (TextView) convertView
+					.findViewById(R.id.authorNameTextView);
 			authorText.setText(question.userName);
-			
-			if(question.getStatus()){
+
+			if (question.getStatus()) {
 				convertView.setBackgroundColor(Color.DKGRAY);
-			}
-			else{
+			} else {
 				convertView.setBackgroundColor(Color.WHITE);
 			}
-			
+
 		}
-		
+
 		return convertView;
 	}
 
