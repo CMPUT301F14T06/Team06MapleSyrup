@@ -6,6 +6,21 @@ import ca.ualberta.app.models.Question;
 import junit.framework.TestCase;
 
 public class InputLIstManagerTest extends TestCase {
+	
+	public void testGetQuestion(){
+		String questionString = "A Question";
+		String userName = "userName";
+		String titleString = "title";
+		Bitmap image = null;
+		Question question = new Question(questionString, userName, titleString,
+				image);
+		InputListManager ILM = new InputListManager();
+		ILM.addQuestion(question);
+		Question q = ILM.getQuestion(0);
+		assertEquals(q.getContent(),question.getContent());
+		assertEquals(q.getTitle(), question.getTitle());
+	}
+
 	public void testAddQuestion(){
 		String questionString = "A Question";
 		String userName = "userName";
@@ -15,6 +30,6 @@ public class InputLIstManagerTest extends TestCase {
 				image);
 		InputListManager ILM = new InputListManager();
 		ILM.addQuestion(question);
-		assertEquals("title",titleString);
+		assertEquals(question,ILM.getQuestion(0));
 	}
 }

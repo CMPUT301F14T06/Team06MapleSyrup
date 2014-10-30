@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -60,8 +59,8 @@ public class InputListManager {
 	 * Get movies with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.
 	 */
-	public List<Question> searchMovies(String searchString, String field) {
-		List<Question> result = new ArrayList<Question>();
+	public ArrayList<Question> searchQuestion(String searchString) {
+		ArrayList<Question> result = new ArrayList<Question>();
 
 		// TODO: Implement search movies using ElasticSearch
 		if (searchString == null || "".equals(searchString)){
@@ -70,7 +69,7 @@ public class InputListManager {
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
-			HttpPost searchRequest = createSearchRequest(searchString, field);
+			HttpPost searchRequest = createSearchRequest(searchString);
 			HttpResponse response = httpClient.execute(searchRequest);
 			
 			String status = response.getStatusLine().toString();
@@ -143,17 +142,11 @@ public class InputListManager {
 	/**
 	 * Creates a search request from a search string and a field
 	 */
-	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
+	private HttpPost createSearchRequest(String searchString) throws UnsupportedEncodingException {
 		
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
-
-		String[] fields = null;
-		if (field != null) {
-			fields = new String[1];
-			fields[0] = field;
-		}
 		
-		SearchCommand command = new SearchCommand(searchString,	fields);
+		SearchCommand command = new SearchCommand(searchString);
 		
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);
