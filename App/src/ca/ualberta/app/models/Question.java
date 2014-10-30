@@ -38,4 +38,9 @@ public class Question extends InputsModel {
 		this.selected = false;
 	}
 
+
+	public String getTitle() {
+		return this.title;
+	}
+
 }

@@ -2,7 +2,6 @@ package ca.ualberta.app.network;
 //https://github.com/dfserrano/AndroidElasticSearch 2014 / 10/ 29
 import java.util.List;
 
-
 public class Hits<T> {
 	private int total;
 	private float max_score;
