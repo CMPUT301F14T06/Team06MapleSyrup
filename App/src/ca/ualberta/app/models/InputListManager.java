@@ -105,7 +105,7 @@ public class InputListManager {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpPost addRequest = new HttpPost(RESOURCE_URL + question.getTitle());
+			HttpPost addRequest = new HttpPost(RESOURCE_URL + question.getID());
 
 			StringEntity stringEntity = new StringEntity(gson.toJson(question));
 			addRequest.setEntity(stringEntity);
@@ -123,11 +123,11 @@ public class InputListManager {
 	/**
 	 * Deletes the movie with the specified id
 	 */
-	public void deleteMovie(String title) {
+	public void deleteMovie(int questionID) {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + title);
+			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + questionID);
 			deleteRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(deleteRequest);

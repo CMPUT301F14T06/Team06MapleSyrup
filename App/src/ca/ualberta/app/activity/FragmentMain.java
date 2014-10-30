@@ -4,8 +4,6 @@ import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.models.InputsListController;
 import ca.ualberta.app.models.InputsListModel;
-import ca.ualberta.app.models.Question;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

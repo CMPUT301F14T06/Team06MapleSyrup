@@ -11,8 +11,9 @@ public class InputLIstManagerTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
+		int ID = 1;
 		Bitmap image = null;
-		Question question = new Question(questionString, userName, titleString,
+		Question question = new Question(ID,questionString, userName, titleString,
 				image);
 		InputListManager ILM = new InputListManager();
 		ILM.addQuestion(question);
@@ -25,11 +26,12 @@ public class InputLIstManagerTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
+		int ID = 1;
 		Bitmap image = null;
-		Question question = new Question(questionString, userName, titleString,
+		Question question = new Question(ID,questionString, userName, titleString,
 				image);
 		InputListManager ILM = new InputListManager();
 		ILM.addQuestion(question);
-		assertEquals(question,ILM.getQuestion(0));
+		assertEquals(question,ILM.getQuestion(question.getID()));
 	}
 }
