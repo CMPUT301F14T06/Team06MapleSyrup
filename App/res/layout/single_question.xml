@@ -50,7 +50,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/singleQuestionTextView"
+            android:id="@+id/questionContentTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -85,7 +85,7 @@
             android:text="@string/favorite" />
 
         <RadioButton
-            android:id="@+id/add_button"
+            android:id="@+id/upvote_button"
             style="@style/question_button"
             android:layout_width="35dp"
             android:layout_height="match_parent"

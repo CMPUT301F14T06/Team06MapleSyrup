@@ -25,7 +25,7 @@ public class Question extends InputsModel {
 		answerCount = answerList.size();
 	}
 
-	public boolean getStatus() {
+	public boolean ifSelected() {
 		return this.selected;
 	}
 
@@ -37,13 +37,16 @@ public class Question extends InputsModel {
 		this.selected = false;
 	}
 
-
 	public String getTitle() {
 		return this.title;
 	}
 	
 	public long getID(){
 		return this.ID;
+	}
+	
+	public int getAnswerCount() {
+		return answerList.size();
 	}
 
 }

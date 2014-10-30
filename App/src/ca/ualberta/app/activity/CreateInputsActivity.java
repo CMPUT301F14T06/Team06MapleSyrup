@@ -1,8 +1,8 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.models.InputsListController;
-import ca.ualberta.app.models.InputsListModel;
+import ca.ualberta.app.models.QuestionListController;
+import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Question;
 import android.app.Activity;
 import android.content.Intent;
@@ -29,7 +29,7 @@ public class CreateInputsActivity extends Activity {
 	private EditText contentText = null;
 	private Question newContent = null;
 	private Bitmap testImage = null;
-	private InputsListModel questionList;
+	private QuestionList questionList;
 	private String FILENAME = "questionList.sav";
 
 	@Override
@@ -50,16 +50,18 @@ public class CreateInputsActivity extends Activity {
 				String content = contentText.getText().toString();
 				if (title.trim().length() == 0)
 					noTitleEntered();
-				questionList = InputsListController.loadFromFile(
+				else{
+				questionList = QuestionListController.loadFromFile(
 						getApplicationContext(), FILENAME);
 				newContent = new Question(title, content, "Current user ^_^",
 						testImage);
 				questionList.addQuestion(newContent);
-				InputsListController.saveInFile(getApplicationContext(),
+				QuestionListController.saveInFile(getApplicationContext(),
 						questionList, FILENAME);
 				Intent intent = new Intent(CreateInputsActivity.this,
 						MainActivity.class);
 				startActivity(intent);
+				}
 			}
 		});
 		cancel.setOnClickListener(new OnClickListener() {
@@ -97,7 +99,7 @@ public class CreateInputsActivity extends Activity {
 	}
 	//
 	// private void noContentEntered() {
-	// Toast.makeText(this, "Please fill in the Title",
+	// Toast.makeText(this, "Please fill in the Content",
 	// Toast.LENGTH_SHORT).show();
 	// }
 }

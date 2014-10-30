@@ -80,4 +80,8 @@ public abstract class InputsModel {
 	public long getUpvoteCount() {
 		return upvoteCount;
 	}
+	public String getAuthor() {
+		// TODO Auto-generated method stub
+		return userName;
+	}
 }

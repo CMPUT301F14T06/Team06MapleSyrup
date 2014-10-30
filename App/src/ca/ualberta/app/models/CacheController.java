@@ -2,17 +2,17 @@ package ca.ualberta.app.models;
 
 public class CacheController {
 
-	public void cacheQuestions(InputsListModel questionList) {
+	public void cacheQuestions(QuestionList questionList) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public InputsListModel loadFavouriteQuestion() {
+	public QuestionList loadFavouriteQuestion() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public InputsListModel loadQuestions() {
+	public QuestionList loadQuestions() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,7 +1,7 @@
 package ca.ualberta.app.activity.test;
 
 import android.graphics.Bitmap;
-import ca.ualberta.app.models.InputListManager;
+import ca.ualberta.app.models.QuestionListManager;
 import ca.ualberta.app.models.Question;
 import junit.framework.TestCase;
 
@@ -14,7 +14,7 @@ public class InputLIstManagerTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
-		InputListManager ILM = new InputListManager();
+		QuestionListManager ILM = new QuestionListManager();
 		ILM.addQuestion(question);
 		Question q = ILM.getQuestion(0);
 		assertEquals(q.getContent(),question.getContent());
@@ -28,7 +28,7 @@ public class InputLIstManagerTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
-		InputListManager ILM = new InputListManager();
+		QuestionListManager ILM = new QuestionListManager();
 		ILM.addQuestion(question);
 		assertEquals(question,ILM.getQuestion(question.getID()));
 	}

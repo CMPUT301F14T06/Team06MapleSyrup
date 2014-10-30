@@ -6,14 +6,14 @@ import java.util.List;
 import android.graphics.Bitmap;
 
 import ca.ualberta.app.models.Answer;
-import ca.ualberta.app.models.InputsListController;
+import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 import junit.framework.TestCase;
 
 public class InputsListTest extends TestCase {
 	public void testQuestionList() {
-		InputsListController inputListController = new InputsListController();
+		QuestionListController inputListController = new QuestionListController();
 		List<Question> quesList = inputListController.getQuestionList().getList();
 		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
 		assertTrue("Empty Question List", quesList.size() == 0);
@@ -27,7 +27,7 @@ public class InputsListTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
-		InputsListController inputListController = new InputsListController();
+		QuestionListController inputListController = new QuestionListController();
 		inputListController.addQuestion(question);
 		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
 		assertTrue("Question List Size", quesArrayList.size() == 1);
@@ -42,7 +42,7 @@ public class InputsListTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
-		InputsListController inputListController = new InputsListController();
+		QuestionListController inputListController = new QuestionListController();
 		inputListController.addQuestion(question);
 		inputListController.removeQuestion(0);
 		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
@@ -57,7 +57,7 @@ public class InputsListTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString, image);
 		Reply reply = new Reply(ReplyString, userName);
-		InputsListController inputListController = new InputsListController();
+		QuestionListController inputListController = new QuestionListController();
 		inputListController.addQuestion(question);
 		inputListController.addReplyToQ(reply, 0);
 		assertTrue("Cannot add reply to Question",inputListController.getReplys(0).contains(reply));
@@ -71,7 +71,7 @@ public class InputsListTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString, image);
 		Answer answer = new Answer(AnswerString, userName, image);
-		InputsListController inputListController = new InputsListController();
+		QuestionListController inputListController = new QuestionListController();
 		inputListController.addQuestion(question);
 		inputListController.addAnswerToQ(answer, 0);
 		assertTrue("Cannot add answer to Question",inputListController.getAnswers(0).contains(answer));
@@ -87,7 +87,7 @@ public class InputsListTest extends TestCase {
 		Question question = new Question(questionString, userName, titleString, image);
 		Answer answer = new Answer(AnswerString, userName, image);
 		Reply reply = new Reply(ReplyString, userName);
-		InputsListController inputListController = new InputsListController();
+		QuestionListController inputListController = new QuestionListController();
 		inputListController.addQuestion(question);
 		inputListController.addAnswerToQ(answer, 0);
 		inputListController.addReplyToA(reply, 0, 0);

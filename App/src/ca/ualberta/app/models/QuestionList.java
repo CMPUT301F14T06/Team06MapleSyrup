@@ -3,11 +3,11 @@ package ca.ualberta.app.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputsListModel {
+public class QuestionList {
 	// Question List
 	ArrayList<Question> questionList;
 
-	public InputsListModel() {
+	public QuestionList() {
 		questionList = new ArrayList<Question>();
 	}
 
@@ -71,12 +71,12 @@ public class InputsListModel {
 		return questionList.get(position).replyList;
 	}
 
-	public InputsListModel sortByPicture() {
+	public QuestionList sortByPicture() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public InputsListModel sortByScore() {
+	public QuestionList sortByScore() {
 		// TODO Auto-generated method stub
 		return null;
 	}

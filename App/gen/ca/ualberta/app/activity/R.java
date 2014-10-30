@@ -106,7 +106,6 @@ public final class R {
         public static final int MyQuestionTextView=0x7f0a002c;
         public static final int action_settings=0x7f0a0045;
         public static final int addAImageButton=0x7f0a0036;
-        public static final int add_button=0x7f0a0041;
         public static final int add_image_button=0x7f0a0006;
         public static final int add_menu_button=0x7f0a001d;
         public static final int add_pic=0x7f0a0010;
@@ -156,13 +155,13 @@ public final class R {
         public static final int one_title=0x7f0a0020;
         public static final int profile_menu=0x7f0a0027;
         public static final int profile_menu_button=0x7f0a001f;
+        public static final int questionContentTextView=0x7f0a003e;
         public static final int questionTitleTextView=0x7f0a003d;
         public static final int question_listView=0x7f0a0024;
         public static final int removeMyquestionButton=0x7f0a002d;
         public static final int save_button=0x7f0a003f;
         public static final int search_menu_button=0x7f0a001e;
         public static final int setAuthorName=0x7f0a0026;
-        public static final int singleQuestionTextView=0x7f0a003e;
         public static final int sort_spinner=0x7f0a0023;
         public static final int submit_button=0x7f0a000d;
         public static final int take_pic=0x7f0a000f;
@@ -170,6 +169,7 @@ public final class R {
         public static final int title_editText=0x7f0a000a;
         public static final int title_textView=0x7f0a0009;
         public static final int upvoteStateTextView=0x7f0a0042;
+        public static final int upvote_button=0x7f0a0041;
         public static final int username_button=0x7f0a0013;
         public static final int username_editText=0x7f0a0012;
         public static final int username_textView=0x7f0a0014;

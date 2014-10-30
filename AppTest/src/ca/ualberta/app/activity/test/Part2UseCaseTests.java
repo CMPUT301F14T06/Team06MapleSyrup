@@ -7,17 +7,17 @@ import android.graphics.Bitmap;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.CacheController;
-import ca.ualberta.app.models.InputsListController;
+import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.PushController;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.InputsListModel;
+import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Reply;
 import junit.framework.TestCase;
 
 public class Part2UseCaseTests extends TestCase {
 	public void testUserBrowse() {
 		Question q = new Question("A question", "userName", "A title", null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(q);
 		ArrayList<Question> qList = inputsListController.getQuestionList().getArrayList();
 		assertTrue("User cannot browse question", qList.size() == 1);
@@ -26,7 +26,7 @@ public class Part2UseCaseTests extends TestCase {
 	public void testUserViewAnswer() {
 		Question q = new Question("A question", "userName", "A title", null);
 		Answer answer = new Answer("A answer", "userName", null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		q.addAnswer(answer);
 		inputsListController.addQuestion(q);
 		ArrayList<Answer> answerList = inputsListController.getAnswers(0);
@@ -36,7 +36,7 @@ public class Part2UseCaseTests extends TestCase {
 	public void testUserViewReply() {
 		Question q = new Question("A question", "userName", "A title", null);
 		Reply reply = new Reply("A reply","userName");
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		q.addReply(reply);
 		inputsListController.addQuestion(q);
 		ArrayList<Reply> replyList = inputsListController.getReplys(0);
@@ -46,7 +46,7 @@ public class Part2UseCaseTests extends TestCase {
 	public void testAuthorCreateQuestion() {
 		Author author = new Author("userName");
 		Question q = new Question("A question", author.getUserName(), "A title", null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(q);
 		assertTrue("Author cannot Create Question", inputsListController.size() != 0);
 	}
@@ -57,7 +57,7 @@ public class Part2UseCaseTests extends TestCase {
 				"A title", null);
 		Answer answer = new Answer("A answer",author.getUserName(),null);
 		question.addAnswer(answer);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		assertTrue("Author cannot answer question",
 				inputsListController.getAnswerList(0).size() != 0);
@@ -69,7 +69,7 @@ public class Part2UseCaseTests extends TestCase {
 				"A title", null);
 		Reply reply = new Reply("A reply", author.getUserName());
 		question.addReply(reply);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		assertTrue("Author cannot answer question", inputsListController
 				.getReplyList(0).size() != 0);
@@ -98,10 +98,10 @@ public class Part2UseCaseTests extends TestCase {
 				"A title", image1);
 		Question question2 = new Question("A question", author.getUserName(),
 				"A title", image2);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question1);
 		inputsListController.addQuestion(question2);
-		InputsListModel qList = inputsListController.getQuestionList().sortByPicture();
+		QuestionList qList = inputsListController.getQuestionList().sortByPicture();
 		assertTrue("Questions are not sort by picture", qList.getQuestion(0)
 				.hasImage());
 	}
@@ -112,11 +112,11 @@ public class Part2UseCaseTests extends TestCase {
 				"A title", null);
 		Question question2 = new Question("A question", author.getUserName(),
 				"A title", null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		question1.upvote();
 		inputsListController.addQuestion(question1);
 		inputsListController.addQuestion(question2);
-		InputsListModel qList = inputsListController.getQuestionList().sortByScore();
+		QuestionList qList = inputsListController.getQuestionList().sortByScore();
 		assertTrue("Questions are not sort by Score", qList.getQuestion(0)
 				.equals(question1));
 	}
@@ -127,7 +127,7 @@ public class Part2UseCaseTests extends TestCase {
 				"A title", null);
 		Question question2 = new Question("A question", author.getUserName(),
 				"A title", null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		question1.upvote();
 		inputsListController.addQuestion(question1);
 		inputsListController.addQuestion(question2);
@@ -144,7 +144,7 @@ public class Part2UseCaseTests extends TestCase {
 		question.addAnswer(answer1);
 		question.addAnswer(answer2);
 		answer1.upvote();
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		inputsListController.getQuestion(0).addAnswer(answer1);
 		inputsListController.getQuestion(0).addAnswer(answer2);
@@ -160,7 +160,7 @@ public class Part2UseCaseTests extends TestCase {
 		Answer answer2 = new Answer("2nd Answer", author.getUserName(), null);
 		question.addAnswer(answer1);
 		question.addAnswer(answer2);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		assertTrue("Answer Counter is not working", inputsListController.getAnswers(0)
 				.size() == 2);
@@ -171,9 +171,9 @@ public class Part2UseCaseTests extends TestCase {
 		Author author = new Author("userName");
 		Question question = new Question("A question", author.getUserName(),
 				"A title", null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
-		InputsListModel resultList = inputsListController.searchQuestion(content);
+		QuestionList resultList = inputsListController.searchQuestion(content);
 		assertTrue("Search is not working well",
 				resultList.getQuestion(0).getContent().equals(content));
 	}
@@ -184,10 +184,10 @@ public class Part2UseCaseTests extends TestCase {
 		Question question = new Question("A question", author.getUserName(),
 				"A title", null);
 		Answer answer = new Answer("A Answer", author.getUserName(), null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		inputsListController.getQuestion(0).addAnswer(answer);
-		InputsListModel resultList = inputsListController.searchAnswer(content);
+		QuestionList resultList = inputsListController.searchAnswer(content);
 		assertTrue("Search is not working well",
 				resultList.getQuestion(0).getContent().equals(content));
 	}
@@ -196,12 +196,12 @@ public class Part2UseCaseTests extends TestCase {
 		Author author = new Author("userName");
 		Question question = new Question("A question", author.getUserName(),
 				"A title", null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		CacheController cacheController = new CacheController();
 		cacheController.cacheQuestions(inputsListController.getQuestionList());
 		// shut down Internet
-		InputsListModel qList = cacheController.loadQuestions();
+		QuestionList qList = cacheController.loadQuestions();
 		assertTrue("Questions are not cached", qList.equals(inputsListController.getQuestionList()));
 	}
 
@@ -209,7 +209,7 @@ public class Part2UseCaseTests extends TestCase {
 		Author author = new Author("userName");
 		Question question = new Question("A question", author.getUserName(),
 				"A title", null);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		Answer answer = new Answer("A Answer", author.getUserName(), null);
 		inputsListController.getQuestion(0).addAnswer(answer);
@@ -218,7 +218,7 @@ public class Part2UseCaseTests extends TestCase {
 		// shut down Internet
 		ArrayList<Answer> answerList = new ArrayList<Answer>();
 		answerList.add(answer);
-		InputsListModel qList = cacheController.loadQuestions();
+		QuestionList qList = cacheController.loadQuestions();
 
 		assertTrue("Questions are not cached", qList.equals(inputsListController.getQuestionList()));
 		assertTrue("Answers are not cached", qList.getAnswerList(0).get(0)
@@ -233,13 +233,13 @@ public class Part2UseCaseTests extends TestCase {
 				"A title", null);
 		author.favorite.addQuestion(question1);
 		author.favorite.addQuestion(question2);
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question1);
 		inputsListController.addQuestion(question2);
 		CacheController cacheController = new CacheController();
 		cacheController.cacheQuestions(inputsListController.getQuestionList());
 		// shut down Internet
-		InputsListModel qList = cacheController.loadFavouriteQuestion();
+		QuestionList qList = cacheController.loadFavouriteQuestion();
 		assertTrue("Favourite Question is not cached", qList.getArrayList()
 				.get(0).equals(question1));
 	}
@@ -252,7 +252,7 @@ public class Part2UseCaseTests extends TestCase {
 		Answer answer = new Answer("A Answer", author.getUserName(),null);
 		Reply reply = new Reply("A reply", author.getUserName());
 
-		InputsListController inputsListController = new InputsListController();
+		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		inputsListController.getQuestion(0).addAnswer(answer);
 		inputsListController.getQuestion(0).addReply(reply);

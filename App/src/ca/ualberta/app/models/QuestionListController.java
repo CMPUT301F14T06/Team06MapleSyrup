@@ -15,16 +15,16 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import ca.ualberta.app.models.InputsListModel;
+import ca.ualberta.app.models.QuestionList;
 
-public class InputsListController {
+public class QuestionListController {
 
-	InputsListModel inputsListModel = new InputsListModel();
-	private InputsListModel questionList = null;
+	QuestionList inputsListModel = new QuestionList();
+	private QuestionList questionList = null;
 
-	public InputsListModel getQuestionList() {
+	public QuestionList getQuestionList() {
 		if (questionList == null) {
-			questionList = new InputsListModel();
+			questionList = new QuestionList();
 		}
 		return questionList;
 	}
@@ -77,37 +77,37 @@ public class InputsListController {
 		return getQuestionList().getReplyList(position);
 	}
 
-	public InputsListModel searchQuestion(String key) {
+	public QuestionList searchQuestion(String key) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public InputsListModel searchAnswer(String key) {
+	public QuestionList searchAnswer(String key) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static InputsListModel loadFromFile(Context context, String FILENAME) {
-		InputsListModel questionList = null;
+	public static QuestionList loadFromFile(Context context, String FILENAME) {
+		QuestionList questionList = null;
 		try {
 			FileInputStream fis = context.openFileInput(FILENAME);
 			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 			Gson gson = new Gson();
 			// Following line from
 			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
-			Type listType = new TypeToken<InputsListModel>() {
+			Type listType = new TypeToken<QuestionList>() {
 			}.getType();
 			questionList = gson.fromJson(in, listType);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		if (questionList == null)
-			return questionList = new InputsListModel();
+			return questionList = new QuestionList();
 		return questionList;
 	}
 
 	public static void saveInFile(Context context,
-			InputsListModel questionList, String FILENAME) {
+			QuestionList questionList, String FILENAME) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
 			Gson gson = new Gson();

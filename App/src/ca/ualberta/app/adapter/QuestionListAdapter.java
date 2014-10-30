@@ -3,53 +3,170 @@ package ca.ualberta.app.adapter;
 import java.util.ArrayList;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.QuestionList;
+import ca.ualberta.app.models.QuestionListController;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class QuestionListAdapter extends ArrayAdapter<Question> {
-
+//	private QuestionList localList = null;
+//	private QuestionList favList = null;
+	private QuestionList questionList = null;
+	private String QUESTIONLIST = "questionList.sav";
+//	private String FAVLIST = "favList.sav";
+//	private String LOCALLIST = "localLList.sav";
+	private Context context;
 	public QuestionListAdapter(Context context, int textViewResourceId,
-			ArrayList<Question> objects) {
+			ArrayList<Question> objects, QuestionList questionList) {
 		super(context, textViewResourceId, objects);
+		this.context = context;
+		this.questionList = questionList;
+//		this.localList = new QuestionList();
+//		this.favList = new QuestionList();
 	}
 
 	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(this.getContext());
+			holder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.single_question, null);
+		}else {
+			holder = (ViewHolder) convertView.getTag();
 		}
-
+		holder.authorPic = (ImageView) convertView.findViewById(R.id.authorPic);
+		holder.authorName = (TextView) convertView
+				.findViewById(R.id.authorNameTextView);
+		holder.questionTitle = (TextView) convertView
+				.findViewById(R.id.questionTitleTextView);
+		holder.questionContent = (TextView) convertView
+				.findViewById(R.id.questionContentTextView);
+		holder.answerState = (TextView) convertView
+				.findViewById(R.id.answerStateTextView);
+		holder.upvoteState = (TextView) convertView
+				.findViewById(R.id.upvoteStateTextView);
+		holder.save_Rb = (RadioButton) convertView
+				.findViewById(R.id.save_button);
+		holder.fav_Rb = (RadioButton) convertView.findViewById(R.id.fav_button);
+		holder.upvote_Rb = (RadioButton) convertView
+				.findViewById(R.id.upvote_button);
+		convertView.setTag(holder);
 		Question question = this.getItem(position);
-
+		// final Drawable fav = context.getResources().getDrawable(
+		// R.drawable.star_fav_icon32);
+		// final Drawable unFav = context.getResources().getDrawable(
+		// R.drawable.star_fav_empty_icon32);
+		// final Drawable save = context.getResources().getDrawable(
+		// R.drawable.issaved_icon32);
+		// final Drawable unSave = context.getResources().getDrawable(
+		// R.drawable.save_icon32);
 		if (question != null) {
-			TextView questionTitleText = (TextView) convertView
-					.findViewById(R.id.questionTitleTextView);
-			questionTitleText.setText(question.title);
-			TextView questionText = (TextView) convertView
-					.findViewById(R.id.singleQuestionTextView);
-			questionText.setText(question.content);
-			TextView authorText = (TextView) convertView
-					.findViewById(R.id.authorNameTextView);
-			authorText.setText(question.userName);
-
-			if (question.getStatus()) {
+			holder.questionTitle.setText(question.getTitle());
+			holder.questionContent.setText(question.getContent());
+			holder.authorName.setText(question.getAuthor());
+			holder.answerState.setText("Answer: " + question.getAnswerCount());
+			holder.upvoteState.setText("Upvote: " + question.getUpvoteCount());
+			if (question.ifSelected()) {
 				convertView.setBackgroundColor(Color.DKGRAY);
 			} else {
 				convertView.setBackgroundColor(Color.WHITE);
 			}
-
+			// if (question.ifSaved())
+			// holder.save_Rb.setCompoundDrawables(null, save, null, null);
+			// else
+			// holder.save_Rb.setCompoundDrawables(null, unSave, null, null);
+			// if (question.ifFavorited())
+			// holder.fav_Rb.setCompoundDrawables(null, fav, null, null);
+			// else
+			// holder.save_Rb.setCompoundDrawables(null, unFav, null, null);
 		}
-
+		holder.upvote_Rb.setOnClickListener(new upvoteOnClickListener(position));
+		//holder.answerState.setText("Answer: " + question.getAnswerCount());
+		//holder.upvoteState.setText("Upvote: " + question.getUpvoteCount());
 		return convertView;
 	}
+/*	private class saveCheckListener implements OnCheckedChangeListener {
 
+		int position;
+
+		public saveCheckListener(int position) {
+			this.position = position;
+		}
+
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isSaved) {
+			questionList.getQuestion(position).setSave(isSaved);
+			localList = new QuestionList();
+			for (int i = 0; i < questionList.size(); i++)
+				if (questionList.getQuestion(i).ifSaved())
+					localList.addQuestion(questionList.getQuestion(i));
+			QuestionListController.saveInFile(context, questionList, QUESTIONLIST);
+			QuestionListController.saveInFile(context, localList, LOCALLIST);
+			notifyDataSetChanged();
+		}
+	}
+
+	private class favCheckListener implements OnCheckedChangeListener {
+
+		int position;
+
+		public favCheckListener(int position) {
+			this.position = position;
+		}
+
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isFavorited) {
+			questionList.getQuestion(position).setFavorite(isFavorited);
+			favList = new QuestionList();
+			for (int i = 0; i < questionList.size(); i++)
+				if (questionList.getQuestion(i).ifFavorited())
+					favList.addQuestion(questionList.getQuestion(i));
+			QuestionListController.saveInFile(context, questionList, QUESTIONLIST);
+			QuestionListController.saveInFile(context, favList, FAVLIST);
+			notifyDataSetChanged();
+		}
+	}*/
+
+	private class upvoteOnClickListener implements OnClickListener {
+
+		int position;
+
+		public upvoteOnClickListener(int position) {
+			// TODO Auto-generated constructor stub
+			this.position = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			questionList.getQuestion(position).upvote();
+			QuestionListController.saveInFile(context, questionList, QUESTIONLIST);
+			
+			notifyDataSetChanged();
+		}
+	}
+	private class ViewHolder {
+		ImageView authorPic;
+		TextView authorName;
+		TextView questionTitle;
+		TextView questionContent;
+		RadioButton save_Rb;
+		RadioButton fav_Rb;
+		RadioButton upvote_Rb;
+		TextView upvoteState;
+		TextView answerState;
+	}
 }

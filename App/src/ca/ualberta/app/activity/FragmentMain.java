@@ -2,8 +2,8 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
-import ca.ualberta.app.models.InputsListController;
-import ca.ualberta.app.models.InputsListModel;
+import ca.ualberta.app.models.QuestionListController;
+import ca.ualberta.app.models.QuestionList;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class FragmentMain extends Fragment {
 	private QuestionListAdapter adapter = null;
-	private InputsListModel currentQuestionList = null;
+	private QuestionList currentQuestionList = null;
 	private TextView titleBar = null;
 	private ListView questionListView = null;
 	private String FILENAME = "questionList.sav";
@@ -32,12 +32,12 @@ public class FragmentMain extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Main");
-		currentQuestionList = InputsListController.loadFromFile(getActivity()
+		currentQuestionList = QuestionListController.loadFromFile(getActivity()
 				.getApplicationContext(), FILENAME);
 		questionListView = (ListView) getView().findViewById(
 				R.id.question_listView);
 		adapter = new QuestionListAdapter(getActivity(),
-				R.layout.single_question, currentQuestionList.getArrayList());
+				R.layout.single_question, currentQuestionList.getArrayList(),currentQuestionList);
 		questionListView.setAdapter(adapter);
 		updateList();
 	}
@@ -54,7 +54,7 @@ public class FragmentMain extends Fragment {
 		updateList();
 	}
 	private void updateList(){
-		currentQuestionList = InputsListController.loadFromFile(getActivity()
+		currentQuestionList = QuestionListController.loadFromFile(getActivity()
 				.getApplicationContext(), FILENAME);
 		adapter.notifyDataSetChanged();
 	}
