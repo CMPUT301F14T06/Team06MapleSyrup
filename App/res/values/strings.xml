@@ -46,8 +46,6 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_create_input">Add a Question</string>
     <string name="question_state">Upvote: 0 | Answers: 0 </string>
-    <string name="upvote_state">Upvote: 0</string>
-    <string name="answer_state">Answers: 0 </string>
     <string name="single_question">Question decription</string>
 
     <color name="menu_clicked">#CCCCCC</color>

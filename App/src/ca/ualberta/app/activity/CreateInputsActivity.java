@@ -31,7 +31,6 @@ public class CreateInputsActivity extends Activity {
 	private Bitmap testImage = null;
 	private InputsListModel questionList;
 	private String FILENAME = "questionList.sav";
-	private String MYQFILENAME = "myQuestionList.sav";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

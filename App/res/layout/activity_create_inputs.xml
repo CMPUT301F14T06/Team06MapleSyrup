@@ -30,7 +30,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/title_textView"
                 android:ems="10"
-                android:maxLength="70" >
+                android:maxLength="32"
+                android:singleLine="true" >
 
                 <requestFocus />
             </EditText>
