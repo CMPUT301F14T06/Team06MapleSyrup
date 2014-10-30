@@ -23,9 +23,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class InputListManager {
-	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/_search";
-	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/";
-	private static final String TAG = "MovieSearch";
+	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question/_search";
+	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question";
+	private static final String TAG = "QuestionSearch";
 	private Gson gson;
 
 	public InputListManager() {
@@ -100,13 +100,13 @@ public class InputListManager {
 	}
 
 	/**
-	 * Adds a new movie
+	 * Adds a new Question
 	 */
-	public void addMovie(Question question) {
+	public void addQuestion(Question question) {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpPost addRequest = new HttpPost(RESOURCE_URL + question.getContent());
+			HttpPost addRequest = new HttpPost(RESOURCE_URL + question.getTitle());
 
 			StringEntity stringEntity = new StringEntity(gson.toJson(question));
 			addRequest.setEntity(stringEntity);
@@ -124,11 +124,11 @@ public class InputListManager {
 	/**
 	 * Deletes the movie with the specified id
 	 */
-	public void deleteMovie(int movieId) {
+	public void deleteMovie(String title) {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + movieId);
+			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + title);
 			deleteRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(deleteRequest);
