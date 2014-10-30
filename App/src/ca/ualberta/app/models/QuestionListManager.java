@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -23,7 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class QuestionListManager {
 	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question/_search";
-	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question";
+	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question/";
 	private static final String TAG = "QuestionSearch";
 	private Gson gson;
 
@@ -32,12 +31,12 @@ public class QuestionListManager {
 	}
 
 	/**
-	 * Get a movie with the specified id
+	 * Get a Question with the specified id
 	 */
-	public Question getQuestion(long l) {
+	public Question getQuestion(long id) {
 
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(RESOURCE_URL + l);
+		HttpGet httpGet = new HttpGet(RESOURCE_URL + id);
 
 		HttpResponse response;
 
@@ -53,14 +52,11 @@ public class QuestionListManager {
 		return null;
 	}
 
-	
-
 	/**
-	 * Get movies with the specified search string. If the search does not
-	 * specify fields, it searches on all the fields.
+	 * Get Questions with the specified search string.
 	 */
-	public ArrayList<Question> searchQuestion(String searchString) {
-		ArrayList<Question> result = new ArrayList<Question>();
+	public QuestionList searchQuestion(String searchString) {
+		QuestionList result = new QuestionList();
 
 		// TODO: Implement search movies using ElasticSearch
 		if (searchString == null || "".equals(searchString)){
@@ -81,7 +77,7 @@ public class QuestionListManager {
 			if (hits != null){
 				if (hits.getHits() != null){
 					for (SearchHit<Question> sesr : hits.getHits()){
-						result.add(sesr.getSource());
+						result.addQuestion(sesr.getSource());
 					}
 				}
 			}
@@ -121,7 +117,7 @@ public class QuestionListManager {
 	}
 
 	/**
-	 * Deletes the movie with the specified id
+	 * Deletes the Question with the specified id
 	 */
 	public void deleteMovie(int questionID) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -140,7 +136,7 @@ public class QuestionListManager {
 	}
 
 	/**
-	 * Creates a search request from a search string and a field
+	 * Creates a search request from a search string
 	 */
 	private HttpPost createSearchRequest(String searchString) throws UnsupportedEncodingException {
 		

@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
-
 import ca.ualberta.app.models.Answer;
-import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.Reply;
 import junit.framework.TestCase;
 
-public class InputsListTest extends TestCase {
+public class QuestionListTest extends TestCase {
 	public void testQuestionList() {
 		QuestionListController inputListController = new QuestionListController();
 		List<Question> quesList = inputListController.getQuestionList().getList();

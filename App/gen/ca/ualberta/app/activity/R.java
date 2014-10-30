@@ -199,6 +199,7 @@ public final class R {
         public static final int new_answer=0x7f090006;
         public static final int new_input=0x7f090007;
         public static final int new_question=0x7f090008;
+        public static final int test=0x7f090009;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -213,6 +214,7 @@ public final class R {
         public static final int edit=0x7f05001a;
         public static final int fav_question=0x7f05000a;
         public static final int favorite=0x7f050011;
+        public static final int hello_world=0x7f050028;
         public static final int local_question=0x7f05000b;
         public static final int login=0x7f050019;
         public static final int menu_add=0x7f050005;
@@ -238,6 +240,7 @@ public final class R {
         public static final int title_activity_create_input=0x7f050022;
         public static final int title_activity_login=0x7f050021;
         public static final int title_activity_main=0x7f050002;
+        public static final int title_activity_test=0x7f050027;
         public static final int upvote=0x7f050012;
         public static final int upvote_state=0x7f050024;
     }

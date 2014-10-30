@@ -4,6 +4,7 @@ import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.QuestionListManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -53,7 +54,8 @@ public class CreateInputsActivity extends Activity {
 				else{
 				questionList = QuestionListController.loadFromFile(
 						getApplicationContext(), FILENAME);
-				newContent = new Question(title, content, "Current user ^_^",
+				
+				newContent = new Question(content, "Current user ^_^", title,
 						testImage);
 				questionList.addQuestion(newContent);
 				QuestionListController.saveInFile(getApplicationContext(),

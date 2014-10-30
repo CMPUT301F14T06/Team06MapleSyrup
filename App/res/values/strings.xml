@@ -53,4 +53,7 @@
     <color name="menu_clicked">#CCCCCC</color>
     <color name="question_selected">#CCCCCC</color>
 
+    <string name="title_activity_test">TestActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

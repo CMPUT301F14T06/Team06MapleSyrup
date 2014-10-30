@@ -11,7 +11,7 @@ import android.widget.TextView;
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
 public class FragmentSearch extends Fragment {
 	private TextView titleBar;
-    
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

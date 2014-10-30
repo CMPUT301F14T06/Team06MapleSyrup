@@ -16,7 +16,7 @@ public abstract class InputsModel {
 	long ID;
 	
 	// Question contains replyList and answerList
-	public InputsModel(String title, String content, String userName,
+	public InputsModel(String content, String userName, String title,  
 			Bitmap image) {
 		timestamp = new Date();
 		this.image = image;

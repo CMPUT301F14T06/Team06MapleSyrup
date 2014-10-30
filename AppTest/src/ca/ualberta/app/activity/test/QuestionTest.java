@@ -14,10 +14,9 @@ public class QuestionTest extends TestCase {
 		String titleString = "A title";
 		Bitmap image = null;
 		Author author = new Author(userName);
-		Question question = new Question(questionString, author.getUserName(),
+		Question question = new Question(questionString, author.getUserName(), 
 				titleString, image);
-		assertTrue("Question is not equal",
-				questionString.equals(question.getContent()));
+		assertEquals(questionString,question.getContent());
 	}
 
 	public void testAddAnswer() {

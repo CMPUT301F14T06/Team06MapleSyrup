@@ -23,6 +23,7 @@ public class MainActivity extends FragmentActivity {
 	private RadioButton main_Rb, fav_Rb, add_Rb, search_Rb, profile_Rb;
 	private int lastCheckedId = R.id.main_menu_button;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +50,9 @@ public class MainActivity extends FragmentActivity {
 
 		setFragmentIndicator();
 	}
+	
 
+	
 	private void setFragmentIndicator() {
 
 		bottom_Rg = (RadioGroup) findViewById(R.id.main_menu);
