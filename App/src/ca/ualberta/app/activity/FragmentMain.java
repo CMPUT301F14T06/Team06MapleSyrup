@@ -22,7 +22,8 @@ public class FragmentMain extends Fragment {
 	private TextView titleBar = null;
 	private ListView questionListView = null;
 	private String FILENAME = "questionList.sav";
-
+	private String FAVFILENAME = "favList.sav";
+	private String LOCFILENAME = "localList.sav";
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -55,7 +56,8 @@ public class FragmentMain extends Fragment {
 		super.onPause();
 		updateList();
 	}
-	private void updateList(){
+
+	private void updateList() {
 		currentQuestionList = InputsListController.loadFromFile(getActivity()
 				.getApplicationContext(), FILENAME);
 		adapter.notifyDataSetChanged();
