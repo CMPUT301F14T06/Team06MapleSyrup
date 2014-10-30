@@ -8,10 +8,9 @@ public class Question extends InputsModel {
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
 	Boolean selected=false;
-
-	public Question(int ID,String content, String userName, String title,
+	public Question(String content, String userName, String title,
 			Bitmap image) {
-		super(ID,content, userName, title, image);
+		super(content, userName, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
 	}
@@ -43,7 +42,7 @@ public class Question extends InputsModel {
 		return this.title;
 	}
 	
-	public int getID(){
+	public long getID(){
 		return this.ID;
 	}
 

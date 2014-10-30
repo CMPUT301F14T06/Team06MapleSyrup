@@ -14,7 +14,7 @@ public class QuestionTest extends TestCase {
 		String titleString = "A title";
 		Bitmap image = null;
 		Author author = new Author(userName);
-		Question question = new Question(1,questionString, author.getUserName(),
+		Question question = new Question(questionString, author.getUserName(),
 				titleString, image);
 		assertTrue("Question is not equal",
 				questionString.equals(question.getContent()));
@@ -28,7 +28,7 @@ public class QuestionTest extends TestCase {
 		Bitmap image = null;
 		Author author = new Author(userName);
 		Answer answer = new Answer(answerString, author.getUserName(), image);
-		Question question = new Question(1,questionString, author.getUserName(),
+		Question question = new Question(questionString, author.getUserName(),
 				titleString, image);
 		question.addAnswer(answer);
 		assertTrue("Answer is not equal",
@@ -43,7 +43,7 @@ public class QuestionTest extends TestCase {
 		Bitmap image = null;
 		Author author = new Author(userName);
 		Reply reply = new Reply(replyString, author.getUserName());
-		Question question = new Question(1,questionString, author.getUserName(),
+		Question question = new Question(questionString, author.getUserName(),
 				titleString, image);
 		question.addReply(reply);
 		assertTrue("Reply is not equal", replyString.equals(reply.getContent()));

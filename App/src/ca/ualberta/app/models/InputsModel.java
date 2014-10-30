@@ -13,17 +13,17 @@ public abstract class InputsModel {
 	long answerCount;
 	long upvoteCount;
 	long score;
-	int ID;
-
+	long ID;
+	
 	// Question contains replyList and answerList
-	public InputsModel(int ID,String title, String content, String userName,
+	public InputsModel(String title, String content, String userName,
 			Bitmap image) {
 		timestamp = new Date();
 		this.image = image;
 		this.title = title;
 		this.content = content;
 		this.userName = userName;
-		this.ID = ID;
+		this.ID = new Date().getTime();
 		answerCount = 0;
 		upvoteCount = 0;
 	}

@@ -34,10 +34,10 @@ public class InputListManager {
 	/**
 	 * Get a movie with the specified id
 	 */
-	public Question getQuestion(int id) {
+	public Question getQuestion(long l) {
 
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(RESOURCE_URL + id);
+		HttpGet httpGet = new HttpGet(RESOURCE_URL + l);
 
 		HttpResponse response;
 

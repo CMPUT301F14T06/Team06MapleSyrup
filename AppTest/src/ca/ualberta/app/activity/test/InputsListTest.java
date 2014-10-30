@@ -25,8 +25,7 @@ public class InputsListTest extends TestCase {
 		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
-		int ID = 1;
-		Question question = new Question(ID,questionString, userName, titleString,
+		Question question = new Question(questionString, userName, titleString,
 				image);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
@@ -41,8 +40,7 @@ public class InputsListTest extends TestCase {
 		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
-		int ID = 1;
-		Question question = new Question(ID,questionString, userName, titleString,
+		Question question = new Question(questionString, userName, titleString,
 				image);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
@@ -57,8 +55,7 @@ public class InputsListTest extends TestCase {
 		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
-		int ID = 1;
-		Question question = new Question(ID,questionString, userName, titleString, image);
+		Question question = new Question(questionString, userName, titleString, image);
 		Reply reply = new Reply(ReplyString, userName);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
@@ -72,8 +69,7 @@ public class InputsListTest extends TestCase {
 		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
-		int ID = 1;
-		Question question = new Question(ID,questionString, userName, titleString, image);
+		Question question = new Question(questionString, userName, titleString, image);
 		Answer answer = new Answer(AnswerString, userName, image);
 		InputsListController inputListController = new InputsListController();
 		inputListController.addQuestion(question);
@@ -88,8 +84,7 @@ public class InputsListTest extends TestCase {
 		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
-		int ID = 1;
-		Question question = new Question(ID,questionString, userName, titleString, image);
+		Question question = new Question(questionString, userName, titleString, image);
 		Answer answer = new Answer(AnswerString, userName, image);
 		Reply reply = new Reply(ReplyString, userName);
 		InputsListController inputListController = new InputsListController();

@@ -31,7 +31,6 @@ public class CreateInputsActivity extends Activity {
 	private Bitmap testImage = null;
 	private InputsListModel questionList;
 	private String FILENAME = "questionList.sav";
-	private int questionID = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +52,8 @@ public class CreateInputsActivity extends Activity {
 					noTitleEntered();
 				questionList = InputsListController.loadFromFile(
 						getApplicationContext(), FILENAME);
-				newContent = new Question(questionID,title, content, "Current user ^_^",
+				newContent = new Question(title, content, "Current user ^_^",
 						testImage);
-				questionID++;
 				questionList.addQuestion(newContent);
 				InputsListController.saveInFile(getApplicationContext(),
 						questionList, FILENAME);
