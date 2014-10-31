@@ -64,15 +64,30 @@
             android:text="@string/my_question" />
     </RadioGroup>
 
-    <RadioButton
-        android:id="@+id/login"
-        style="@style/profile_menu"
+    <RadioGroup
+        android:id="@+id/login_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/profile_menu"
-        android:layout_marginTop="46dp"
-        android:drawableLeft="@drawable/login"
-        android:text="@string/login" />
+        android:layout_marginTop="30dp"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/login"
+            style="@style/profile_menu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/login"
+            android:text="@string/login" />
+
+        <RadioButton
+            android:id="@+id/logout"
+            style="@style/profile_menu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/logout"
+            android:text="@string/logout" />
+    </RadioGroup>
 
 </RelativeLayout>

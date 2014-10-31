@@ -1,31 +1,38 @@
 package ca.ualberta.app.models;
 
+import android.graphics.Bitmap;
+
 public class Author extends User {
 	// final static boolean loginState = true;
 
-	String userName;
+	String username;
 	String email;
+	Bitmap image;
 
-	public Author(String userName) {
+	public Author(String username) {
 		super();
-		this.userName = userName;
+		this.username = username;
 
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String newUsername) {
+		this.username = newUsername;
 	}
 
 	public void setEmail(String authorEmail) {
 		this.email = authorEmail;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public String getUsername() {
+		return this.username;
 	}
 
 	public String getEmail() {
 		return this.email;
 	}
 
+	//
+	// public void setImage(String newUsername) {
+	// username = newUsername;
+	// }
 }

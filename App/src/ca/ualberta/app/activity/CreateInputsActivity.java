@@ -5,6 +5,7 @@ import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
+import ca.ualberta.app.models.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,7 +32,9 @@ public class CreateInputsActivity extends Activity {
 	private Question newContent = null;
 	private Bitmap testImage = null;
 	private QuestionList questionList;
+	private QuestionList myQuestionList;
 	private String FILENAME = "questionList.sav";
+	private String MYQUESTION;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,25 +47,29 @@ public class CreateInputsActivity extends Activity {
 		galary = (RadioButton) findViewById(R.id.add_pic);
 		titleText = (EditText) findViewById(R.id.title_editText);
 		contentText = (EditText) findViewById(R.id.content_editText);
-		
+		MYQUESTION = User.author.getUsername() + ".sav";
+
 		submit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				String title = titleText.getText().toString();
 				String content = contentText.getText().toString();
 				if (title.trim().length() == 0)
 					noTitleEntered();
-				else{
-				questionList = QuestionListController.loadFromFile(
-						getApplicationContext(), FILENAME);
-				
-				newContent = new Question(content, "Current user ^_^", title,
-						testImage);
-				questionList.addQuestion(newContent);
-				QuestionListController.saveInFile(getApplicationContext(),
-						questionList, FILENAME);
-				Intent intent = new Intent(CreateInputsActivity.this,
-						MainActivity.class);
-				startActivity(intent);
+				else {
+					questionList = QuestionListController.loadFromFile(
+							getApplicationContext(), FILENAME);
+					myQuestionList = QuestionListController.loadFromFile(
+							getApplicationContext(), MYQUESTION);
+					newContent = new Question(content, User.author
+							.getUsername(), title, testImage);
+					questionList.addQuestion(newContent);
+					QuestionListController.saveInFile(getApplicationContext(),
+							questionList, FILENAME);
+					QuestionListController.saveInFile(getApplicationContext(),
+							myQuestionList, MYQUESTION);
+					Intent intent = new Intent(CreateInputsActivity.this,
+							MainActivity.class);
+					startActivity(intent);
 				}
 			}
 		});

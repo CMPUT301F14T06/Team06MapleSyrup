@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
@@ -23,5 +25,6 @@ public class FragmentFavorite extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Favorite");
+
 	}
 }

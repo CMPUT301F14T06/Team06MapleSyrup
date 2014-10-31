@@ -37,7 +37,8 @@ public class FragmentMain extends Fragment {
 		questionListView = (ListView) getView().findViewById(
 				R.id.question_listView);
 		adapter = new QuestionListAdapter(getActivity(),
-				R.layout.single_question, currentQuestionList.getArrayList(),currentQuestionList);
+				R.layout.single_question, currentQuestionList.getArrayList(),
+				currentQuestionList);
 		questionListView.setAdapter(adapter);
 		updateList();
 	}
@@ -53,7 +54,8 @@ public class FragmentMain extends Fragment {
 		super.onPause();
 		updateList();
 	}
-	private void updateList(){
+
+	private void updateList() {
 		currentQuestionList = QuestionListController.loadFromFile(getActivity()
 				.getApplicationContext(), FILENAME);
 		adapter.notifyDataSetChanged();

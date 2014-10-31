@@ -21,9 +21,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class QuestionListManager {
+
 	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question/_search";
 	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question/";
 	private static final String TAG = "QuestionSearch";
+
 	private Gson gson;
 
 	public QuestionListManager() {
@@ -47,7 +49,7 @@ public class QuestionListManager {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 
 		return null;
 	}
@@ -59,24 +61,24 @@ public class QuestionListManager {
 		QuestionList result = new QuestionList();
 
 		// TODO: Implement search movies using ElasticSearch
-		if (searchString == null || "".equals(searchString)){
+		if (searchString == null || "".equals(searchString)) {
 			searchString = "*";
 		}
-		
+
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
 			HttpPost searchRequest = createSearchRequest(searchString);
 			HttpResponse response = httpClient.execute(searchRequest);
-			
+
 			String status = response.getStatusLine().toString();
-			Log.i(TAG,status);
-			
+			Log.i(TAG, status);
+
 			SearchResponse<Question> esResponse = parseSearchResponse(response);
 			Hits<Question> hits = esResponse.getHits();
-			
-			if (hits != null){
-				if (hits.getHits() != null){
-					for (SearchHit<Question> sesr : hits.getHits()){
+
+			if (hits != null) {
+				if (hits.getHits() != null) {
+					for (SearchHit<Question> sesr : hits.getHits()) {
 						result.addQuestion(sesr.getSource());
 					}
 				}
@@ -138,12 +140,13 @@ public class QuestionListManager {
 	/**
 	 * Creates a search request from a search string
 	 */
-	private HttpPost createSearchRequest(String searchString) throws UnsupportedEncodingException {
-		
+	private HttpPost createSearchRequest(String searchString)
+			throws UnsupportedEncodingException {
+
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
-		
+
 		SearchCommand command = new SearchCommand(searchString);
-		
+
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);
 
@@ -155,34 +158,36 @@ public class QuestionListManager {
 
 		return searchRequest;
 	}
-	
+
 	private SearchHit<Question> parseMovieHit(HttpResponse response) {
-		
+
 		try {
 			String json = getEntityContent(response);
-			Type searchHitType = new TypeToken<SearchHit<Question>>() {}.getType();
-			
+			Type searchHitType = new TypeToken<SearchHit<Question>>() {
+			}.getType();
+
 			SearchHit<Question> sr = gson.fromJson(json, searchHitType);
 			return sr;
-		} 
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
 	/**
 	 * Parses the response of a search
 	 */
-	private SearchResponse<Question> parseSearchResponse(HttpResponse response) throws IOException {
+	private SearchResponse<Question> parseSearchResponse(HttpResponse response)
+			throws IOException {
 		String json;
 		json = getEntityContent(response);
 
 		Type searchResponseType = new TypeToken<SearchResponse<Question>>() {
 		}.getType();
-		
-		SearchResponse<Question> esResponse = gson.fromJson(json, searchResponseType);
+
+		SearchResponse<Question> esResponse = gson.fromJson(json,
+				searchResponseType);
 
 		return esResponse;
 	}
@@ -191,7 +196,8 @@ public class QuestionListManager {
 	 * Gets content from an HTTP response
 	 */
 	public String getEntityContent(HttpResponse response) throws IOException {
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response
+				.getEntity().getContent()));
 
 		StringBuffer result = new StringBuffer();
 		String line = "";

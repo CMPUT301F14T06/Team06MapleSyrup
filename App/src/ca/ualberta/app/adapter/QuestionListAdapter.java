@@ -19,20 +19,21 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class QuestionListAdapter extends ArrayAdapter<Question> {
-//	private QuestionList localList = null;
-//	private QuestionList favList = null;
+	// private QuestionList localList = null;
+	// private QuestionList favList = null;
 	private QuestionList questionList = null;
 	private String QUESTIONLIST = "questionList.sav";
-//	private String FAVLIST = "favList.sav";
-//	private String LOCALLIST = "localLList.sav";
+	// private String FAVLIST = "favList.sav";
+	// private String LOCALLIST = "localLList.sav";
 	private Context context;
+
 	public QuestionListAdapter(Context context, int textViewResourceId,
 			ArrayList<Question> objects, QuestionList questionList) {
 		super(context, textViewResourceId, objects);
 		this.context = context;
 		this.questionList = questionList;
-//		this.localList = new QuestionList();
-//		this.favList = new QuestionList();
+		// this.localList = new QuestionList();
+		// this.favList = new QuestionList();
 	}
 
 	@SuppressLint("InflateParams")
@@ -43,7 +44,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			LayoutInflater inflater = LayoutInflater.from(this.getContext());
 			holder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.single_question, null);
-		}else {
+		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.authorPic = (ImageView) convertView.findViewById(R.id.authorPic);
@@ -64,14 +65,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				.findViewById(R.id.upvote_button);
 		convertView.setTag(holder);
 		Question question = this.getItem(position);
-		// final Drawable fav = context.getResources().getDrawable(
-		// R.drawable.star_fav_icon32);
-		// final Drawable unFav = context.getResources().getDrawable(
-		// R.drawable.star_fav_empty_icon32);
-		// final Drawable save = context.getResources().getDrawable(
-		// R.drawable.issaved_icon32);
-		// final Drawable unSave = context.getResources().getDrawable(
-		// R.drawable.save_icon32);
+		
 		if (question != null) {
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
@@ -83,62 +77,59 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			} else {
 				convertView.setBackgroundColor(Color.WHITE);
 			}
-			// if (question.ifSaved())
-			// holder.save_Rb.setCompoundDrawables(null, save, null, null);
-			// else
-			// holder.save_Rb.setCompoundDrawables(null, unSave, null, null);
-			// if (question.ifFavorited())
-			// holder.fav_Rb.setCompoundDrawables(null, fav, null, null);
-			// else
-			// holder.save_Rb.setCompoundDrawables(null, unFav, null, null);
 		}
-		holder.upvote_Rb.setOnClickListener(new upvoteOnClickListener(position));
-		//holder.answerState.setText("Answer: " + question.getAnswerCount());
-		//holder.upvoteState.setText("Upvote: " + question.getUpvoteCount());
+		holder.upvote_Rb
+				.setOnClickListener(new upvoteOnClickListener(position));
+		// holder.answerState.setText("Answer: " + question.getAnswerCount());
+		// holder.upvoteState.setText("Upvote: " + question.getUpvoteCount());
 		return convertView;
 	}
-/*	private class saveCheckListener implements OnCheckedChangeListener {
 
-		int position;
-
-		public saveCheckListener(int position) {
-			this.position = position;
-		}
-
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView, boolean isSaved) {
-			questionList.getQuestion(position).setSave(isSaved);
-			localList = new QuestionList();
-			for (int i = 0; i < questionList.size(); i++)
-				if (questionList.getQuestion(i).ifSaved())
-					localList.addQuestion(questionList.getQuestion(i));
-			QuestionListController.saveInFile(context, questionList, QUESTIONLIST);
-			QuestionListController.saveInFile(context, localList, LOCALLIST);
-			notifyDataSetChanged();
-		}
-	}
-
-	private class favCheckListener implements OnCheckedChangeListener {
-
-		int position;
-
-		public favCheckListener(int position) {
-			this.position = position;
-		}
-
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isFavorited) {
-			questionList.getQuestion(position).setFavorite(isFavorited);
-			favList = new QuestionList();
-			for (int i = 0; i < questionList.size(); i++)
-				if (questionList.getQuestion(i).ifFavorited())
-					favList.addQuestion(questionList.getQuestion(i));
-			QuestionListController.saveInFile(context, questionList, QUESTIONLIST);
-			QuestionListController.saveInFile(context, favList, FAVLIST);
-			notifyDataSetChanged();
-		}
-	}*/
+	// private class saveCheckListener implements OnCheckedChangeListener {
+	//
+	// int position;
+	//
+	// public saveCheckListener(int position) {
+	// this.position = position;
+	// }
+	//
+	// @Override
+	// public void onCheckedChanged(CompoundButton buttonView, boolean isSaved)
+	// {
+	// questionList.getQuestion(position).setSave(isSaved);
+	// localList = new QuestionList();
+	// for (int i = 0; i < questionList.size(); i++)
+	// if (questionList.getQuestion(i).ifSaved())
+	// localList.addQuestion(questionList.getQuestion(i));
+	// QuestionListController.saveInFile(context, questionList,
+	// QUESTIONLIST);
+	// QuestionListController.saveInFile(context, localList, LOCALLIST);
+	// notifyDataSetChanged();
+	// }
+	// }
+	//
+	// private class favCheckListener implements OnCheckedChangeListener {
+	//
+	// int position;
+	//
+	// public favCheckListener(int position) {
+	// this.position = position;
+	// }
+	//
+	// @Override
+	// public void onCheckedChanged(CompoundButton buttonView,
+	// boolean isFavorited) {
+	// questionList.getQuestion(position).setFavorite(isFavorited);
+	// favList = new QuestionList();
+	// for (int i = 0; i < questionList.size(); i++)
+	// if (questionList.getQuestion(i).ifFavorited())
+	// favList.addQuestion(questionList.getQuestion(i));
+	// QuestionListController.saveInFile(context, questionList,
+	// QUESTIONLIST);
+	// QuestionListController.saveInFile(context, favList, FAVLIST);
+	// notifyDataSetChanged();
+	// }
+	// }
 
 	private class upvoteOnClickListener implements OnClickListener {
 
@@ -153,20 +144,22 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			questionList.getQuestion(position).upvote();
-			QuestionListController.saveInFile(context, questionList, QUESTIONLIST);
-			
+			QuestionListController.saveInFile(context, questionList,
+					QUESTIONLIST);
+
 			notifyDataSetChanged();
 		}
 	}
-	private class ViewHolder {
-		ImageView authorPic;
-		TextView authorName;
-		TextView questionTitle;
-		TextView questionContent;
-		RadioButton save_Rb;
-		RadioButton fav_Rb;
-		RadioButton upvote_Rb;
-		TextView upvoteState;
-		TextView answerState;
-	}
+}
+
+class ViewHolder {
+	ImageView authorPic;
+	TextView authorName;
+	TextView questionTitle;
+	TextView questionContent;
+	RadioButton save_Rb;
+	RadioButton fav_Rb;
+	RadioButton upvote_Rb;
+	TextView upvoteState;
+	TextView answerState;
 }

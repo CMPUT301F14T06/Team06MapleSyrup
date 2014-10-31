@@ -1,9 +1,12 @@
 package ca.ualberta.app.models;
 
 public class User {
-	// final static boolean loginState = false;
+
+	public static boolean loginStatus = false;
 	public QuestionList favorite;
-	public User(){
+	public static Author author = null;
+
+	public User() {
 		favorite = new QuestionList();
 	}
 }

@@ -27,6 +27,7 @@
     <string name="cancel">Cancel</string>
     <string name="remove">Remove</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="edit">Edit</string>
     <string name="title">Title:</string>
     <string name="content">Content:</string>

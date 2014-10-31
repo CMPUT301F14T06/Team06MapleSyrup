@@ -16,7 +16,7 @@ import junit.framework.TestCase;
 
 public class Part2UseCaseTests extends TestCase {
 	public void testUserBrowse() {
-		Question q = new Question("A question", "userName", "A title", null);
+		Question q = new Question("A question", "username", "A title", null);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(q);
 		ArrayList<Question> qList = inputsListController.getQuestionList().getArrayList();
@@ -24,8 +24,8 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testUserViewAnswer() {
-		Question q = new Question("A question", "userName", "A title", null);
-		Answer answer = new Answer("A answer", "userName", null);
+		Question q = new Question("A question", "username", "A title", null);
+		Answer answer = new Answer("A answer", "username", null);
 		QuestionListController inputsListController = new QuestionListController();
 		q.addAnswer(answer);
 		inputsListController.addQuestion(q);
@@ -34,8 +34,8 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testUserViewReply() {
-		Question q = new Question("A question", "userName", "A title", null);
-		Reply reply = new Reply("A reply","userName");
+		Question q = new Question("A question", "username", "A title", null);
+		Reply reply = new Reply("A reply","username");
 		QuestionListController inputsListController = new QuestionListController();
 		q.addReply(reply);
 		inputsListController.addQuestion(q);
@@ -44,18 +44,18 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testAuthorCreateQuestion() {
-		Author author = new Author("userName");
-		Question q = new Question("A question", author.getUserName(), "A title", null);
+		Author author = new Author("username");
+		Question q = new Question("A question", author.getUsername(), "A title", null);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(q);
 		assertTrue("Author cannot Create Question", inputsListController.size() != 0);
 	}
 
 	public void testAuthorAnswerQuestion() {
-		Author author = new Author("userName");
-		Question question = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
-		Answer answer = new Answer("A answer",author.getUserName(),null);
+		Answer answer = new Answer("A answer",author.getUsername(),null);
 		question.addAnswer(answer);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
@@ -64,10 +64,10 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testAuthorReplyQuestion() {
-		Author author = new Author("userName");
-		Question question = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
-		Reply reply = new Reply("A reply", author.getUserName());
+		Reply reply = new Reply("A reply", author.getUsername());
 		question.addReply(reply);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
@@ -76,9 +76,9 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testAuthorAddPicture() {
-		Author author = new Author("userName");
+		Author author = new Author("username");
 		Bitmap image = null;
-		Question question = new Question("A question", author.getUserName(),
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
 		image = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
 		question.setImage(image);
@@ -91,12 +91,12 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testSortQuestionByPicture() {
-		Author author = new Author("userName");
+		Author author = new Author("username");
 		Bitmap image1 = null;
 		Bitmap image2 = Bitmap.createBitmap(5, 5, Bitmap.Config.ALPHA_8);
-		Question question1 = new Question("A question", author.getUserName(),
+		Question question1 = new Question("A question", author.getUsername(),
 				"A title", image1);
-		Question question2 = new Question("A question", author.getUserName(),
+		Question question2 = new Question("A question", author.getUsername(),
 				"A title", image2);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question1);
@@ -107,10 +107,10 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testSortQuestionByScore() {
-		Author author = new Author("userName");
-		Question question1 = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question1 = new Question("A question", author.getUsername(),
 				"A title", null);
-		Question question2 = new Question("A question", author.getUserName(),
+		Question question2 = new Question("A question", author.getUsername(),
 				"A title", null);
 		QuestionListController inputsListController = new QuestionListController();
 		question1.upvote();
@@ -122,10 +122,10 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testUpvoteQuestion() {
-		Author author = new Author("userName");
-		Question question1 = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question1 = new Question("A question", author.getUsername(),
 				"A title", null);
-		Question question2 = new Question("A question", author.getUserName(),
+		Question question2 = new Question("A question", author.getUsername(),
 				"A title", null);
 		QuestionListController inputsListController = new QuestionListController();
 		question1.upvote();
@@ -136,11 +136,11 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testUpvoteAnswer() {
-		Author author = new Author("userName");
-		Question question = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
-		Answer answer1 = new Answer("1st Answer", author.getUserName(), null);
-		Answer answer2 = new Answer("2nd Answer", author.getUserName(), null);
+		Answer answer1 = new Answer("1st Answer", author.getUsername(), null);
+		Answer answer2 = new Answer("2nd Answer", author.getUsername(), null);
 		question.addAnswer(answer1);
 		question.addAnswer(answer2);
 		answer1.upvote();
@@ -153,11 +153,11 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testAnswerCounterOfAQuestion() {
-		Author author = new Author("userName");
-		Question question = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
-		Answer answer1 = new Answer("1st Answer", author.getUserName(), null);
-		Answer answer2 = new Answer("2nd Answer", author.getUserName(), null);
+		Answer answer1 = new Answer("1st Answer", author.getUsername(), null);
+		Answer answer2 = new Answer("2nd Answer", author.getUsername(), null);
 		question.addAnswer(answer1);
 		question.addAnswer(answer2);
 		QuestionListController inputsListController = new QuestionListController();
@@ -168,8 +168,8 @@ public class Part2UseCaseTests extends TestCase {
 
 	public void testSearchQuestion() {
 		String content = "A question";
-		Author author = new Author("userName");
-		Question question = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
@@ -180,10 +180,10 @@ public class Part2UseCaseTests extends TestCase {
 
 	public void testSearchAnswer() {
 		String content = "A Answer";
-		Author author = new Author("userName");
-		Question question = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
-		Answer answer = new Answer("A Answer", author.getUserName(), null);
+		Answer answer = new Answer("A Answer", author.getUsername(), null);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		inputsListController.getQuestion(0).addAnswer(answer);
@@ -193,8 +193,8 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testAuthorAskedQuestionCache() {
-		Author author = new Author("userName");
-		Question question = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
@@ -206,12 +206,12 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testReadQuestionAndAnswerCache() {
-		Author author = new Author("userName");
-		Question question = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
-		Answer answer = new Answer("A Answer", author.getUserName(), null);
+		Answer answer = new Answer("A Answer", author.getUsername(), null);
 		inputsListController.getQuestion(0).addAnswer(answer);
 		CacheController cacheController = new CacheController();
 		cacheController.cacheQuestions(inputsListController.getQuestionList());
@@ -226,10 +226,10 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testFavouriteQuestions() {
-		Author author = new Author("userName");
-		Question question1 = new Question("A question", author.getUserName(),
+		Author author = new Author("username");
+		Question question1 = new Question("A question", author.getUsername(),
 				"A title", null);
-		Question question2 = new Question("A question", author.getUserName(),
+		Question question2 = new Question("A question", author.getUsername(),
 				"A title", null);
 		author.favorite.addQuestion(question1);
 		author.favorite.addQuestion(question2);
@@ -245,12 +245,12 @@ public class Part2UseCaseTests extends TestCase {
 	}
 
 	public void testPushContent() {
-		Author author = new Author("userName");
+		Author author = new Author("username");
 		// shut down Internet
-		Question question = new Question("A question", author.getUserName(),
+		Question question = new Question("A question", author.getUsername(),
 				"A title", null);
-		Answer answer = new Answer("A Answer", author.getUserName(),null);
-		Reply reply = new Reply("A reply", author.getUserName());
+		Answer answer = new Answer("A Answer", author.getUsername(),null);
+		Reply reply = new Reply("A reply", author.getUsername());
 
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
@@ -267,11 +267,11 @@ public class Part2UseCaseTests extends TestCase {
 //		
 //	}
 
-	public void testAuthorSetUserName() {
-		Author author = new Author("userName");
-		String userName = "newUserName";
-		author.setUserName(userName);
-		assertTrue("Author cannot set UserName",
-				userName.equals(author.getUserName()));
+	public void testAuthorSetUsername() {
+		Author author = new Author("username");
+		String username = "newUsername";
+		author.setUsername(username);
+		assertTrue("Author cannot set Username",
+				username.equals(author.getUsername()));
 	}
 }

@@ -1,6 +1,7 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.models.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,9 +22,9 @@ public class MainActivity extends FragmentActivity {
 	private FragmentTransaction fragmentTransaction;
 	private RadioGroup bottom_Rg;
 	private RadioButton main_Rb, fav_Rb, add_Rb, search_Rb, profile_Rb;
+	private Boolean loginStatus;
 	private int lastCheckedId = R.id.main_menu_button;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +38,6 @@ public class MainActivity extends FragmentActivity {
 		search_Rb = (RadioButton) findViewById(R.id.search_menu_button);
 		profile_Rb = (RadioButton) findViewById(R.id.profile_menu_button);
 		fragments = new Fragment[4];
-
 		fragmentManager = getSupportFragmentManager();
 		fragments[0] = fragmentManager.findFragmentById(R.id.fragement_main);
 		fragments[1] = fragmentManager.findFragmentById(R.id.fragement_fav);
@@ -47,12 +47,10 @@ public class MainActivity extends FragmentActivity {
 				.hide(fragments[0]).hide(fragments[1]).hide(fragments[2])
 				.hide(fragments[3]);
 		fragmentTransaction.show(fragments[0]).commit();
-
+		checkLoginStatus();
 		setFragmentIndicator();
 	}
-	
 
-	
 	private void setFragmentIndicator() {
 
 		bottom_Rg = (RadioGroup) findViewById(R.id.main_menu);
@@ -91,7 +89,7 @@ public class MainActivity extends FragmentActivity {
 					add_Rb.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							Intent intent = new Intent(MainActivity.this,
-									InternetTestActivity.class);
+									CreateInputsActivity.class);
 							startActivity(intent);
 						}
 					});
@@ -111,6 +109,29 @@ public class MainActivity extends FragmentActivity {
 				lastCheckedId = checkedId;
 			}
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		checkLoginStatus();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		checkLoginStatus();
+	}
+
+	public void checkLoginStatus() {
+		loginStatus = User.loginStatus;
+		if (loginStatus) {
+			add_Rb.setVisibility(View.VISIBLE);
+			// add_Rb.setClickable(true);
+		} else {
+			add_Rb.setVisibility(View.GONE);
+			// add_Rb.setClickable(false);
+		}
 	}
 
 }

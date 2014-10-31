@@ -44,8 +44,8 @@
             android:id="@+id/questionTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_title"
             android:maxLines="2"
+            android:text="@string/question_title"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
             style="@style/question_button"
             android:layout_width="35dp"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/save_icon32"
+            android:drawableTop="@drawable/save_button_style"
             android:text="@string/save" />
 
         <RadioButton
@@ -81,7 +81,7 @@
             style="@style/question_button"
             android:layout_width="35dp"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/star_fav_empty_icon32"
+            android:drawableTop="@drawable/fav_button_style"
             android:text="@string/favorite" />
 
         <RadioButton
