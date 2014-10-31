@@ -10,7 +10,7 @@
         layout="@layout/title_bar" />
 
     <Spinner
-        android:id="@+id/searchSort_spinner"
+        android:id="@+id/mySort_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -21,9 +21,9 @@
         tools:listitem="@android:layout/simple_list_item_1" />
 
     <ListView
-        android:id="@+id/searchQuestion_ListView"
+        android:id="@+id/myQuestion_ListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchSort_spinner" />
+        android:layout_below="@+id/mySort_spinner" />
 
 </RelativeLayout>
