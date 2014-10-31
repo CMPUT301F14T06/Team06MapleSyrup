@@ -194,12 +194,13 @@ public final class R {
         public static final int author_profile=0x7f090001;
         public static final int dashboard=0x7f090002;
         public static final int edit_inputs=0x7f090003;
-        public static final int login=0x7f090004;
-        public static final int main=0x7f090005;
-        public static final int new_answer=0x7f090006;
-        public static final int new_input=0x7f090007;
-        public static final int new_question=0x7f090008;
-        public static final int test=0x7f090009;
+        public static final int internet_test=0x7f090004;
+        public static final int login=0x7f090005;
+        public static final int main=0x7f090006;
+        public static final int new_answer=0x7f090007;
+        public static final int new_input=0x7f090008;
+        public static final int new_question=0x7f090009;
+        public static final int test=0x7f09000a;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -238,6 +239,7 @@ public final class R {
         public static final int title_activity_answer=0x7f05001f;
         public static final int title_activity_author_profile=0x7f050020;
         public static final int title_activity_create_input=0x7f050022;
+        public static final int title_activity_internet_test=0x7f050029;
         public static final int title_activity_login=0x7f050021;
         public static final int title_activity_main=0x7f050002;
         public static final int title_activity_test=0x7f050027;
