@@ -4,6 +4,7 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.QuestionListManager;
+import ca.ualberta.app.models.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,6 +31,8 @@ public class InternetTestActivity extends Activity {
 	private QuestionList questionList;
 	private String FILENAME = "questionList.sav";
 	private QuestionListManager questionListManager;
+	private String MYQUESTION;
+	private QuestionList myQuestionList;
 	
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -48,28 +51,27 @@ public class InternetTestActivity extends Activity {
 		galary = (RadioButton) findViewById(R.id.add_pic);
 		titleText = (EditText) findViewById(R.id.title_editText);
 		contentText = (EditText) findViewById(R.id.content_editText);
-		
+		MYQUESTION = User.author.getUsername() + ".sav";
+
 		submit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				String title = titleText.getText().toString();
 				String content = contentText.getText().toString();
 				if (title.trim().length() == 0)
 					noTitleEntered();
-				else{
-//				questionList = QuestionListController.loadFromFile(
-//						getApplicationContext(), FILENAME);
-				
-				newContent = new Question(content, "Current user ^_^", title,
-						testImage);
-				Thread thread = new AddThread(newContent);
-				thread.start();
-				
-//				questionList.addQuestion(newContent);
-//				QuestionListController.saveInFile(getApplicationContext(),
-//						questionList, FILENAME);
-				Intent intent = new Intent(InternetTestActivity.this,
-						MainActivity.class);
-				startActivity(intent);
+				else {
+					myQuestionList = QuestionListController.loadFromFile(
+							getApplicationContext(), MYQUESTION);
+					newContent = new Question(content, User.author
+							.getUsername(), title, testImage);
+					QuestionListController.saveInFile(getApplicationContext(),
+							myQuestionList, MYQUESTION);
+					questionListManager = new QuestionListManager();
+					Thread thread = new AddThread(newContent);
+					thread.start();
+					Intent intent = new Intent(InternetTestActivity.this,
+							MainActivity.class);
+					startActivity(intent);
 				}
 			}
 		});
@@ -82,7 +84,7 @@ public class InternetTestActivity extends Activity {
 		});
 
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

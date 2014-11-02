@@ -89,7 +89,7 @@ public class MainActivity extends FragmentActivity {
 					add_Rb.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							Intent intent = new Intent(MainActivity.this,
-									CreateInputsActivity.class);
+									InternetTestActivity.class);
 							startActivity(intent);
 						}
 					});
