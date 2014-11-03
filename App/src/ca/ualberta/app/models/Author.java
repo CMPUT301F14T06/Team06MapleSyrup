@@ -18,6 +18,10 @@ public class Author extends User {
 
 	}
 
+	public void addAQuestion(long questionId) {
+		authorQuestionId.add(questionId);
+	}
+
 	public void setUsername(String newUsername) {
 		this.username = newUsername;
 	}

@@ -54,7 +54,7 @@ public class FragmentProfile extends Fragment {
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), LoginActivity.class);
 				startActivity(intent);
-				
+
 			}
 		});
 		logout.setOnClickListener(new OnClickListener() {
@@ -81,14 +81,13 @@ public class FragmentProfile extends Fragment {
 	public void checkLoginStatus() {
 		loginStatus = User.loginStatus;
 		if (loginStatus) {
-
 			changePhotoButton.setVisibility(View.VISIBLE);
 			setAuthorName.setVisibility(View.VISIBLE);
 			login.setVisibility(View.GONE);
 			logout.setVisibility(View.VISIBLE);
 			my_question.setVisibility(View.VISIBLE);
 			setAuthorName.setText(User.author.getUsername());
-
+			
 		} else {
 			changePhotoButton.setVisibility(View.GONE);
 			setAuthorName.setVisibility(View.GONE);

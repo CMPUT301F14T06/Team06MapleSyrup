@@ -57,7 +57,6 @@ public class CreateInputsActivity extends Activity {
 				finish();
 			}
 		});
-
 	}
 
 	public void submit(View view) {
