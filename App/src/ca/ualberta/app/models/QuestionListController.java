@@ -100,6 +100,9 @@ public class QuestionListController {
 		return getQuestionList().getArrayList().indexOf(question);
 	}
 	
+	public int getAnswerPosition(Answer answer, int position_q) {
+		return getAnswers(position_q).indexOf(answer);
+	}
 	public static QuestionList loadFromFile(Context context, String FILENAME) {
 		QuestionList questionList = null;
 		try {

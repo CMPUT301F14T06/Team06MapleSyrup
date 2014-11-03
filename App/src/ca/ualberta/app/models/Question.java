@@ -46,7 +46,23 @@ public class Question extends InputsModel {
 	}
 	
 	public int getAnswerCount() {
-		return answerList.size();
+		return this.answerList.size();
+	}
+
+	public ArrayList<Answer> getAnswers() {
+		return this.answerList;
+	}
+	
+	public ArrayList<Reply> getReplys() {
+		return this.replyList;
+	}
+
+	public int getAnswerPosition(Answer answer) {
+		return this.answerList.indexOf(answer);
+	}
+	
+	public int getReplyPosition(Reply reply){
+		return this.replyList.indexOf(reply);
 	}
 
 }
