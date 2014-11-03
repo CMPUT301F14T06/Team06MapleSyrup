@@ -60,7 +60,7 @@ public class FragmentMain extends Fragment {
 		adapter = new QuestionListAdapter(getActivity(),
 				R.layout.single_question,
 				questionListController.getQuestionArrayList(),
-				questionListController.getQuestionList(),getActivity());
+				questionListController.getQuestionList());
 
 		questionListView.setAdapter(adapter);
 

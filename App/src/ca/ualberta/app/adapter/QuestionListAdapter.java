@@ -30,18 +30,15 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// private String LOCALLIST = "localLList.sav";
 	private Context context;
 	private QuestionListManager questionListManager;
-	private FragmentActivity fragmentActivity;
 
 	// Thread that close the activity after finishing update
 
 	public QuestionListAdapter(Context context, int textViewResourceId,
-			ArrayList<Question> objects, QuestionList questionList,
-			FragmentActivity fragmentActivity) {
+			ArrayList<Question> objects, QuestionList questionList) {
 		super(context, textViewResourceId, objects);
 		this.questionListManager = new QuestionListManager();
 		this.context = context;
 		this.questionList = questionList;
-		this.fragmentActivity = fragmentActivity;
 		// this.localList = new QuestionList();
 		// this.favList = new QuestionList();
 	}
