@@ -120,7 +120,7 @@ public class QuestionListManager {
 	}
 
 	/**
-	 * Adds a new question
+	 * update a exist question
 	 */
 	public void updateQuestion(Question question) {
 		HttpClient httpClient = new DefaultHttpClient();

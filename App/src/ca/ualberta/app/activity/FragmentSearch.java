@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
 public class FragmentSearch extends Fragment {
@@ -24,10 +25,15 @@ public class FragmentSearch extends Fragment {
 	private QuestionListAdapter adapter = null;
 	private ListView searchResultListView;
 	private Button searchButton;
+	private int haveSearchResult = 0;
 	
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
+			if (haveSearchResult == 0){
+				Toast.makeText(getActivity().getApplicationContext(),
+						"No matched results",Toast.LENGTH_LONG).show();
+			}
 			adapter.notifyDataSetChanged();
 		}
 	};
@@ -88,7 +94,12 @@ public class FragmentSearch extends Fragment {
 			questionListController.clear();
 			questionListController.addAll(questionListManager.searchQuestions(
 					search, null));
-
+			if (questionListManager.searchQuestions(search, null).size() != 0){
+				haveSearchResult = 1;
+			}
+			else{
+				haveSearchResult = 0;
+			}
 			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}

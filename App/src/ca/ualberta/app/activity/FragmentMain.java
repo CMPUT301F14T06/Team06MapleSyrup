@@ -133,7 +133,7 @@ public class FragmentMain extends Fragment {
 			questionListController.clear();
 			questionListController.addAll(questionListManager.searchQuestions(
 					search, null));
-
+			
 			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}
