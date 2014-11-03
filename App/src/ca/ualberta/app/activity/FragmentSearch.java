@@ -26,18 +26,18 @@ public class FragmentSearch extends Fragment {
 	private ListView searchResultListView;
 	private Button searchButton;
 	private int haveSearchResult = 0;
-	
+
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
-			if (haveSearchResult == 0){
+			if (haveSearchResult == 0) {
 				Toast.makeText(getActivity().getApplicationContext(),
-						"No matched results",Toast.LENGTH_LONG).show();
+						"No matched results", Toast.LENGTH_LONG).show();
 			}
 			adapter.notifyDataSetChanged();
 		}
 	};
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -49,12 +49,15 @@ public class FragmentSearch extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Search");
-		searchEditText = (EditText) getView().findViewById(R.id.searchQuestion_EditText);
-		searchResultListView = (ListView) getView().findViewById(R.id.searchQuestion_ListView);
-		searchButton = (Button) getView().findViewById(R.id.searchQuestion_Button);
-		
+		searchEditText = (EditText) getView().findViewById(
+				R.id.searchQuestion_EditText);
+		searchResultListView = (ListView) getView().findViewById(
+				R.id.searchQuestion_ListView);
+		searchButton = (Button) getView().findViewById(
+				R.id.searchQuestion_Button);
+
 	}
-	
+
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -62,13 +65,12 @@ public class FragmentSearch extends Fragment {
 		questionListController = new QuestionListController();
 		adapter = new QuestionListAdapter(getActivity(),
 				R.layout.single_question,
-				questionListController.getQuestionArrayList(),
-				questionListController.getQuestionList());
+				questionListController.getQuestionArrayList());
 
 		searchResultListView.setAdapter(adapter);
-		
+
 		searchButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -76,11 +78,11 @@ public class FragmentSearch extends Fragment {
 				String searchString = searchEditText.getText().toString();
 				searchEditText.setText("");
 				Thread thread = new SearchThread(searchString);
-				thread.start();	
+				thread.start();
 			}
 		});
 	}
-	
+
 	class SearchThread extends Thread {
 		private String search;
 
@@ -94,10 +96,9 @@ public class FragmentSearch extends Fragment {
 			questionListController.clear();
 			questionListController.addAll(questionListManager.searchQuestions(
 					search, null));
-			if (questionListManager.searchQuestions(search, null).size() != 0){
+			if (questionListManager.searchQuestions(search, null).size() != 0) {
 				haveSearchResult = 1;
-			}
-			else{
+			} else {
 				haveSearchResult = 0;
 			}
 			getActivity().runOnUiThread(doUpdateGUIList);

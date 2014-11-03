@@ -106,7 +106,8 @@ public class MainActivity extends FragmentActivity {
 				default:
 					break;
 				}
-				lastCheckedId = checkedId;
+				if (checkedId != R.id.add_menu_button)
+					lastCheckedId = checkedId;
 			}
 		});
 	}

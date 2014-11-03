@@ -31,7 +31,7 @@ public class CreateInputsActivity extends Activity {
 	private Question newQuestion = null;
 	private Bitmap testImage = null;
 	private QuestionList myQuestionList;
-	private String MYQUESTION = User.author.getUsername() + ".sav";;
+	private String MYQUESTION = User.author.getUsername() + ".sav";
 	private QuestionListManager questionListManager;
 
 	private Runnable doFinishAdd = new Runnable() {

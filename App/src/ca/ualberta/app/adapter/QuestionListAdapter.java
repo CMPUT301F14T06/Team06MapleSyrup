@@ -3,7 +3,6 @@ package ca.ualberta.app.adapter;
 import java.util.ArrayList;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.QuestionListManager;
 
 import android.annotation.SuppressLint;
@@ -30,7 +29,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// Thread that close the activity after finishing update
 
 	public QuestionListAdapter(Context context, int textViewResourceId,
-			ArrayList<Question> objects, QuestionList questionList) {
+			ArrayList<Question> objects) {
 		super(context, textViewResourceId, objects);
 		this.questionListManager = new QuestionListManager();
 		// this.context = context;

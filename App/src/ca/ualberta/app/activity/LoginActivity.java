@@ -43,18 +43,22 @@ public class LoginActivity extends Activity {
 	public void login(View view) {
 		AuthorMapIO.saveInFile(context, authorMap, FILENAME);
 		username = usernameEdit.getText().toString().trim();
-		if (username.trim().length() == 0) {
+		if (username.length() == 0) {
 			notifyNoUsernameEntered();
 		} else {
+			// Thread getThread = new GetThread(username);
+			// getThread.start();
 			User.loginStatus = true;
 			if (authorMap.getMap().get(username) != null) {
+				// if (User.author != null) {
 				User.author = authorMap.getMap().get(username);
 				notifyLogin();
+				finish();
 			} else {
 				notifyAddNewAuthor();
 				Author newAuthor = new Author(username);
-				Thread thread = new AddThread(newAuthor);
-				thread.start();
+				Thread addThread = new AddThread(newAuthor);
+				addThread.start();
 			}
 		}
 	}
@@ -103,8 +107,23 @@ public class LoginActivity extends Activity {
 
 		@Override
 		public void run() {
+
 			authorMap.clear();
 			authorMap.putAll(authorMapManager.searchAuthors(search, null));
+		}
+	}
+
+	class GetThread extends Thread {
+		// TODO: Implement search thread
+		private String username;
+
+		public GetThread(String username) {
+			this.username = username;
+		}
+
+		@Override
+		public void run() {
+			User.author = authorMapManager.getAuthor(username);
 		}
 	}
 
@@ -117,9 +136,10 @@ public class LoginActivity extends Activity {
 
 		@Override
 		public void run() {
-			authorMap.addAuthor(newAuthor);
 			User.author = newAuthor;
+			authorMap.addAuthor(newAuthor);
 			AuthorMapIO.saveInFile(context, authorMap, FILENAME);
+			authorMapManager.addAuthor(newAuthor);
 			// Give some time to get updated info
 			try {
 				Thread.sleep(500);
@@ -129,4 +149,5 @@ public class LoginActivity extends Activity {
 			runOnUiThread(doFinishAdd);
 		}
 	}
+
 }

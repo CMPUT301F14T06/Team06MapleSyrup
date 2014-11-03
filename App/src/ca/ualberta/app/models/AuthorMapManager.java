@@ -120,7 +120,7 @@ public class AuthorMapManager {
 	}
 
 	/**
-	 * Update a new author
+	 * Update an author
 	 */
 	public void updateAuthor(Author author) {
 		HttpClient httpClient = new DefaultHttpClient();
