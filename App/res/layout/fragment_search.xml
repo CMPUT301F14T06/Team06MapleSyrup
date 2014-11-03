@@ -9,21 +9,10 @@
         android:id="@+id/one_title"
         layout="@layout/title_bar" />
 
-    <Spinner
-        android:id="@+id/searchSort_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/one_title"
-        android:entries="@array/list_type"
-        android:prompt="@string/sort_label"
-        tools:listitem="@android:layout/simple_list_item_1" />
-
     <ListView
         android:id="@+id/searchQuestion_ListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchSort_spinner" />
+        android:layout_below="@+id/one_title" />
 
 </RelativeLayout>

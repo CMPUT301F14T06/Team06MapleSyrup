@@ -15,16 +15,18 @@ public class AuthorMapTest extends TestCase {
 	public void testAddAuthor() {
 		String loginNameString = "loginName";
 		AuthorMap authorMap = new AuthorMap();
-		authorMap.addAuthor(loginNameString);
-		authorMap.addAuthor(loginNameString);
+		Author authorName = new Author(loginNameString);
+		authorMap.addAuthor(authorName);
+		authorMap.addAuthor(authorName);
 		Map<String, Author> theMap = authorMap.getMap();
 		assertEquals("Author Map Size", theMap.size(), 1);
 	}
 
 	public void testAuthorExist() {
 		String loginNameString = "loginName";
+		Author authorName = new Author(loginNameString);
 		AuthorMap authorMap = new AuthorMap();
-		authorMap.addAuthor(loginNameString);
+		authorMap.addAuthor(authorName);
 		Map<String, Author> theMap = authorMap.getMap();
 		assertEquals("Answer Map Size", theMap.size(), 1);
 		assertTrue("Author doesnt exist",

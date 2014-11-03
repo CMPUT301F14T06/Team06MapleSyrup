@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
-import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.QuestionListManager;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,11 +21,10 @@ import android.widget.TextView;
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// private QuestionList localList = null;
 	// private QuestionList favList = null;
-	private QuestionList questionList = null;
-	private String QUESTIONLIST = "questionList.sav";
+	private ArrayList<Question> questionList = null;
 	// private String FAVLIST = "favList.sav";
 	// private String LOCALLIST = "localLList.sav";
-	private Context context;
+	// private Context context;
 	private QuestionListManager questionListManager;
 
 	// Thread that close the activity after finishing update
@@ -37,8 +33,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			ArrayList<Question> objects, QuestionList questionList) {
 		super(context, textViewResourceId, objects);
 		this.questionListManager = new QuestionListManager();
-		this.context = context;
-		this.questionList = questionList;
+		// this.context = context;
+		this.questionList = objects;
 		// this.localList = new QuestionList();
 		// this.favList = new QuestionList();
 	}
@@ -87,8 +83,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		}
 		holder.upvote_Rb
 				.setOnClickListener(new upvoteOnClickListener(position));
-		// holder.answerState.setText("Answer: " + question.getAnswerCount());
-		// holder.upvoteState.setText("Upvote: " + question.getUpvoteCount());
 		return convertView;
 	}
 
@@ -150,7 +144,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Question question = questionList.getQuestion(position);
+			Question question = questionList.get(position);
 			question.upvote();
 			// long questionID = question.getID();
 			Thread thread = new UpdateThread(question);
@@ -169,7 +163,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 		@Override
 		public void run() {
-			questionListManager.addQuestion(question);
+			questionListManager.updateQuestion(question);
 
 			// Give some time to get updated info
 			try {
@@ -177,8 +171,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
-			// fragmentActivity.runOnUiThread(doFinishUpdate);
 		}
 	}
 }

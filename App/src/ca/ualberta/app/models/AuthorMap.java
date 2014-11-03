@@ -25,18 +25,22 @@ public class AuthorMap {
 	}
 
 	// if Login name exist then login otherwise create a new account
-	public boolean addAuthor(String newUsername) {
-		if (authorMap.get(newUsername) != null) {
-			return false;
-		} else {
-			Author newAuthor = new Author(newUsername);
-			authorMap.put(newUsername, newAuthor);
-			return true;
-		}
+	public void addAuthor(Author newAuthor) {
+		String newUsername = newAuthor.getUsername();
+		authorMap.put(newUsername, newAuthor);
 	}
 
 	public int size() {
 		return authorMap.size();
+	}
+
+	public void clear() {
+		authorMap.clear();
+	}
+
+	public void putAll(AuthorMap searchAuthors) {
+		authorMap.putAll(searchAuthors.getMap());
+
 	}
 
 }

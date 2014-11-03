@@ -109,7 +109,6 @@ public class QuestionListManager {
 			StringEntity stringEntity = new StringEntity(gson.toJson(question));
 			addRequest.setEntity(stringEntity);
 			addRequest.setHeader("Accept", "application/json");
-			Log.i(TAG, stringEntity.toString());
 			HttpResponse response = httpClient.execute(addRequest);
 			String status = response.getStatusLine().toString();
 
@@ -132,7 +131,6 @@ public class QuestionListManager {
 			StringEntity stringEntity = new StringEntity(gson.toJson(question));
 			updateRequest.setEntity(stringEntity);
 			updateRequest.setHeader("Accept", "application/json");
-			Log.i(TAG, stringEntity.toString());
 			HttpResponse response = httpClient.execute(updateRequest);
 			String status = response.getStatusLine().toString();
 

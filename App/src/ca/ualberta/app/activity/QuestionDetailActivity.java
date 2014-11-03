@@ -1,10 +1,5 @@
 package ca.ualberta.app.activity;
 
-
-import java.util.ArrayList;
-
-
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +7,7 @@ import android.widget.ListView;
 
 
 
-public class Detail extends Activity
+public class QuestionDetailActivity extends Activity
 {
 	
 	
@@ -23,7 +18,7 @@ public class Detail extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.detail);
+		setContentView(R.layout.activity_question_detail);
 		
 		
 		}

@@ -1,5 +1,7 @@
 package ca.ualberta.app.models;
 
+import java.util.ArrayList;
+
 import android.graphics.Bitmap;
 
 public class Author extends User {
@@ -8,6 +10,7 @@ public class Author extends User {
 	String username;
 	String email;
 	Bitmap image;
+	ArrayList<Long> authorQuestionId;
 
 	public Author(String username) {
 		super();

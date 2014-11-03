@@ -15,7 +15,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="86dp"
-        android:background="@drawable/login2" />
+        android:background="@drawable/login2"
+        android:onClick="login" />
 
     <TextView
         android:id="@+id/currentQ_textView"

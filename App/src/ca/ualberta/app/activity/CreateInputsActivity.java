@@ -23,7 +23,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class CreateInputsActivity extends Activity {
 	private RadioGroup create_menu_Rg;
-	private RadioButton submit;
 	private RadioButton cancel;
 	private RadioButton galary;
 	private RadioButton photo;
@@ -32,39 +31,36 @@ public class CreateInputsActivity extends Activity {
 	private Question newQuestion = null;
 	private Bitmap testImage = null;
 	private QuestionList myQuestionList;
-	private String MYQUESTION;
+	private String MYQUESTION = User.author.getUsername() + ".sav";;
 	private QuestionListManager questionListManager;
-	
+
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
 		}
 	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_inputs);
 		create_menu_Rg = (RadioGroup) findViewById(R.id.create_input_menu);
-		submit = (RadioButton) findViewById(R.id.submit_button);
 		cancel = (RadioButton) findViewById(R.id.cancel_button);
 		photo = (RadioButton) findViewById(R.id.take_pic);
 		galary = (RadioButton) findViewById(R.id.add_pic);
 		titleText = (EditText) findViewById(R.id.title_editText);
 		contentText = (EditText) findViewById(R.id.content_editText);
-		MYQUESTION = User.author.getUsername() + ".sav";
 		questionListManager = new QuestionListManager();
-		
+
 		cancel.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(CreateInputsActivity.this,
-						MainActivity.class);
-				startActivity(intent);
+				finish();
 			}
 		});
 
 	}
-	
-	public void submit(View view){
+
+	public void submit(View view) {
 		String title = titleText.getText().toString();
 		String content = contentText.getText().toString();
 		if (title.trim().length() == 0)
@@ -72,19 +68,19 @@ public class CreateInputsActivity extends Activity {
 		else {
 			myQuestionList = QuestionListController.loadFromFile(
 					getApplicationContext(), MYQUESTION);
-			newQuestion = new Question(content, User.author
-					.getUsername(), title, testImage);
+			newQuestion = new Question(content, User.author.getUsername(),
+					title, testImage);
 			myQuestionList.addQuestion(newQuestion);
-			
+
 			QuestionListController.saveInFile(getApplicationContext(),
 					myQuestionList, MYQUESTION);
-			
-			
+
 			Thread thread = new AddThread(newQuestion);
 			thread.start();
 		}
 
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -119,14 +115,14 @@ public class CreateInputsActivity extends Activity {
 		@Override
 		public void run() {
 			questionListManager.addQuestion(question);
-			
+
 			// Give some time to get updated info
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			runOnUiThread(doFinishAdd);
 		}
 	}

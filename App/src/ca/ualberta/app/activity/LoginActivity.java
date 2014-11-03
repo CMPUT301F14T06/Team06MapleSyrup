@@ -1,58 +1,62 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;
+import ca.ualberta.app.models.AuthorMapManager;
 import ca.ualberta.app.models.User;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
-	ImageButton login_button;
 	EditText usernameEdit;
 	String username;
 	AuthorMap authorMap;
-	String FILENAME = "AUTHOR.sav";
+	String FILENAME = "AUTHORMAP.sav";
 	Context context = this;
+	AuthorMapManager authorMapManager;
+
+	private Runnable doFinishAdd = new Runnable() {
+		public void run() {
+			finish();
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		login_button = (ImageButton) findViewById(R.id.login_button);
 		usernameEdit = (EditText) findViewById(R.id.username_editText);
-		authorMap = AuthorMapIO.loadFromFile(context, FILENAME);
+		authorMap = new AuthorMap();
+		authorMapManager = new AuthorMapManager();
+		Thread thread = new SearchThread("");
+		thread.start();
+	}
 
-		login_button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				username = usernameEdit.getText().toString().trim();
-				if (username.trim().length() == 0) {
-					notifyNoUsernameEntered();
-				} else {
-					User.loginStatus = true;
-					if (authorMap.addAuthor(username)) {
-						User.author = authorMap.getMap().get(username);
-						notifyAddNewAuthor();
-					} else {
-						User.author = authorMap.getMap().get(username);
-						notifyLogin();
-					}
-					AuthorMapIO.saveInFile(context, authorMap, FILENAME);
-					Intent intent = new Intent(LoginActivity.this,
-							MainActivity.class);
-					startActivity(intent);
-				}
+	public void login(View view) {
+		AuthorMapIO.saveInFile(context, authorMap, FILENAME);
+		username = usernameEdit.getText().toString().trim();
+		if (username.trim().length() == 0) {
+			notifyNoUsernameEntered();
+		} else {
+			User.loginStatus = true;
+			if (authorMap.getMap().get(username) != null) {
+				User.author = authorMap.getMap().get(username);
+				notifyLogin();
+			} else {
+				notifyAddNewAuthor();
+				Author newAuthor = new Author(username);
+				Thread thread = new AddThread(newAuthor);
+				thread.start();
 			}
-		});
+		}
 	}
 
 	private void notifyLogin() {
@@ -89,4 +93,40 @@ public class LoginActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	class SearchThread extends Thread {
+		// TODO: Implement search thread
+		private String search;
+
+		public SearchThread(String s) {
+			search = s;
+		}
+
+		@Override
+		public void run() {
+			authorMap.clear();
+			authorMap.putAll(authorMapManager.searchAuthors(search, null));
+		}
+	}
+
+	class AddThread extends Thread {
+		private Author newAuthor;
+
+		public AddThread(Author newAuthor) {
+			this.newAuthor = newAuthor;
+		}
+
+		@Override
+		public void run() {
+			authorMap.addAuthor(newAuthor);
+			User.author = newAuthor;
+			AuthorMapIO.saveInFile(context, authorMap, FILENAME);
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			runOnUiThread(doFinishAdd);
+		}
+	}
 }
