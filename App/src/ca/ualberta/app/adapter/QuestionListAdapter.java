@@ -5,10 +5,13 @@ import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.QuestionListController;
+import ca.ualberta.app.models.QuestionListManager;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,12 +29,19 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// private String FAVLIST = "favList.sav";
 	// private String LOCALLIST = "localLList.sav";
 	private Context context;
+	private QuestionListManager questionListManager;
+	private FragmentActivity fragmentActivity;
+
+	// Thread that close the activity after finishing update
 
 	public QuestionListAdapter(Context context, int textViewResourceId,
-			ArrayList<Question> objects, QuestionList questionList) {
+			ArrayList<Question> objects, QuestionList questionList,
+			FragmentActivity fragmentActivity) {
 		super(context, textViewResourceId, objects);
+		this.questionListManager = new QuestionListManager();
 		this.context = context;
 		this.questionList = questionList;
+		this.fragmentActivity = fragmentActivity;
 		// this.localList = new QuestionList();
 		// this.favList = new QuestionList();
 	}
@@ -65,7 +75,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				.findViewById(R.id.upvote_button);
 		convertView.setTag(holder);
 		Question question = this.getItem(position);
-		
+
 		if (question != null) {
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
@@ -143,11 +153,35 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			questionList.getQuestion(position).upvote();
-			QuestionListController.saveInFile(context, questionList,
-					QUESTIONLIST);
+			Question question = questionList.getQuestion(position);
+			question.upvote();
+			// long questionID = question.getID();
+			Thread thread = new UpdateThread(question);
+			thread.start();
 
 			notifyDataSetChanged();
+		}
+	}
+
+	class UpdateThread extends Thread {
+		private Question question;
+
+		public UpdateThread(Question question) {
+			this.question = question;
+		}
+
+		@Override
+		public void run() {
+			questionListManager.addQuestion(question);
+
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			// fragmentActivity.runOnUiThread(doFinishUpdate);
 		}
 	}
 }

@@ -33,6 +33,6 @@ public class Author extends User {
 
 	//
 	// public void setImage(String newUsername) {
-	// username = newUsername;
+
 	// }
 }

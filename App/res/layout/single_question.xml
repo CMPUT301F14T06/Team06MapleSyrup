@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/questionDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/linearLayout1"
@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/questionTitleTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:text="@string/question_title"
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout2"
+        android:layout_below="@+id/questionDescription"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -97,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/linearLayout3"
-        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignLeft="@+id/questionDescription"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/linearLayout3"
         android:columnCount="2" >

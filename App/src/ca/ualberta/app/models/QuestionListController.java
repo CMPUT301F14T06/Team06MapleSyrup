@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import android.content.Context;
@@ -19,8 +20,7 @@ import ca.ualberta.app.models.QuestionList;
 
 public class QuestionListController {
 
-	QuestionList inputsListModel = new QuestionList();
-	private QuestionList questionList = null;
+	private QuestionList questionList;
 
 	public QuestionList getQuestionList() {
 		if (questionList == null) {
@@ -28,7 +28,9 @@ public class QuestionListController {
 		}
 		return questionList;
 	}
-
+	public ArrayList<Question> getQuestionArrayList() {
+		return getQuestionList().getArrayList();
+	}
 	public void addQuestion(Question newQuestion) {
 		getQuestionList().addQuestion(newQuestion);
 	}
@@ -87,6 +89,14 @@ public class QuestionListController {
 		return null;
 	}
 
+	public void clear() {
+		getQuestionList().getList().clear();
+	}
+
+	public void addAll(QuestionList searchQuestions) {
+		getQuestionList().getList().addAll(searchQuestions.getList());
+	}
+
 	public static QuestionList loadFromFile(Context context, String FILENAME) {
 		QuestionList questionList = null;
 		try {
@@ -106,8 +116,8 @@ public class QuestionListController {
 		return questionList;
 	}
 
-	public static void saveInFile(Context context,
-			QuestionList questionList, String FILENAME) {
+	public static void saveInFile(Context context, QuestionList questionList,
+			String FILENAME) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
 			Gson gson = new Gson();

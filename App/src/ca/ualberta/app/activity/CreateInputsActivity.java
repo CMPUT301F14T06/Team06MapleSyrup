@@ -29,13 +29,17 @@ public class CreateInputsActivity extends Activity {
 	private RadioButton photo;
 	private EditText titleText = null;
 	private EditText contentText = null;
-	private Question newContent = null;
+	private Question newQuestion = null;
 	private Bitmap testImage = null;
-	private QuestionList questionList;
 	private QuestionList myQuestionList;
-	private String FILENAME = "questionList.sav";
 	private String MYQUESTION;
-
+	private QuestionListManager questionListManager;
+	
+	private Runnable doFinishAdd = new Runnable() {
+		public void run() {
+			finish();
+		}
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,31 +52,8 @@ public class CreateInputsActivity extends Activity {
 		titleText = (EditText) findViewById(R.id.title_editText);
 		contentText = (EditText) findViewById(R.id.content_editText);
 		MYQUESTION = User.author.getUsername() + ".sav";
-
-		submit.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				String title = titleText.getText().toString();
-				String content = contentText.getText().toString();
-				if (title.trim().length() == 0)
-					noTitleEntered();
-				else {
-					questionList = QuestionListController.loadFromFile(
-							getApplicationContext(), FILENAME);
-					myQuestionList = QuestionListController.loadFromFile(
-							getApplicationContext(), MYQUESTION);
-					newContent = new Question(content, User.author
-							.getUsername(), title, testImage);
-					questionList.addQuestion(newContent);
-					QuestionListController.saveInFile(getApplicationContext(),
-							questionList, FILENAME);
-					QuestionListController.saveInFile(getApplicationContext(),
-							myQuestionList, MYQUESTION);
-					Intent intent = new Intent(CreateInputsActivity.this,
-							MainActivity.class);
-					startActivity(intent);
-				}
-			}
-		});
+		questionListManager = new QuestionListManager();
+		
 		cancel.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(CreateInputsActivity.this,
@@ -82,7 +63,28 @@ public class CreateInputsActivity extends Activity {
 		});
 
 	}
+	
+	public void submit(View view){
+		String title = titleText.getText().toString();
+		String content = contentText.getText().toString();
+		if (title.trim().length() == 0)
+			noTitleEntered();
+		else {
+			myQuestionList = QuestionListController.loadFromFile(
+					getApplicationContext(), MYQUESTION);
+			newQuestion = new Question(content, User.author
+					.getUsername(), title, testImage);
+			myQuestionList.addQuestion(newQuestion);
+			
+			QuestionListController.saveInFile(getApplicationContext(),
+					myQuestionList, MYQUESTION);
+			
+			
+			Thread thread = new AddThread(newQuestion);
+			thread.start();
+		}
 
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -106,9 +108,26 @@ public class CreateInputsActivity extends Activity {
 		Toast.makeText(this, "Please fill in the Title", Toast.LENGTH_SHORT)
 				.show();
 	}
-	//
-	// private void noContentEntered() {
-	// Toast.makeText(this, "Please fill in the Content",
-	// Toast.LENGTH_SHORT).show();
-	// }
+
+	class AddThread extends Thread {
+		private Question question;
+
+		public AddThread(Question question) {
+			this.question = question;
+		}
+
+		@Override
+		public void run() {
+			questionListManager.addQuestion(question);
+			
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			runOnUiThread(doFinishAdd);
+		}
+	}
 }

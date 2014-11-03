@@ -62,7 +62,7 @@ public class QuestionList {
 	public ArrayList<Reply> getReplysOfAnswer(int q_position, int a_position) {
 		return questionList.get(q_position).answerList.get(a_position).replyList;
 	}
-	
+
 	public List<Answer> getAnswerList(int position) {
 		return questionList.get(position).answerList;
 	}

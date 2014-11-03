@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ca.ualberta.app.activity.InternetTestActivity" >
+    tools:context="ca.ualberta.app.activity.CreateInputsActivity" >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,8 +30,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/title_textView"
                 android:ems="10"
-                android:maxLength="70" 
-                android:singleLine="true">
+                android:maxLength="70"
+                android:singleLine="true" >
 
                 <requestFocus />
             </EditText>
@@ -70,6 +70,7 @@
             android:id="@+id/submit_button"
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
+            android:onClick="submit"
             android:text="@string/submit" />
 
         <RadioButton

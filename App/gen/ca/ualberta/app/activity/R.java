@@ -149,7 +149,6 @@ public final class R {
         public static final int fragement_profile=0x7f0a0017;
         public static final int fragement_search=0x7f0a0016;
         public static final int linearLayout1=0x7f0a003f;
-        public static final int linearLayout2=0x7f0a0043;
         public static final int linearLayout3=0x7f0a0040;
         public static final int listView1=0x7f0a001f;
         public static final int local_cache=0x7f0a0029;
@@ -166,6 +165,7 @@ public final class R {
         public static final int profile_menu=0x7f0a0028;
         public static final int profile_menu_button=0x7f0a001d;
         public static final int questionContentTextView=0x7f0a0045;
+        public static final int questionDescription=0x7f0a0043;
         public static final int questionTitleTextView=0x7f0a0044;
         public static final int question_listView=0x7f0a0025;
         public static final int removeMyquestionButton=0x7f0a0034;

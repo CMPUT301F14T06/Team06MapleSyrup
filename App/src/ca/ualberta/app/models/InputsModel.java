@@ -8,7 +8,7 @@ public abstract class InputsModel {
 	public String title;
 	public String content;
 	public String userName;
-	Bitmap image;
+	Bitmap image = null;
 	Date timestamp;
 	long answerCount;
 	long upvoteCount;
