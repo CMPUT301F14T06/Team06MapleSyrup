@@ -25,4 +25,9 @@ public class Answer extends InputsModel {
 		// TODO Auto-generated method stub
 		return replyList;
 	}
+
+	public int getReplyPosition(Reply reply) {
+		// TODO Auto-generated method stub
+		return replyList.indexOf(reply);
+	}
 }

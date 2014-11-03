@@ -103,6 +103,16 @@ public class QuestionListController {
 	public int getAnswerPosition(Answer answer, int position_q) {
 		return getAnswers(position_q).indexOf(answer);
 	}
+	
+	public int getReplyPosition(int position_q, Reply reply) {
+		return getReplys(position_q).indexOf(reply);
+	}
+	
+	public int getReplyPositionOfAnswer(int position_q, int position_a,
+			Reply reply) {
+		return getReplysOfAnswer(position_q, position_a).indexOf(reply);
+	}	
+	
 	public static QuestionList loadFromFile(Context context, String FILENAME) {
 		QuestionList questionList = null;
 		try {
@@ -137,5 +147,4 @@ public class QuestionListController {
 			e.printStackTrace();
 		}
 	}
-	
 }

@@ -17,12 +17,12 @@ public class Question extends InputsModel {
 
 
 	public void addReply(Reply newReply) {
-		replyList.add(newReply);
+		this.replyList.add(newReply);
 	}
 
 	public void addAnswer(Answer newAnswer) {
-		answerList.add(newAnswer);
-		answerCount = answerList.size();
+		this.answerList.add(newAnswer);
+		this.answerCount = answerList.size();
 	}
 
 	public boolean ifSelected() {
