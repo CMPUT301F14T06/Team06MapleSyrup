@@ -96,6 +96,10 @@ public class QuestionListController {
 		getQuestionList().getList().addAll(searchQuestions.getList());
 	}
 
+	public int getQuestionPosition(Question question) {
+		return getQuestionList().getArrayList().indexOf(question);
+	}
+	
 	public static QuestionList loadFromFile(Context context, String FILENAME) {
 		QuestionList questionList = null;
 		try {
@@ -130,5 +134,5 @@ public class QuestionListController {
 			e.printStackTrace();
 		}
 	}
-
+	
 }

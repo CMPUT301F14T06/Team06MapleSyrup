@@ -1,6 +1,5 @@
 package ca.ualberta.app.activity.test;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import junit.framework.TestCase;
 import ca.ualberta.app.models.Answer;
