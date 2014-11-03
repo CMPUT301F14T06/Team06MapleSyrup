@@ -9,10 +9,35 @@
         android:id="@+id/one_title"
         layout="@layout/title_bar" />
 
+    <EditText
+        android:id="@+id/searchQuestion_EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/searchQuestion_Button"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/searchQuestion_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/searchQuestion_EditText"
+        android:text="Search" />
+
     <ListView
         android:id="@+id/searchQuestion_ListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/one_title" />
+        android:layout_above="@+id/searchQuestion_EditText"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/one_title" >
+
+    </ListView>
 
 </RelativeLayout>
