@@ -95,8 +95,8 @@ public class FragmentSearch extends Fragment {
 		public void run() {
 			questionListController.clear();
 			questionListController.addAll(questionListManager.searchQuestions(
-					search, null));
-			if (questionListManager.searchQuestions(search, null).size() != 0) {
+					search, null, null));
+			if (questionListManager.searchQuestions(search, null,null).size() != 0) {
 				haveSearchResult = 1;
 			} else {
 				haveSearchResult = 0;

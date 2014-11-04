@@ -19,20 +19,14 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class CreateInputsActivity extends Activity {
 	private RadioGroup create_menu_Rg;
-	private RadioButton cancel;
 	private RadioButton galary;
 	private RadioButton photo;
 	private ImageView image;
@@ -57,7 +51,6 @@ public class CreateInputsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_inputs);
 		create_menu_Rg = (RadioGroup) findViewById(R.id.create_input_menu);
-		cancel = (RadioButton) findViewById(R.id.cancel_button);
 		photo = (RadioButton) findViewById(R.id.take_pic);
 		galary = (RadioButton) findViewById(R.id.add_pic);
 		titleText = (EditText) findViewById(R.id.title_editText);
