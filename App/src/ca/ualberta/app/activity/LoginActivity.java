@@ -40,7 +40,9 @@ public class LoginActivity extends Activity {
 		Thread thread = new SearchThread("");
 		thread.start();
 	}
-
+	public void cancel_login(View view) {
+		finish();
+	}
 	public void login(View view) {
 		AuthorMapIO.saveInFile(context, authorMap, FILENAME);
 		username = usernameEdit.getText().toString().trim();
