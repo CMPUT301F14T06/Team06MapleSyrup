@@ -23,8 +23,7 @@ public class LoginActivity extends Activity {
 	private String FILENAME = "AUTHORMAP.sav";
 	private Context context = this;
 	private AuthorMapManager authorMapManager;
-	private Author theAuthor;
-	
+
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
@@ -48,12 +47,9 @@ public class LoginActivity extends Activity {
 		if (username.length() == 0) {
 			notifyNoUsernameEntered();
 		} else {
-			Thread getThread = new GetThread(username);
-			getThread.start();
 			User.loginStatus = true;
-			// if (authorMap.getMap().get(username) != null) {
-			if (theAuthor != null) {
-				User.author = theAuthor;
+			if (authorMap.getMap().get(username) != null) {
+				User.author = authorMap.getMap().get(username);
 				notifyLogin();
 				finish();
 			} else {
@@ -125,7 +121,7 @@ public class LoginActivity extends Activity {
 
 		@Override
 		public void run() {
-			theAuthor = authorMapManager.getAuthor(username);
+			User.author = authorMapManager.getAuthor(username);
 
 		}
 	}

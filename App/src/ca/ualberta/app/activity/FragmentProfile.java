@@ -66,6 +66,7 @@ public class FragmentProfile extends Fragment {
 		});
 	}
 
+	
 	@Override
 	public void onResume() {
 		super.onResume();

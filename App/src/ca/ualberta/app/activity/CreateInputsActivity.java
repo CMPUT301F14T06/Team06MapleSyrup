@@ -87,13 +87,13 @@ public class CreateInputsActivity extends Activity {
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
 		// TODO: Start the activity (expecting a result), with the code
 		// CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
-		//try{
+		// try{
 		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-//		}catch(Exception e){
-//			Toast.makeText(this, "No Camera Devices Detected",
-//					Toast.LENGTH_SHORT).show();
-//		}
-			
+		// }catch(Exception e){
+		// Toast.makeText(this, "No Camera Devices Detected",
+		// Toast.LENGTH_SHORT).show();
+		// }
+
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -196,7 +196,7 @@ public class CreateInputsActivity extends Activity {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
+			finish();
 			runOnUiThread(doFinishAdd);
 		}
 	}

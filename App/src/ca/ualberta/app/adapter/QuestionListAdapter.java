@@ -22,7 +22,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private ArrayList<Question> questionList = null;
 	// private String FAVLIST = "favList.sav";
 	// private String LOCALLIST = "localLList.sav";
-	// private Context context;
 	private QuestionListManager questionListManager;
 
 	// Thread that close the activity after finishing update
