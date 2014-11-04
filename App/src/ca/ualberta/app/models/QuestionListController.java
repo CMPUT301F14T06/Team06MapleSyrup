@@ -78,16 +78,6 @@ public class QuestionListController {
 		return getQuestionList().getReplyList(position);
 	}
 
-	public QuestionList searchQuestion(String key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public QuestionList searchAnswer(String key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void clear() {
 		getQuestionList().getList().clear();
 	}
