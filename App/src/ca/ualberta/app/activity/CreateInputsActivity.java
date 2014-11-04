@@ -79,8 +79,9 @@ public class CreateInputsActivity extends Activity {
 		File imageFile = new File(imageFilePath);
 		imageFileUri = Uri.fromFile(imageFile);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+
 		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-			
+
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -175,7 +176,7 @@ public class CreateInputsActivity extends Activity {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
+			finish();
 			runOnUiThread(doFinishAdd);
 		}
 	}
