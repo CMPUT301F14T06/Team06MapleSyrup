@@ -6,10 +6,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class QuestionDetailActivity extends Activity {
+public class QuestionDetailActivity extends Activity implements
+		OnChildClickListener {
 
 	public static String QUESTION_ID = "QUESTION_ID";
 	// private View detail;
@@ -70,6 +73,13 @@ public class QuestionDetailActivity extends Activity {
 
 			runOnUiThread(doUpdateGUIDetails);
 		}
+	}
+
+	@Override
+	public boolean onChildClick(ExpandableListView parent, View v,
+			int groupPosition, int childPosition, long id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
