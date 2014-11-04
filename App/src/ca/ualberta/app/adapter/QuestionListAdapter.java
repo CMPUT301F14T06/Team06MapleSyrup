@@ -64,6 +64,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		holder.fav_Rb = (RadioButton) convertView.findViewById(R.id.fav_button);
 		holder.upvote_Rb = (RadioButton) convertView
 				.findViewById(R.id.upvote_button);
+		holder.timestamp = (TextView) convertView
+				.findViewById(R.id.timeTextView);
 		convertView.setTag(holder);
 		Question question = this.getItem(position);
 
@@ -71,8 +73,10 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
 			holder.authorName.setText(question.getAuthor());
+			holder.timestamp.setText(question.getTimestamp().toString());
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
-			holder.upvoteState.setText("Upvote: " + question.getQuestionUpvoteCount());
+			holder.upvoteState.setText("Upvote: "
+					+ question.getQuestionUpvoteCount());
 		}
 		holder.upvote_Rb
 				.setOnClickListener(new upvoteOnClickListener(position));
@@ -176,6 +180,7 @@ class ViewHolder {
 	RadioButton save_Rb;
 	RadioButton fav_Rb;
 	RadioButton upvote_Rb;
+	TextView timestamp;
 	TextView upvoteState;
 	TextView answerState;
 }

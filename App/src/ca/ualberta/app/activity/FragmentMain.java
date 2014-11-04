@@ -5,6 +5,7 @@ import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
+import ca.ualberta.app.models.User;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -69,8 +70,7 @@ public class FragmentMain extends Fragment {
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
 				questionListController.getQuestionArrayList());
 		spin_adapter = ArrayAdapter.createFromResource(mcontext,
-				R.array.list_type,
-				android.R.layout.simple_list_item_1);
+				R.array.list_type, android.R.layout.simple_list_item_1);
 
 		questionListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
@@ -101,16 +101,26 @@ public class FragmentMain extends Fragment {
 					@Override
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View view, int position, long id) {
+
 						Question question = questionListController
 								.getQuestion(position);
-						Toast.makeText(
-								mcontext,
-								"Deleting the Question: " + question.getTitle(),
-								Toast.LENGTH_LONG).show();
 
-						Thread thread = new DeleteThread(question.getID());
-						thread.start();
+						if (User.author != null
+								&& User.author.getUsername().equals(
+										question.getAuthor())) {
+							Toast.makeText(
+									mcontext,
+									"Deleting the Question: "
+											+ question.getTitle(),
+									Toast.LENGTH_LONG).show();
 
+							Thread thread = new DeleteThread(question.getID());
+							thread.start();
+						} else {
+							Toast.makeText(mcontext,
+									"Only Author to the Question can delete",
+									Toast.LENGTH_LONG).show();
+						}
 						return true;
 					}
 				});

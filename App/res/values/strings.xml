@@ -45,7 +45,7 @@
     <string name="title_activity_question_detail">Question Detail</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_create_input">Add a Question</string>
-    <string name="question_state">Upvote: 0 | Answers: 0 </string>
+     <string name="time">time </string>
     <string name="upvote_state">Upvote: 0</string>
     <string name="answer_state">Answer: 0 </string>
     <string name="single_question">Question decription</string>

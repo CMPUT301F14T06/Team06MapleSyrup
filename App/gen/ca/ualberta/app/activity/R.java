@@ -108,7 +108,7 @@ public final class R {
     }
     public static final class id {
         public static final int MyQuestionTextView=0x7f0a0034;
-        public static final int action_settings=0x7f0a005c;
+        public static final int action_settings=0x7f0a005d;
         public static final int addAImageButton=0x7f0a004a;
         public static final int addImage_imageView=0x7f0a000d;
         public static final int add_image_button=0x7f0a0006;
@@ -124,11 +124,11 @@ public final class R {
         public static final int answerRemoveButton=0x7f0a0047;
         public static final int answerReplyButton=0x7f0a0045;
         public static final int answerReplyListView=0x7f0a004b;
-        public static final int answerStateTextView=0x7f0a0051;
+        public static final int answerStateTextView=0x7f0a0052;
         public static final int answerTextView=0x7f0a0044;
         public static final int answerUpvoteButton=0x7f0a0048;
         public static final int answer_edit_button=0x7f0a0002;
-        public static final int answer_listView=0x7f0a0058;
+        public static final int answer_listView=0x7f0a0059;
         public static final int answer_remove_button=0x7f0a0003;
         public static final int answer_reply_ExpanableListView=0x7f0a0043;
         public static final int answer_reply_button=0x7f0a0001;
@@ -173,17 +173,17 @@ public final class R {
         public static final int questionAndReplyListView=0x7f0a001e;
         public static final int questionContentTextView=0x7f0a004e;
         public static final int questionDescription=0x7f0a004c;
-        public static final int questionDetailContentTextView=0x7f0a0053;
-        public static final int questionDetailTitleTextView=0x7f0a0052;
-        public static final int questionImage=0x7f0a0054;
+        public static final int questionDetailContentTextView=0x7f0a0054;
+        public static final int questionDetailTitleTextView=0x7f0a0053;
+        public static final int questionImage=0x7f0a0055;
         public static final int questionTitleTextView=0x7f0a004d;
-        public static final int question_answer_button=0x7f0a0055;
+        public static final int question_answer_button=0x7f0a0056;
         public static final int question_listView=0x7f0a0024;
-        public static final int question_reply_button=0x7f0a0056;
-        public static final int question_reply_expanableListView=0x7f0a0057;
+        public static final int question_reply_button=0x7f0a0057;
+        public static final int question_reply_expanableListView=0x7f0a0058;
         public static final int removeMyquestionButton=0x7f0a0035;
-        public static final int replyAuthor_textView=0x7f0a005a;
-        public static final int reply_textView=0x7f0a0059;
+        public static final int replyAuthor_textView=0x7f0a005b;
+        public static final int reply_textView=0x7f0a005a;
         public static final int save_button=0x7f0a004f;
         public static final int searchQuestion_Button=0x7f0a0030;
         public static final int searchQuestion_EditText=0x7f0a002f;
@@ -194,7 +194,8 @@ public final class R {
         public static final int sort_spinner=0x7f0a0023;
         public static final int submit_button=0x7f0a000e;
         public static final int take_pic=0x7f0a0010;
-        public static final int titleTv=0x7f0a005b;
+        public static final int timeTextView=0x7f0a0051;
+        public static final int titleTv=0x7f0a005c;
         public static final int title_editText=0x7f0a000a;
         public static final int title_textView=0x7f0a0009;
         public static final int upvoteStateTextView=0x7f0a0042;
@@ -260,7 +261,6 @@ public final class R {
         public static final int most_voteQ=0x7f05000d;
         public static final int my_question=0x7f05000c;
         public static final int question=0x7f050015;
-        public static final int question_state=0x7f050023;
         public static final int question_title=0x7f050009;
         public static final int remove=0x7f050018;
         public static final int reply=0x7f050013;
@@ -269,6 +269,7 @@ public final class R {
         public static final int single_question=0x7f050026;
         public static final int sort_label=0x7f050008;
         public static final int submit=0x7f050016;
+        public static final int time=0x7f050023;
         public static final int title=0x7f05001c;
         public static final int title_activity_create_input=0x7f050022;
         public static final int title_activity_internet_test=0x7f05002a;

@@ -53,10 +53,10 @@
 
         <TextView
             android:id="@+id/questionContentTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="3"
+            android:maxLines="2"
             android:text="@string/single_question"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#696969"
@@ -110,19 +110,33 @@
 
         <TextView
             android:id="@+id/upvoteStateTextView"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="left|bottom"
+            android:layout_row="0"
             android:gravity="center_vertical"
             android:text="@string/upvote_state"
             android:textColor="#696969"
             android:textSize="13sp" />
 
         <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="match_parent"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_row="0"
+            android:text="@string/time"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="13sp" />
+
+        <TextView
             android:id="@+id/answerStateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="fill_horizontal"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="right|bottom"
+            android:layout_row="0"
             android:gravity="center_vertical"
             android:text="@string/answer_state"
             android:textColor="#696969"
