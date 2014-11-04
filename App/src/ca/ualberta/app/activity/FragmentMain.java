@@ -5,13 +5,19 @@ import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.QuestionListManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
 
@@ -21,7 +27,7 @@ public class FragmentMain extends Fragment {
 	private TextView titleBar = null;
 	private ListView questionListView = null;
 	private QuestionListManager questionListManager;
-
+	private Context mcontext;
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -32,7 +38,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		mcontext = getActivity().getApplicationContext();
 		return inflater.inflate(R.layout.fragment_main, container, false);
 	}
 
@@ -50,48 +56,49 @@ public class FragmentMain extends Fragment {
 		super.onStart();
 		questionListManager = new QuestionListManager();
 		questionListController = new QuestionListController();
-		adapter = new QuestionListAdapter(getActivity(),
+		adapter = new QuestionListAdapter(mcontext,
 				R.layout.single_question,
 				questionListController.getQuestionArrayList());
 
 		questionListView.setAdapter(adapter);
 
 		// Show details when click on a question
-		// questionListView.setOnItemClickListener(new OnItemClickListener() {
-		// @Override
-		// public void onItemClick(AdapterView<?> parent, View view, int pos,
-		// long id) {
-		// long questionID = questionListController.getQuestion(pos)
-		// .getID();
-		//
-		// Intent intent = new Intent(mContext, DetailsActivity.class);
-		// intent.putExtra(DetailsActivity.MOVIE_ID, questionID);
-		//
-		// startActivity(intent);
-		//
-		// }
-		//
-		// });
-		//
-		// // Delete question on long click
-		// questionListView
-		// .setOnItemLongClickListener(new OnItemLongClickListener() {
-		//
-		// @Override
-		// public boolean onItemLongClick(AdapterView<?> parent,
-		// View view, int position, long id) {
-		// Question question = questionListController
-		// .getQuestion(position);
-		// Toast.makeText(getActivity().getApplicationContext(),
-		// "Deleting " + question.getTitle(),
-		// Toast.LENGTH_LONG).show();
-		//
-		// Thread thread = new DeleteThread(question.getID());
-		// thread.start();
-		//
-		// return true;
-		// }
-		// });
+//		questionListView.setOnItemClickListener(new OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int pos,
+//					long id) {
+//				long questionID = questionListController.getQuestion(pos)
+//						.getID();
+//
+//				Intent intent = new Intent(mcontext, QuestionDetailActivity.class);
+//				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
+//
+//				startActivity(intent);
+//
+//			}
+//
+//		});
+
+		// Delete question on long click
+		questionListView
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+					@Override
+					public boolean onItemLongClick(AdapterView<?> parent,
+							View view, int position, long id) {
+						Question question = questionListController
+								.getQuestion(position);
+						Toast.makeText(
+								mcontext,
+								"Deleting the Question: " + question.getTitle(),
+								Toast.LENGTH_LONG).show();
+
+						Thread thread = new DeleteThread(question.getID());
+						thread.start();
+
+						return true;
+					}
+				});
 		// updateList();
 	}
 

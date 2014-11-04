@@ -24,14 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AnswerActivity"
-            android:label="@string/title_activity_answer" >
-        </activity>
-        <activity
-            android:name=".AuthorProfileActivity"
-            android:label="@string/title_activity_author_profile" >
-        </activity>
+
         <activity
             android:name=".CreateInputsActivity"
             android:label="@string/title_activity_create_input" >
@@ -41,12 +34,8 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name=".TestActivity"
-            android:label="@string/title_activity_test" >
-        </activity>
-        <activity
-            android:name=".InternetTestActivity"
-            android:label="@string/title_activity_internet_test" >
+            android:name=".QuestionDetailActivity"
+            android:label="@string/title_activity_question_detail" >
         </activity>
     </application>
 

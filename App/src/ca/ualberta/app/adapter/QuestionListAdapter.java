@@ -74,11 +74,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.authorName.setText(question.getAuthor());
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
 			holder.upvoteState.setText("Upvote: " + question.getUpvoteCount());
-			if (question.ifSelected()) {
-				convertView.setBackgroundColor(Color.DKGRAY);
-			} else {
-				convertView.setBackgroundColor(Color.WHITE);
-			}
 		}
 		holder.upvote_Rb
 				.setOnClickListener(new upvoteOnClickListener(position));

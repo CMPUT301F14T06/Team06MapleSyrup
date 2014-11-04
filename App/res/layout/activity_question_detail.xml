@@ -8,8 +8,7 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.36"
-        android:text="question" />
+        android:layout_weight="0.36" />
 
     <ListView
         android:id="@+id/listView1"
@@ -21,7 +20,6 @@
         android:id="@+id/expandableListView1"
         android:layout_width="wrap_content"
         android:layout_height="315dp" >
-
     </ExpandableListView>
 
 </LinearLayout>
