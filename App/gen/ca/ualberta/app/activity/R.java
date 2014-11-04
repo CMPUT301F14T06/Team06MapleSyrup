@@ -108,7 +108,7 @@ public final class R {
     }
     public static final class id {
         public static final int MyQuestionTextView=0x7f0a0034;
-        public static final int action_settings=0x7f0a005a;
+        public static final int action_settings=0x7f0a005c;
         public static final int addAImageButton=0x7f0a004a;
         public static final int addImage_imageView=0x7f0a000d;
         public static final int add_image_button=0x7f0a0006;
@@ -128,7 +128,9 @@ public final class R {
         public static final int answerTextView=0x7f0a0044;
         public static final int answerUpvoteButton=0x7f0a0048;
         public static final int answer_edit_button=0x7f0a0002;
+        public static final int answer_listView=0x7f0a0058;
         public static final int answer_remove_button=0x7f0a0003;
+        public static final int answer_reply_ExpanableListView=0x7f0a0043;
         public static final int answer_reply_button=0x7f0a0001;
         public static final int answer_reply_listView=0x7f0a0007;
         public static final int answer_textView=0x7f0a0000;
@@ -142,7 +144,6 @@ public final class R {
         public static final int content_textView=0x7f0a000b;
         public static final int create_input_menu=0x7f0a0008;
         public static final int editMyquestionButton=0x7f0a0037;
-        public static final int expandableListView1=0x7f0a0043;
         public static final int favQuestion_ListView=0x7f0a0022;
         public static final int favSort_spinner=0x7f0a0021;
         public static final int fav_button=0x7f0a0050;
@@ -179,9 +180,10 @@ public final class R {
         public static final int question_answer_button=0x7f0a0055;
         public static final int question_listView=0x7f0a0024;
         public static final int question_reply_button=0x7f0a0056;
+        public static final int question_reply_expanableListView=0x7f0a0057;
         public static final int removeMyquestionButton=0x7f0a0035;
-        public static final int replyAuthor_textView=0x7f0a0058;
-        public static final int reply_textView=0x7f0a0057;
+        public static final int replyAuthor_textView=0x7f0a005a;
+        public static final int reply_textView=0x7f0a0059;
         public static final int save_button=0x7f0a004f;
         public static final int searchQuestion_Button=0x7f0a0030;
         public static final int searchQuestion_EditText=0x7f0a002f;
@@ -192,7 +194,7 @@ public final class R {
         public static final int sort_spinner=0x7f0a0023;
         public static final int submit_button=0x7f0a000e;
         public static final int take_pic=0x7f0a0010;
-        public static final int titleTv=0x7f0a0059;
+        public static final int titleTv=0x7f0a005b;
         public static final int title_editText=0x7f0a000a;
         public static final int title_textView=0x7f0a0009;
         public static final int upvoteStateTextView=0x7f0a0042;

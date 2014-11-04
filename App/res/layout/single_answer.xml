@@ -120,7 +120,7 @@
     </GridLayout>
 
     <ExpandableListView
-        android:id="@+id/expandableListView1"
+        android:id="@+id/answer_reply_ExpanableListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

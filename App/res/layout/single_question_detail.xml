@@ -165,12 +165,18 @@
     </LinearLayout>
 
     <ExpandableListView
-        android:id="@+id/expandableListView1"
+        android:id="@+id/question_reply_expanableListView"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/gridLayout1" >
+    </ExpandableListView>
+
+    <ListView
+        android:id="@+id/answer_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gridLayout1" >
-
-    </ExpandableListView>
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/question_reply_expanableListView" >
+    </ListView>
 
 </RelativeLayout>
