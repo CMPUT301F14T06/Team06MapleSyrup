@@ -222,7 +222,8 @@ public final class R {
         public static final int single_question=0x7f03000e;
         public static final int single_question_detail=0x7f03000f;
         public static final int single_reply=0x7f030010;
-        public static final int title_bar=0x7f030011;
+        public static final int spinner_item=0x7f030011;
+        public static final int title_bar=0x7f030012;
     }
     public static final class menu {
         public static final int answer=0x7f090000;

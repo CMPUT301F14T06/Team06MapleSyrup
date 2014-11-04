@@ -26,6 +26,15 @@ import android.widget.Toast;
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
 
 public class FragmentMain extends Fragment {
+	
+	static String sortByDate = "Sort By Date";
+	static String sortByScore = "Sort By Score";
+	static String sortByQuestionUpvote = "Sort By Question Upvote";
+	static String sortByAnswerUpvote = "Sort By Answer Upvote";
+	static String sortByPicture = "Sort By Picture";
+	static String[] sortOption = {sortByDate, sortByScore,sortByPicture, 
+		sortByQuestionUpvote, sortByAnswerUpvote};
+
 	private QuestionListAdapter adapter = null;
 	private QuestionListController questionListController = null;
 	private TextView titleBar = null;
@@ -33,7 +42,7 @@ public class FragmentMain extends Fragment {
 	private Spinner sortOptionSpinner;
 	private QuestionListManager questionListManager;
 	private Context mcontext;
-	private ArrayAdapter<?> spin_adapter;
+	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
 	private String sortString = null;
 
@@ -69,8 +78,8 @@ public class FragmentMain extends Fragment {
 		questionListController = new QuestionListController();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
 				questionListController.getQuestionArrayList());
-		spin_adapter = ArrayAdapter.createFromResource(mcontext,
-				R.array.list_type, android.R.layout.simple_list_item_1);
+		spin_adapter = new ArrayAdapter<String>(mcontext,
+				R.layout.spinner_item, sortOption);
 
 		questionListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
