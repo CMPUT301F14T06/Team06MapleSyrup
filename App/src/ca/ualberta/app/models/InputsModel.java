@@ -14,17 +14,18 @@ public abstract class InputsModel {
 	long upvoteCount_question;
 	long upvoteCount_answer;
 	long score;
-	long ID;
+	long ID_question;
+	long ID_answer;
 	
 	// Question contains replyList and answerList
 	public InputsModel(String content, String userName, String title,  
 			Bitmap image) {
-		timestamp = new Date();
+		this.timestamp = new Date();
 		this.image = image;
 		this.title = title;
 		this.content = content;
 		this.userName = userName;
-		this.ID = new Date().getTime();
+		this.ID_question = new Date().getTime();
 		answerCount = 0;
 		upvoteCount_question = 0;
 	}
@@ -35,7 +36,7 @@ public abstract class InputsModel {
 		this.image = image;
 		this.content = content;
 		this.userName = userName;
-		this.ID = new Date().getTime()-100;
+		this.ID_answer = new Date().getTime()-100;
 		upvoteCount_answer = 0;
 	}
 

@@ -42,7 +42,7 @@ public class Question extends InputsModel {
 	}
 	
 	public long getID(){
-		return this.ID;
+		return this.ID_question;
 	}
 	
 	public int getAnswerCount() {

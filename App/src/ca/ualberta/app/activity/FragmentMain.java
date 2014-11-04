@@ -153,7 +153,7 @@ public class FragmentMain extends Fragment {
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
-			sortOptionSpinner.setSelection(3);
+			sortOptionSpinner.setSelection(0);
 		}
 	}
 
