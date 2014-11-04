@@ -6,16 +6,17 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.QuestionListManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +27,18 @@ public class FragmentMain extends Fragment {
 	private QuestionListController questionListController = null;
 	private TextView titleBar = null;
 	private ListView questionListView = null;
+	private Spinner sortOptionSpinner;
 	private QuestionListManager questionListManager;
 	private Context mcontext;
+	private ArrayAdapter<?> spin_adapter;
+	private static long categoryID;
+	private String sortString = null;
+	
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.notifyDataSetChanged();
+			spin_adapter.notifyDataSetChanged();
 		}
 	};
 
@@ -49,6 +56,7 @@ public class FragmentMain extends Fragment {
 		titleBar.setText("Main");
 		questionListView = (ListView) getView().findViewById(
 				R.id.question_listView);
+		sortOptionSpinner = (Spinner) getView().findViewById(R.id.sort_spinner);
 	}
 
 	@Override
@@ -59,9 +67,13 @@ public class FragmentMain extends Fragment {
 		adapter = new QuestionListAdapter(mcontext,
 				R.layout.single_question,
 				questionListController.getQuestionArrayList());
-
+		spin_adapter = ArrayAdapter.createFromResource(mcontext, 
+				R.array.list_type, 
+				android.R.layout.simple_spinner_dropdown_item);
+		
 		questionListView.setAdapter(adapter);
-
+		sortOptionSpinner.setAdapter(spin_adapter);
+		sortOptionSpinner.setOnItemSelectedListener(new change_category_click());
 		// Show details when click on a question
 //		questionListView.setOnItemClickListener(new OnItemClickListener() {
 //			@Override
@@ -102,6 +114,46 @@ public class FragmentMain extends Fragment {
 		// updateList();
 	}
 
+		private class change_category_click implements OnItemSelectedListener {
+			public void onItemSelected(AdapterView<?> parent, View view,
+			int position, long id) {
+				categoryID = position;
+				
+				//sort by Date
+				if (categoryID == 0) {
+					sortString = "date";
+					updateList();
+				}
+				
+				//sort by Picture
+				if (categoryID == 1) {
+					sortString = "picture";
+					updateList();
+				}
+				
+				//sort by Score
+				if (categoryID == 2){
+					sortString = "score";
+					updateList();
+				}
+				//sort by Question upvote
+				if (categoryID == 3){
+					sortString = "q_upvote";
+					updateList();
+				}
+				
+				//sort by Answer upvote
+				if (categoryID == 4){
+					sortString = "a_upvote";
+					updateList();
+				}
+			}
+			
+			public void onNothingSelected(AdapterView<?> parent) {
+				sortOptionSpinner.setSelection(3);
+			}
+	}
+		
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -132,7 +184,7 @@ public class FragmentMain extends Fragment {
 		public void run() {
 			questionListController.clear();
 			questionListController.addAll(questionListManager.searchQuestions(
-					search, null));
+					search, null,sortString));
 
 			getActivity().runOnUiThread(doUpdateGUIList);
 		}
