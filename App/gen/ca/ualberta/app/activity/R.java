@@ -107,99 +107,101 @@ public final class R {
         public static final int wrench_plus_2_icon48=0x7f020047;
     }
     public static final class id {
-        public static final int MyQuestionTextView=0x7f0a0034;
-        public static final int action_settings=0x7f0a005d;
-        public static final int addAImageButton=0x7f0a004a;
+        public static final int MyQuestionTextView=0x7f0a0036;
+        public static final int action_settings=0x7f0a005f;
+        public static final int addAImageButton=0x7f0a004c;
         public static final int addImage_imageView=0x7f0a000d;
         public static final int add_image_button=0x7f0a0006;
-        public static final int add_menu_button=0x7f0a001b;
+        public static final int add_menu_button=0x7f0a001d;
         public static final int add_pic=0x7f0a0011;
-        public static final int answerAndReplyListView=0x7f0a001f;
-        public static final int answerContent=0x7f0a003b;
-        public static final int answerEditButton=0x7f0a0046;
-        public static final int answerImage=0x7f0a003f;
-        public static final int answerOfMyquestionListView=0x7f0a0036;
-        public static final int answerPopTextView=0x7f0a0049;
+        public static final int answerAndReplyListView=0x7f0a0021;
+        public static final int answerContent=0x7f0a003d;
+        public static final int answerEditButton=0x7f0a0048;
+        public static final int answerImage=0x7f0a0041;
+        public static final int answerOfMyquestionListView=0x7f0a0038;
+        public static final int answerPopTextView=0x7f0a004b;
         public static final int answerPop_textView=0x7f0a0005;
-        public static final int answerRemoveButton=0x7f0a0047;
-        public static final int answerReplyButton=0x7f0a0045;
-        public static final int answerReplyListView=0x7f0a004b;
-        public static final int answerStateTextView=0x7f0a0052;
-        public static final int answerTextView=0x7f0a0044;
-        public static final int answerUpvoteButton=0x7f0a0048;
+        public static final int answerRemoveButton=0x7f0a0049;
+        public static final int answerReplyButton=0x7f0a0047;
+        public static final int answerReplyListView=0x7f0a004d;
+        public static final int answerStateTextView=0x7f0a0054;
+        public static final int answerTextView=0x7f0a0046;
+        public static final int answerUpvoteButton=0x7f0a004a;
         public static final int answer_edit_button=0x7f0a0002;
-        public static final int answer_listView=0x7f0a0059;
+        public static final int answer_listView=0x7f0a005b;
         public static final int answer_remove_button=0x7f0a0003;
-        public static final int answer_reply_ExpanableListView=0x7f0a0043;
+        public static final int answer_reply_ExpanableListView=0x7f0a0045;
         public static final int answer_reply_button=0x7f0a0001;
         public static final int answer_reply_listView=0x7f0a0007;
         public static final int answer_textView=0x7f0a0000;
         public static final int answer_upvote_button=0x7f0a0004;
-        public static final int answernContentTextView=0x7f0a003c;
-        public static final int authorNameTextView=0x7f0a003a;
-        public static final int authorPic=0x7f0a0039;
+        public static final int answernContentTextView=0x7f0a003e;
+        public static final int authorNameTextView=0x7f0a003c;
+        public static final int authorPic=0x7f0a003b;
         public static final int cancel_button=0x7f0a000f;
-        public static final int changePhotoButton=0x7f0a0025;
+        public static final int changePhotoButton=0x7f0a0027;
         public static final int content_editText=0x7f0a000c;
         public static final int content_textView=0x7f0a000b;
         public static final int create_input_menu=0x7f0a0008;
-        public static final int editMyquestionButton=0x7f0a0037;
-        public static final int favQuestion_ListView=0x7f0a0022;
-        public static final int favSort_spinner=0x7f0a0021;
-        public static final int fav_button=0x7f0a0050;
-        public static final int fav_menu_button=0x7f0a001a;
-        public static final int fav_question=0x7f0a0029;
-        public static final int fragement_fav=0x7f0a0015;
-        public static final int fragement_main=0x7f0a0014;
-        public static final int fragement_profile=0x7f0a0017;
-        public static final int fragement_search=0x7f0a0016;
-        public static final int gridLayout1=0x7f0a0041;
-        public static final int linearLayout1=0x7f0a0038;
-        public static final int linearLayout3=0x7f0a003d;
-        public static final int linearLayout4=0x7f0a0040;
-        public static final int local_cache=0x7f0a0028;
-        public static final int login=0x7f0a002c;
-        public static final int login_button=0x7f0a0012;
-        public static final int login_menu=0x7f0a002b;
-        public static final int logout=0x7f0a002d;
-        public static final int main_menu=0x7f0a0018;
-        public static final int main_menu_button=0x7f0a0019;
-        public static final int myQuestion_ListView=0x7f0a0033;
-        public static final int mySort_spinner=0x7f0a0032;
-        public static final int my_question=0x7f0a002a;
-        public static final int one_title=0x7f0a0020;
-        public static final int profile_menu=0x7f0a0027;
-        public static final int profile_menu_button=0x7f0a001d;
-        public static final int questionAndReplyListView=0x7f0a001e;
-        public static final int questionContentTextView=0x7f0a004e;
-        public static final int questionDescription=0x7f0a004c;
-        public static final int questionDetailContentTextView=0x7f0a0054;
-        public static final int questionDetailTitleTextView=0x7f0a0053;
-        public static final int questionImage=0x7f0a0055;
-        public static final int questionTitleTextView=0x7f0a004d;
-        public static final int question_answer_button=0x7f0a0056;
-        public static final int question_listView=0x7f0a0024;
-        public static final int question_reply_button=0x7f0a0057;
-        public static final int question_reply_expanableListView=0x7f0a0058;
-        public static final int removeMyquestionButton=0x7f0a0035;
-        public static final int replyAuthor_textView=0x7f0a005b;
-        public static final int reply_textView=0x7f0a005a;
-        public static final int save_button=0x7f0a004f;
-        public static final int searchQuestion_Button=0x7f0a0030;
-        public static final int searchQuestion_EditText=0x7f0a002f;
-        public static final int searchQuestion_ListView=0x7f0a0031;
-        public static final int search_menu_button=0x7f0a001c;
-        public static final int search_sort_spinner=0x7f0a002e;
-        public static final int setAuthorName=0x7f0a0026;
-        public static final int sort_spinner=0x7f0a0023;
+        public static final int editMyquestionButton=0x7f0a0039;
+        public static final int favQuestion_ListView=0x7f0a0024;
+        public static final int favSort_spinner=0x7f0a0023;
+        public static final int fav_button=0x7f0a0052;
+        public static final int fav_menu_button=0x7f0a001c;
+        public static final int fav_question=0x7f0a002b;
+        public static final int fragement_fav=0x7f0a0017;
+        public static final int fragement_main=0x7f0a0016;
+        public static final int fragement_profile=0x7f0a0019;
+        public static final int fragement_search=0x7f0a0018;
+        public static final int gridLayout1=0x7f0a0043;
+        public static final int linearLayout1=0x7f0a003a;
+        public static final int linearLayout3=0x7f0a003f;
+        public static final int linearLayout4=0x7f0a0042;
+        public static final int local_cache=0x7f0a002a;
+        public static final int login=0x7f0a002e;
+        public static final int loginImage=0x7f0a0012;
+        public static final int login_button=0x7f0a0014;
+        public static final int login_cancel_button=0x7f0a0015;
+        public static final int login_menu=0x7f0a002d;
+        public static final int logout=0x7f0a002f;
+        public static final int main_menu=0x7f0a001a;
+        public static final int main_menu_button=0x7f0a001b;
+        public static final int myQuestion_ListView=0x7f0a0035;
+        public static final int mySort_spinner=0x7f0a0034;
+        public static final int my_question=0x7f0a002c;
+        public static final int one_title=0x7f0a0022;
+        public static final int profile_menu=0x7f0a0029;
+        public static final int profile_menu_button=0x7f0a001f;
+        public static final int questionAndReplyListView=0x7f0a0020;
+        public static final int questionContentTextView=0x7f0a0050;
+        public static final int questionDescription=0x7f0a004e;
+        public static final int questionDetailContentTextView=0x7f0a0056;
+        public static final int questionDetailTitleTextView=0x7f0a0055;
+        public static final int questionImage=0x7f0a0057;
+        public static final int questionTitleTextView=0x7f0a004f;
+        public static final int question_answer_button=0x7f0a0058;
+        public static final int question_listView=0x7f0a0026;
+        public static final int question_reply_button=0x7f0a0059;
+        public static final int question_reply_expanableListView=0x7f0a005a;
+        public static final int removeMyquestionButton=0x7f0a0037;
+        public static final int replyAuthor_textView=0x7f0a005d;
+        public static final int reply_textView=0x7f0a005c;
+        public static final int save_button=0x7f0a0051;
+        public static final int searchQuestion_Button=0x7f0a0032;
+        public static final int searchQuestion_EditText=0x7f0a0031;
+        public static final int searchQuestion_ListView=0x7f0a0033;
+        public static final int search_menu_button=0x7f0a001e;
+        public static final int search_sort_spinner=0x7f0a0030;
+        public static final int setAuthorName=0x7f0a0028;
+        public static final int sort_spinner=0x7f0a0025;
         public static final int submit_button=0x7f0a000e;
         public static final int take_pic=0x7f0a0010;
-        public static final int timeTextView=0x7f0a0051;
-        public static final int titleTv=0x7f0a005c;
+        public static final int timeTextView=0x7f0a0053;
+        public static final int titleTv=0x7f0a005e;
         public static final int title_editText=0x7f0a000a;
         public static final int title_textView=0x7f0a0009;
-        public static final int upvoteStateTextView=0x7f0a0042;
-        public static final int upvote_button=0x7f0a003e;
+        public static final int upvoteStateTextView=0x7f0a0044;
+        public static final int upvote_button=0x7f0a0040;
         public static final int username_editText=0x7f0a0013;
     }
     public static final class layout {
@@ -289,31 +291,11 @@ public final class R {
 
 
 
-
-
-
-
-
-
-
-
-
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
-
-
-
-
-
-
-
-
-
-
-
 
         
 

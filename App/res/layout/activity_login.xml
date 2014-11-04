@@ -8,26 +8,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
 
-    <ImageButton
-        android:id="@+id/login_button"
+    <ImageView
+        android:id="@+id/loginImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="86dp"
         android:background="@drawable/login2"
-        android:contentDescription="@string/desc"
-        android:onClick="login" />
+        android:contentDescription="@string/desc" />
 
     <EditText
         android:id="@+id/username_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button"
+        android:layout_below="@+id/loginImage"
         android:layout_centerHorizontal="true"
-        android:ems="10" >
+        android:ems="10" />
 
-        <requestFocus />
-    </EditText>
+    <RadioButton
+        android:id="@+id/login_button"
+        style="@style/answer_reply_button"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/loginImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:onClick="login"
+        android:text="@string/login"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#696969" />
+
+    <RadioButton
+        android:id="@+id/login_cancel_button"
+        style="@style/answer_reply_button"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/login_button"
+        android:layout_below="@+id/login_button"
+        android:onClick="cancel_login"
+        android:text="@string/cancel"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#696969" />
 
 </RelativeLayout>
