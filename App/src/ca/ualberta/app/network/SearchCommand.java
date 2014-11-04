@@ -42,7 +42,9 @@ public class SearchCommand {
 
 			command.append("]");
 		}
-
+		if (sortOption == "date"){
+			command.append("}}, \"sort\":  {\"ID_question\" : {\"order\" : \"desc\"");
+		}
 		if (sortOption == "q_upvote"){
 			command.append("}}, \"sort\":  {\"upvoteCount_question\" : {\"order\" : \"desc\"");
 		}
