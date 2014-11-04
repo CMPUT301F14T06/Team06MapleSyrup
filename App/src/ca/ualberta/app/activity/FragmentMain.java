@@ -124,7 +124,7 @@ public class FragmentMain extends Fragment {
 						return true;
 					}
 				});
-		// updateList();
+		 //updateList();
 	}
 
 	private class change_category_click implements OnItemSelectedListener {
@@ -170,7 +170,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		updateList();
+		//updateList();
 	}
 
 	@Override
