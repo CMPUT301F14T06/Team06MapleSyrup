@@ -142,6 +142,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			// TODO Auto-generated method stub
 			Question question = questionList.get(position);
 			question.upvoteQuestion();
+			question.calcCurrentTotalScore();
 			// long questionID = question.getID();
 			Thread thread = new UpdateThread(question);
 			thread.start();

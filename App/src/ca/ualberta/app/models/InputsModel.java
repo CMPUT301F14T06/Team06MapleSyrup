@@ -10,12 +10,6 @@ public abstract class InputsModel {
 	public String userName;
 	Bitmap image = null;
 	Date timestamp;
-	long answerCount;
-	long upvoteCount_question;
-	long upvoteCount_answer;
-	long score;
-	long ID_question;
-	long ID_answer;
 	
 	// Question contains replyList and answerList
 	public InputsModel(String content, String userName, String title,  
@@ -25,9 +19,6 @@ public abstract class InputsModel {
 		this.title = title;
 		this.content = content;
 		this.userName = userName;
-		this.ID_question = new Date().getTime();
-		answerCount = 0;
-		upvoteCount_question = 0;
 	}
 
 	// Answer contain replyList
@@ -36,8 +27,6 @@ public abstract class InputsModel {
 		this.image = image;
 		this.content = content;
 		this.userName = userName;
-		this.ID_answer = new Date().getTime()-100;
-		upvoteCount_answer = 0;
 	}
 
 	// Reply
@@ -73,22 +62,6 @@ public abstract class InputsModel {
 
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
-	}
-
-	public void upvoteQuestion() {
-		upvoteCount_question++;
-	}
-
-	public void upvoteAnswer() {
-		upvoteCount_answer++;
-	}
-	
-	public long getQuestionUpvoteCount() {
-		return upvoteCount_question;
-	}
-
-	public long getAnswerUpvoteCount() {
-		return upvoteCount_answer;
 	}
 	
 	public String getAuthor() {
