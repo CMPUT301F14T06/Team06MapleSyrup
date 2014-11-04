@@ -2,7 +2,7 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
-import ca.ualberta.app.models.QuestionListController;
+import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.QuestionListManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

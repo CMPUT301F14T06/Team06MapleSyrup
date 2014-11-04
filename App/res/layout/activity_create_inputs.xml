@@ -54,6 +54,18 @@
                 android:ems="10"
                 android:inputType="textMultiLine" >
             </EditText>
+
+            <ImageView
+                android:id="@+id/addImage_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/content_editText"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/desc"
+                android:src="@android:drawable/gallery_thumb" />
         </RelativeLayout>
     </ScrollView>
 
@@ -77,6 +89,7 @@
             android:id="@+id/cancel_button"
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
+            android:onClick="cancel"
             android:text="@string/cancel" />
 
         <RadioButton
@@ -84,7 +97,8 @@
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
             android:layout_weight="0.3"
-            android:drawableLeft="@drawable/photo_icon32" />
+            android:drawableLeft="@drawable/photo_icon32"
+            android:onClick="take_pic" />
 
         <RadioButton
             android:id="@+id/add_pic"

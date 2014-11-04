@@ -7,10 +7,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/linearLayout3"
         android:orientation="vertical" >
 
         <ImageView
@@ -32,32 +31,19 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/questionDescription"
+        android:id="@+id/answerContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/linearLayout1"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/linearLayout3"
+        android:layout_toRightOf="@+id/linearLayout1"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/questionTitleTextView"
+            android:id="@+id/answernContentTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:text="@string/question_title"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/questionContentTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:text="@string/single_question"
+            android:text="@string/single_answer"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#696969"
             android:textSize="13sp" />
@@ -68,65 +54,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/questionDescription"
+        android:layout_below="@+id/linearLayout1"
         android:orientation="horizontal" >
-
-        <RadioButton
-            android:id="@+id/save_button"
-            style="@style/fav_save_upvote_button"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:drawableTop="@drawable/save_button_style"
-            android:text="@string/save"
-            android:textColor="#696969" />
-
-        <RadioButton
-            android:id="@+id/fav_button"
-            style="@style/fav_save_upvote_button"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:drawableTop="@drawable/fav_button_style"
-            android:text="@string/favorite"
-            android:textColor="#696969" />
 
         <RadioButton
             android:id="@+id/upvote_button"
             style="@style/fav_save_upvote_button"
-            android:layout_width="35dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/hand_pro_icon32"
             android:text="@string/upvote"
             android:textColor="#696969" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/answerImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/answerContent"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/answerContent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/desc"
+        android:src="@android:drawable/gallery_thumb" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/answerImage"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/answerImage"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/answer_reply_button"
+            style="@style/answer_reply_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/reply"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#696969" />
+    </LinearLayout>
+
     <GridLayout
+        android:id="@+id/gridLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/linearLayout3"
-        android:layout_alignLeft="@+id/questionDescription"
-        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/linearLayout1"
         android:layout_alignTop="@+id/linearLayout3"
+        android:layout_toRightOf="@+id/linearLayout3"
         android:columnCount="2" >
 
         <TextView
             android:id="@+id/upvoteStateTextView"
-            android:layout_width="110dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="@string/upvote_state"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#696969"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/answerStateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="fill_horizontal"
-            android:gravity="center_vertical"
-            android:text="@string/answer_state"
-            android:textColor="#696969"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
     </GridLayout>
 
 </RelativeLayout>

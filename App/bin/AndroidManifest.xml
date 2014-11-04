@@ -7,8 +7,12 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="17" />
-
+    <!-- Add permission for internet (android.permission.INTERNET) -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Add permission for camera (android.permission.CAMERA) -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Add permission for writing to external storage (android.permission.WRITE_EXTERNAL_STORAGE) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".CreateInputsActivity"
             android:label="@string/title_activity_create_input" >

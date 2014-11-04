@@ -1,4 +1,4 @@
-package ca.ualberta.app.models;
+package ca.ualberta.app.controller;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,7 +15,10 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import ca.ualberta.app.models.Answer;
+import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
+import ca.ualberta.app.models.Reply;
 
 public class QuestionListController {
 

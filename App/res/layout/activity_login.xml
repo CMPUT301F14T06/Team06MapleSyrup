@@ -16,16 +16,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="86dp"
         android:background="@drawable/login2"
+        android:contentDescription="@string/desc"
         android:onClick="login" />
-
-    <TextView
-        android:id="@+id/currentQ_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Login"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/username_editText"

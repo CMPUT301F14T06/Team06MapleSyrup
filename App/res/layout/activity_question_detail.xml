@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.36" />
-
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="74dp" >
-    </ListView>
-
     <ExpandableListView
-        android:id="@+id/expandableListView1"
+        android:id="@+id/questionAndReplyListView"
         android:layout_width="wrap_content"
-        android:layout_height="315dp" >
+        android:layout_height="315dp"
+        android:layout_above="@+id/answerAndReplyListView"
+        android:layout_below="@+id/one_title" >
     </ExpandableListView>
 
-</LinearLayout>
+    <ExpandableListView
+        android:id="@+id/answerAndReplyListView"
+        android:layout_width="wrap_content"
+        android:layout_height="315dp"
+        android:layout_alignParentBottom="true" >
+    </ExpandableListView>
+
+</RelativeLayout>

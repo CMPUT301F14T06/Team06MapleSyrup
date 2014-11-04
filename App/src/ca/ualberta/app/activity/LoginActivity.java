@@ -13,15 +13,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
-	EditText usernameEdit;
-	String username;
-	AuthorMap authorMap;
-	String FILENAME = "AUTHORMAP.sav";
-	Context context = this;
-	AuthorMapManager authorMapManager;
+	private EditText usernameEdit;
+	private String username;
+	private AuthorMap authorMap;
+	private String FILENAME = "AUTHORMAP.sav";
+	private Context context = this;
+	private AuthorMapManager authorMapManager;
 
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {

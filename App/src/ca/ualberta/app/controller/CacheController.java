@@ -1,4 +1,6 @@
-package ca.ualberta.app.models;
+package ca.ualberta.app.controller;
+
+import ca.ualberta.app.models.QuestionList;
 
 public class CacheController {
 

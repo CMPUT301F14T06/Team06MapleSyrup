@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import android.graphics.Bitmap;
 
+import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.QuestionListManager;
 import junit.framework.TestCase;
 

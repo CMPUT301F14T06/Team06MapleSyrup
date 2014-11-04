@@ -2,8 +2,8 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionListController;
 import ca.ualberta.app.models.QuestionListManager;
 import android.content.Context;
 import android.content.Intent;
@@ -56,28 +56,28 @@ public class FragmentMain extends Fragment {
 		super.onStart();
 		questionListManager = new QuestionListManager();
 		questionListController = new QuestionListController();
-		adapter = new QuestionListAdapter(mcontext,
-				R.layout.single_question,
+		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
 				questionListController.getQuestionArrayList());
 
 		questionListView.setAdapter(adapter);
 
 		// Show details when click on a question
-//		questionListView.setOnItemClickListener(new OnItemClickListener() {
-//			@Override
-//			public void onItemClick(AdapterView<?> parent, View view, int pos,
-//					long id) {
-//				long questionID = questionListController.getQuestion(pos)
-//						.getID();
-//
-//				Intent intent = new Intent(mcontext, QuestionDetailActivity.class);
-//				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
-//
-//				startActivity(intent);
-//
-//			}
-//
-//		});
+		questionListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int pos,
+					long id) {
+				long questionID = questionListController.getQuestion(pos)
+						.getID();
+
+				Intent intent = new Intent(mcontext,
+						QuestionDetailActivity.class);
+				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
+
+				startActivity(intent);
+
+			}
+
+		});
 
 		// Delete question on long click
 		questionListView

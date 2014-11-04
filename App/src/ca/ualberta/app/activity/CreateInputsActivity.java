@@ -1,7 +1,9 @@
 package ca.ualberta.app.activity;
 
+import java.io.File;
+
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.models.QuestionListController;
+import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
@@ -9,15 +11,22 @@ import ca.ualberta.app.models.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -26,6 +35,7 @@ public class CreateInputsActivity extends Activity {
 	private RadioButton cancel;
 	private RadioButton galary;
 	private RadioButton photo;
+	private ImageView image;
 	private EditText titleText = null;
 	private EditText contentText = null;
 	private Question newQuestion = null;
@@ -33,6 +43,8 @@ public class CreateInputsActivity extends Activity {
 	private QuestionList myQuestionList;
 	private String MYQUESTION = User.author.getUsername() + ".sav";
 	private QuestionListManager questionListManager;
+	Uri imageFileUri;
+	Uri stringFileUri;
 
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -50,13 +62,77 @@ public class CreateInputsActivity extends Activity {
 		galary = (RadioButton) findViewById(R.id.add_pic);
 		titleText = (EditText) findViewById(R.id.title_editText);
 		contentText = (EditText) findViewById(R.id.content_editText);
+		image = (ImageView) findViewById(R.id.addImage_imageView);
 		questionListManager = new QuestionListManager();
+		image.setVisibility(View.GONE);
+	}
 
-		cancel.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				finish();
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+
+	public void take_pic(View view) {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		// ComponentName cn = new ComponentName("es.softwareprocess.bogopicgen",
+		// "es.softwareprocess.bogopicgen.BogoPicGenActivity");
+		// ComponentName cn = new ComponentName("com.android.camera",
+		// "com.android.camera.Camera");
+		// intent.setComponent(cn);
+
+		// Create a folder to store pictures
+		String folder = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/tmp";
+		File folderF = new File(folder);
+		if (!folderF.exists()) {
+			folderF.mkdir();
+		}
+
+		// Create an URI for the picture file
+		String imageFilePath = folder + "/"
+				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+		File imageFile = new File(imageFilePath);
+		imageFileUri = Uri.fromFile(imageFile);
+		// TODO: Put in the intent in the tag MediaStore.EXTRA_OUTPUT the URI
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+		// TODO: Start the activity (expecting a result), with the code
+		// CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
+		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO: Handle the results from CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
+
+		// TODO: Handle the cases for RESULT_OK, RESULT_CANCELLED, and others
+
+		// When the result is OK, set text "Photo OK!" in the status
+		// and set the image in the Button with:
+		// button.setImageDrawable(Drawable.createFromPath(imageFileUri.getPath()));
+		// When the result is CANCELLED, set text "Photo canceled" in the status
+		// Otherwise, set text "Not sure what happened!" with the resultCode
+
+		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+			if (resultCode == RESULT_OK) {
+				Toast.makeText(this, "Photo OK!", Toast.LENGTH_SHORT).show();
+				// String random = (String)
+				// data.getExtras().getSerializable("random");
+				// tv.setText(data.getExtras().getSerializable(("random"))
+				// .toString());
+
+				image.setVisibility(View.VISIBLE);
+				image.setImageDrawable(Drawable.createFromPath(imageFileUri
+						.getPath()));
+			} else if (resultCode == RESULT_CANCELED) {
+				Toast.makeText(this, "Photo Canceled!", Toast.LENGTH_SHORT)
+						.show();
+			} else {
+				Toast.makeText(this, "Have no idea what happened!",
+						Toast.LENGTH_SHORT).show();
 			}
-		});
+		}
+
+	}
+
+	public void cancel(View view) {
+		finish();
 	}
 
 	public void submit(View view) {
