@@ -70,7 +70,7 @@ public class FragmentMain extends Fragment {
 				questionListController.getQuestionArrayList());
 		spin_adapter = ArrayAdapter.createFromResource(mcontext,
 				R.array.list_type,
-				android.R.layout.simple_spinner_dropdown_item);
+				android.R.layout.simple_list_item_1);
 
 		questionListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
