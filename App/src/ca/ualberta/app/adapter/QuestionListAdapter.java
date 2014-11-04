@@ -7,7 +7,6 @@ import ca.ualberta.app.models.QuestionListManager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -73,7 +72,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.questionContent.setText(question.getContent());
 			holder.authorName.setText(question.getAuthor());
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
-			holder.upvoteState.setText("Upvote: " + question.getUpvoteCount());
+			holder.upvoteState.setText("Upvote: " + question.getQuestionUpvoteCount());
 		}
 		holder.upvote_Rb
 				.setOnClickListener(new upvoteOnClickListener(position));
@@ -139,7 +138,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Question question = questionList.get(position);
-			question.upvote();
+			question.upvoteQuestion();
 			// long questionID = question.getID();
 			Thread thread = new UpdateThread(question);
 			thread.start();

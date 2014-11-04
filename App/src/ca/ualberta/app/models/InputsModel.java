@@ -11,7 +11,8 @@ public abstract class InputsModel {
 	Bitmap image = null;
 	Date timestamp;
 	long answerCount;
-	long upvoteCount;
+	long upvoteCount_question;
+	long upvoteCount_answer;
 	long score;
 	long ID;
 	
@@ -25,7 +26,7 @@ public abstract class InputsModel {
 		this.userName = userName;
 		this.ID = new Date().getTime();
 		answerCount = 0;
-		upvoteCount = 0;
+		upvoteCount_question = 0;
 	}
 
 	// Answer contain replyList
@@ -34,8 +35,8 @@ public abstract class InputsModel {
 		this.image = image;
 		this.content = content;
 		this.userName = userName;
-		answerCount = 0;
-		upvoteCount = 0;
+		this.ID = new Date().getTime()-100;
+		upvoteCount_answer = 0;
 	}
 
 	// Reply
@@ -73,13 +74,22 @@ public abstract class InputsModel {
 		this.timestamp = timestamp;
 	}
 
-	public void upvote() {
-		upvoteCount++;
+	public void upvoteQuestion() {
+		upvoteCount_question++;
 	}
 
-	public long getUpvoteCount() {
-		return upvoteCount;
+	public void upvoteAnswer() {
+		upvoteCount_answer++;
 	}
+	
+	public long getQuestionUpvoteCount() {
+		return upvoteCount_question;
+	}
+
+	public long getAnswerUpvoteCount() {
+		return upvoteCount_answer;
+	}
+	
 	public String getAuthor() {
 		// TODO Auto-generated method stub
 		return userName;

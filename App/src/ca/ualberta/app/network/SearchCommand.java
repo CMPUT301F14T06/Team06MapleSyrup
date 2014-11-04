@@ -42,10 +42,14 @@ public class SearchCommand {
 
 			command.append("]");
 		}
-		//{ "query": {"query_string": {"query": "*"}}, "sort": {"upvoteCount":{"order": "desc"}}}
+
 		if (sortOption == "q_upvote"){
-			command.append("}}, \"sort\":  {\"upvoteCount\" : {\"order\" : \"desc\"");
+			command.append("}}, \"sort\":  {\"upvoteCount_question\" : {\"order\" : \"desc\"");
 		}
+		if (sortOption == "a_upvote"){
+			command.append("}}, \"sort\":  {\"upvoteCount_answer\" : {\"order\" : \"desc\"");
+		}
+		
 		command.append("}}}");
 
 		return command.toString();
