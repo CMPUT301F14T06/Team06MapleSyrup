@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -135,6 +136,25 @@ public class AuthorMapManager {
 			HttpResponse response = httpClient.execute(updateRequest);
 			String status = response.getStatusLine().toString();
 
+			Log.i(TAG, status);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Deletes the Author with the specified userName
+	 */
+	public void deleteAuthor(String userName) {
+		HttpClient httpClient = new DefaultHttpClient();
+
+		try {
+			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + userName);
+			deleteRequest.setHeader("Accept", "application/json");
+
+			HttpResponse response = httpClient.execute(deleteRequest);
+			String status = response.getStatusLine().toString();
 			Log.i(TAG, status);
 
 		} catch (Exception e) {
