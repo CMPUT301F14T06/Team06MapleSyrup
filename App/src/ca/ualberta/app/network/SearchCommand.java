@@ -26,10 +26,11 @@ public class SearchCommand {
 		this.fields = fields;
 		this.sortOption = SortOption;
 	}
-	
+	//"from" : 0, "size" : 10,
+
 	public String getJsonCommand() {
 		StringBuffer command = new StringBuffer(
-				"{\"query\" : {\"query_string\" : {\"query\" : \"" + query
+				"{\"from\" : 0, \"size\" : 1000, \"query\" : {\"query_string\" : {\"query\" : \"" + query
 						+ "\"");
 
 		if (fields != null) {

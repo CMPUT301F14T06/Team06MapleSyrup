@@ -64,11 +64,6 @@ public class CreateInputsActivity extends Activity {
 
 	public void take_pic(View view) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		// ComponentName cn = new ComponentName("es.softwareprocess.bogopicgen",
-		// "es.softwareprocess.bogopicgen.BogoPicGenActivity");
-		// ComponentName cn = new ComponentName("com.android.camera",
-		// "com.android.camera.Camera");
-		// intent.setComponent(cn);
 
 		// Create a folder to store pictures
 		String folder = Environment.getExternalStorageDirectory()
@@ -83,24 +78,13 @@ public class CreateInputsActivity extends Activity {
 				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
 		File imageFile = new File(imageFilePath);
 		imageFileUri = Uri.fromFile(imageFile);
-		// TODO: Put in the intent in the tag MediaStore.EXTRA_OUTPUT the URI
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
-		// TODO: Start the activity (expecting a result), with the code
-		// CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
-		// try{
+
 		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-		// }catch(Exception e){
-		// Toast.makeText(this, "No Camera Devices Detected",
-		// Toast.LENGTH_SHORT).show();
-		// }
 
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO: Handle the results from CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
-
-		// TODO: Handle the cases for RESULT_OK, RESULT_CANCELLED, and others
-
 		// When the result is OK, set text "Photo OK!" in the status
 		// and set the image in the Button with:
 		// button.setImageDrawable(Drawable.createFromPath(imageFileUri.getPath()));
@@ -111,10 +95,6 @@ public class CreateInputsActivity extends Activity {
 
 			if (resultCode == RESULT_OK) {
 				Toast.makeText(this, "Photo OK!", Toast.LENGTH_SHORT).show();
-				// String random = (String)
-				// data.getExtras().getSerializable("random");
-				// tv.setText(data.getExtras().getSerializable(("random"))
-				// .toString());
 
 				image.setVisibility(View.VISIBLE);
 				image.setImageDrawable(Drawable.createFromPath(imageFileUri

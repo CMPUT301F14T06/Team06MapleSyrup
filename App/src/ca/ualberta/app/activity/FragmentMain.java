@@ -171,6 +171,7 @@ public class FragmentMain extends Fragment {
 	public void onResume() {
 		super.onResume();
 		// updateList();
+
 	}
 
 	@Override
