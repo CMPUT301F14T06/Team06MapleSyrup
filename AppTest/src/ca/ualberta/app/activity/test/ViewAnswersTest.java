@@ -58,28 +58,28 @@ public class ViewAnswersTest extends TestCase {
 		assertEquals(answer.getAuthor(), result.getAuthor());
 	}
 	
-//	public void testViewAnswerOnline(){
-//		String questionString = "A Question";
-//		String answerString = "A Answer";
-//		String userName = "userName";
-//		String titleString = "title";
-//		Bitmap image = null;
-//		Question question = new Question(questionString, userName, titleString,
-//				image);
-//		Answer answer = new Answer(answerString, userName, image);
-//		QuestionListManager questionListManager = new QuestionListManager();
-//		question.addAnswer(answer);
-//		questionListManager.addQuestion(question);
-//		Question targetQuestion = questionListManager.getQuestion(question.getID());
-//		
-//		ArrayList<Answer> answerList = targetQuestion.getAnswers();
-//		int position = targetQuestion.getAnswerPosition(answer);
-//		Answer result = answerList.get(position);
-//		
-//		assertTrue("User cannot view answers", answerList.size() == 1);
-//		assertEquals(answer.getContent(), result.getContent());
-//		assertEquals(answer.getAuthor(), result.getAuthor());
-//		
-//		questionListManager.deleteQuestion(question.getID());
-//	}
+	public void testViewAnswerOnline(){
+		String questionString = "A Question";
+		String answerString = "A Answer";
+		String userName = "userName";
+		String titleString = "title";
+		Bitmap image = null;
+		Question question = new Question(questionString, userName, titleString,
+				image);
+		Answer answer = new Answer(answerString, userName, image);
+		QuestionListManager questionListManager = new QuestionListManager();
+		question.addAnswer(answer);
+		questionListManager.addQuestion(question);
+		Question targetQuestion = questionListManager.getQuestion(question.getID());
+		
+		ArrayList<Answer> answerList = targetQuestion.getAnswers();
+		int position = targetQuestion.getAnswerPosition(answer);
+		Answer result = answerList.get(0);
+		
+		assertTrue("User cannot view answers", answerList.size() == 1);
+		assertEquals(answer.getContent(), result.getContent());
+		assertEquals(answer.getAuthor(), result.getAuthor());
+		
+		questionListManager.deleteQuestion(question.getID());
+	}
 }
