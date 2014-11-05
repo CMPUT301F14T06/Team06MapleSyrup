@@ -30,13 +30,14 @@ public class MyQuestionActivity extends Activity {
 			sortByQuestionUpvote, sortByAnswerUpvote };
 	private QuestionListAdapter adapter = null;
 	private QuestionListController myQuestionListController;
-	private QuestionListManager questionListManager;
+	private QuestionListManager myQuestionListManager;
 	private QuestionList myQuestionList;
 	private ListView myquestionListView = null;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
+	private String MYQUESTION;
 	public String sortString = "date";
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
@@ -59,8 +60,9 @@ public class MyQuestionActivity extends Activity {
 	@Override
 	public void onStart() {
 		super.onStart();
+		MYQUESTION = User.author.getUsername() + ".sav";
 		myQuestionListController = new QuestionListController();
-		questionListManager = new QuestionListManager();
+		myQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(this, R.layout.single_question,
 				myQuestionListController.getQuestionArrayList());
 		spin_adapter = new ArrayAdapter<String>(mcontext,
@@ -69,6 +71,7 @@ public class MyQuestionActivity extends Activity {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
+
 		// Show details when click on a question
 		myquestionListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -149,9 +152,16 @@ public class MyQuestionActivity extends Activity {
 
 	private void updateList() {
 		myQuestionListController.clear();
-		myQuestionList = questionListManager.getQuestionList(User.author
+		myQuestionList = myQuestionListManager.getQuestionList(User.author
 				.getAuthorQuestionId());
 		myQuestionListController.addAll(myQuestionList);
+		if (User.loginStatus == true) {
+			QuestionListController.saveInFile(mcontext,
+					myQuestionListController.getQuestionList(), MYQUESTION);
+		}
+		
+		//adapter.applySortMethod();
+		adapter.notifyDataSetChanged();
 	}
 
 	class DeleteThread extends Thread {
@@ -163,7 +173,7 @@ public class MyQuestionActivity extends Activity {
 
 		@Override
 		public void run() {
-			questionListManager.deleteQuestion(questionID);
+			myQuestionListManager.deleteQuestion(questionID);
 			// Remove movie from local list
 			for (int i = 0; i < myQuestionListController.size(); i++) {
 				Question q = myQuestionListController.getQuestion(i);

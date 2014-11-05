@@ -9,7 +9,6 @@ import ca.ualberta.app.comparator.PictureComparator;
 import ca.ualberta.app.comparator.QuestionUpvoteComparator;
 import ca.ualberta.app.comparator.ScoreComparator;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionListManager;
 
 import ca.ualberta.app.models.User;
 
@@ -32,7 +31,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private ArrayList<Question> questionList = null;
 	// private String FAVLIST = "favList.sav";
 	// private String LOCALLIST = "localLList.sav";
-	private QuestionListManager questionListManager;
 	private String sortingOption = null;
 
 	// Thread that close the activity after finishing update
@@ -40,7 +38,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	public QuestionListAdapter(Context context, int textViewResourceId,
 			ArrayList<Question> objects) {
 		super(context, textViewResourceId, objects);
-		this.questionListManager = new QuestionListManager();
 		// this.context = context;
 		this.questionList = objects;
 		// this.localList = new QuestionList();
