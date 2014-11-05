@@ -142,7 +142,7 @@ public class AuthorMapManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Deletes the Author with the specified userName
 	 */

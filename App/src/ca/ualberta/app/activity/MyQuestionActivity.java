@@ -1,32 +1,31 @@
 package ca.ualberta.app.activity;
 
-import ca.ualberta.app.activity.R;
+import ca.ualberta.app.activity.FragmentMain.DeleteThread;
+import ca.ualberta.app.activity.FragmentMain.GetQuestionThread;
+import ca.ualberta.app.activity.FragmentMain.SearchThread;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.QuestionListManager;
 import ca.ualberta.app.models.User;
+import android.os.Bundle;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 
-//The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
-
-public class FragmentMain extends Fragment {
-
+public class MyQuestionActivity extends Activity {
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
 	static String sortByQuestionUpvote = "Sort By Question Upvote";
@@ -35,21 +34,20 @@ public class FragmentMain extends Fragment {
 	static String[] sortOption = { sortByDate, sortByScore, sortByPicture,
 			sortByQuestionUpvote, sortByAnswerUpvote };
 
-	private QuestionListAdapter adapter = null;
-	private QuestionListController questionListController = null;
-	private QuestionListController myQuestionListController = null;
-	private TextView titleBar = null;
-	private ListView questionListView = null;
-	private Spinner sortOptionSpinner;
-	private QuestionListManager questionListManager;
+	private String MYQUESTION = User.author.getUsername() + ".sav";
 	private Question question;
+	private QuestionListAdapter adapter = null;
+	private QuestionListController myQuestionListController;
+	private QuestionListManager questionListManager;
+	private TextView titleBar = null;
+	private ListView myquestionListView = null;
+	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
 	public String sortString = "date";
-	private String MYQUESTION;
-
 	// Thread to update adapter after an operation
+
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.notifyDataSetChanged();
@@ -58,48 +56,31 @@ public class FragmentMain extends Fragment {
 	};
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		mcontext = getActivity().getApplicationContext();
-		return inflater.inflate(R.layout.fragment_main, container, false);
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		titleBar = (TextView) getView().findViewById(R.id.titleTv);
-		titleBar.setText("Main");
-		questionListView = (ListView) getView().findViewById(
-				R.id.question_listView);
-		sortOptionSpinner = (Spinner) getView().findViewById(R.id.sort_spinner);
-
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		if (User.loginStatus == true) {
-			// MYQUESTION = User.author.getUsername() + ".sav";
-			myQuestionListController = new QuestionListController();
-		}
-
-		questionListManager = new QuestionListManager();
-		questionListController = new QuestionListController();
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_my_question);
+		mcontext = this;
+		titleBar = (TextView) findViewById(R.id.titleTv);
+		titleBar.setText("My Question List");
+		myquestionListView = (ListView) findViewById(R.id.my_question_ListView);
+		sortOptionSpinner = (Spinner) findViewById(R.id.my_question_sort_spinner);
+		myQuestionListController.addAll(QuestionListController.loadFromFile(
+				this, MYQUESTION));
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
-				questionListController.getQuestionArrayList());
+				myQuestionListController.getQuestionArrayList());
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
 
-		questionListView.setAdapter(adapter);
+		myquestionListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		// Show details when click on a question
-		questionListView.setOnItemClickListener(new OnItemClickListener() {
+		myquestionListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = questionListController.getQuestion(pos)
+				long questionID = myQuestionListController.getQuestion(pos)
 						.getID();
 
 				Intent intent = new Intent(mcontext,
@@ -113,14 +94,14 @@ public class FragmentMain extends Fragment {
 		});
 
 		// Delete question on long click
-		questionListView
+		myquestionListView
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 					@Override
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View view, int position, long id) {
 
-						Question question = questionListController
+						Question question = myQuestionListController
 								.getQuestion(position);
 
 						if (User.author != null
@@ -142,7 +123,7 @@ public class FragmentMain extends Fragment {
 						return true;
 					}
 				});
-		// updateList();
+
 	}
 
 	private class change_category_click implements OnItemSelectedListener {
@@ -153,31 +134,31 @@ public class FragmentMain extends Fragment {
 			// sort by Date
 			if (categoryID == 0) {
 				sortString = "date";
-				updateList();
+				// updateList();
 			}
 
 			// sort by Picture
 			if (categoryID == 1) {
 				sortString = "score";
-				updateList();
+				// updateList();
 			}
 
 			// sort by Score
 			if (categoryID == 2) {
 				sortString = "picture";
 				adapter.setSortingOption(sortByPicture);
-				updateList();
+				// updateList();
 			}
 			// sort by Question upvote
 			if (categoryID == 3) {
 				sortString = "q_upvote";
-				updateList();
+				// updateList();
 			}
 
 			// sort by Answer upvote
 			if (categoryID == 4) {
 				sortString = "a_upvote";
-				updateList();
+				// updateList();
 			}
 		}
 
@@ -186,51 +167,28 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		// updateList();
-
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		// updateList();
-	}
-
 	private void updateList() {
-		if (User.loginStatus == true) {
-			MYQUESTION = User.author.getUsername() + ".sav";
-			myQuestionListController.clear();
-			for (long questionId : User.author.getAuthorQuestionId()) {
-				Thread getThread = new GetQuestionThread(questionId);
-				getThread.start();
-				myQuestionListController.addQuestion(question);
-			}
-			QuestionListController.saveInFile(mcontext,
-					myQuestionListController.getQuestionList(), MYQUESTION);
+
+		myQuestionListController.clear();
+
+		for (long questionId : User.author.getAuthorQuestionId()) {
+			Thread getThread = new GetQuestionThread(questionId);
+			getThread.start();
+			myQuestionListController.addQuestion(question);
 		}
-		questionListController.clear();
-		Thread thread = new SearchThread("");
-		thread.start();
 	}
 
-	class SearchThread extends Thread {
+	class GetQuestionThread extends Thread {
 		// TODO: Implement search thread
-		private String search;
+		private long questionId;
 
-		public SearchThread(String s) {
-			search = s;
-
+		public GetQuestionThread(long questionId) {
+			this.questionId = questionId;
 		}
 
+		@Override
 		public void run() {
-			questionListController.clear();
-			questionListController.addAll(questionListManager.searchQuestions(
-					search, null, sortString));
-
-			getActivity().runOnUiThread(doUpdateGUIList);
+			question = questionListManager.getQuestion(questionId);
 		}
 	}
 
@@ -246,32 +204,23 @@ public class FragmentMain extends Fragment {
 			questionListManager.deleteQuestion(questionID);
 
 			// Remove movie from local list
-			for (int i = 0; i < questionListController.size(); i++) {
-				Question q = questionListController.getQuestion(i);
+			for (int i = 0; i < myQuestionListController.size(); i++) {
+				Question q = myQuestionListController.getQuestion(i);
 
 				if (q.getID() == questionID) {
-					questionListController.removeQuestion(i);
+					myQuestionListController.removeQuestion(i);
 					break;
 				}
 			}
-
-			getActivity().runOnUiThread(doUpdateGUIList);
+			runOnUiThread(doUpdateGUIList);
 		}
 	}
 
-	class GetQuestionThread extends Thread {
-		// TODO: Implement search thread
-		private long questionId;
-
-		public GetQuestionThread(long questionId) {
-			this.questionId = questionId;
-		}
-
-		@Override
-		public void run() {
-			question = questionListManager.getQuestion(questionId);
-
-		}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.my_question, menu);
+		return true;
 	}
 
 }
