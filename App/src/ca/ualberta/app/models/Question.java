@@ -55,6 +55,10 @@ public class Question extends InputsModel {
 		return this.ID_question;
 	}
 
+	public void setID(long newID){
+		this.ID_question = newID;
+	}
+	
 	public int getAnswerCount() {
 		return this.answerList.size();
 	}

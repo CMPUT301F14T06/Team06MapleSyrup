@@ -48,13 +48,30 @@ public class QuestionListManagerTest extends TestCase {
 	}
 	
 	public void testGetQuestionList(){
-		String userName = "Bicheng";
+		String questionString = "A Question";
+		String userName = "userName";
+		String titleString = "title";
+		Bitmap image = null;
+		Author author = new Author(userName);
+		Question question1 = new Question(questionString, userName, titleString,
+				image);
+		Question question2 = new Question(questionString, userName, titleString,
+				image);
+		question2.setID(question1.getID() + 100);
+		
 		QuestionListManager questionListManager = new QuestionListManager();
 		AuthorMapManager authorMapManager = new AuthorMapManager();
-		Author author = authorMapManager.getAuthor(userName);
-		QuestionList result = questionListManager.getQuestionList(author.getAuthorQuestionId());
 		
-		assertNotNull(result);
+		author.addAQuestion(question1.getID());
+		author.addAQuestion(question2.getID());
+		authorMapManager.addAuthor(author);
+		questionListManager.addQuestion(question1);
+		questionListManager.addQuestion(question2);
+		
+		Author resultAuthor = authorMapManager.getAuthor(userName);
+		QuestionList result = questionListManager.getQuestionList(resultAuthor.getAuthorQuestionId());
+		
+		assertEquals(2, result.size());
 		
 	}
 	
