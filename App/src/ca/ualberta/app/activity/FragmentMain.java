@@ -49,6 +49,7 @@ public class FragmentMain extends Fragment {
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
+			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
 			spin_adapter.notifyDataSetChanged();
 		}
@@ -98,7 +99,6 @@ public class FragmentMain extends Fragment {
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
 
 				startActivity(intent);
-
 			}
 
 		});
@@ -144,32 +144,32 @@ public class FragmentMain extends Fragment {
 			// sort by Date
 			if (categoryID == 0) {
 				sortString = "date";
-				updateList();
-			}
-
-			// sort by Picture
-			if (categoryID == 1) {
-				sortString = "score";
-				updateList();
+				adapter.setSortingOption(sortByDate);
 			}
 
 			// sort by Score
+			if (categoryID == 1) {
+				sortString = "score";
+				adapter.setSortingOption(sortByScore);
+			}
+
+			// sort by Picture
 			if (categoryID == 2) {
 				sortString = "picture";
 				adapter.setSortingOption(sortByPicture);
-				updateList();
 			}
 			// sort by Question upvote
 			if (categoryID == 3) {
 				sortString = "q_upvote";
-				updateList();
+				adapter.setSortingOption(sortByQuestionUpvote);
 			}
 
 			// sort by Answer upvote
 			if (categoryID == 4) {
 				sortString = "a_upvote";
-				updateList();
+				adapter.setSortingOption(sortByAnswerUpvote);
 			}
+			updateList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {

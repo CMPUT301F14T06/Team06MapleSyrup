@@ -26,9 +26,6 @@ public class PictureComparator implements Comparator<Question> {
 		else if ((a.hasImage() == false) && (b.hasImage() == true)) {
 			return 1;	
 		} 
-		else if ((a.hasImage() == true) && (b.hasImage() == false)){
-			return 1;
-		}
 		else {
 			return 0;
 		}
