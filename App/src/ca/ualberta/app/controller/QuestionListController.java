@@ -108,32 +108,32 @@ public class QuestionListController {
 		return getReplysOfAnswer(position_q, position_a).indexOf(reply);
 	}
 
-	public static Object loadFromFile(Context context, String FILENAME) {
-		Object object = null;
+	public static QuestionList loadFromFile(Context context, String FILENAME) {
+		QuestionList question = null;
 		try {
 			FileInputStream fis = context.openFileInput(FILENAME);
 			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 			Gson gson = new Gson();
 			// Following line from
 			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
-			Type listType = new TypeToken<Object>() {
+			Type listType = new TypeToken<QuestionList>() {
 			}.getType();
-			object = gson.fromJson(in, listType);
+			question = gson.fromJson(in, listType);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		if (object == null)
-			return object = new Object();
-		return object;
+		if (question == null)
+			return question = new QuestionList();
+		return question;
 	}
 
-	public static void saveInFile(Context context, Object object,
+	public static void saveInFile(Context context, QuestionList question,
 			String FILENAME) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
 			Gson gson = new Gson();
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(object, osw);
+			gson.toJson(question, osw);
 			osw.flush();
 			fos.close();
 		} catch (FileNotFoundException e) {

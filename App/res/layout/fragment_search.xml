@@ -8,7 +8,7 @@
     <include
         android:id="@+id/one_title"
         layout="@layout/title_bar" />
-    
+
     <Spinner
         android:id="@+id/search_sort_spinner"
         android:layout_width="wrap_content"
@@ -39,7 +39,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/searchQuestion_EditText"
-        android:text="Search" />
+        android:background="@drawable/btn_click_bg"
+        android:text="@string/search" />
 
     <ListView
         android:id="@+id/searchQuestion_ListView"
@@ -48,7 +49,6 @@
         android:layout_above="@+id/searchQuestion_EditText"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/search_sort_spinner" >
-
     </ListView>
 
 </RelativeLayout>

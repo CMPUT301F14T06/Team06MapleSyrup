@@ -41,6 +41,7 @@ public class CreateInputsActivity extends Activity {
 	private String MYQUESTION = User.author.getUsername() + ".sav";
 	private QuestionListManager questionListManager;
 	private AuthorMapManager authorMapManager;
+	private QuestionListController myQuestionList;
 	private Question question;
 	Uri imageFileUri;
 	Uri stringFileUri;
@@ -129,6 +130,14 @@ public class CreateInputsActivity extends Activity {
 			// myQuestion = User.author.getAuthorQuestion();
 			// QuestionListController.saveInFile(getApplicationContext(),
 			// myQuestionMap, MYQUESTION);
+			myQuestionList.clear();
+			for (long questionId : User.author.getAuthorQuestionId()) {
+				Thread getThread = new GetQuestionThread(questionId);
+				getThread.run();
+				myQuestionList.addQuestion(question);
+			}
+			QuestionListController.saveInFile(view.getContext(),
+					myQuestionList.getQuestionList(), MYQUESTION);
 			Thread thread = new UpdateAuthorThread(User.author);
 			thread.run();
 			thread = new AddQuestionThread(newQuestion);

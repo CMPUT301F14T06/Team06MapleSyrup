@@ -1,19 +1,27 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.graphics.Bitmap;
 
 public class Question extends InputsModel {
+
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
 	Boolean selected = false;
+	long upvoteCount_question;
+	long answerCount;
 	long ID_question;
+	long total_score = 0;
 
 	public Question(String content, String userName, String title, Bitmap image) {
 		super(content, userName, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
+		this.ID_question = new Date().getTime();
+		answerCount = 0;
+		upvoteCount_question = 0;
 	}
 
 	public void addReply(Reply newReply) {
@@ -23,6 +31,7 @@ public class Question extends InputsModel {
 	public void addAnswer(Answer newAnswer) {
 		this.answerList.add(newAnswer);
 		this.answerCount = answerList.size();
+		calcCurrentTotalScore();
 	}
 
 	public boolean ifSelected() {
@@ -65,4 +74,23 @@ public class Question extends InputsModel {
 		return this.replyList.indexOf(reply);
 	}
 
+	public long getQuestionUpvoteCount() {
+		return upvoteCount_question;
+	}
+
+	public void upvoteQuestion() {
+		upvoteCount_question++;
+	}
+
+	public void calcCurrentTotalScore() {
+		total_score = 0;
+		for (Answer answer : this.answerList) {
+			total_score += answer.getAnswerUpvoteCount();
+		}
+		total_score += upvoteCount_question;
+	}
+
+	public long getTotalScore() {
+		return total_score;
+	}
 }

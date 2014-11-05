@@ -42,7 +42,7 @@ public class FragmentSearch extends Fragment {
 	private Context mcontext;
 	private ArrayAdapter<?> spin_adapter;
 	private static long categoryID;
-	private String sortString = null;
+	public String sortString = "date";
 	private int haveSearchResult = 0;
 
 	// Thread to update adapter after an operation
@@ -94,13 +94,14 @@ public class FragmentSearch extends Fragment {
 				R.layout.spinner_item, sortOption);
 
 		sortOptionSpinner.setAdapter(spin_adapter);
-		sortOptionSpinner
-				.setOnItemSelectedListener(new change_category_click());
+
 		searchButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				sortOptionSpinner
+						.setOnItemSelectedListener(new change_category_click());
 				updateSearchList();
 			}
 		});
@@ -114,31 +115,28 @@ public class FragmentSearch extends Fragment {
 			// sort by Date
 			if (categoryID == 0) {
 				sortString = "date";
-				updateSearchList();
 			}
 
 			// sort by Picture
 			if (categoryID == 1) {
 				sortString = "picture";
-				updateSearchList();
 			}
 
 			// sort by Score
 			if (categoryID == 2) {
 				sortString = "score";
-				updateSearchList();
 			}
+			
 			// sort by Question upvote
 			if (categoryID == 3) {
 				sortString = "q_upvote";
-				updateSearchList();
 			}
 
 			// sort by Answer upvote
 			if (categoryID == 4) {
 				sortString = "a_upvote";
-				updateSearchList();
 			}
+			updateSearchList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -149,7 +147,7 @@ public class FragmentSearch extends Fragment {
 	private void updateSearchList() {
 		questionListController.clear();
 		String searchString = searchEditText.getText().toString();
-		searchEditText.setText("");
+		// searchEditText.setText("");
 		Thread thread = new SearchThread(searchString);
 		thread.start();
 	}

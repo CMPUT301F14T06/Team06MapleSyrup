@@ -44,7 +44,7 @@ public class FragmentMain extends Fragment {
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
-	private String sortString = null;
+	public String sortString = "date";
 
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
@@ -149,13 +149,14 @@ public class FragmentMain extends Fragment {
 
 			// sort by Picture
 			if (categoryID == 1) {
-				sortString = "picture";
+				sortString = "score";
 				updateList();
 			}
 
 			// sort by Score
 			if (categoryID == 2) {
-				sortString = "score";
+				sortString = "picture";
+				adapter.setSortingOption(sortByPicture);
 				updateList();
 			}
 			// sort by Question upvote

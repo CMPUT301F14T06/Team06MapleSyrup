@@ -24,7 +24,7 @@ public class Author extends User {
 		this.username = newUsername;
 	}
 
-	public ArrayList<Long> getAuthorQuestion() {
+	public ArrayList<Long> getAuthorQuestionId() {
 		return this.myQuestionId;
 	}
 
