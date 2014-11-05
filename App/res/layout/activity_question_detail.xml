@@ -151,7 +151,7 @@
             style="@style/answer_reply_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/answer"
+            android:text="@string/add_answer"
             android:textColor="#696969" />
 
         <RadioButton
@@ -159,7 +159,7 @@
             style="@style/answer_reply_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/reply"
+            android:text="@string/add_reply"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#696969" />
     </LinearLayout>

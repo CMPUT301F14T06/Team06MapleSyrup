@@ -107,4 +107,10 @@ public class Question extends InputsModel {
 		}
 		return TheHighestAnswerUpvote;
 	}
+	
+	public void updateAnswer(Answer answer){
+		int index = this.answerList.indexOf(answer);
+		this.answerList.remove(index);
+		this.answerList.add(answer);
+	}
 }

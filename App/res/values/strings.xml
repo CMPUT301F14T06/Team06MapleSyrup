@@ -21,8 +21,10 @@
     <string name="favorite">Fav</string>
     <string name="upvote">Upvote</string>
     <string name="reply">Reply</string>
+    <string name="add_reply">Add Reply</string>
     <string name="search">Search</string>
     <string name="answer">Answer</string>
+    <string name="add_answer">Add Answer</string>
     <string name="question">Question</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
