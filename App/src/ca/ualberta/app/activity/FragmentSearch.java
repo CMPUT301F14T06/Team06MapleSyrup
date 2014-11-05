@@ -42,7 +42,7 @@ public class FragmentSearch extends Fragment {
 	private Context mcontext;
 	private ArrayAdapter<?> spin_adapter;
 	private static long categoryID;
-	private String sortString = "date";
+	public String sortString = "date";
 	private int haveSearchResult = 0;
 
 	// Thread to update adapter after an operation

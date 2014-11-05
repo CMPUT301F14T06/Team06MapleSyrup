@@ -37,7 +37,7 @@ public abstract class InputsModel {
 	}
 
 	public boolean hasImage() {
-		return (image.getByteCount() != 0);
+		return image != null;
 	}
 
 	public void setImage(Bitmap image) {

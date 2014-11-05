@@ -1,6 +1,8 @@
 package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
+
+import ca.ualbert.app.comparator.PictureComparator;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
@@ -23,6 +25,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// private String FAVLIST = "favList.sav";
 	// private String LOCALLIST = "localLList.sav";
 	private QuestionListManager questionListManager;
+	private String sortingOption = null;
 
 	// Thread that close the activity after finishing update
 
@@ -149,6 +152,29 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 			notifyDataSetChanged();
 		}
+	}
+
+	/**
+	 * Overrides the notifyDateSetChanged method, Before display the new content
+	 * of the ListView, sort the Data with current sorting option.
+	 */
+	@Override
+	public void notifyDataSetChanged() {
+		this.setNotifyOnChange(false);
+		if (sortingOption == "Sort By Picture") {
+			this.sort(new PictureComparator());
+			sortingOption = null;
+		}
+		this.setNotifyOnChange(true);
+		super.notifyDataSetChanged();
+	}
+
+	/**
+	 * Set the current sorting option.
+	 * @param option: a String which is one of the sorting options.
+	 */
+	public void setSortingOption(String option) {
+		this.sortingOption = option;
 	}
 
 	class UpdateThread extends Thread {
