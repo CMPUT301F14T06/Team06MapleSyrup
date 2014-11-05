@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.activity.LoginActivity.SearchThread;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Author;
+import ca.ualberta.app.models.AuthorMap;
+import ca.ualberta.app.models.AuthorMapIO;
 import ca.ualberta.app.models.AuthorMapManager;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Question;
@@ -38,12 +41,11 @@ public class CreateInputsActivity extends Activity {
 	private EditText contentText = null;
 	private Question newQuestion = null;
 	private Bitmap testImage = null;
-	private ArrayList<Long> myQuestionId;
-	private String MYQUESTION = User.author.getUsername() + ".sav";
 	private QuestionListManager questionListManager;
 	private AuthorMapManager authorMapManager;
-	private QuestionListController myQuestionList;
-	private Question question;
+	private String FILENAME = "AUTHORMAP.sav";
+	private AuthorMap authorMap;
+
 	Uri imageFileUri;
 	Uri stringFileUri;
 
@@ -63,8 +65,15 @@ public class CreateInputsActivity extends Activity {
 		image = (ImageView) findViewById(R.id.addImage_imageView);
 		questionListManager = new QuestionListManager();
 		authorMapManager = new AuthorMapManager();
-		myQuestionList = new QuestionListController();
+		authorMap = new AuthorMap();
 		image.setVisibility(View.GONE);
+		titleText.setText(User.author.getUsername());
+		User.author.addAQuestion(1214124);
+
+		contentText
+				.setText(User.author.getAuthorQuestionId().get(0).toString());
+		Thread thread = new UpdateAuthorThread(User.author);
+		thread.start();
 	}
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -92,12 +101,6 @@ public class CreateInputsActivity extends Activity {
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// When the result is OK, set text "Photo OK!" in the status
-		// and set the image in the Button with:
-		// button.setImageDrawable(Drawable.createFromPath(imageFileUri.getPath()));
-		// When the result is CANCELLED, set text "Photo canceled" in the status
-		// Otherwise, set text "Not sure what happened!" with the resultCode
-
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 
 			if (resultCode == RESULT_OK) {
@@ -130,37 +133,29 @@ public class CreateInputsActivity extends Activity {
 			newQuestion = new Question(content, User.author.getUsername(),
 					title, testImage);
 			User.author.addAQuestion(newQuestion.getID());
-			// myQuestion = User.author.getAuthorQuestion();
-			// QuestionListController.saveInFile(getApplicationContext(),
-			// myQuestionMap, MYQUESTION);
-			myQuestionList.clear();
-			for (long questionId : User.author.getAuthorQuestionId()) {
-				Thread getThread = new GetQuestionThread(questionId);
-				getThread.start();
-				myQuestionList.addQuestion(question);
-			}
-			QuestionListController.saveInFile(view.getContext(),
-					myQuestionList.getQuestionList(), MYQUESTION);
-			Thread thread = new UpdateAuthorThread(User.author);
-			thread.start();
-			thread = new AddQuestionThread(newQuestion);
-			thread.start();
-		}
 
+			Thread updateAuthorThread = new UpdateAuthorThread(User.author);
+			updateAuthorThread.start();
+
+			Thread searchAuthorThread = new SearchAuthorThread("");
+			searchAuthorThread.start();
+
+			Thread addQuestionThread = new AddQuestionThread(newQuestion);
+			addQuestionThread.start();
+
+			AuthorMapIO.saveInFile(view.getContext(), authorMap, FILENAME);
+
+		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.new_input, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -193,18 +188,18 @@ public class CreateInputsActivity extends Activity {
 		}
 	}
 
-	class GetQuestionThread extends Thread {
+	class SearchAuthorThread extends Thread {
 		// TODO: Implement search thread
-		private long questionId;
+		private String search;
 
-		public GetQuestionThread(long questionId) {
-			this.questionId = questionId;
+		public SearchAuthorThread(String s) {
+			search = s;
 		}
 
 		@Override
 		public void run() {
-			question = questionListManager.getQuestion(questionId);
-
+			authorMap.clear();
+			authorMap.putAll(authorMapManager.searchAuthors(search, null));
 		}
 	}
 

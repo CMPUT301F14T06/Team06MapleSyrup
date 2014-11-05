@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
@@ -23,7 +22,6 @@ public class LoginActivity extends Activity {
 	private String FILENAME = "AUTHORMAP.sav";
 	private Context context = this;
 	private AuthorMapManager authorMapManager;
-
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
@@ -40,9 +38,11 @@ public class LoginActivity extends Activity {
 		Thread thread = new SearchThread("");
 		thread.start();
 	}
+
 	public void cancel_login(View view) {
 		finish();
 	}
+
 	public void login(View view) {
 		AuthorMapIO.saveInFile(context, authorMap, FILENAME);
 		username = usernameEdit.getText().toString().trim();
@@ -123,7 +123,6 @@ public class LoginActivity extends Activity {
 		@Override
 		public void run() {
 			User.author = authorMapManager.getAuthor(username);
-
 		}
 	}
 
@@ -149,5 +148,4 @@ public class LoginActivity extends Activity {
 			runOnUiThread(doFinishAdd);
 		}
 	}
-
 }

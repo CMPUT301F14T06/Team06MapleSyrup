@@ -58,5 +58,6 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_internet_test">InternetTestActivity</string>
+    <string name="title_activity_my_question">MyQuestionActivity</string>
 
 </resources>

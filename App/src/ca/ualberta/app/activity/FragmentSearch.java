@@ -40,7 +40,7 @@ public class FragmentSearch extends Fragment {
 	private Button searchButton;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
-	private ArrayAdapter<?> spin_adapter;
+	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
 	public String sortString = "date";
 	private int haveSearchResult = 0;
