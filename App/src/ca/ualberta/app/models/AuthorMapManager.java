@@ -53,7 +53,7 @@ public class AuthorMapManager {
 
 		return null;
 	}
-
+	
 	/**
 	 * Get authors with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.

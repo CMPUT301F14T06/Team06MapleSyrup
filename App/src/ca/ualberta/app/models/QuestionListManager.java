@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -54,6 +55,15 @@ public class QuestionListManager {
 		return null;
 	}
 
+	public QuestionList getQuestionList(ArrayList<Long> listID){
+		QuestionList questionList = new QuestionList();
+		
+		for (long ID : listID){
+			questionList.addQuestion(getQuestion(ID));
+		}	
+		return questionList;
+	}
+	
 	/**
 	 * Get questions with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.

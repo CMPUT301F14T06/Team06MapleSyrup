@@ -183,7 +183,6 @@ public class CreateInputsActivity extends Activity {
 		@Override
 		public void run() {
 			questionListManager.addQuestion(question);
-
 			// Give some time to get updated info
 			try {
 				Thread.sleep(500);
