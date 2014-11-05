@@ -204,6 +204,4 @@ public class CreateInputsActivity extends Activity {
 		}
 	}
 
-	
-
 }

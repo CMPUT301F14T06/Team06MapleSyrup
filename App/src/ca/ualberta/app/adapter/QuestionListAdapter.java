@@ -2,7 +2,11 @@ package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
 
+import ca.ualbert.app.comparator.AnswerUpvoteComparator;
+import ca.ualbert.app.comparator.DateComparator;
 import ca.ualbert.app.comparator.PictureComparator;
+import ca.ualbert.app.comparator.QuestionUpvoteComparator;
+import ca.ualbert.app.comparator.ScoreComparator;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
@@ -158,21 +162,25 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		}
 	}
 
-	/**
-	 * Overrides the notifyDateSetChanged method, Before display the new content
-	 * of the ListView, sort the Data with current sorting option.
-	 */
-	@Override
-	public void notifyDataSetChanged() {
-		this.setNotifyOnChange(false);
+	public void applySortMethod(){
 		if (sortingOption == "Sort By Picture") {
 			this.sort(new PictureComparator());
-			sortingOption = null;
 		}
-		this.setNotifyOnChange(true);
-		super.notifyDataSetChanged();
+		if (sortingOption == "Sort By Date") {
+			this.sort(new DateComparator());
+		}
+		if (sortingOption == "Sort By Score") {
+			this.sort(new ScoreComparator());
+		}
+		if (sortingOption == "Sort By Question Upvote"){
+			this.sort(new QuestionUpvoteComparator());
+		}
+		if (sortingOption == "Sort By Answer Upvote"){
+			this.sort(new AnswerUpvoteComparator());
+		}
+		sortingOption = null;
 	}
-
+	
 	/**
 	 * Set the current sorting option.
 	 * 

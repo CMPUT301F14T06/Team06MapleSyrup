@@ -14,6 +14,7 @@ public class Question extends InputsModel {
 	long answerCount;
 	long ID_question;
 	long total_score = 0;
+	long TheHighestAnswerUpvote = 0;
 
 	public Question(String content, String userName, String title, Bitmap image) {
 		super(content, userName, title, image);
@@ -92,5 +93,14 @@ public class Question extends InputsModel {
 
 	public long getTotalScore() {
 		return total_score;
+	}
+
+	public long getTheHighestAnswerUpvote() {
+		for (Answer answer : this.answerList) {		
+			if (answer.getAnswerUpvoteCount() >= TheHighestAnswerUpvote){
+				TheHighestAnswerUpvote = answer.getAnswerUpvoteCount();
+			}
+		}
+		return TheHighestAnswerUpvote;
 	}
 }
