@@ -39,7 +39,6 @@ public class MyQuestionActivity extends Activity {
 	private QuestionListAdapter adapter = null;
 	private QuestionListController myQuestionListController;
 	private QuestionListManager questionListManager;
-	private TextView titleBar = null;
 	private ListView myquestionListView = null;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -60,10 +59,9 @@ public class MyQuestionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_question);
 		mcontext = this;
-		titleBar = (TextView) findViewById(R.id.titleTv);
-		titleBar.setText("My Question List");
 		myquestionListView = (ListView) findViewById(R.id.my_question_ListView);
 		sortOptionSpinner = (Spinner) findViewById(R.id.my_question_sort_spinner);
+		myQuestionListController = new QuestionListController();
 		myQuestionListController.addAll(QuestionListController.loadFromFile(
 				this, MYQUESTION));
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -214,13 +212,6 @@ public class MyQuestionActivity extends Activity {
 			}
 			runOnUiThread(doUpdateGUIList);
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.my_question, menu);
-		return true;
 	}
 
 }

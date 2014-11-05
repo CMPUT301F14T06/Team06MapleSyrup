@@ -5,17 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/one_title"
-        layout="@layout/title_bar" />
-
     <Spinner
         android:id="@+id/my_question_sort_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/one_title"
         android:entries="@array/list_type"
         android:prompt="@string/sort_label"
         tools:listitem="@android:layout/simple_list_item_1" />

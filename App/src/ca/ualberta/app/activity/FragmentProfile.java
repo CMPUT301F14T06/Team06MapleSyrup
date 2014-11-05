@@ -64,9 +64,18 @@ public class FragmentProfile extends Fragment {
 				getActivity().recreate();
 			}
 		});
+		my_question.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),
+						MyQuestionActivity.class);
+				startActivity(intent);
+
+			}
+		});
 	}
 
-	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -88,7 +97,7 @@ public class FragmentProfile extends Fragment {
 			logout.setVisibility(View.VISIBLE);
 			my_question.setVisibility(View.VISIBLE);
 			setAuthorName.setText(User.author.getUsername());
-			
+
 		} else {
 			changePhotoButton.setVisibility(View.GONE);
 			setAuthorName.setVisibility(View.GONE);
