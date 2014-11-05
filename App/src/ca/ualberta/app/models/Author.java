@@ -8,12 +8,12 @@ public class Author extends User {
 
 	String username;
 	Bitmap image;
-	public static ArrayList<Long> myQuestionId;
+	ArrayList<Long> myQuestionId;
 
 	public Author(String username) {
 		super();
 		this.username = username;
-
+		myQuestionId = new ArrayList<Long>();
 	}
 
 	public void addAQuestion(long questionId) {

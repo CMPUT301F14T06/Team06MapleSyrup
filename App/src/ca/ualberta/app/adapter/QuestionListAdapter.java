@@ -6,7 +6,10 @@ import ca.ualbert.app.comparator.PictureComparator;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
+
 import ca.ualberta.app.models.User;
+
+import ca.ualberta.app.thread.UpdateQuestionThread;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -124,8 +127,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			// TODO Auto-generated method stub
 			Question question = questionList.get(position);
 			User.favorite.addQuestion(question);
-			long questionID = question.getID();
-			Thread thread = new UpdateThread(question);
+			// long questionID = question.getID();
+			Thread thread = new UpdateQuestionThread(question);
 			thread.start();
 
 			notifyDataSetChanged();
@@ -148,7 +151,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			question.upvoteQuestion();
 			question.calcCurrentTotalScore();
 			// long questionID = question.getID();
-			Thread thread = new UpdateThread(question);
+			Thread thread = new UpdateQuestionThread(question);
 			thread.start();
 
 			notifyDataSetChanged();
@@ -172,30 +175,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 	/**
 	 * Set the current sorting option.
-	 * @param option: a String which is one of the sorting options.
+	 * 
+	 * @param option
+	 *            : a String which is one of the sorting options.
 	 */
 	public void setSortingOption(String option) {
 		this.sortingOption = option;
-	}
-
-	class UpdateThread extends Thread {
-		private Question question;
-
-		public UpdateThread(Question question) {
-			this.question = question;
-		}
-
-		@Override
-		public void run() {
-			questionListManager.updateQuestion(question);
-
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 }
 

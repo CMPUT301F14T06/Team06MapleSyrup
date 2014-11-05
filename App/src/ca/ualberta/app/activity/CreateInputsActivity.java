@@ -13,6 +13,7 @@ import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.thread.UpdateAuthorThread;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -61,6 +62,8 @@ public class CreateInputsActivity extends Activity {
 		contentText = (EditText) findViewById(R.id.content_editText);
 		image = (ImageView) findViewById(R.id.addImage_imageView);
 		questionListManager = new QuestionListManager();
+		authorMapManager = new AuthorMapManager();
+		myQuestionList = new QuestionListController();
 		image.setVisibility(View.GONE);
 	}
 
@@ -206,23 +209,4 @@ public class CreateInputsActivity extends Activity {
 		}
 	}
 
-	class UpdateAuthorThread extends Thread {
-		private Author author;
-
-		public UpdateAuthorThread(Author author) {
-			this.author = author;
-		}
-
-		@Override
-		public void run() {
-			authorMapManager.updateAuthor(author);
-
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 }
