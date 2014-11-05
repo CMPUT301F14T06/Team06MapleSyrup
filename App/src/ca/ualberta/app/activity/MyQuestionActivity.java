@@ -1,8 +1,5 @@
 package ca.ualberta.app.activity;
 
-import ca.ualberta.app.activity.FragmentMain.DeleteThread;
-import ca.ualberta.app.activity.FragmentMain.GetQuestionThread;
-import ca.ualberta.app.activity.FragmentMain.SearchThread;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
@@ -13,13 +10,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -33,7 +28,6 @@ public class MyQuestionActivity extends Activity {
 	static String sortByPicture = "Sort By Picture";
 	static String[] sortOption = { sortByDate, sortByScore, sortByPicture,
 			sortByQuestionUpvote, sortByAnswerUpvote };
-
 	private QuestionListAdapter adapter = null;
 	private QuestionListController myQuestionListController;
 	private QuestionListManager questionListManager;
@@ -44,7 +38,6 @@ public class MyQuestionActivity extends Activity {
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
 	public String sortString = "date";
-
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -62,7 +55,7 @@ public class MyQuestionActivity extends Activity {
 		myquestionListView = (ListView) findViewById(R.id.my_question_ListView);
 		sortOptionSpinner = (Spinner) findViewById(R.id.my_question_sort_spinner);
 	}
-	
+
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -72,12 +65,10 @@ public class MyQuestionActivity extends Activity {
 				myQuestionListController.getQuestionArrayList());
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
-
 		myquestionListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-
 		// Show details when click on a question
 		myquestionListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -85,28 +76,20 @@ public class MyQuestionActivity extends Activity {
 					long id) {
 				long questionID = myQuestionListController.getQuestion(pos)
 						.getID();
-
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
-
 				startActivity(intent);
-
 			}
-
 		});
-
 		// Delete question on long click
 		myquestionListView
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
-
 					@Override
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View view, int position, long id) {
-
 						Question question = myQuestionListController
 								.getQuestion(position);
-
 						if (User.author != null
 								&& User.author.getUsername().equals(
 										question.getAuthor())) {
@@ -115,7 +98,6 @@ public class MyQuestionActivity extends Activity {
 									"Deleting the Question: "
 											+ question.getTitle(),
 									Toast.LENGTH_LONG).show();
-
 							Thread thread = new DeleteThread(question.getID());
 							thread.start();
 						} else {
@@ -132,19 +114,16 @@ public class MyQuestionActivity extends Activity {
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			categoryID = position;
-
 			// sort by Date
 			if (categoryID == 0) {
 				sortString = "date";
 				adapter.setSortingOption(sortByDate);
 			}
-
 			// sort by Score
 			if (categoryID == 1) {
 				sortString = "score";
 				adapter.setSortingOption(sortByScore);
 			}
-
 			// sort by Picture
 			if (categoryID == 2) {
 				sortString = "picture";
@@ -155,7 +134,6 @@ public class MyQuestionActivity extends Activity {
 				sortString = "q_upvote";
 				adapter.setSortingOption(sortByQuestionUpvote);
 			}
-
 			// sort by Answer upvote
 			if (categoryID == 4) {
 				sortString = "a_upvote";
@@ -186,11 +164,9 @@ public class MyQuestionActivity extends Activity {
 		@Override
 		public void run() {
 			questionListManager.deleteQuestion(questionID);
-
 			// Remove movie from local list
 			for (int i = 0; i < myQuestionListController.size(); i++) {
 				Question q = myQuestionListController.getQuestion(i);
-
 				if (q.getID() == questionID) {
 					myQuestionListController.removeQuestion(i);
 					break;
@@ -199,5 +175,4 @@ public class MyQuestionActivity extends Activity {
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
-
 }

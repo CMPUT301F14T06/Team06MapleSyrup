@@ -1,29 +1,29 @@
-package ca.ualbert.app.comparator;
+package ca.ualberta.app.comparator;
 
 import java.util.Comparator;
 import ca.ualberta.app.models.Question;
 
 /**
  * A comparator class which compute 2 Comment object's score and sort them by
- * score.
+ * Question Upvote.
  */
-
-public class ScoreComparator implements Comparator<Question> {
+public class QuestionUpvoteComparator implements Comparator<Question> {
 	/**
 	 * @param a
 	 *            : left hand side Question
 	 * @param b
 	 *            : right hand side Question
-	 * @return -1 if left hand side Question's score is higher than the right
-	 *         		hand side Question's score 
+	 * @return -1 if left hand side Question's Upvote is higher than the right
+	 *         		hand side Question's Upvote 
 	 *           1 otherwise.
 	 */
 	@Override
 	public int compare(Question a, Question b) {
-		if (a.getTotalScore() >= b.getTotalScore()) {
+		if (a.getQuestionUpvoteCount() >= b.getQuestionUpvoteCount()) {
 			return -1;
 		} else {
 			return 1;
 		}
 	}
+
 }

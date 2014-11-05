@@ -1,4 +1,4 @@
-package ca.ualbert.app.comparator;
+package ca.ualberta.app.comparator;
 
 import java.util.Comparator;
 

@@ -4,6 +4,7 @@ import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.QuestionListManager;
 import ca.ualberta.app.models.User;
 import android.content.Context;
@@ -48,6 +49,7 @@ public class FragmentMain extends Fragment {
 	private static long categoryID;
 	public String sortString = "date";
 	private String MYQUESTION;
+	private QuestionList myQuestionList;
 
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
@@ -203,14 +205,13 @@ public class FragmentMain extends Fragment {
 		if (User.loginStatus == true) {
 			MYQUESTION = User.author.getUsername() + ".sav";
 			myQuestionListController.clear();
-			for (long questionId : User.author.getAuthorQuestionId()) {
-				Thread getThread = new GetQuestionThread(questionId);
-				getThread.start();
-				myQuestionListController.addQuestion(question);
-			}
+			myQuestionList = questionListManager.getQuestionList(User.author
+					.getAuthorQuestionId());
+			myQuestionListController.addAll(myQuestionList);
 			QuestionListController.saveInFile(mcontext,
 					myQuestionListController.getQuestionList(), MYQUESTION);
 		}
+		
 		questionListController.clear();
 		Thread thread = new SearchThread("");
 		thread.start();

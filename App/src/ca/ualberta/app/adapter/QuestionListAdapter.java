@@ -2,12 +2,12 @@ package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
 
-import ca.ualbert.app.comparator.AnswerUpvoteComparator;
-import ca.ualbert.app.comparator.DateComparator;
-import ca.ualbert.app.comparator.PictureComparator;
-import ca.ualbert.app.comparator.QuestionUpvoteComparator;
-import ca.ualbert.app.comparator.ScoreComparator;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.comparator.AnswerUpvoteComparator;
+import ca.ualberta.app.comparator.DateComparator;
+import ca.ualberta.app.comparator.PictureComparator;
+import ca.ualberta.app.comparator.QuestionUpvoteComparator;
+import ca.ualberta.app.comparator.ScoreComparator;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
 
