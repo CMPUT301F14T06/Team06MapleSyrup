@@ -2,10 +2,10 @@ package ca.ualberta.app.activity.test;
 import java.util.ArrayList;
 
 import android.graphics.Bitmap;
+import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionListManager;
 import ca.ualberta.app.models.Reply;
 import junit.framework.TestCase;
 

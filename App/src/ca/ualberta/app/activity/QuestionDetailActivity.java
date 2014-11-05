@@ -1,7 +1,7 @@
 package ca.ualberta.app.activity;
 
+import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionListManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

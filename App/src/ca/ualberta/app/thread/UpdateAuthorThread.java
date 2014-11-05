@@ -1,7 +1,7 @@
 package ca.ualberta.app.thread;
 
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.models.Author;
-import ca.ualberta.app.models.AuthorMapManager;
 
 public class UpdateAuthorThread extends Thread {
 	private Author author;

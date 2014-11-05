@@ -2,9 +2,9 @@ package ca.ualberta.app.activity.test;
 
 import android.graphics.Bitmap;
 
+import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionListManager;
 import junit.framework.TestCase;
 
 public class BrowseQuestionTest extends TestCase {

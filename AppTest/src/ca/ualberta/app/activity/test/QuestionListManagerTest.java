@@ -1,11 +1,11 @@
 package ca.ualberta.app.activity.test;
 
 import android.graphics.Bitmap;
+import ca.ualberta.app.ESmanager.AuthorMapManager;
+import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.models.Author;
-import ca.ualberta.app.models.AuthorMapManager;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
-import ca.ualberta.app.models.QuestionListManager;
 import junit.framework.TestCase;
 
 public class QuestionListManagerTest extends TestCase {

@@ -1,8 +1,8 @@
 package ca.ualberta.app.activity.test;
 
 
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.models.Author;
-import ca.ualberta.app.models.AuthorMapManager;
 import junit.framework.TestCase;
 
 public class AuthorMapManagerTest extends TestCase {

@@ -1,7 +1,7 @@
 package ca.ualberta.app.thread;
 
+import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionListManager;
 
 public class UpdateQuestionThread extends Thread {
 	private Question question;

@@ -1,4 +1,4 @@
-package ca.ualberta.app.models;
+package ca.ualberta.app.ESmanager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
+import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.network.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
