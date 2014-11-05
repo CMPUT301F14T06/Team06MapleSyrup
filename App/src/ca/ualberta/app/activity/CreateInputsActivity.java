@@ -136,13 +136,13 @@ public class CreateInputsActivity extends Activity {
 			myQuestionList.clear();
 			for (long questionId : User.author.getAuthorQuestionId()) {
 				Thread getThread = new GetQuestionThread(questionId);
-				getThread.run();
+				getThread.start();
 				myQuestionList.addQuestion(question);
 			}
 			QuestionListController.saveInFile(view.getContext(),
 					myQuestionList.getQuestionList(), MYQUESTION);
 			Thread thread = new UpdateAuthorThread(User.author);
-			thread.run();
+			thread.start();
 			thread = new AddQuestionThread(newQuestion);
 			thread.start();
 		}

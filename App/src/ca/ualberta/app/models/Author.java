@@ -13,11 +13,11 @@ public class Author extends User {
 	public Author(String username) {
 		super();
 		this.username = username;
-		myQuestionId = new ArrayList<Long>();
+		this.myQuestionId = new ArrayList<Long>();
 	}
 
 	public void addAQuestion(long questionId) {
-		myQuestionId.add(questionId);
+		this.myQuestionId.add(questionId);
 	}
 
 	public void setUsername(String newUsername) {
