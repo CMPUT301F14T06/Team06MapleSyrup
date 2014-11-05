@@ -43,7 +43,6 @@ public class FragmentMain extends Fragment {
 	private ListView questionListView = null;
 	private Spinner sortOptionSpinner;
 	private QuestionListManager questionListManager;
-	private Question question;
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
@@ -97,6 +96,7 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
+		
 		// Show details when click on a question
 		questionListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -104,11 +104,9 @@ public class FragmentMain extends Fragment {
 					long id) {
 				long questionID = questionListController.getQuestion(pos)
 						.getID();
-
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
-
 				startActivity(intent);
 			}
 
@@ -216,7 +214,7 @@ public class FragmentMain extends Fragment {
 		Thread thread = new SearchThread("");
 		thread.start();
 	}
-
+	
 	class SearchThread extends Thread {
 		// TODO: Implement search thread
 		private String search;
@@ -259,20 +257,4 @@ public class FragmentMain extends Fragment {
 			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}
-
-	class GetQuestionThread extends Thread {
-		// TODO: Implement search thread
-		private long questionId;
-
-		public GetQuestionThread(long questionId) {
-			this.questionId = questionId;
-		}
-
-		@Override
-		public void run() {
-			question = questionListManager.getQuestion(questionId);
-
-		}
-	}
-
 }

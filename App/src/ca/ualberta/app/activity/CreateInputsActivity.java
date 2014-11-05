@@ -1,19 +1,11 @@
 package ca.ualberta.app.activity;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.activity.LoginActivity.SearchThread;
-import ca.ualberta.app.controller.QuestionListController;
-import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;
-import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.thread.UpdateAuthorThread;
@@ -31,7 +23,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class CreateInputsActivity extends Activity {

@@ -1,4 +1,4 @@
-package ca.ualberta.app.network;
+package ca.ualberta.app.network.data;
 
 
 public class SearchResponse<T> {

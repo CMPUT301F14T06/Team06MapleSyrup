@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuestionDetailActivity extends Activity implements
 		OnChildClickListener {
@@ -19,22 +21,32 @@ public class QuestionDetailActivity extends Activity implements
 	private ExpandableListView answerReply;
 	private TextView questionTitle;
 	private TextView questionContent;
-	
+	private TextView authorName;
+	private TextView questionUpvote;
+	private TextView answerCount;
+	private ImageView questionImageView;
+
 	private QuestionListManager questionManager;
 	private Question question;
 
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
-			// TextView title = (TextView) findViewById(R.id.detailsTitle);
-			// TextView director = (TextView)
-			// findViewById(R.id.detailsDirector);
-			// TextView year = (TextView) findViewById(R.id.detailsYear);
-			// //TextView genre = (TextView) findViewById(R.id.detailsGenre);
-			//
-			// title.setText(movie.getTitle());
-			// director.setText(movie.getDirector());
-			// year.setText(String.valueOf(movie.getYear()));
-			// genre.setText(movie.getGenres().toString());
+			questionTitle = (TextView) findViewById(R.id.questionDetailTitleTextView);
+			questionContent = (TextView) findViewById(R.id.questionDetailContentTextView);
+			authorName = (TextView) findViewById(R.id.authorNameTextView);
+			questionUpvote = (TextView) findViewById(R.id.upvoteStateTextView);
+			answerCount = (TextView) findViewById(R.id.answerStateTextView);
+			questionImageView = (ImageView) findViewById(R.id.questionImage);
+
+			questionTitle.setText(question.getTitle());
+			questionContent.setText(question.getContent());
+			authorName.setText(question.getAuthor());
+			questionUpvote.setText("Upvote: "
+					+ String.valueOf(question.getQuestionUpvoteCount()));
+			answerCount.setText("Answer: "
+					+ String.valueOf(question.getAnswerCount()));
+			questionImageView.setImageBitmap(question.getImage());
+
 		}
 	};
 
@@ -53,10 +65,10 @@ public class QuestionDetailActivity extends Activity implements
 
 		if (intent != null) {
 			Bundle extras = intent.getExtras();
-
 			if (extras != null) {
-				long questionId = extras.getInt(QUESTION_ID);
-
+				long questionId = extras.getLong(QUESTION_ID);
+				Toast.makeText(this, "ID: " + questionId, Toast.LENGTH_SHORT)
+						.show();
 				Thread thread = new GetThread(questionId);
 				thread.start();
 			}

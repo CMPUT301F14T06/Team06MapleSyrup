@@ -1,4 +1,4 @@
-package ca.ualberta.app.network;
+package ca.ualberta.app.network.data;
 //https://github.com/dfserrano/AndroidElasticSearch 2014 / 10/ 29
 import java.util.List;
 

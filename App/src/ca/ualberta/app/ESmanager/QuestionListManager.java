@@ -21,6 +21,11 @@ import android.util.Log;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.network.*;
+import ca.ualberta.app.network.data.Hits;
+import ca.ualberta.app.network.data.SearchCommand;
+import ca.ualberta.app.network.data.SearchHit;
+import ca.ualberta.app.network.data.SearchResponse;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
