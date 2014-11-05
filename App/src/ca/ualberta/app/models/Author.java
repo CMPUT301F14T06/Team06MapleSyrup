@@ -1,7 +1,6 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
-
 import android.graphics.Bitmap;
 
 public class Author extends User {
@@ -9,7 +8,7 @@ public class Author extends User {
 
 	String username;
 	Bitmap image;
-	ArrayList<Long> authorQuestionId;
+	public static ArrayList<Long> myQuestionId;
 
 	public Author(String username) {
 		super();
@@ -18,28 +17,18 @@ public class Author extends User {
 	}
 
 	public void addAQuestion(long questionId) {
-		authorQuestionId.add(questionId);
+		myQuestionId.add(questionId);
 	}
 
 	public void setUsername(String newUsername) {
 		this.username = newUsername;
 	}
 
-	//
-	// public void setEmail(String authorEmail) {
-	// this.email = authorEmail;
-	// }
+	public ArrayList<Long> getAuthorQuestion() {
+		return this.myQuestionId;
+	}
 
 	public String getUsername() {
 		return this.username;
 	}
-
-	// public String getEmail() {
-	// return this.email;
-	// }
-
-	//
-	// public void setImage(String newUsername) {
-
-	// }
 }

@@ -15,8 +15,11 @@ public class QuestionDetailActivity extends Activity implements
 		OnChildClickListener {
 
 	public static String QUESTION_ID = "QUESTION_ID";
-	// private View detail;
-	// private ListView listv;
+	private ExpandableListView questionReply;
+	private ExpandableListView answerReply;
+	private TextView questionTitle;
+	private TextView questionContent;
+	
 	private QuestionListManager questionManager;
 	private Question question;
 

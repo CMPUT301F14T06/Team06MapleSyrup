@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 
 public class Answer extends InputsModel {
 	ArrayList<Reply> replyList;
+	long ID_answer;
 
 	public Answer(String content, String userName, Bitmap image) {
 		super(content, userName, image);

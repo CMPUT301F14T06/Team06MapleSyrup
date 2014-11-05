@@ -30,9 +30,11 @@ public class QuestionListController {
 		}
 		return questionList;
 	}
+
 	public ArrayList<Question> getQuestionArrayList() {
 		return getQuestionList().getArrayList();
 	}
+
 	public void addQuestion(Question newQuestion) {
 		getQuestionList().addQuestion(newQuestion);
 	}
@@ -92,46 +94,46 @@ public class QuestionListController {
 	public int getQuestionPosition(Question question) {
 		return getQuestionList().getArrayList().indexOf(question);
 	}
-	
+
 	public int getAnswerPosition(Answer answer, int position_q) {
 		return getAnswers(position_q).indexOf(answer);
 	}
-	
+
 	public int getReplyPosition(int position_q, Reply reply) {
 		return getReplys(position_q).indexOf(reply);
 	}
-	
+
 	public int getReplyPositionOfAnswer(int position_q, int position_a,
 			Reply reply) {
 		return getReplysOfAnswer(position_q, position_a).indexOf(reply);
-	}	
-	
-	public static QuestionList loadFromFile(Context context, String FILENAME) {
-		QuestionList questionList = null;
+	}
+
+	public static Object loadFromFile(Context context, String FILENAME) {
+		Object object = null;
 		try {
 			FileInputStream fis = context.openFileInput(FILENAME);
 			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 			Gson gson = new Gson();
 			// Following line from
 			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
-			Type listType = new TypeToken<QuestionList>() {
+			Type listType = new TypeToken<Object>() {
 			}.getType();
-			questionList = gson.fromJson(in, listType);
+			object = gson.fromJson(in, listType);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		if (questionList == null)
-			return questionList = new QuestionList();
-		return questionList;
+		if (object == null)
+			return object = new Object();
+		return object;
 	}
 
-	public static void saveInFile(Context context, QuestionList questionList,
+	public static void saveInFile(Context context, Object object,
 			String FILENAME) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
 			Gson gson = new Gson();
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(questionList, osw);
+			gson.toJson(object, osw);
 			osw.flush();
 			fos.close();
 		} catch (FileNotFoundException e) {

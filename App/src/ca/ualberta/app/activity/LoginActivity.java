@@ -107,7 +107,6 @@ public class LoginActivity extends Activity {
 
 		@Override
 		public void run() {
-
 			authorMap.clear();
 			authorMap.putAll(authorMapManager.searchAuthors(search, null));
 		}

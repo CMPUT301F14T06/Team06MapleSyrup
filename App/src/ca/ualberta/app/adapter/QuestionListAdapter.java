@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
+import ca.ualberta.app.models.User;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -77,6 +78,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.upvoteState.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
 		}
+		holder.fav_Rb.setOnClickListener(new favOnClickListener(position));
 		holder.upvote_Rb
 				.setOnClickListener(new upvoteOnClickListener(position));
 		return convertView;
@@ -104,29 +106,28 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// notifyDataSetChanged();
 	// }
 	// }
-	//
-	// private class favCheckListener implements OnCheckedChangeListener {
-	//
-	// int position;
-	//
-	// public favCheckListener(int position) {
-	// this.position = position;
-	// }
-	//
-	// @Override
-	// public void onCheckedChanged(CompoundButton buttonView,
-	// boolean isFavorited) {
-	// questionList.getQuestion(position).setFavorite(isFavorited);
-	// favList = new QuestionList();
-	// for (int i = 0; i < questionList.size(); i++)
-	// if (questionList.getQuestion(i).ifFavorited())
-	// favList.addQuestion(questionList.getQuestion(i));
-	// QuestionListController.saveInFile(context, questionList,
-	// QUESTIONLIST);
-	// QuestionListController.saveInFile(context, favList, FAVLIST);
-	// notifyDataSetChanged();
-	// }
-	// }
+
+	private class favOnClickListener implements OnClickListener {
+
+		int position;
+
+		public favOnClickListener(int position) {
+			// TODO Auto-generated constructor stub
+			this.position = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Question question = questionList.get(position);
+			User.favorite.addQuestion(question);
+			long questionID = question.getID();
+			Thread thread = new UpdateThread(question);
+			thread.start();
+
+			notifyDataSetChanged();
+		}
+	}
 
 	private class upvoteOnClickListener implements OnClickListener {
 

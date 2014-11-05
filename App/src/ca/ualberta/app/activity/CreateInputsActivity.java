@@ -1,9 +1,14 @@
 package ca.ualberta.app.activity;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.QuestionListController;
+import ca.ualberta.app.models.Author;
+import ca.ualberta.app.models.AuthorMapManager;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionListManager;
@@ -26,17 +31,17 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class CreateInputsActivity extends Activity {
-	private RadioGroup create_menu_Rg;
 	private RadioButton galary;
-	private RadioButton photo;
 	private ImageView image;
 	private EditText titleText = null;
 	private EditText contentText = null;
 	private Question newQuestion = null;
 	private Bitmap testImage = null;
-	private QuestionList myQuestionList;
+	private ArrayList<Long> myQuestionId;
 	private String MYQUESTION = User.author.getUsername() + ".sav";
 	private QuestionListManager questionListManager;
+	private AuthorMapManager authorMapManager;
+	private Question question;
 	Uri imageFileUri;
 	Uri stringFileUri;
 
@@ -50,8 +55,6 @@ public class CreateInputsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_inputs);
-		create_menu_Rg = (RadioGroup) findViewById(R.id.create_input_menu);
-		photo = (RadioButton) findViewById(R.id.take_pic);
 		galary = (RadioButton) findViewById(R.id.add_pic);
 		titleText = (EditText) findViewById(R.id.title_editText);
 		contentText = (EditText) findViewById(R.id.content_editText);
@@ -120,16 +123,15 @@ public class CreateInputsActivity extends Activity {
 		if (title.trim().length() == 0)
 			noTitleEntered();
 		else {
-			myQuestionList = QuestionListController.loadFromFile(
-					getApplicationContext(), MYQUESTION);
 			newQuestion = new Question(content, User.author.getUsername(),
 					title, testImage);
-			myQuestionList.addQuestion(newQuestion);
-
-			QuestionListController.saveInFile(getApplicationContext(),
-					myQuestionList, MYQUESTION);
-
-			Thread thread = new AddThread(newQuestion);
+			User.author.addAQuestion(newQuestion.getID());
+			// myQuestion = User.author.getAuthorQuestion();
+			// QuestionListController.saveInFile(getApplicationContext(),
+			// myQuestionMap, MYQUESTION);
+			Thread thread = new UpdateAuthorThread(User.author);
+			thread.run();
+			thread = new AddQuestionThread(newQuestion);
 			thread.start();
 		}
 
@@ -159,10 +161,10 @@ public class CreateInputsActivity extends Activity {
 				.show();
 	}
 
-	class AddThread extends Thread {
+	class AddQuestionThread extends Thread {
 		private Question question;
 
-		public AddThread(Question question) {
+		public AddQuestionThread(Question question) {
 			this.question = question;
 		}
 
@@ -176,8 +178,42 @@ public class CreateInputsActivity extends Activity {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			finish();
 			runOnUiThread(doFinishAdd);
+		}
+	}
+
+	class GetQuestionThread extends Thread {
+		// TODO: Implement search thread
+		private long questionId;
+
+		public GetQuestionThread(long questionId) {
+			this.questionId = questionId;
+		}
+
+		@Override
+		public void run() {
+			question = questionListManager.getQuestion(questionId);
+
+		}
+	}
+
+	class UpdateAuthorThread extends Thread {
+		private Author author;
+
+		public UpdateAuthorThread(Author author) {
+			this.author = author;
+		}
+
+		@Override
+		public void run() {
+			authorMapManager.updateAuthor(author);
+
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

@@ -1,13 +1,17 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QuestionList {
 	// Question List
 	ArrayList<Question> questionList;
+	//Map<Long, Question> questionMap;
 
 	public QuestionList() {
+		//questionMap = new HashMap<Long, Question>();
 		questionList = new ArrayList<Question>();
 	}
 
@@ -22,12 +26,18 @@ public class QuestionList {
 		return questionList;
 	}
 
+//	public Map<Long, Question> getMap() {
+//		return questionMap;
+//	}
+
 	public void addQuestion(Question newQuestion) {
 		this.questionList.add(newQuestion);
+		//this.questionMap.put(newQuestion.getID(), newQuestion);
 	}
 
 	public void removeQuestion(int position) {
 		questionList.remove(position);
+		//questionMap.remove(questionList.get(position).getID());
 	}
 
 	public int size() {

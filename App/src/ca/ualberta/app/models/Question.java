@@ -7,14 +7,14 @@ import android.graphics.Bitmap;
 public class Question extends InputsModel {
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
-	Boolean selected=false;
-	public Question(String content, String userName, String title,
-			Bitmap image) {
+	Boolean selected = false;
+	long ID_question;
+
+	public Question(String content, String userName, String title, Bitmap image) {
 		super(content, userName, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
 	}
-
 
 	public void addReply(Reply newReply) {
 		this.replyList.add(newReply);
@@ -40,11 +40,11 @@ public class Question extends InputsModel {
 	public String getTitle() {
 		return this.title;
 	}
-	
-	public long getID(){
+
+	public long getID() {
 		return this.ID_question;
 	}
-	
+
 	public int getAnswerCount() {
 		return this.answerList.size();
 	}
@@ -52,7 +52,7 @@ public class Question extends InputsModel {
 	public ArrayList<Answer> getAnswers() {
 		return this.answerList;
 	}
-	
+
 	public ArrayList<Reply> getReplys() {
 		return this.replyList;
 	}
@@ -60,8 +60,8 @@ public class Question extends InputsModel {
 	public int getAnswerPosition(Answer answer) {
 		return this.answerList.indexOf(answer);
 	}
-	
-	public int getReplyPosition(Reply reply){
+
+	public int getReplyPosition(Reply reply) {
 		return this.replyList.indexOf(reply);
 	}
 
