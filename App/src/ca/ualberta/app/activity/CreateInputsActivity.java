@@ -67,11 +67,6 @@ public class CreateInputsActivity extends Activity {
 		authorMapManager = new AuthorMapManager();
 		authorMap = new AuthorMap();
 		image.setVisibility(View.GONE);
-		titleText.setText(User.author.getUsername());
-		User.author.addAQuestion(1214124);
-
-		contentText
-				.setText(User.author.getAuthorQuestionId().get(0).toString());
 		Thread thread = new UpdateAuthorThread(User.author);
 		thread.start();
 	}

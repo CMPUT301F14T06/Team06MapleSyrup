@@ -34,21 +34,21 @@ public class MyQuestionActivity extends Activity {
 	static String[] sortOption = { sortByDate, sortByScore, sortByPicture,
 			sortByQuestionUpvote, sortByAnswerUpvote };
 
-	private String MYQUESTION = User.author.getUsername() + ".sav";
-	private Question question;
 	private QuestionListAdapter adapter = null;
 	private QuestionListController myQuestionListController;
 	private QuestionListManager questionListManager;
+	private QuestionList myQuestionList;
 	private ListView myquestionListView = null;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
 	public String sortString = "date";
-	// Thread to update adapter after an operation
 
+	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
+			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
 			spin_adapter.notifyDataSetChanged();
 		}
@@ -61,10 +61,14 @@ public class MyQuestionActivity extends Activity {
 		mcontext = this;
 		myquestionListView = (ListView) findViewById(R.id.my_question_ListView);
 		sortOptionSpinner = (Spinner) findViewById(R.id.my_question_sort_spinner);
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
 		myQuestionListController = new QuestionListController();
-		myQuestionListController.addAll(QuestionListController.loadFromFile(
-				this, MYQUESTION));
-		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
+		questionListManager = new QuestionListManager();
+		adapter = new QuestionListAdapter(this, R.layout.single_question,
 				myQuestionListController.getQuestionArrayList());
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
@@ -73,6 +77,7 @@ public class MyQuestionActivity extends Activity {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
+
 		// Show details when click on a question
 		myquestionListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -121,7 +126,6 @@ public class MyQuestionActivity extends Activity {
 						return true;
 					}
 				});
-
 	}
 
 	private class change_category_click implements OnItemSelectedListener {
@@ -132,32 +136,32 @@ public class MyQuestionActivity extends Activity {
 			// sort by Date
 			if (categoryID == 0) {
 				sortString = "date";
-				// updateList();
-			}
-
-			// sort by Picture
-			if (categoryID == 1) {
-				sortString = "score";
-				// updateList();
+				adapter.setSortingOption(sortByDate);
 			}
 
 			// sort by Score
+			if (categoryID == 1) {
+				sortString = "score";
+				adapter.setSortingOption(sortByScore);
+			}
+
+			// sort by Picture
 			if (categoryID == 2) {
 				sortString = "picture";
 				adapter.setSortingOption(sortByPicture);
-				// updateList();
 			}
 			// sort by Question upvote
 			if (categoryID == 3) {
 				sortString = "q_upvote";
-				// updateList();
+				adapter.setSortingOption(sortByQuestionUpvote);
 			}
 
 			// sort by Answer upvote
 			if (categoryID == 4) {
 				sortString = "a_upvote";
-				// updateList();
+				adapter.setSortingOption(sortByAnswerUpvote);
 			}
+			updateList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -166,28 +170,10 @@ public class MyQuestionActivity extends Activity {
 	}
 
 	private void updateList() {
-
 		myQuestionListController.clear();
-
-		for (long questionId : User.author.getAuthorQuestionId()) {
-			Thread getThread = new GetQuestionThread(questionId);
-			getThread.start();
-			myQuestionListController.addQuestion(question);
-		}
-	}
-
-	class GetQuestionThread extends Thread {
-		// TODO: Implement search thread
-		private long questionId;
-
-		public GetQuestionThread(long questionId) {
-			this.questionId = questionId;
-		}
-
-		@Override
-		public void run() {
-			question = questionListManager.getQuestion(questionId);
-		}
+		myQuestionList = questionListManager.getQuestionList(User.author
+				.getAuthorQuestionId());
+		myQuestionListController.addAll(myQuestionList);
 	}
 
 	class DeleteThread extends Thread {
