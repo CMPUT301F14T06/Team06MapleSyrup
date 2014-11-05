@@ -151,19 +151,27 @@ public class MyQuestionActivity extends Activity {
 	}
 
 	private void updateList() {
-		myQuestionListController.clear();
-		myQuestionList = myQuestionListManager.getQuestionList(User.author
-				.getAuthorQuestionId());
-		myQuestionListController.addAll(myQuestionList);
+
 		if (User.loginStatus == true) {
 			QuestionListController.saveInFile(mcontext,
 					myQuestionListController.getQuestionList(), MYQUESTION);
 		}
-		
-		//adapter.applySortMethod();
-		adapter.notifyDataSetChanged();
+		Thread thread = new GetListThread();
+		thread.start();
 	}
 
+	class GetListThread extends Thread{
+		@Override
+		public void run() {
+			myQuestionListController.clear();
+			myQuestionList = myQuestionListManager.getQuestionList(User.author
+					.getAuthorQuestionId());
+			myQuestionListController.addAll(myQuestionList);
+
+			runOnUiThread(doUpdateGUIList);
+		}
+	}
+	
 	class DeleteThread extends Thread {
 		private long questionID;
 
