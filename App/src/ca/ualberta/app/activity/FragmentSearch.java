@@ -89,7 +89,7 @@ public class FragmentSearch extends Fragment {
 		adapter = new QuestionListAdapter(getActivity(),
 				R.layout.single_question,
 				questionListController.getQuestionArrayList());
-
+		adapter.setSortingOption(sortByDate);
 		searchResultListView.setAdapter(adapter);
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
@@ -100,9 +100,8 @@ public class FragmentSearch extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				sortOptionSpinner
-						.setOnItemSelectedListener(new change_category_click());
+				.setOnItemSelectedListener(new change_category_click());
 				updateSearchList();
 			}
 		});
@@ -116,26 +115,30 @@ public class FragmentSearch extends Fragment {
 			// sort by Date
 			if (categoryID == 0) {
 				sortString = "date";
-			}
-
-			// sort by Picture
-			if (categoryID == 1) {
-				sortString = "picture";
+				adapter.setSortingOption(sortByDate);
 			}
 
 			// sort by Score
-			if (categoryID == 2) {
+			if (categoryID == 1) {
 				sortString = "score";
+				adapter.setSortingOption(sortByScore);
 			}
-			
+
+			// sort by Picture
+			if (categoryID == 2) {
+				sortString = "picture";
+				adapter.setSortingOption(sortByPicture);
+			}
 			// sort by Question upvote
 			if (categoryID == 3) {
 				sortString = "q_upvote";
+				adapter.setSortingOption(sortByQuestionUpvote);
 			}
 
 			// sort by Answer upvote
 			if (categoryID == 4) {
 				sortString = "a_upvote";
+				adapter.setSortingOption(sortByAnswerUpvote);
 			}
 			updateSearchList();
 		}
