@@ -63,12 +63,14 @@ public class QuestionDetailActivity extends Activity {
 			questionUpvoteTextView.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
+			if (question.getReplys().size() == 0)
+				question_ReplyListView.setVisibility(View.GONE);
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(question.getImage());
 			}
-			adapter = new AnswerListAdapter(mcontext,
-					R.layout.single_answer, question.getAnswers(), question);
+			adapter = new AnswerListAdapter(mcontext, R.layout.single_answer,
+					question.getAnswers(), question);
 			question_AnswerListView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 		}
