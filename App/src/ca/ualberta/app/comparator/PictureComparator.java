@@ -22,12 +22,12 @@ public class PictureComparator implements Comparator<Question> {
 	public int compare(Question a, Question b) {
 		if ((a.hasImage() == false) && (b.hasImage() == false)) {
 			return -1;
-		} 
-		else if ((a.hasImage() == false) && (b.hasImage() == true)) {
-			return 1;	
-		} 
-		else {
-			return 0;
+		} else if ((a.hasImage() == false) && (b.hasImage() == true)) {
+			return 1;
+		} else if (a.getID() >= b.getID()) {
+			return -1;
+		} else {
+			return 1;
 		}
 	}
 

@@ -189,7 +189,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		// updateList();
+		//updateList();
 
 	}
 

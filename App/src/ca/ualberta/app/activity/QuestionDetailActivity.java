@@ -44,8 +44,11 @@ public class QuestionDetailActivity extends Activity {
 			questionUpvoteTextView.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
-			questionImageView.setImageBitmap(question.getImage());
-			// adapter.notifyDataSetChanged();
+			if (question.hasImage()) {
+				questionImageView.setVisibility(View.VISIBLE);
+				questionImageView.setImageBitmap(question.getImage());
+				// adapter.notifyDataSetChanged();
+			}
 		}
 	};
 
@@ -65,7 +68,7 @@ public class QuestionDetailActivity extends Activity {
 		question_AnswerListView = (ListView) findViewById(R.id.answer_listView);
 		answer_Rb = (RadioButton) findViewById(R.id.question_answer_button);
 		reply_Rb = (RadioButton) findViewById(R.id.question_reply_button);
-
+		questionImageView.setVisibility(View.GONE);
 		if (User.loginStatus == true) {
 			answer_Rb.setVisibility(View.VISIBLE);
 			reply_Rb.setVisibility(View.VISIBLE);

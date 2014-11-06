@@ -15,12 +15,15 @@ public class ScoreComparator implements Comparator<Question> {
 	 * @param b
 	 *            : right hand side Question
 	 * @return -1 if left hand side Question's score is higher than the right
-	 *         		hand side Question's score 
-	 *           1 otherwise.
+	 *         hand side Question's score 1 otherwise.
 	 */
 	@Override
 	public int compare(Question a, Question b) {
-		if (a.getTotalScore() >= b.getTotalScore()) {
+		if (a.getTotalScore() > b.getTotalScore()) {
+			return -1;
+		} else if (a.getTotalScore() < b.getTotalScore()) {
+			return 1;
+		} else if (a.getID() >= b.getID()) {
 			return -1;
 		} else {
 			return 1;

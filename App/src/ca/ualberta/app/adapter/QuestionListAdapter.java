@@ -32,6 +32,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// private String FAVLIST = "favList.sav";
 	// private String LOCALLIST = "localLList.sav";
 	private String sortingOption = null;
+	private String lastSortingOption = null;
 
 	// Thread that close the activity after finishing update
 
@@ -127,12 +128,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Question question = questionList.get(position);
-			User.favorite.addQuestion(question);
+			User.favoriteId.add(question.getID());
 			// long questionID = question.getID();
-			Thread thread = new UpdateQuestionThread(question);
-			thread.start();
-
-			notifyDataSetChanged();
 		}
 	}
 
@@ -154,27 +151,30 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			// long questionID = question.getID();
 			Thread thread = new UpdateQuestionThread(question);
 			thread.start();
-			applySortMethod();
+			sortingOption = lastSortingOption;
 			notifyDataSetChanged();
+			applySortMethod();
+
 		}
 	}
 
 	public void applySortMethod() {
-		if (sortingOption == "Sort By Picture") {
+		if (sortingOption.equals("Sort By Picture")) {
 			this.sort(new PictureComparator());
 		}
-		if (sortingOption == "Sort By Date") {
+		if (sortingOption.equals("Sort By Date")) {
 			this.sort(new DateComparator());
 		}
-		if (sortingOption == "Sort By Score") {
+		if (sortingOption.equals("Sort By Score")) {
 			this.sort(new ScoreComparator());
 		}
-		if (sortingOption == "Sort By Question Upvote") {
+		if (sortingOption.equals("Sort By Question Upvote")) {
 			this.sort(new QuestionUpvoteComparator());
 		}
-		if (sortingOption == "Sort By Answer Upvote") {
+		if (sortingOption.equals("Sort By Answer Upvote")) {
 			this.sort(new AnswerUpvoteComparator());
 		}
+		this.lastSortingOption = sortingOption;
 		sortingOption = null;
 	}
 
@@ -185,6 +185,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	 *            : a String which is one of the sorting options.
 	 */
 	public void setSortingOption(String option) {
+
 		this.sortingOption = option;
 	}
 }

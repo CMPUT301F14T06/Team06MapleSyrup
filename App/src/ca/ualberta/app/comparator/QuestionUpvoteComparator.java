@@ -14,12 +14,15 @@ public class QuestionUpvoteComparator implements Comparator<Question> {
 	 * @param b
 	 *            : right hand side Question
 	 * @return -1 if left hand side Question's Upvote is higher than the right
-	 *         		hand side Question's Upvote 
-	 *           1 otherwise.
+	 *         hand side Question's Upvote 1 otherwise.
 	 */
 	@Override
 	public int compare(Question a, Question b) {
-		if (a.getQuestionUpvoteCount() >= b.getQuestionUpvoteCount()) {
+		if (a.getQuestionUpvoteCount() > b.getQuestionUpvoteCount()) {
+			return -1;
+		} else if (a.getQuestionUpvoteCount() < b.getQuestionUpvoteCount()) {
+			return 1;
+		} else if (a.getID() >= b.getID()) {
 			return -1;
 		} else {
 			return 1;

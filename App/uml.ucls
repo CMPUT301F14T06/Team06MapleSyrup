@@ -1,6 +1,1066 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.6" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="ca.ualberta.app.activity.LoginActivity.GetThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/LoginActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="113" x="3659" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="ca.ualberta.app.adapter.QuestionListAdapter" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/QuestionListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="287" x="5579" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="ca.ualberta.app.network.data.Hits" project="App" 
+    file="/App/src/ca/ualberta/app/network/data/Hits.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="184" x="7652" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="ca.ualberta.app.activity.MyQuestionActivity.GetListThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/MyQuestionActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="109" x="3671" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="ca.ualberta.app.network.data.Shard" project="App" 
+    file="/App/src/ca/ualberta/app/network/data/SearchResponse.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="138" x="6649" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="ca.ualberta.app.activity.MainActivity" project="App" 
+    file="/App/src/ca/ualberta/app/activity/MainActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="234" x="883" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="ca.ualberta.app.models.QuestionList" project="App" 
+    file="/App/src/ca/ualberta/app/models/QuestionList.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5016" y="2049"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="ca.ualberta.app.comparator.PictureComparator" project="App" 
+    file="/App/src/ca/ualberta/app/comparator/PictureComparator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="179" x="1157" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="ca.ualberta.app.models.Question" project="App" 
+    file="/App/src/ca/ualberta/app/models/Question.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5813" y="2193"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="ca.ualberta.app.ESmanager.QuestionListManager" project="App" 
+    file="/App/src/ca/ualberta/app/ESmanager/QuestionListManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="356" x="6485" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="ca.ualberta.app.activity.CreateQuestionActivity" project="App" 
+    file="/App/src/ca/ualberta/app/activity/CreateQuestionActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="405" width="268" x="4296" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="ca.ualberta.app.adapter.QuestionDetailAdapter" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/QuestionDetailAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="152" x="1376" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="ca.ualberta.app.activity.MyQuestionActivity.DeleteThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/MyQuestionActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="118" x="3820" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="ca.ualberta.app.comparator.ScoreComparator" project="App" 
+    file="/App/src/ca/ualberta/app/comparator/ScoreComparator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="179" x="1568" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="ca.ualberta.app.adapter.AnswerListAdapter.upvoteOnClickListener" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/AnswerListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="153" x="6158" y="2128"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="ca.ualberta.app.activity.LoginActivity.AddThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/LoginActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="121" x="3112" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="ca.ualberta.app.activity.FragmentProfile" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentProfile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="293" x="1787" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="ca.ualberta.app.activity.MyQuestionActivity.change_category_click" project="App" 
+    file="/App/src/ca/ualberta/app/activity/MyQuestionActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="278" x="3978" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="ca.ualberta.app.activity.MyQuestionActivity" project="App" 
+    file="/App/src/ca/ualberta/app/activity/MyQuestionActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="387" width="201" x="5052" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="ca.ualberta.app.models.User" project="App" 
+    file="/App/src/ca/ualberta/app/models/User.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="123" x="3030" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="ca.ualberta.app.activity.CreateAnswerActivity.GetUpdateThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/CreateAnswerActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="182" x="6902" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="ca.ualberta.app.activity.LoginActivity.SearchThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/LoginActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="131" x="3812" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="ca.ualberta.app.network.data.SearchHit" project="App" 
+    file="/App/src/ca/ualberta/app/network/data/SearchHit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="423" width="142" x="7652" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="ca.ualberta.app.models.Author" project="App" 
+    file="/App/src/ca/ualberta/app/models/Author.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="217" x="3072" y="2128"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="ca.ualberta.app.activity.QuestionDetailActivity" project="App" 
+    file="/App/src/ca/ualberta/app/activity/QuestionDetailActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="369" width="248" x="6036" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="ca.ualberta.app.activity.FragmentSearch.SearchThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentSearch.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="131" x="6160" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="ca.ualberta.app.activity.QuestionDetailActivity.GetThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/QuestionDetailActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="109" x="5906" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="ca.ualberta.app.adapter.AnswerListAdapter" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/AnswerListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="327" x="6118" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="ca.ualberta.app.activity.FragmentMain.SearchThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentMain.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="131" x="4625" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="ca.ualberta.app.thread.UpdateAnswerThread" project="App" 
+    file="/App/src/ca/ualberta/app/thread/UpdateAnswerThread.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="228" x="7055" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="ca.ualberta.app.controller.QuestionListController" project="App" 
+    file="/App/src/ca/ualberta/app/controller/QuestionListController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="477" width="246" x="5293" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="ca.ualberta.app.models.AuthorMapIO" project="App" 
+    file="/App/src/ca/ualberta/app/models/AuthorMapIO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="229" x="2120" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="ca.ualberta.app.activity.CreateAnswerActivity" project="App" 
+    file="/App/src/ca/ualberta/app/activity/CreateAnswerActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="405" width="268" x="7344" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="ca.ualberta.app.activity.FragmentSearch.change_category_click" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentSearch.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="278" x="6331" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="ca.ualberta.app.controller.CacheController" project="App" 
+    file="/App/src/ca/ualberta/app/controller/CacheController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="205" x="2389" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="ca.ualberta.app.network.data.SearchResponse" project="App" 
+    file="/App/src/ca/ualberta/app/network/data/SearchResponse.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="159" x="7150" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="ca.ualberta.app.network.InternetConnection" project="App" 
+    file="/App/src/ca/ualberta/app/network/InternetConnection.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="156" x="2634" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="ca.ualberta.app.activity.CreateQuestionActivity.AddQuestionThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/CreateQuestionActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="174" x="4854" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="ca.ualberta.app.activity.CreateQuestionActivity.SearchAuthorThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/CreateQuestionActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="164" x="5089" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="ca.ualberta.app.models.Reply" project="App" 
+    file="/App/src/ca/ualberta/app/models/Reply.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="120" x="5633" y="2964"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="ca.ualberta.app.adapter.ViewHolder" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/QuestionListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="156" x="2830" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="42" language="java" name="ca.ualberta.app.controller.PushController" project="App" 
+    file="/App/src/ca/ualberta/app/controller/PushController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="141" x="3026" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="43" language="java" name="ca.ualberta.app.adapter.ReplyAdapter" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/ReplyAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3490" y="607"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="44" language="java" name="ca.ualberta.app.adapter.QuestionListAdapter.favOnClickListener" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/QuestionListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="136" x="5619" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="45" language="java" name="ca.ualberta.app.network.data.SearchCommand" project="App" 
+    file="/App/src/ca/ualberta/app/network/data/SearchCommand.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="212" x="3807" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="46" language="java" name="ca.ualberta.app.comparator.DateComparator" project="App" 
+    file="/App/src/ca/ualberta/app/comparator/DateComparator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="179" x="4059" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="47" language="java" name="ca.ualberta.app.activity.FragmentMain" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentMain.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="459" width="293" x="5293" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="48" language="java" name="ca.ualberta.app.adapter.QuestionListAdapter.upvoteOnClickListener" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/QuestionListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="153" x="5795" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="49" language="java" name="ca.ualberta.app.comparator.AnswerUpvoteComparator" project="App" 
+    file="/App/src/ca/ualberta/app/comparator/AnswerUpvoteComparator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="179" x="4278" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="50" language="java" name="ca.ualberta.app.activity.FragmentMain.DeleteThread" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentMain.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="118" x="4796" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="51" language="java" name="ca.ualberta.app.comparator.QuestionUpvoteComparator" project="App" 
+    file="/App/src/ca/ualberta/app/comparator/QuestionUpvoteComparator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="182" x="4497" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="52" language="java" name="ca.ualberta.app.models.InputsModel" project="App" 
+    file="/App/src/ca/ualberta/app/models/InputsModel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4486" y="2226"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="53" language="java" name="ca.ualberta.app.adapter.AnswerListAdapter.ViewHolder" project="App" 
+    file="/App/src/ca/ualberta/app/adapter/AnswerListAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="153" x="6351" y="2128"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="54" language="java" name="ca.ualberta.app.activity.FragmentMain.change_category_click" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentMain.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="278" x="4954" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="55" language="java" name="ca.ualberta.app.activity.FragmentSearch" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentSearch.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="459" width="293" x="6328" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="56" language="java" name="ca.ualberta.app.thread.UpdateAuthorThread" project="App" 
+    file="/App/src/ca/ualberta/app/thread/UpdateAuthorThread.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="168" x="3193" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="57" language="java" name="ca.ualberta.app.models.Answer" project="App" 
+    file="/App/src/ca/ualberta/app/models/Answer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6410" y="2591"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="58" language="java" name="ca.ualberta.app.thread.UpdateQuestionThread" project="App" 
+    file="/App/src/ca/ualberta/app/thread/UpdateQuestionThread.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="188" x="6827" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="59" language="java" name="ca.ualberta.app.activity.LoginActivity" project="App" 
+    file="/App/src/ca/ualberta/app/activity/LoginActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="230" x="3401" y="1148"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="60" language="java" name="ca.ualberta.app.models.AuthorMap" project="App" 
+    file="/App/src/ca/ualberta/app/models/AuthorMap.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="198" x="3983" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="61" language="java" name="ca.ualberta.app.activity.FragmentFavorite" project="App" 
+    file="/App/src/ca/ualberta/app/activity/FragmentFavorite.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="293" x="4719" y="613"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="62" language="java" name="ca.ualberta.app.ESmanager.AuthorMapManager" project="App" 
+    file="/App/src/ca/ualberta/app/ESmanager/AuthorMapManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="346" x="3273" y="1665"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="63">    
+    <end type="SOURCE" refId="60" navigable="false">      
+      <attribute id="64" name="authorMap"/>      
+      <multiplicity id="65" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="66">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="13"/>  
+  </nesting>  
+  <association id="67">    
+    <end type="SOURCE" refId="57" navigable="false">      
+      <attribute id="68" name="replyList"/>      
+      <multiplicity id="69" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="70">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="50"/>  
+  </nesting>  
+  <association id="71">    
+    <bendpoint x="5262" y="1148"/>    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="72" name="myQuestionList"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <bendpoint x="6129" y="1148"/>    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="75" name="questionManager"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="78" name="questionListManager"/>      
+      <multiplicity id="79" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="80">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="81" name="hits"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="83">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="39"/>  
+  </nesting>  
+  <association id="84">    
+    <bendpoint x="6087" y="1665"/>    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="85" name="question"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="88" name="authorMap"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="90">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <association id="91">    
+    <bendpoint x="4594" y="1148"/>    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="92" name="myQuestionList"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <bendpoint x="7313" y="1148"/>    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="95" name="questionListManager"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="97">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="54"/>  
+  </nesting>  
+  <association id="98">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="99" name="questionListManager"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="101">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="102" name="myQuestionListController"/>      
+      <multiplicity id="103" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="104">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="105" name="question"/>      
+      <multiplicity id="106" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="107">    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="108" name="authorMapManager"/>      
+      <multiplicity id="109" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="110">    
+    <bendpoint x="6066" y="1148"/>    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="111" name="myQuestionListManager"/>      
+      <multiplicity id="112" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="113">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="48"/>  
+  </nesting>  
+  <association id="114">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="115" name="questionList"/>      
+      <multiplicity id="116" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="117">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <association id="118">    
+    <bendpoint x="7114" y="1665"/>    
+    <bendpoint x="7114" y="2128"/>    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="119" name="newAnswer"/>      
+      <multiplicity id="120" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="121">    
+    <bendpoint x="6871" y="1665"/>    
+    <bendpoint x="6871" y="2128"/>    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="122" name="answer"/>      
+      <multiplicity id="123" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <bendpoint x="6127" y="2128"/>    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="125" name="answerList"/>      
+      <multiplicity id="126" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="128" name="questionListController"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="130">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="38"/>  
+  </nesting>  
+  <association id="131">    
+    <bendpoint x="6108" y="1148"/>    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="132" name="questionListManager"/>      
+      <multiplicity id="133" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="134">    
+    <bendpoint x="5642" y="2699"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="135" name="replyList"/>      
+      <multiplicity id="136" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="137">    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="138" name="questionListController"/>      
+      <multiplicity id="139" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="140">    
+    <end type="SOURCE" refId="58" navigable="false">      
+      <attribute id="141" name="questionListManager"/>      
+      <multiplicity id="142" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="143">    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="144" name="adapter"/>      
+      <multiplicity id="145" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="146">    
+    <bendpoint x="6892" y="2128"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="147" name="newAnswer"/>      
+      <multiplicity id="148" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="149">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="150" name="hits"/>      
+      <multiplicity id="151" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="152">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="53"/>  
+  </nesting>  
+  <association id="153">    
+    <bendpoint x="5588" y="1665"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="154" name="questionList"/>      
+      <multiplicity id="155" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="156">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="157" name="favorite"/>      
+      <multiplicity id="158" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="159">    
+    <bendpoint x="3039" y="1665"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="160" name="author"/>      
+      <multiplicity id="161" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="162">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="22"/>  
+  </nesting>  
+  <association id="163">    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="164" name="authorMapManager"/>      
+      <multiplicity id="165" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="166">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="167" name="authorMapManager"/>      
+      <multiplicity id="168" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="169">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="170" name="newAuthor"/>      
+      <multiplicity id="171" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="172">    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="34"/>  
+  </nesting>  
+  <nesting id="173">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="18"/>  
+  </nesting>  
+  <generalization id="174">    
+    <bendpoint x="5481" y="2128"/>    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="52"/>  
+  </generalization>  
+  <nesting id="175">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="1"/>  
+  </nesting>  
+  <association id="176">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="177" name="answerList"/>      
+      <multiplicity id="178" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="179">    
+    <bendpoint x="6087" y="1148"/>    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="180" name="adapter"/>      
+      <multiplicity id="181" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="182">    
+    <bendpoint x="6045" y="1148"/>    
+    <bendpoint x="6045" y="1665"/>    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="183" name="question"/>      
+      <multiplicity id="184" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="185">    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="186" name="adapter"/>      
+      <multiplicity id="187" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="188">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="29"/>  
+  </nesting>  
+  <nesting id="189">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="4"/>  
+  </nesting>  
+  <generalization id="190">    
+    <bendpoint x="3060" y="1665"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <association id="191">    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="192" name="myQuestionListController"/>      
+      <multiplicity id="193" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="194">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="195" name="_shards"/>      
+      <multiplicity id="196" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="197">    
+    <bendpoint x="6066" y="1665"/>    
+    <end type="SOURCE" refId="58" navigable="false">      
+      <attribute id="198" name="question"/>      
+      <multiplicity id="199" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="200">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="16"/>  
+  </nesting>  
+  <nesting id="201">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="27"/>  
+  </nesting>  
+  <association id="202">    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="203" name="questionListController"/>      
+      <multiplicity id="204" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="205">    
+    <bendpoint x="3081" y="1665"/>    
+    <end type="SOURCE" refId="56" navigable="false">      
+      <attribute id="206" name="author"/>      
+      <multiplicity id="207" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="208">    
+    <bendpoint x="5125" y="2699"/>    
+    <bendpoint x="5125" y="2128"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="52"/>  
+  </generalization>  
+  <nesting id="209">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="44"/>  
+  </nesting>  
+  <association id="210">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="211" name="questionList"/>      
+      <multiplicity id="212" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="213">    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="26"/>  
+  </nesting>  
+  <association id="214">    
+    <bendpoint x="5058" y="1665"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="215" name="newQuestion"/>      
+      <multiplicity id="216" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="217">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="218" name="question"/>      
+      <multiplicity id="219" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="220">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="52"/>  
+  </generalization>  
+  <association id="221">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="222" name="questionListManager"/>      
+      <multiplicity id="223" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="224">    
+    <end type="SOURCE" refId="59" navigable="false">      
+      <attribute id="225" name="authorMap"/>      
+      <multiplicity id="226" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="227">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="228" name="adapter"/>      
+      <multiplicity id="229" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
