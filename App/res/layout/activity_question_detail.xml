@@ -5,168 +5,176 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal" >
 
-    <LinearLayout
-        android:id="@+id/authorInformation"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/question_detail_Layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/linearLayout3"
-        android:orientation="vertical" >
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/authorPic"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginTop="5dp"
-            android:contentDescription="@string/desc"
-            android:scaleType="fitCenter"
-            android:src="@drawable/user_icon48" />
-
-        <TextView
-            android:id="@+id/authorNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/author_name"
-            android:textColor="#696969" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/questionDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/linearLayout3"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/questionDetailTitleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/question_title"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/questionDetailContentTextView"
+        <LinearLayout
+            android:id="@+id/authorInformation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/single_question"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#696969"
-            android:textSize="13sp" />
-    </LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/linearLayout3"
+            android:orientation="vertical" >
 
-    <GridLayout
-        android:id="@+id/gridLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/linearLayout3"
-        android:layout_below="@+id/linearLayout3"
-        android:columnCount="2" >
+            <ImageView
+                android:id="@+id/authorPic"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/desc"
+                android:scaleType="fitCenter"
+                android:src="@drawable/user_icon48" />
 
-        <TextView
-            android:id="@+id/upvoteStateTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/upvote_state"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#696969"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/authorNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/author_name"
+                android:textColor="#696969" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/answerStateTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_column="0"
-            android:gravity="center"
-            android:text="@string/answer_state"
-            android:textColor="#696969"
-            android:textSize="12sp" />
-    </GridLayout>
+        <LinearLayout
+            android:id="@+id/questionDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/linearLayout3"
+            android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/authorInformation"
-        android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/questionDetailTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/question_title"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
-        <RadioButton
-            android:id="@+id/save_detail_button"
-            style="@style/fav_save_upvote_button"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:drawableTop="@drawable/save_button_style"
-            android:onClick="save_click"
-            android:text="@string/save"
-            android:textColor="#696969" />
+            <TextView
+                android:id="@+id/questionDetailContentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/single_question"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#696969"
+                android:textSize="13sp" />
+        </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/fav_detail_button"
-            style="@style/fav_save_upvote_button"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:drawableTop="@drawable/fav_button_style"
-            android:onClick="fav_click"
-            android:text="@string/favorite"
-            android:textColor="#696969" />
+        <GridLayout
+            android:id="@+id/gridLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/linearLayout3"
+            android:layout_below="@+id/linearLayout3"
+            android:columnCount="2" >
 
-        <RadioButton
-            android:id="@+id/upvote_button"
-            style="@style/fav_save_upvote_button"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:drawableTop="@drawable/hand_pro_icon32"
-            android:onClick="upvote_click"
-            android:text="@string/upvote"
-            android:textColor="#696969" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/upvoteStateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/upvote_state"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#696969"
+                android:textSize="12sp" />
 
-    <ImageView
-        android:id="@+id/questionImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/questionDescription"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/questionDescription"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/desc"
-        android:src="@android:drawable/gallery_thumb" />
+            <TextView
+                android:id="@+id/answerStateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="0"
+                android:gravity="center"
+                android:text="@string/answer_state"
+                android:textColor="#696969"
+                android:textSize="12sp" />
+        </GridLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/questionImage"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/questionImage"
-        android:orientation="horizontal" >
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/authorInformation"
+            android:orientation="horizontal" >
 
-        <RadioButton
-            android:id="@+id/question_answer_button"
-            style="@style/answer_reply_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:onClick="answer_question"
-            android:text="@string/add_answer"
-            android:textColor="#696969" />
+            <RadioButton
+                android:id="@+id/save_detail_button"
+                style="@style/fav_save_upvote_button"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/save_button_style"
+                android:onClick="save_click"
+                android:text="@string/save"
+                android:textColor="#696969" />
 
-        <RadioButton
-            android:id="@+id/question_reply_button"
-            style="@style/answer_reply_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/add_reply"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#696969" />
-    </LinearLayout>
+            <RadioButton
+                android:id="@+id/fav_detail_button"
+                style="@style/fav_save_upvote_button"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/fav_button_style"
+                android:onClick="fav_click"
+                android:text="@string/favorite"
+                android:textColor="#696969" />
+
+            <RadioButton
+                android:id="@+id/upvote_button"
+                style="@style/fav_save_upvote_button"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/hand_pro_icon32"
+                android:onClick="upvote_click"
+                android:text="@string/upvote"
+                android:textColor="#696969" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/questionImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/questionDescription"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/questionDescription"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/desc"
+            android:src="@android:drawable/gallery_thumb" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/questionImage"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/questionImage"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/question_answer_button"
+                style="@style/answer_reply_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="answer_question"
+                android:text="@string/add_answer"
+                android:textColor="#696969" />
+
+            <RadioButton
+                android:id="@+id/question_reply_button"
+                style="@style/answer_reply_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/add_reply"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#696969" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <ExpandableListView
         android:id="@+id/question_reply_expanableListView"
@@ -182,13 +190,14 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/question_reply_expanableListView" >
     </ListView>
-    <ImageView
+
+    <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/gridLayout1"
+        android:layout_below="@+id/question_detail_Layout"
         android:background="@drawable/separator" />
 
 </RelativeLayout>
