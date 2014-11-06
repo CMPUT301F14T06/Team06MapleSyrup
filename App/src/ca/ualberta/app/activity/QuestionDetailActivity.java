@@ -66,11 +66,11 @@ public class QuestionDetailActivity extends Activity {
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(question.getImage());
-				adapter = new AnswerListAdapter(mcontext,
-						R.layout.single_answer, question.getAnswers(), question);
-				question_AnswerListView.setAdapter(adapter);
-				adapter.notifyDataSetChanged();
 			}
+			adapter = new AnswerListAdapter(mcontext,
+					R.layout.single_answer, question.getAnswers(), question);
+			question_AnswerListView.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
 		}
 	};
 

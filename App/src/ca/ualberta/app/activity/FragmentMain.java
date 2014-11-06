@@ -3,6 +3,7 @@ package ca.ualberta.app.activity;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
@@ -27,7 +28,8 @@ import android.widget.Toast;
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
 
 public class FragmentMain extends Fragment {
-
+	private String FAVMAP = "favMap.sav";
+	private String LOCALMAP = "localMap.sav";
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
 	static String sortByQuestionUpvote = "Sort By Question Upvote";
@@ -84,7 +86,8 @@ public class FragmentMain extends Fragment {
 			// MYQUESTION = User.author.getUsername() + ".sav";
 			myQuestionListController = new QuestionListController();
 		}
-
+		User.favoriteId = CacheController.loadFromFile(mcontext, FAVMAP);
+		User.localCacheId = CacheController.loadFromFile(mcontext, LOCALMAP);
 		questionListManager = new QuestionListManager();
 		questionListController = new QuestionListController();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -189,7 +192,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		//updateList();
+		// updateList();
 
 	}
 

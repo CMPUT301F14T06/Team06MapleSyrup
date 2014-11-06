@@ -40,13 +40,13 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/answernContentTextView"
+            android:id="@+id/answerContentTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/single_answer"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#696969"
-            android:textSize="13sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,15 +87,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/answerImage"
         android:orientation="horizontal" >
-
-        <RadioButton
-            android:id="@+id/answer_reply_button"
-            style="@style/answer_reply_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_reply"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#696969" />
     </LinearLayout>
 
     <GridLayout
@@ -119,12 +110,36 @@
             android:textSize="12sp" />
     </GridLayout>
 
+    <TextView
+        android:id="@+id/answer_time_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/answerImage"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/answerImage"
+        android:layout_marginRight="5dp"
+        android:gravity="right"
+        android:text="@string/time"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <RadioButton
+        android:id="@+id/answer_reply_button"
+        style="@style/answer_reply_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/answer_time_textView"
+        android:layout_below="@+id/answer_time_textView"
+        android:text="@string/add_reply"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#696969" />
+
     <ExpandableListView
-        android:id="@+id/answer_reply_ExpanableListView"
+        android:id="@+id/answer_reply_expandableListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout3" >
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/answer_reply_button" >
     </ExpandableListView>
 
 </RelativeLayout>

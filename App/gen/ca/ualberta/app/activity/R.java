@@ -107,20 +107,21 @@ public final class R {
         public static final int wrench_plus_2_icon48=0x7f020047;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0056;
+        public static final int action_settings=0x7f0a0057;
         public static final int add_answer_pic=0x7f0a0007;
         public static final int add_menu_button=0x7f0a001d;
         public static final int add_question_pic=0x7f0a0011;
         public static final int answerContent=0x7f0a0048;
+        public static final int answerContentTextView=0x7f0a0049;
         public static final int answerImage=0x7f0a004a;
         public static final int answerStateTextView=0x7f0a002b;
         public static final int answer_content_editText=0x7f0a0002;
         public static final int answer_content_textView=0x7f0a0001;
         public static final int answer_image_imageView=0x7f0a0003;
         public static final int answer_listView=0x7f0a0034;
-        public static final int answer_reply_ExpanableListView=0x7f0a004c;
-        public static final int answer_reply_button=0x7f0a004b;
-        public static final int answernContentTextView=0x7f0a0049;
+        public static final int answer_reply_button=0x7f0a004c;
+        public static final int answer_reply_expandableListView=0x7f0a004d;
+        public static final int answer_time_textView=0x7f0a004b;
         public static final int authorInformation=0x7f0a0022;
         public static final int authorNameTextView=0x7f0a0025;
         public static final int authorPic=0x7f0a0024;
@@ -131,7 +132,7 @@ public final class R {
         public static final int create_question_menu=0x7f0a0008;
         public static final int favQuestion_ListView=0x7f0a0037;
         public static final int favSort_spinner=0x7f0a0036;
-        public static final int fav_button=0x7f0a0050;
+        public static final int fav_button=0x7f0a0051;
         public static final int fav_detail_button=0x7f0a002d;
         public static final int fav_menu_button=0x7f0a001c;
         public static final int fav_question=0x7f0a003e;
@@ -158,12 +159,12 @@ public final class R {
         public static final int one_title=0x7f0a0035;
         public static final int profile_menu=0x7f0a003c;
         public static final int profile_menu_button=0x7f0a001f;
-        public static final int questionContentTextView=0x7f0a004e;
+        public static final int questionContentTextView=0x7f0a004f;
         public static final int questionDescription=0x7f0a0026;
         public static final int questionDetailContentTextView=0x7f0a0028;
         public static final int questionDetailTitleTextView=0x7f0a0027;
         public static final int questionImage=0x7f0a002f;
-        public static final int questionTitleTextView=0x7f0a004d;
+        public static final int questionTitleTextView=0x7f0a004e;
         public static final int question_answer_button=0x7f0a0031;
         public static final int question_content_editText=0x7f0a000c;
         public static final int question_content_textView=0x7f0a000b;
@@ -173,10 +174,10 @@ public final class R {
         public static final int question_reply_expanableListView=0x7f0a0033;
         public static final int question_title_editText=0x7f0a000a;
         public static final int question_title_textView=0x7f0a0009;
-        public static final int replyAuthor_textView=0x7f0a0054;
-        public static final int reply_textView=0x7f0a0052;
-        public static final int reply_time_textView=0x7f0a0053;
-        public static final int save_button=0x7f0a004f;
+        public static final int replyAuthor_textView=0x7f0a0055;
+        public static final int reply_textView=0x7f0a0053;
+        public static final int reply_time_textView=0x7f0a0054;
+        public static final int save_button=0x7f0a0050;
         public static final int save_detail_button=0x7f0a002c;
         public static final int searchQuestion_Button=0x7f0a0045;
         public static final int searchQuestion_EditText=0x7f0a0044;
@@ -189,8 +190,8 @@ public final class R {
         public static final int submit_question_button=0x7f0a000e;
         public static final int take_answer_pic=0x7f0a0006;
         public static final int take_question_pic=0x7f0a0010;
-        public static final int timeTextView=0x7f0a0051;
-        public static final int titleTv=0x7f0a0055;
+        public static final int timeTextView=0x7f0a0052;
+        public static final int titleTv=0x7f0a0056;
         public static final int upvoteStateTextView=0x7f0a002a;
         public static final int upvote_button=0x7f0a002e;
         public static final int username_editText=0x7f0a0013;
