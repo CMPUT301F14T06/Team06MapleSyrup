@@ -172,7 +172,7 @@
         android:id="@+id/question_reply_expanableListView"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_below="@+id/textView1" >
+        android:layout_below="@+id/imageView1" >
     </ExpandableListView>
 
     <ListView
@@ -182,15 +182,13 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/question_reply_expanableListView" >
     </ListView>
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/gridLayout1"
-        android:text="-----------------------------------------------------------------------------------"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:background="@drawable/separator" />
 
 </RelativeLayout>
