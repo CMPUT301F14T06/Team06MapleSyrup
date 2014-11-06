@@ -4,6 +4,7 @@ import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +28,13 @@ public class QuestionDetailActivity extends Activity {
 	private ImageView questionImageView;
 	private ExpandableListView question_ReplyListView;
 	private ListView question_AnswerListView;
-	
+	private RadioButton answer_Rb;
+	private RadioButton reply_Rb;
+	private long questionId;
 	private Question question;
 	private QuestionListManager questionManager;
 	private QuestionListController questionListController;
 	private AnswerListAdapter adapter = null;
-
 
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
@@ -39,11 +42,10 @@ public class QuestionDetailActivity extends Activity {
 			questionContentTextView.setText(question.getContent());
 			authorNameTextView.setText(question.getAuthor());
 			questionUpvoteTextView.setText("Upvote: "
-					+ String.valueOf(question.getQuestionUpvoteCount()));
-			answerCountTextView.setText("Answer: "
-					+ String.valueOf(question.getAnswerCount()));
+					+ question.getQuestionUpvoteCount());
+			answerCountTextView.setText("Answer: " + question.getAnswerCount());
 			questionImageView.setImageBitmap(question.getImage());
-			//adapter.notifyDataSetChanged();
+			// adapter.notifyDataSetChanged();
 		}
 	};
 
@@ -51,7 +53,7 @@ public class QuestionDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_detail);
-		
+
 		questionListController = new QuestionListController();
 		questionTitleTextView = (TextView) findViewById(R.id.questionDetailTitleTextView);
 		questionContentTextView = (TextView) findViewById(R.id.questionDetailContentTextView);
@@ -61,19 +63,28 @@ public class QuestionDetailActivity extends Activity {
 		questionImageView = (ImageView) findViewById(R.id.questionImage);
 		question_ReplyListView = (ExpandableListView) findViewById(R.id.question_reply_expanableListView);
 		question_AnswerListView = (ListView) findViewById(R.id.answer_listView);
-//		adapter = new AnswerListAdapter(this, R.layout.single_answer,question.getAnswers(),question);
-//	
-//		question_AnswerListView.setAdapter(adapter);
-		
-		question_ReplyListView.setOnChildClickListener(new OnChildClickListener() {
-			
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		});
+		answer_Rb = (RadioButton) findViewById(R.id.question_answer_button);
+		reply_Rb = (RadioButton) findViewById(R.id.question_reply_button);
+
+		if (User.loginStatus == true) {
+			answer_Rb.setVisibility(View.VISIBLE);
+			reply_Rb.setVisibility(View.VISIBLE);
+		} else {
+			answer_Rb.setVisibility(View.GONE);
+			reply_Rb.setVisibility(View.GONE);
+		}
+
+		question_ReplyListView
+				.setOnChildClickListener(new OnChildClickListener() {
+
+					@Override
+					public boolean onChildClick(ExpandableListView parent,
+							View v, int groupPosition, int childPosition,
+							long id) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+				});
 	}
 
 	@Override
@@ -86,15 +97,20 @@ public class QuestionDetailActivity extends Activity {
 		if (intent != null) {
 			Bundle extras = intent.getExtras();
 			if (extras != null) {
-				long questionId = extras.getLong(QUESTION_ID);
+				questionId = extras.getLong(QUESTION_ID);
 				Toast.makeText(this, "ID: " + questionId, Toast.LENGTH_SHORT)
 						.show();
 				Thread thread = new GetThread(questionId);
 				thread.start();
 			}
 		}
-		
-		
+
+	}
+
+	public void answer_question(View view) {
+		Intent intent = new Intent(this, CreateAnswerActivity.class);
+		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
+		startActivity(intent);
 	}
 
 	class GetThread extends Thread {

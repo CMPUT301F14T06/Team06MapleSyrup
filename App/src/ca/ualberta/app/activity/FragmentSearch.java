@@ -52,6 +52,7 @@ public class FragmentSearch extends Fragment {
 				Toast.makeText(getActivity().getApplicationContext(),
 						"No matched results", Toast.LENGTH_LONG).show();
 			}
+			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
 			spin_adapter.notifyDataSetChanged();
 		}

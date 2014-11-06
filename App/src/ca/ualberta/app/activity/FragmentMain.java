@@ -96,17 +96,17 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		
+
 		// Show details when click on a question
 		questionListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = questionListController.getQuestion(pos)
+				long questionId = questionListController.getQuestion(pos)
 						.getID();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
-				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
+				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionId);
 				startActivity(intent);
 			}
 
@@ -209,14 +209,13 @@ public class FragmentMain extends Fragment {
 			QuestionListController.saveInFile(mcontext,
 					myQuestionListController.getQuestionList(), MYQUESTION);
 		}
-		
+
 		questionListController.clear();
 		Thread thread = new SearchThread("");
 		thread.start();
 	}
-	
+
 	class SearchThread extends Thread {
-		// TODO: Implement search thread
 		private String search;
 
 		public SearchThread(String s) {

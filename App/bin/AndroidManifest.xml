@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="ca.ualberta.app.activity.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,20 +29,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.CreateInputsActivity"
+            android:name=".CreateQuestionActivity"
             android:label="@string/title_activity_create_input" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.QuestionDetailActivity"
+            android:name=".QuestionDetailActivity"
             android:label="@string/title_activity_question_detail" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.MyQuestionActivity"
+            android:name=".MyQuestionActivity"
             android:label="@string/title_activity_my_question" >
+        </activity>
+        <activity
+            android:name=".CreateAnswerActivity"
+            android:label="@string/title_activity_create_answer" >
         </activity>
     </application>
 

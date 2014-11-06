@@ -154,12 +154,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			// long questionID = question.getID();
 			Thread thread = new UpdateQuestionThread(question);
 			thread.start();
-
+			applySortMethod();
 			notifyDataSetChanged();
 		}
 	}
 
-	public void applySortMethod(){
+	public void applySortMethod() {
 		if (sortingOption == "Sort By Picture") {
 			this.sort(new PictureComparator());
 		}
@@ -169,15 +169,15 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		if (sortingOption == "Sort By Score") {
 			this.sort(new ScoreComparator());
 		}
-		if (sortingOption == "Sort By Question Upvote"){
+		if (sortingOption == "Sort By Question Upvote") {
 			this.sort(new QuestionUpvoteComparator());
 		}
-		if (sortingOption == "Sort By Answer Upvote"){
+		if (sortingOption == "Sort By Answer Upvote") {
 			this.sort(new AnswerUpvoteComparator());
 		}
 		sortingOption = null;
 	}
-	
+
 	/**
 	 * Set the current sorting option.
 	 * 

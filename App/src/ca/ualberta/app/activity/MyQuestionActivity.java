@@ -160,7 +160,7 @@ public class MyQuestionActivity extends Activity {
 		thread.start();
 	}
 
-	class GetListThread extends Thread{
+	class GetListThread extends Thread {
 		@Override
 		public void run() {
 			myQuestionListController.clear();
@@ -171,7 +171,7 @@ public class MyQuestionActivity extends Activity {
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
-	
+
 	class DeleteThread extends Thread {
 		private long questionID;
 

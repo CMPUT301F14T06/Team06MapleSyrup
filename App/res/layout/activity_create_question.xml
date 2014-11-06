@@ -3,19 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ca.ualberta.app.activity.CreateInputsActivity" >
+    tools:context="ca.ualberta.app.activity.CreateQuestionActivity" >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/create_input_menu" >
+        android:layout_above="@+id/create_question_menu" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/title_textView"
+                android:id="@+id/question_title_textView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -23,12 +23,12 @@
                 android:text="@string/title" />
 
             <EditText
-                android:id="@+id/title_editText"
+                android:id="@+id/question_title_editText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/title_textView"
+                android:layout_below="@+id/question_title_textView"
                 android:ems="10"
                 android:maxLength="70"
                 android:singleLine="true" >
@@ -37,31 +37,31 @@
             </EditText>
 
             <TextView
-                android:id="@+id/content_textView"
+                android:id="@+id/question_content_textView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/title_editText"
+                android:layout_below="@+id/question_title_editText"
                 android:text="@string/content" />
 
             <EditText
-                android:id="@+id/content_editText"
+                android:id="@+id/question_content_editText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/content_textView"
+                android:layout_below="@+id/question_content_textView"
                 android:ems="10"
                 android:inputType="textMultiLine" >
             </EditText>
 
             <ImageView
-                android:id="@+id/addImage_imageView"
+                android:id="@+id/question_image_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/content_editText"
+                android:layout_below="@+id/question_content_editText"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/desc"
@@ -70,7 +70,7 @@
     </ScrollView>
 
     <RadioGroup
-        android:id="@+id/create_input_menu"
+        android:id="@+id/create_question_menu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -79,29 +79,29 @@
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/submit_button"
+            android:id="@+id/submit_question_button"
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
-            android:onClick="submit"
+            android:onClick="submit_question"
             android:text="@string/submit" />
 
         <RadioButton
-            android:id="@+id/cancel_button"
+            android:id="@+id/cancel_question_button"
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
-            android:onClick="cancel"
+            android:onClick="cancel_question"
             android:text="@string/cancel" />
 
         <RadioButton
-            android:id="@+id/take_pic"
+            android:id="@+id/take_question_pic"
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
             android:layout_weight="0.3"
             android:drawableLeft="@drawable/photo_icon32"
-            android:onClick="take_pic" />
+            android:onClick="take_question_pic" />
 
         <RadioButton
-            android:id="@+id/add_pic"
+            android:id="@+id/add_question_pic"
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
             android:layout_weight="0.3"
