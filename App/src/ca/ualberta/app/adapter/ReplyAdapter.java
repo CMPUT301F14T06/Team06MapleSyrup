@@ -3,6 +3,8 @@ package ca.ualberta.app.adapter;
 import java.util.List;
 import java.util.Map;
 
+import ca.ualberta.app.activity.R;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +21,10 @@ public class ReplyAdapter extends BaseExpandableListAdapter {
 	private int clayout, glayout;
 	private LayoutInflater inflater;
 
-	public ReplyAdapter(Context context,
-			List<Map<String, Object>> group, int glayout, String[] groupFrom,
-			int[] groupTo, List<List<Map<String, Object>>> children,
-			int clayout, String[] childFrom, int[] childTo) {
+	public ReplyAdapter(Context context, List<Map<String, Object>> group,
+			int glayout, String[] groupFrom, int[] groupTo,
+			List<List<Map<String, Object>>> children, int clayout,
+			String[] childFrom, int[] childTo) {
 		inflater = LayoutInflater.from(context);
 		this.group = group;
 		this.glayout = glayout;
@@ -62,7 +64,7 @@ public class ReplyAdapter extends BaseExpandableListAdapter {
 
 	private View newChildView(ViewGroup parent) {
 		// TODO Auto-generated method stub
-		return inflater.inflate(clayout, parent, false);
+		return inflater.inflate(R.layout.single_reply, parent, false);
 	}
 
 	private void bindChildView(View cv, Map<String, Object> map,

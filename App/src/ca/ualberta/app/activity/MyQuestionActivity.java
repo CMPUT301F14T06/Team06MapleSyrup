@@ -38,7 +38,7 @@ public class MyQuestionActivity extends Activity {
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
 	private String MYQUESTION;
-	public String sortString = "date";
+	public String sortString = "Sort By Date";
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {

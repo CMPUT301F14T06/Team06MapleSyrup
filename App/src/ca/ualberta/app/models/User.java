@@ -1,12 +1,13 @@
 package ca.ualberta.app.models;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User {
 
 	public static boolean loginStatus = false;
-	public static ArrayList<Long> favoriteId = new ArrayList<Long>();
-	public static ArrayList<Long> localCacheId = new ArrayList<Long>();
+	public static Map<Long, Question> favoriteId = new HashMap<Long, Question>();
+	public static Map<Long, Question> localCacheId = new HashMap<Long, Question>();;
 	public static Author author = null;
 
 }

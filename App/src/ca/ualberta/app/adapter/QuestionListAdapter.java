@@ -8,6 +8,7 @@ import ca.ualberta.app.comparator.DateComparator;
 import ca.ualberta.app.comparator.PictureComparator;
 import ca.ualberta.app.comparator.QuestionUpvoteComparator;
 import ca.ualberta.app.comparator.ScoreComparator;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Question;
 
 import ca.ualberta.app.models.User;
@@ -29,10 +30,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// private QuestionList localList = null;
 	// private QuestionList favList = null;
 	private ArrayList<Question> questionList = null;
-	// private String FAVLIST = "favList.sav";
-	// private String LOCALLIST = "localLList.sav";
+	private String FAVMAP = "favMap.sav";
+	private String LOCALMAP = "localMap.sav";
 	private String sortingOption = null;
 	private String lastSortingOption = null;
+	ViewHolder holder = null;
 
 	// Thread that close the activity after finishing update
 
@@ -48,7 +50,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(this.getContext());
 			holder = new ViewHolder();
@@ -85,36 +86,60 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
 			holder.upvoteState.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
+			if (User.localCacheId.get(question.getID()) == null)
+				holder.save_Rb.setChecked(false);
+			else
+				holder.save_Rb.setChecked(true);
+			if (User.favoriteId.get(question.getID()) == null)
+				holder.fav_Rb.setChecked(false);
+			else
+				holder.fav_Rb.setChecked(true);
+			CacheController.updateFavQuestions(getContext(), FAVMAP, question);
+			CacheController.updateLocalQuestions(getContext(), LOCALMAP,
+					question);
 		}
+		holder.save_Rb.setOnClickListener(new saveOnClickListener(position));
 		holder.fav_Rb.setOnClickListener(new favOnClickListener(position));
 		holder.upvote_Rb
 				.setOnClickListener(new upvoteOnClickListener(position));
 		return convertView;
 	}
 
-	// private class saveCheckListener implements OnCheckedChangeListener {
-	//
-	// int position;
-	//
-	// public saveCheckListener(int position) {
-	// this.position = position;
-	// }
-	//
-	// @Override
-	// public void onCheckedChanged(CompoundButton buttonView, boolean isSaved)
-	// {
-	// questionList.getQuestion(position).setSave(isSaved);
-	// localList = new QuestionList();
-	// for (int i = 0; i < questionList.size(); i++)
-	// if (questionList.getQuestion(i).ifSaved())
-	// localList.addQuestion(questionList.getQuestion(i));
-	// QuestionListController.saveInFile(context, questionList,
-	// QUESTIONLIST);
-	// QuestionListController.saveInFile(context, localList, LOCALLIST);
-	// notifyDataSetChanged();
-	// }
-	// }
+	private class saveOnClickListener implements OnClickListener {
 
+		int position;
+
+		public saveOnClickListener(int position) {
+			// TODO Auto-generated constructor stub
+			this.position = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			Question question = questionList.get(position);
+			User.favoriteId = CacheController.loadFromFile(getContext(),
+					LOCALMAP);
+			long questionId = question.getID();
+			if (User.localCacheId.get(questionId) == null) {
+				User.localCacheId.put(questionId, question);
+				holder.save_Rb.setChecked(true);
+			} else {
+				holder.save_Rb.setChecked(false);
+				User.localCacheId.remove(questionId);
+			}
+			sortingOption = lastSortingOption;
+			notifyDataSetChanged();
+			applySortMethod();
+			CacheController.saveInFile(getContext(), User.localCacheId,
+					LOCALMAP);
+		}
+	}
+
+	/**
+	 * 
+	 * @author Anni
+	 * 
+	 */
 	private class favOnClickListener implements OnClickListener {
 
 		int position;
@@ -126,13 +151,29 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
 			Question question = questionList.get(position);
-			User.favoriteId.add(question.getID());
-			// long questionID = question.getID();
+			long questionId = question.getID();
+			User.favoriteId = CacheController
+					.loadFromFile(getContext(), FAVMAP);
+			if (User.favoriteId.get(questionId) == null) {
+				User.favoriteId.put(questionId, question);
+				holder.fav_Rb.setChecked(true);
+			} else {
+				holder.fav_Rb.setChecked(false);
+				User.favoriteId.remove(questionId);
+			}
+			sortingOption = lastSortingOption;
+			notifyDataSetChanged();
+			applySortMethod();
+			CacheController.saveInFile(getContext(), User.favoriteId, FAVMAP);
 		}
 	}
 
+	/**
+	 * 
+	 * @author Anni
+	 * 
+	 */
 	private class upvoteOnClickListener implements OnClickListener {
 
 		int position;
@@ -154,10 +195,16 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			sortingOption = lastSortingOption;
 			notifyDataSetChanged();
 			applySortMethod();
-
+			CacheController
+					.updateFavQuestions(v.getContext(), FAVMAP, question);
+			CacheController.updateLocalQuestions(getContext(), LOCALMAP,
+					question);
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void applySortMethod() {
 		if (sortingOption.equals("Sort By Picture")) {
 			this.sort(new PictureComparator());
@@ -190,6 +237,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	}
 }
 
+/**
+ * class ViewHolder
+ * 
+ * @author Anni
+ * 
+ */
 class ViewHolder {
 	ImageView authorPic;
 	TextView authorName;

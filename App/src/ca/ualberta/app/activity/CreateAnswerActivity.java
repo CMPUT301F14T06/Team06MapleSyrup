@@ -161,7 +161,7 @@ public class CreateAnswerActivity extends Activity {
 			Question question = questionListManager.getQuestion(id);
 			question.addAnswer(newAnswer);
 			Thread updateThread = new UpdateQuestionThread(question);
-			updateThread.run();
+			updateThread.start();
 			runOnUiThread(doFinishAdd);
 		}
 	}

@@ -101,7 +101,7 @@ public class FragmentSearch extends Fragment {
 			@Override
 			public void onClick(View v) {
 				sortOptionSpinner
-				.setOnItemSelectedListener(new change_category_click());
+						.setOnItemSelectedListener(new change_category_click());
 				updateSearchList();
 			}
 		});

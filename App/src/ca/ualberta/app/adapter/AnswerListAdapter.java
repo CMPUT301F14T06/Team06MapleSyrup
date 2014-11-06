@@ -35,7 +35,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(this.getContext());
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.single_question, null);
+			convertView = inflater.inflate(R.layout.single_answer, null);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}

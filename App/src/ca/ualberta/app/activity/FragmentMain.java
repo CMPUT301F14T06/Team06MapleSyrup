@@ -46,7 +46,7 @@ public class FragmentMain extends Fragment {
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
-	public String sortString = "date";
+	public String sortString = "Sort By Date";
 	private String MYQUESTION;
 	private QuestionList myQuestionList;
 

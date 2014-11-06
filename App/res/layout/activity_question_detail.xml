@@ -98,20 +98,22 @@
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/save_button"
+            android:id="@+id/save_detail_button"
             style="@style/fav_save_upvote_button"
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/save_button_style"
+            android:onClick="save_click"
             android:text="@string/save"
             android:textColor="#696969" />
 
         <RadioButton
-            android:id="@+id/fav_button"
+            android:id="@+id/fav_detail_button"
             style="@style/fav_save_upvote_button"
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/fav_button_style"
+            android:onClick="fav_click"
             android:text="@string/favorite"
             android:textColor="#696969" />
 
@@ -121,6 +123,7 @@
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/hand_pro_icon32"
+            android:onClick="upvote_click"
             android:text="@string/upvote"
             android:textColor="#696969" />
     </LinearLayout>

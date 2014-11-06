@@ -90,7 +90,7 @@ public class QuestionListController {
 	public void addAll(QuestionList searchQuestions) {
 		getQuestionList().getList().addAll(searchQuestions.getList());
 	}
-
+	
 	public int getQuestionPosition(Question question) {
 		return getQuestionList().getArrayList().indexOf(question);
 	}
