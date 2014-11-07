@@ -8,9 +8,13 @@ import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.view.ScrollListView;
+import ca.ualberta.app.view.ScrollListView.IXListViewListener;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +24,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +45,6 @@ public class FragmentMain extends Fragment {
 	private QuestionListController questionListController = null;
 	private QuestionListController myQuestionListController = null;
 	private TextView titleBar = null;
-	private ListView questionListView = null;
 	private Spinner sortOptionSpinner;
 	private QuestionListManager questionListManager;
 	private Context mcontext;
@@ -51,7 +53,10 @@ public class FragmentMain extends Fragment {
 	public String sortString = "Sort By Date";
 	private String MYQUESTION;
 	private QuestionList myQuestionList;
-
+	
+	private ScrollListView mListView;
+	private Handler mHandler;
+	
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -73,12 +78,14 @@ public class FragmentMain extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Main");
-		questionListView = (ListView) getView().findViewById(
-				R.id.question_listView);
 		sortOptionSpinner = (Spinner) getView().findViewById(R.id.sort_spinner);
+		
+		mListView = (ScrollListView) getView().findViewById(R.id.scrolllistView);
+		mListView.setPullLoadEnable(true);
+		mHandler = new Handler();
 
 	}
-
+	
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -96,14 +103,14 @@ public class FragmentMain extends Fragment {
 		adapter.setSortingOption(sortByDate);
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
-
-		questionListView.setAdapter(adapter);
+		
+		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 
 		// Show details when click on a question
-		questionListView.setOnItemClickListener(new OnItemClickListener() {
+		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -118,7 +125,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		// Delete question on long click
-		questionListView
+		mListView
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 					@Override
@@ -148,6 +155,30 @@ public class FragmentMain extends Fragment {
 					}
 				});
 		// updateList();
+		mListView.setScrollListViewListener(new IXListViewListener() {
+			
+			@Override
+			public void onRefresh() {
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						updateList();
+						onLoad();
+					}
+				}, 2000);
+			}
+			
+			@Override
+			public void onLoadMore() {
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						adapter.notifyDataSetChanged();
+						onLoad();
+					}
+				}, 2000);
+			}
+		});
 	}
 
 	private class change_category_click implements OnItemSelectedListener {
@@ -191,19 +222,12 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		 //updateList();
-
+	private void onLoad() {
+		mListView.stopRefresh();
+		mListView.stopLoadMore();
+		mListView.setRefreshTime("Just now");
 	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		// updateList();
-	}
-
+	
 	private void updateList() {
 		if (User.loginStatus == true) {
 			MYQUESTION = User.author.getUsername() + ".sav";
