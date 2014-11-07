@@ -1,5 +1,6 @@
 package ca.ualberta.app.activity;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,10 +56,10 @@ public class FragmentMain extends Fragment {
 	public String sortString = "Sort By Date";
 	private String MYQUESTION;
 	private QuestionList myQuestionList;
-	
+	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-	
+
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -81,13 +82,14 @@ public class FragmentMain extends Fragment {
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Main");
 		sortOptionSpinner = (Spinner) getView().findViewById(R.id.sort_spinner);
-		
-		mListView = (ScrollListView) getView().findViewById(R.id.scrolllistView);
+
+		mListView = (ScrollListView) getView()
+				.findViewById(R.id.scrolllistView);
 		mListView.setPullLoadEnable(true);
 		mHandler = new Handler();
 
 	}
-	
+
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -104,7 +106,7 @@ public class FragmentMain extends Fragment {
 		adapter.setSortingOption(sortByDate);
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
-		
+
 		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
@@ -126,38 +128,35 @@ public class FragmentMain extends Fragment {
 		});
 
 		// Delete question on long click
-		mListView
-				.setOnItemLongClickListener(new OnItemLongClickListener() {
+		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-					@Override
-					public boolean onItemLongClick(AdapterView<?> parent,
-							View view, int position, long id) {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
 
-						Question question = questionListController
-								.getQuestion(position);
+				Question question = questionListController
+						.getQuestion(position);
 
-						if (User.author != null
-								&& User.author.getUsername().equals(
-										question.getAuthor())) {
-							Toast.makeText(
-									mcontext,
-									"Deleting the Question: "
-											+ question.getTitle(),
-									Toast.LENGTH_LONG).show();
+				if (User.author != null
+						&& User.author.getUsername().equals(
+								question.getAuthor())) {
+					Toast.makeText(mcontext,
+							"Deleting the Question: " + question.getTitle(),
+							Toast.LENGTH_LONG).show();
 
-							Thread thread = new DeleteThread(question.getID());
-							thread.start();
-						} else {
-							Toast.makeText(mcontext,
-									"Only Author to the Question can delete",
-									Toast.LENGTH_LONG).show();
-						}
-						return true;
-					}
-				});
+					Thread thread = new DeleteThread(question.getID());
+					thread.start();
+				} else {
+					Toast.makeText(mcontext,
+							"Only Author to the Question can delete",
+							Toast.LENGTH_LONG).show();
+				}
+				return true;
+			}
+		});
 		// updateList();
 		mListView.setScrollListViewListener(new IXListViewListener() {
-			
+
 			@Override
 			public void onRefresh() {
 				mHandler.postDelayed(new Runnable() {
@@ -168,7 +167,7 @@ public class FragmentMain extends Fragment {
 					}
 				}, 2000);
 			}
-			
+
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -223,20 +222,20 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-<<<<<<< HEAD
 	private void onLoad() {
+		timestamp = new Date();
 		mListView.stopRefresh();
 		mListView.stopLoadMore();
-		mListView.setRefreshTime("Just now");
-=======
+		mListView.setRefreshTime(timestamp.toString());
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		adapter.notifyDataSetChanged();
 
->>>>>>> d79780dc63b568d3fc46ba2775abfc7fe859e4a7
 	}
-	
+
 	private void updateList() {
 		if (User.loginStatus == true) {
 			MYQUESTION = User.author.getUsername() + "my.sav";

@@ -42,13 +42,15 @@
         android:background="@drawable/btn_click_bg"
         android:text="@string/search" />
 
-    <ListView
+    <ca.ualberta.app.view.ScrollListView
         android:id="@+id/searchQuestion_ListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/searchQuestion_EditText"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/search_sort_spinner" >
-    </ListView>
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/search_sort_spinner"
+        android:cacheColorHint="#00000000" >
+   </ca.ualberta.app.view.ScrollListView>
 
 </RelativeLayout>

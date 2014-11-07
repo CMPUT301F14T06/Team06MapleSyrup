@@ -1,6 +1,7 @@
 package ca.ualberta.app.activity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
@@ -10,16 +11,18 @@ import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.view.ScrollListView;
+import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,13 +45,16 @@ public class FragmentFavorite extends Fragment {
 	private QuestionListManager favQuestionListManager;
 	private QuestionList favQuestionList;
 	private CacheController cacheController;
-	private ListView favQuestionListView = null;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private ArrayList<Long> favListId;
 	private static long categoryID;
 	public String sortString = "Sort By Date";
+	private Date timestamp;
+	private ScrollListView mListView;
+	private Handler mHandler;
+
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -70,10 +76,14 @@ public class FragmentFavorite extends Fragment {
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Favorite");
 		mcontext = getActivity().getApplicationContext();
-		favQuestionListView = (ListView) getActivity().findViewById(
-				R.id.favQuestion_ListView);
+		// favQuestionListView = (ListView) getActivity().findViewById(
+		// R.id.favQuestion_ListView);
 		sortOptionSpinner = (Spinner) getActivity().findViewById(
 				R.id.favSort_spinner);
+		mListView = (ScrollListView) getView().findViewById(
+				R.id.favQuestion_ListView);
+		mListView.setPullLoadEnable(true);
+		mHandler = new Handler();
 
 	}
 
@@ -88,13 +98,13 @@ public class FragmentFavorite extends Fragment {
 				favQuestionListController.getQuestionArrayList());
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
-		favQuestionListView.setAdapter(adapter);
+		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 
 		// Show details when click on a question
-		favQuestionListView.setOnItemClickListener(new OnItemClickListener() {
+		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -107,34 +117,62 @@ public class FragmentFavorite extends Fragment {
 			}
 		});
 		// Delete question on long click
-		favQuestionListView
-				.setOnItemLongClickListener(new OnItemLongClickListener() {
-					@Override
-					public boolean onItemLongClick(AdapterView<?> parent,
-							View view, int position, long id) {
-						Question question = favQuestionListController
-								.getQuestion(position);
-						if (User.author != null
-								&& User.author.getUsername().equals(
-										question.getAuthor())) {
-							Toast.makeText(
-									mcontext,
-									"Deleting the Question: "
-											+ question.getTitle(),
-									Toast.LENGTH_LONG).show();
-							Thread thread = new DeleteThread(question.getID());
-							thread.start();
-						} else {
-							Toast.makeText(mcontext,
-									"Only Author to the Question can delete",
-									Toast.LENGTH_LONG).show();
-						}
-						return true;
-					}
-				});
+		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Question question = favQuestionListController
+						.getQuestion(position);
+				if (User.author != null
+						&& User.author.getUsername().equals(
+								question.getAuthor())) {
+					Toast.makeText(mcontext,
+							"Deleting the Question: " + question.getTitle(),
+							Toast.LENGTH_LONG).show();
+					Thread thread = new DeleteThread(question.getID());
+					thread.start();
+				} else {
+					Toast.makeText(mcontext,
+							"Only Author to the Question can delete",
+							Toast.LENGTH_LONG).show();
+				}
+				return true;
+			}
+		});
 		// updateList();
+		mListView.setScrollListViewListener(new IXListViewListener() {
+
+			@Override
+			public void onRefresh() {
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						updateList();
+						onLoad();
+					}
+				}, 2000);
+			}
+
+			@Override
+			public void onLoadMore() {
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						adapter.notifyDataSetChanged();
+						onLoad();
+					}
+				}, 2000);
+			}
+		});
 	}
 
+	private void onLoad() {
+		timestamp = new Date();
+		mListView.stopRefresh();
+		mListView.stopLoadMore();
+		mListView.setRefreshTime(timestamp.toString());
+	}
+	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -181,7 +219,8 @@ public class FragmentFavorite extends Fragment {
 	private void updateList() {
 		favListId = cacheController.getFavoriteId();
 		if (favListId.size() == 0)
-			Toast.makeText(mcontext, "No Favorite Question Added Yet.", Toast.LENGTH_LONG).show();
+			Toast.makeText(mcontext, "No Favorite Question Added Yet.",
+					Toast.LENGTH_LONG).show();
 		Thread thread = new GetListThread();
 		thread.start();
 	}
