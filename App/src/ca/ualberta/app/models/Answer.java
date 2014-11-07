@@ -27,12 +27,10 @@ public class Answer extends InputsModel {
 	}
 
 	public ArrayList<Reply> getReplyArrayList() {
-		// TODO Auto-generated method stub
 		return this.replyList;
 	}
 
 	public int getReplyPosition(Reply reply) {
-		// TODO Auto-generated method stub
 		return this.replyList.indexOf(reply);
 	}
 

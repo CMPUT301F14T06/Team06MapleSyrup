@@ -17,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+/**
+ * This is the activity of each single question in all kinds of question lists in the app.
+ * This activity will be call when a item (a question) in a question list is clicked.
+ * @author Anni
+ */
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
 	private TextView questionTitleTextView;
@@ -43,6 +48,11 @@ public class QuestionDetailActivity extends Activity {
 	private boolean fav_click = false;
 	private boolean upvote_click = false;
 
+	/**
+	 * This method will be called when the activity is active.
+	 * If a question is selected, then all specific information (question content, title, author, and post date etc.) will be found from the data set.
+	 * This method will also insert the adapter for the single question.
+	 */
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
 			if (!(save_click || upvote_click || fav_click))
@@ -84,6 +94,12 @@ public class QuestionDetailActivity extends Activity {
 		}
 	};
 
+	/**
+	 * onCreate method
+	 * Once this activity is created, this method will give each view an object to help other methods set data or listener.
+	 * Then, the method will check is the current user has logged in. If the login statue is true, then the  user will be 
+	 * able to see and user the "Add Answer" button. Otherwise, the user cannot see the button.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -113,6 +129,10 @@ public class QuestionDetailActivity extends Activity {
 		}
 	}
 
+	/**
+	 * onStart method
+	 * Once the activity starts, this method will start the thread for the current question
+	 */
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -131,36 +151,63 @@ public class QuestionDetailActivity extends Activity {
 
 	}
 
+	/**
+	 * Set the boolean of the save statue of the question to True
+	 * @param view
+	 */
 	public void save_click(View view) {
 		save_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
 
+	/**
+	 * Set the boolean of the favorite statue of the question to True
+	 * @param view
+	 */
 	public void fav_click(View view) {
 		fav_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
 
+	/**
+	 * increase the upvote counter of the question to True
+	 * @param view
+	 */
 	public void upvote_click(View view) {
 		upvote_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
 
+	/**
+	 * This method will be called when the "Add Answer" button is clicked.
+	 * It will start a new activity for answering a question. 
+	 * @param view
+	 */
 	public void answer_question(View view) {
 		Intent intent = new Intent(this, CreateAnswerActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
 
+	/**
+	 * This method will be called when the "Add Reply" button is clicked.
+	 * It will start a new activity for replying a question. 
+	 * @param view
+	 */
 	public void reply_question(View view) {
 		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
 
+	/**
+	 * Find the current thread and cache all change in information (include answer and reply) for the question
+	 * @author Anni
+	 *
+	 */
 	class GetThread extends Thread {
 		private long id;
 

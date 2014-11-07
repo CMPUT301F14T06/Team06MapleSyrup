@@ -15,6 +15,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * This is the activity for the login functionality.
+ * @author Anni, Bicheng, Xiaocong
+ *
+ */
 public class LoginActivity extends Activity {
 	private EditText usernameEdit;
 	private String username;
@@ -28,6 +33,11 @@ public class LoginActivity extends Activity {
 		}
 	};
 
+	/**
+	 * onCreate method
+	 * Once a user enter this activity, this method will give each view an object to help other methods set data or listener.
+	 * Also, a new thread for the current user will be created.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,10 +49,19 @@ public class LoginActivity extends Activity {
 		thread.start();
 	}
 
+	/**
+	 * Cancel a login action
+	 * @param view
+	 */
 	public void cancel_login(View view) {
 		finish();
 	}
 
+	/**
+	 * This method will be called when the user types in a user name and want to login.
+	 * It will check if the user name has already exist in the current data set, and give the user a response.
+	 * @param view
+	 */
 	public void login(View view) {
 		AuthorMapIO.saveInFile(context, authorMap, FILENAME);
 		username = usernameEdit.getText().toString().trim();
@@ -63,33 +82,44 @@ public class LoginActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Notify if the user has login before
+	 */
 	private void notifyLogin() {
-		// TODO Auto-generated method stub
 		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Notify if the user has not login before
+	 */
 	private void notifyAddNewAuthor() {
-		// TODO Auto-generated method stub
 		Toast.makeText(this, "Login as New Author", Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Notify if the user doesn't enter an user name
+	 */
 	private void notifyNoUsernameEntered() {
 		Toast.makeText(this, "Please fill in the username to login",
 				Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Inflate the menu; this adds items to the action bar if it is present.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	/**
+	 * Handle action bar item clicks here. The action bar will
+	 * automatically handle clicks on the Home/Up button, so long
+	 * as you specify a parent activity in AndroidManifest.xml.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -98,7 +128,6 @@ public class LoginActivity extends Activity {
 	}
 
 	class SearchThread extends Thread {
-		// TODO: Implement search thread
 		private String search;
 
 		public SearchThread(String s) {
@@ -112,6 +141,11 @@ public class LoginActivity extends Activity {
 		}
 	}
 
+	/**
+	 * If the user is not a new user, find the thread for he/her
+	 * @author Anni
+	 *
+	 */
 	class GetThread extends Thread {
 		// TODO: Implement search thread
 		private String username;
@@ -126,6 +160,11 @@ public class LoginActivity extends Activity {
 		}
 	}
 
+	/**
+	 * If the user is a new user, add a new thread for he/her
+	 * @author Anni
+	 *
+	 */
 	class AddThread extends Thread {
 		private Author newAuthor;
 

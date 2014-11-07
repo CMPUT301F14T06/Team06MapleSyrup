@@ -187,7 +187,6 @@ public class FragmentMain extends Fragment {
 		 * Update the current questions on screen, if a user scroll the main question list
 		 */
 		mListView.setScrollListViewListener(new IXListViewListener() {
-			
 			/**
 			 * Will called to update the content in the main question list when the data is changed or sorted;
 			 * also, this method will tell the user the current interval of the question that are displayed on the screen

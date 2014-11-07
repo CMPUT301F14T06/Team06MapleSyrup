@@ -65,7 +65,6 @@ public abstract class InputsModel {
 	}
 	
 	public String getAuthor() {
-		// TODO Auto-generated method stub
 		return userName;
 	}
 }

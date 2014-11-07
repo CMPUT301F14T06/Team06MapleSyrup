@@ -88,12 +88,10 @@ public class QuestionList {
 	}
 
 	public QuestionList sortByPicture() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public QuestionList sortByScore() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

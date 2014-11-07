@@ -44,7 +44,6 @@ public class AuthorMap {
 	}
 
 	public void put(String username, Author author) {
-		// TODO Auto-generated method stub
 		authorMap.put(username, author);
 	}
 
