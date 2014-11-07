@@ -15,7 +15,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-//The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
+/**
+ * This is the mian active that contains 5 mean functionalities by using fragments: (1) view all questions authors have posted; (2) view users' favorite questions;
+ * (3) login as an author, and create a new question; (4) search questions which contain a given keyword; (5) view and modify user profiles.
+ * 
+ * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
+ * 
+ * @author Anni, Bicheng, Xiaocong
+ */
 public class MainActivity extends FragmentActivity {
 	private Fragment[] fragments;
 	private FragmentManager fragmentManager;
@@ -26,6 +33,11 @@ public class MainActivity extends FragmentActivity {
 
 	// private int lastCheckedId = R.id.main_menu_button;
 
+
+	/**
+	* onCreate method.
+	* Once the activity is created, first set the content view, and initialize ActionBar for fragments, and a Spinner for sort options.
+	*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,7 +63,11 @@ public class MainActivity extends FragmentActivity {
 		checkLoginStatus();
 		setFragmentIndicator();
 	}
-
+	
+	/**
+	 * Connect all fragment activities to the corresponding buttons in the action bar at the bottom of the screen.
+	 * Hide the "ask a question" fragment, until the user login as an author
+	 */
 	private void setFragmentIndicator() {
 
 		bottom_Rg = (RadioGroup) findViewById(R.id.main_menu);
@@ -99,18 +115,30 @@ public class MainActivity extends FragmentActivity {
 		});
 	}
 
+	/**
+	* onResume method.
+	* Once the activity is resumed from other activities, check the user's longing statues.
+	*/
 	@Override
 	protected void onResume() {
 		super.onResume();
 		checkLoginStatus();
 	}
 
+	/**
+	* onResume method.
+	* Once the activity is paused, check the user's longing statues.
+	*/
 	@Override
 	protected void onPause() {
 		super.onPause();
 		checkLoginStatus();
 	}
-
+	
+	/**
+	* this method is used to check out if an user has logged in: (1) if the user has logged in, then show the "Ask Question" button in the action bar,
+	* and allow displaying the CreateQuestionActivity
+	*/
 	public void checkLoginStatus() {
 		loginStatus = User.loginStatus;
 		if (loginStatus) {
