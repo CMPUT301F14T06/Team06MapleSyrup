@@ -128,18 +128,14 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				User.localCacheId.remove(questionId);
 			}
 			sortingOption = lastSortingOption;
-			notifyDataSetChanged();
 			applySortMethod();
+			notifyDataSetChanged();		
 			CacheController.saveInFile(getContext(), User.localCacheId,
 					LOCALMAP);
 		}
 	}
 
-	/**
-	 * 
-	 * @author Anni
-	 * 
-	 */
+
 	private class favOnClickListener implements OnClickListener {
 
 		int position;
@@ -163,17 +159,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				User.favoriteId.remove(questionId);
 			}
 			sortingOption = lastSortingOption;
-			notifyDataSetChanged();
 			applySortMethod();
+			notifyDataSetChanged();
 			CacheController.saveInFile(getContext(), User.favoriteId, FAVMAP);
 		}
 	}
 
-	/**
-	 * 
-	 * @author Anni
-	 * 
-	 */
 	private class upvoteOnClickListener implements OnClickListener {
 
 		int position;
@@ -193,8 +184,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			Thread thread = new UpdateQuestionThread(question);
 			thread.start();
 			sortingOption = lastSortingOption;
-			notifyDataSetChanged();
 			applySortMethod();
+			notifyDataSetChanged();
 			CacheController
 					.updateFavQuestions(v.getContext(), FAVMAP, question);
 			CacheController.updateLocalQuestions(getContext(), LOCALMAP,
@@ -202,10 +193,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		}
 	}
 
-	/**
-	 * 
-	 */
+
 	public void applySortMethod() {
+		if (sortingOption == null){
+			sortingOption = lastSortingOption;
+		}
 		if (sortingOption.equals("Sort By Picture")) {
 			this.sort(new PictureComparator());
 		}
@@ -234,6 +226,10 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	public void setSortingOption(String option) {
 
 		this.sortingOption = option;
+	}
+	
+	public void getSortingOption(){
+		
 	}
 }
 
