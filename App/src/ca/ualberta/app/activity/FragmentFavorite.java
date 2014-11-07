@@ -181,7 +181,7 @@ public class FragmentFavorite extends Fragment {
 	private void updateList() {
 		favListId = cacheController.getFavoriteId();
 		if (favListId.size() == 0)
-			Toast.makeText(mcontext, "wrong!!!", Toast.LENGTH_LONG).show();
+			Toast.makeText(mcontext, "No Favorite Question Added Yet.", Toast.LENGTH_LONG).show();
 		Thread thread = new GetListThread();
 		thread.start();
 	}

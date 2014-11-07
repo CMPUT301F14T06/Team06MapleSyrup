@@ -1,6 +1,7 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
+import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 import ca.ualberta.app.models.User;
@@ -14,11 +15,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CreateQuestionReplyActivity extends Activity {
+public class CreateAnswerReplyActivity extends Activity {
 	private EditText contentText = null;
 	private Reply newReply = null;
 	private QuestionListManager questionListManager;
 	public static String QUESTION_ID = "QUESTION_ID";
+	public static String ANSWER_POS = "ANSWER_POS";
 	private Intent intent;
 
 	private Runnable doFinishAdd = new Runnable() {
@@ -30,17 +32,17 @@ public class CreateQuestionReplyActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create_question_reply);
-		contentText = (EditText) findViewById(R.id.question_reply_content_editText);
+		setContentView(R.layout.activity_create_answer_reply);
+		contentText = (EditText) findViewById(R.id.answer_reply_editText);
 		questionListManager = new QuestionListManager();
 		intent = getIntent();
 	}
 
-	public void cancel_reply(View view) {
+	public void cancel_answer_reply(View view) {
 		finish();
 	}
 
-	public void submit_reply(View view) {
+	public void submit_answer_reply(View view) {
 		String content = contentText.getText().toString();
 		if (content.trim().length() == 0)
 			noContentEntered();
@@ -49,13 +51,15 @@ public class CreateQuestionReplyActivity extends Activity {
 				Bundle extras = intent.getExtras();
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
+					int answerPos = extras.getInt(ANSWER_POS);
 					newReply = new Reply(content, User.author.getUsername());
-					Thread thread = new GetUpdateThread(questionId, newReply);
+					Thread thread = new GetUpdateThread(questionId, answerPos, newReply);
 					thread.start();
 				}
 			}
 
 		}
+
 	}
 
 	public void noContentEntered() {
@@ -81,17 +85,21 @@ public class CreateQuestionReplyActivity extends Activity {
 
 	class GetUpdateThread extends Thread {
 		private long id;
+		private int pos;
 		private Reply newReply;
 
-		public GetUpdateThread(long id, Reply newReply) {
+		public GetUpdateThread(long id, int pos, Reply newReply) {
 			this.newReply = newReply;
 			this.id = id;
+			this.pos = pos;
 		}
 
 		@Override
 		public void run() {
 			Question question = questionListManager.getQuestion(id);
-			question.addReply(newReply);
+			Answer answer = question.getAnswers().get(pos);
+			answer.addReply(newReply);
+			question.updateAnswer(answer);
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.run();
 			runOnUiThread(doFinishAdd);

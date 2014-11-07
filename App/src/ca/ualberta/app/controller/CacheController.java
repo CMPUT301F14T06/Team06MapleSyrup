@@ -17,16 +17,10 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 
-/**
- * 
- * @author Anni
- * 
- */
 public class CacheController {
 	/**
 	 * load question map from local file

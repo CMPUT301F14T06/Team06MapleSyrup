@@ -3,8 +3,6 @@ package ca.ualberta.app.adapter;
 import java.util.ArrayList;
 
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.adapter.AnswerListAdapter.ViewHolder;
-import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 
@@ -14,61 +12,49 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class ReplyListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Reply> replyList = null;
-	private Question question;
 	private Context context;
 	public ReplyListAdapter(Context context, int singleReply,
 			ArrayList<Reply> objects, Question question) {
 		this.context = context;
 		this.replyList = objects;
-		this.question = question;
 	}
 
 	@Override
 	public int getGroupCount() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		// TODO Auto-generated method stub
 		return replyList.size();
 	}
 
 	@Override
 	public Object getGroup(int groupPosition) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return replyList.get(childPosition);
 	}
 
 	@Override
 	public long getGroupId(int groupPosition) {
-		// TODO Auto-generated method stub
 		return groupPosition;
 	}
 
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return childPosition;
 	}
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -102,7 +88,6 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.reply_time_textView);
 		convertView.setTag(holder);
 		Reply reply = replyList.get(childPosition);
-
 		if (reply != null) {
 			holder.replyContent.setText(reply.getContent());
 			holder.authorName.setText(reply.getAuthor());
@@ -113,7 +98,6 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	

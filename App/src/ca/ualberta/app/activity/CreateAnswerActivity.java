@@ -1,16 +1,11 @@
 package ca.ualberta.app.activity;
 
 import java.io.File;
-import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.activity.QuestionDetailActivity.GetThread;
 import ca.ualberta.app.models.Answer;
-import ca.ualberta.app.models.AuthorMap;
-import ca.ualberta.app.models.AuthorMapIO;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
-import ca.ualberta.app.thread.UpdateAuthorThread;
 import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
 import android.content.Intent;
@@ -71,8 +66,6 @@ public class CreateAnswerActivity extends Activity {
 				Bundle extras = intent.getExtras();
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
-					Toast.makeText(this, "ID: " + questionId,
-							Toast.LENGTH_SHORT).show();
 					newAnswer = new Answer(content, User.author.getUsername(),
 							addImage);
 					Thread thread = new GetUpdateThread(questionId, newAnswer);

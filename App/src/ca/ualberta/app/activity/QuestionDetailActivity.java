@@ -4,7 +4,6 @@ import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.adapter.ReplyListAdapter;
 import ca.ualberta.app.controller.CacheController;
-import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.thread.UpdateQuestionThread;
@@ -13,14 +12,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
@@ -29,9 +24,10 @@ public class QuestionDetailActivity extends Activity {
 	private TextView authorNameTextView;
 	private TextView questionUpvoteTextView;
 	private TextView answerCountTextView;
+	private TextView questionTimeTextView;
 	private ImageView questionImageView;
 	private ExpandableListView question_ReplyListView;
-	private ListView question_AnswerListView;
+	private ExpandableListView question_AnswerListView;
 	private RadioButton answer_Rb;
 	private RadioButton reply_Rb;
 	private RadioButton fav_Rb;
@@ -40,8 +36,8 @@ public class QuestionDetailActivity extends Activity {
 	private Question question;
 	private QuestionListManager questionManager;
 	private CacheController cacheController;
-	private AnswerListAdapter adapter = null;
 	private ReplyListAdapter replyAdapter = null;
+	private AnswerListAdapter answerAdapter = null;
 	private Context mcontext;
 	private boolean save_click = false;
 	private boolean fav_click = false;
@@ -69,20 +65,22 @@ public class QuestionDetailActivity extends Activity {
 			questionUpvoteTextView.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
-			if (question.getReplys().size() == 0)
-				question_ReplyListView.setVisibility(View.GONE);
+			questionTimeTextView.setText(question.getTimestamp().toString());
+			// if (question.getReplys().size() == 0)
+			// question_ReplyListView.setVisibility(View.GONE);
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(question.getImage());
 			}
-			adapter = new AnswerListAdapter(mcontext, R.layout.single_answer,
-					question.getAnswers(), question);
 			replyAdapter = new ReplyListAdapter(mcontext,
 					R.layout.single_reply, question.getReplys(), question);
-			question_AnswerListView.setAdapter(adapter);
+			answerAdapter = new AnswerListAdapter(mcontext,
+					R.layout.single_answer, R.layout.single_reply,
+					question.getAnswers(), question);
+			question_AnswerListView.setAdapter(answerAdapter);
 			question_ReplyListView.setAdapter(replyAdapter);
-			adapter.notifyDataSetChanged();
 			replyAdapter.notifyDataSetChanged();
+			answerAdapter.notifyDataSetChanged();
 		}
 	};
 
@@ -91,15 +89,15 @@ public class QuestionDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_detail);
 		mcontext = this;
-
 		questionTitleTextView = (TextView) findViewById(R.id.questionDetailTitleTextView);
 		questionContentTextView = (TextView) findViewById(R.id.questionDetailContentTextView);
 		authorNameTextView = (TextView) findViewById(R.id.authorNameTextView);
 		questionUpvoteTextView = (TextView) findViewById(R.id.upvoteStateTextView);
 		answerCountTextView = (TextView) findViewById(R.id.answerStateTextView);
+		questionTimeTextView = (TextView) findViewById(R.id.questionTimeTextView);
 		questionImageView = (ImageView) findViewById(R.id.questionImage);
 		question_ReplyListView = (ExpandableListView) findViewById(R.id.question_reply_expanableListView);
-		question_AnswerListView = (ListView) findViewById(R.id.answer_listView);
+		question_AnswerListView = (ExpandableListView) findViewById(R.id.answer_listView);
 		answer_Rb = (RadioButton) findViewById(R.id.question_answer_button);
 		reply_Rb = (RadioButton) findViewById(R.id.question_reply_button);
 		save_Rb = (RadioButton) findViewById(R.id.save_detail_button);
@@ -113,18 +111,6 @@ public class QuestionDetailActivity extends Activity {
 			answer_Rb.setVisibility(View.GONE);
 			reply_Rb.setVisibility(View.GONE);
 		}
-
-		question_ReplyListView
-				.setOnChildClickListener(new OnChildClickListener() {
-
-					@Override
-					public boolean onChildClick(ExpandableListView parent,
-							View v, int groupPosition, int childPosition,
-							long id) {
-						// TODO Auto-generated method stub
-						return false;
-					}
-				});
 	}
 
 	@Override
@@ -138,8 +124,6 @@ public class QuestionDetailActivity extends Activity {
 			Bundle extras = intent.getExtras();
 			if (extras != null) {
 				questionId = extras.getLong(QUESTION_ID);
-				Toast.makeText(this, "ID: " + questionId, Toast.LENGTH_SHORT)
-						.show();
 				Thread thread = new GetThread(questionId);
 				thread.start();
 			}
