@@ -4,16 +4,22 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import ca.ualberta.app.activity.CreateAnswerActivity;
+import ca.ualberta.app.activity.CreateAnswerReplyActivity;
+import ca.ualberta.app.activity.CreateQuestionReplyActivity;
+import ca.ualberta.app.activity.QuestionDetailActivity;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
@@ -22,12 +28,14 @@ import ca.ualberta.app.thread.UpdateAnswerThread;
 public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	private ArrayList<Answer> answerList = null;
 	private Question question;
+	private Context context;
 
 	public AnswerListAdapter(Context context, int singleAnswer,
 			ArrayList<Answer> objects, Question question) {
 		super(context, singleAnswer, objects);
 		this.answerList = objects;
 		this.question = question;
+		this.context = context;
 	}
 
 	@SuppressLint("InflateParams")
@@ -55,6 +63,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		holder.replyList = (ExpandableListView) convertView
 				.findViewById(R.id.answer_reply_expandableListView);
 		holder.image.setVisibility(View.GONE);
+		holder.reply_Rb = (RadioButton) convertView
+				.findViewById(R.id.answer_reply_button);
 		convertView.setTag(holder);
 		Answer answer = this.getItem(position);
 
@@ -71,6 +81,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		}
 		holder.upvote_Rb
 				.setOnClickListener(new upvoteOnClickListener(position));
+		holder.reply_Rb
+				.setOnClickListener(new AddReplyOnClickListener(position));
 		return convertView;
 	}
 
@@ -94,6 +106,23 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		}
 	}
 
+	private class AddReplyOnClickListener implements OnClickListener {
+
+		int position;
+
+		public AddReplyOnClickListener(int position) {
+			this.position = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(getContext(),CreateAnswerReplyActivity.class);
+			intent.putExtra(CreateAnswerReplyActivity.QUESTION_ID, question.getID());
+			intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
+			context.startActivity(intent);
+		}
+	}
+
 	class ViewHolder {
 		ImageView authorPic;
 		TextView authorName;
@@ -103,6 +132,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		TextView upvoteState;
 		ImageView image;
 		ExpandableListView replyList;
+		RadioButton reply_Rb;
 	}
 
 }

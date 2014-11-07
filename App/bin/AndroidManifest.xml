@@ -52,6 +52,10 @@
             android:name=".CreateQuestionReplyActivity"
             android:label="@string/title_activity_create_question_reply" >
         </activity>
+        <activity
+            android:name=".CreateAnswerReplyActivity"
+            android:label="@string/title_activity_create_answer_reply" >
+        </activity>
     </application>
 
 </manifest>

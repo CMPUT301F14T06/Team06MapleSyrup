@@ -88,10 +88,12 @@ public class FragmentMain extends Fragment {
 		}
 		User.favoriteId = CacheController.loadFromFile(mcontext, FAVMAP);
 		User.localCacheId = CacheController.loadFromFile(mcontext, LOCALMAP);
+		
 		questionListManager = new QuestionListManager();
 		questionListController = new QuestionListController();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
 				questionListController.getQuestionArrayList());
+		adapter.setSortingOption(sortByDate);
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
 

@@ -228,9 +228,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		this.sortingOption = option;
 	}
 	
-	public void getSortingOption(){
-		
-	}
 }
 
 /**

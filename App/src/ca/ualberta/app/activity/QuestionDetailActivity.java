@@ -13,14 +13,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class QuestionDetailActivity extends Activity {
 	private String FAVMAP = "favMap.sav";
@@ -133,8 +131,6 @@ public class QuestionDetailActivity extends Activity {
 			Bundle extras = intent.getExtras();
 			if (extras != null) {
 				questionId = extras.getLong(QUESTION_ID);
-				Toast.makeText(this, "ID: " + questionId, Toast.LENGTH_SHORT)
-						.show();
 				Thread thread = new GetThread(questionId);
 				thread.start();
 			}
