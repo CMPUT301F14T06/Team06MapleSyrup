@@ -2,6 +2,7 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
+import ca.ualberta.app.adapter.ReplyListAdapter;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
@@ -42,6 +43,7 @@ public class QuestionDetailActivity extends Activity {
 	private QuestionListManager questionManager;
 	private QuestionListController questionListController;
 	private AnswerListAdapter adapter = null;
+	private ReplyListAdapter replyAdapter = null;
 	private Context mcontext;
 	private boolean upvote = false;
 
@@ -71,7 +73,10 @@ public class QuestionDetailActivity extends Activity {
 			}
 			adapter = new AnswerListAdapter(mcontext, R.layout.single_answer,
 					question.getAnswers(), question);
+			replyAdapter = new ReplyListAdapter(mcontext,
+					R.layout.single_reply, question.getReplys(), question);
 			question_AnswerListView.setAdapter(adapter);
+			question_ReplyListView.setAdapter(replyAdapter);
 			adapter.notifyDataSetChanged();
 		}
 	};
@@ -173,7 +178,7 @@ public class QuestionDetailActivity extends Activity {
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
-	
+
 	public void reply_question(View view) {
 		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
