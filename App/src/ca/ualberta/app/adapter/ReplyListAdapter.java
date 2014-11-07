@@ -18,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReplyListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Reply> replyList = null;
@@ -106,7 +107,7 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 		if (reply != null) {
 			holder.replyContent.setText(reply.getContent());
 			holder.authorName.setText(reply.getAuthor());
-			holder.timestamp.setText(reply.getTimestamp().toString());
+			holder.timestamp.setText(reply.getTimestamp().toString());	
 		}
 		return convertView;
 	}

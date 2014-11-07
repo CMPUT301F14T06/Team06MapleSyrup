@@ -106,18 +106,6 @@ public class QuestionDetailActivity extends Activity {
 			answer_Rb.setVisibility(View.GONE);
 			reply_Rb.setVisibility(View.GONE);
 		}
-
-		question_ReplyListView
-				.setOnChildClickListener(new OnChildClickListener() {
-
-					@Override
-					public boolean onChildClick(ExpandableListView parent,
-							View v, int groupPosition, int childPosition,
-							long id) {
-						// TODO Auto-generated method stub
-						return false;
-					}
-				});
 	}
 
 	@Override

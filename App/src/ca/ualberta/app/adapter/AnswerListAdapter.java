@@ -15,6 +15,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ca.ualberta.app.activity.CreateAnswerActivity;
 import ca.ualberta.app.activity.CreateAnswerReplyActivity;
@@ -74,7 +75,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		}
 		convertView.setTag(holder);
 		Answer answer = this.getItem(position);
-			
+
 		if (answer != null) {
 			holder.answerContent.setText(answer.getContent());
 			holder.authorName.setText(answer.getAuthor());
@@ -87,21 +88,12 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 			}
 			adapter = new ReplyListAdapter(context, R.layout.single_reply,
 					answer.getReplyArrayList(), question);
-			holder.upvote_Rb
-					.setOnClickListener(new upvoteOnClickListener(position));
-			holder.reply_Rb
-					.setOnClickListener(new AddReplyOnClickListener(position));
 			holder.replyList.setAdapter(adapter);
-			holder.replyList.setOnChildClickListener(new OnChildClickListener() {
-	
-				@Override
-				public boolean onChildClick(ExpandableListView parent, View v,
-						int groupPosition, int childPosition, long id) {
-					// TODO Auto-generated method stub
-					return false;
-				}
-			});
 		}
+		holder.upvote_Rb
+				.setOnClickListener(new upvoteOnClickListener(position));
+		holder.reply_Rb
+				.setOnClickListener(new AddReplyOnClickListener(position));
 
 		return convertView;
 	}
