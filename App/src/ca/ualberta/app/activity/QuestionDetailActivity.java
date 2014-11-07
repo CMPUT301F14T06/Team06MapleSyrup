@@ -3,7 +3,6 @@ package ca.ualberta.app.activity;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.adapter.ReplyListAdapter;
-import ca.ualberta.app.adapter.ReplyListAdapter_v2;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
@@ -14,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -38,9 +36,8 @@ public class QuestionDetailActivity extends Activity {
 	private long questionId;
 	private Question question;
 	private QuestionListManager questionManager;
-	private AnswerListAdapter adapter = null;
 	private ReplyListAdapter replyAdapter = null;
-	private ReplyListAdapter_v2 replyAdapter_v2 = null;
+	private AnswerListAdapter answerAdapter = null;
 	private Context mcontext;
 	private boolean upvote = false;
 
@@ -70,13 +67,13 @@ public class QuestionDetailActivity extends Activity {
 			}
 			replyAdapter = new ReplyListAdapter(mcontext,
 					R.layout.single_reply, question.getReplys(), question);
-			replyAdapter_v2 = new ReplyListAdapter_v2(mcontext,
-					R.layout.single_answer_v2, R.layout.single_reply,
+			answerAdapter = new AnswerListAdapter(mcontext,
+					R.layout.single_answer, R.layout.single_reply,
 					question.getAnswers(), question);
-			question_AnswerListView.setAdapter(replyAdapter_v2);
+			question_AnswerListView.setAdapter(answerAdapter);
 			question_ReplyListView.setAdapter(replyAdapter);
 			replyAdapter.notifyDataSetChanged();
-			replyAdapter_v2.notifyDataSetChanged();
+			answerAdapter.notifyDataSetChanged();
 		}
 	};
 

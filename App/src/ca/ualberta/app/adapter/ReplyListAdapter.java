@@ -3,8 +3,6 @@ package ca.ualberta.app.adapter;
 import java.util.ArrayList;
 
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.adapter.AnswerListAdapter.ViewHolder;
-import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 
@@ -14,11 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ReplyListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Reply> replyList = null;

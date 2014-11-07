@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="40dp"
             android:layout_toRightOf="@+id/linearLayout1"
             android:orientation="vertical" >
 
@@ -83,6 +84,7 @@
             android:layout_below="@+id/answerContent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
             android:contentDescription="@string/desc"
             android:src="@android:drawable/gallery_thumb" />
 
