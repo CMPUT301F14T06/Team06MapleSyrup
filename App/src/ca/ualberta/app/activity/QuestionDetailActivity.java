@@ -26,6 +26,7 @@ public class QuestionDetailActivity extends Activity {
 	private TextView authorNameTextView;
 	private TextView questionUpvoteTextView;
 	private TextView answerCountTextView;
+	private TextView questionTimeTextView;
 	private ImageView questionImageView;
 	private ExpandableListView question_ReplyListView;
 	private ExpandableListView question_AnswerListView;
@@ -59,6 +60,7 @@ public class QuestionDetailActivity extends Activity {
 			questionUpvoteTextView.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
+			questionTimeTextView.setText(question.getTimestamp().toString());
 			// if (question.getReplys().size() == 0)
 			// question_ReplyListView.setVisibility(View.GONE);
 			if (question.hasImage()) {
@@ -87,6 +89,7 @@ public class QuestionDetailActivity extends Activity {
 		authorNameTextView = (TextView) findViewById(R.id.authorNameTextView);
 		questionUpvoteTextView = (TextView) findViewById(R.id.upvoteStateTextView);
 		answerCountTextView = (TextView) findViewById(R.id.answerStateTextView);
+		questionTimeTextView = (TextView) findViewById(R.id.questionTimeTextView);
 		questionImageView = (ImageView) findViewById(R.id.questionImage);
 		question_ReplyListView = (ExpandableListView) findViewById(R.id.question_reply_expanableListView);
 		question_AnswerListView = (ExpandableListView) findViewById(R.id.answer_listView);

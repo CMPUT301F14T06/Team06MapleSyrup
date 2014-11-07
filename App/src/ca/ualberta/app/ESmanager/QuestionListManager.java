@@ -20,7 +20,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.util.Log;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
-import ca.ualberta.app.network.*;
 import ca.ualberta.app.network.data.Hits;
 import ca.ualberta.app.network.data.SearchCommand;
 import ca.ualberta.app.network.data.SearchHit;
@@ -191,7 +190,7 @@ public class QuestionListManager {
 			fields[0] = field;
 		}
 
-		SearchCommand command = new SearchCommand(searchString,sortOption);
+		SearchCommand command = new SearchCommand(searchString);
 
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);

@@ -4,7 +4,6 @@ public class SearchCommand {
 
 	private String query = null;
 	private String[] fields = null;
-	private String sortOption = null;
 
 	public SearchCommand(String query) {
 		this.query = query;
@@ -15,18 +14,11 @@ public class SearchCommand {
 		this.fields = fields;
 	}
 
-	public SearchCommand(String query, String SortOption) {
-		this.query = query;
-		this.sortOption = SortOption;
-	}
-
 	public SearchCommand(String query, String[] fields, String SortOption) {
 		this.query = query;
 		this.fields = fields;
-		this.sortOption = SortOption;
 	}
 
-	// "from" : 0, "size" : 10,
 
 	public String getJsonCommand() {
 		StringBuffer command = new StringBuffer(
@@ -43,19 +35,6 @@ public class SearchCommand {
 
 			command.append("]");
 		}
-//		if (sortOption == "date") {
-//			command.append("}}, \"sort\":  {\"ID_question\" : {\"order\" : \"desc\"");
-//		}
-//		if (sortOption == "score") {
-//			command.append("}}, \"sort\":  {\"total_score\" : {\"order\" : \"desc\"");
-//		}
-//		if (sortOption == "q_upvote") {
-//			command.append("}}, \"sort\":  {\"upvoteCount_question\" : {\"order\" : \"desc\"");
-//		}
-//		if (sortOption == "a_upvote") {
-//			command.append("}}, \"sort\":  {\"upvoteCount_answer\" : {\"order\" : \"desc\"");
-//		}
-
 		command.append("}}}");
 
 		return command.toString();
