@@ -62,5 +62,6 @@
     <string name="title_activity_internet_test">InternetTestActivity</string>
     <string name="title_activity_my_question">MyQuestionActivity</string>
     <string name="title_activity_create_answer">CreateAnswerActivity</string>
+    <string name="title_activity_create_question_reply">CreateQuestionReplyActivity</string>
 
 </resources>

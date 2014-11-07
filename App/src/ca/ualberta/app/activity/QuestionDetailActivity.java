@@ -173,6 +173,12 @@ public class QuestionDetailActivity extends Activity {
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
+	
+	public void reply_question(View view) {
+		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
+		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
+		startActivity(intent);
+	}
 
 	class GetThread extends Thread {
 		private long id;

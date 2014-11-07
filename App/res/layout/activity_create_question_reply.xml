@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ca.ualberta.app.activity.CreateAnswerActivity" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/create_answer_menu" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/question_reply_content_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/content" />
+
+            <EditText
+                android:id="@+id/question_reply_content_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/question_reply_content_textView"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RadioGroup
+        android:id="@+id/create_answer_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/toolbar_bg"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/submit_reply_button"
+            style="@style/create_menu_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="submit_reply"
+            android:text="@string/submit" />
+        
+        <RadioButton
+            android:id="@+id/cancel_reply_button"
+            style="@style/create_menu_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="cancel_reply"
+            android:text="@string/cancel" />
+
+    </RadioGroup>
+
+</RelativeLayout>
