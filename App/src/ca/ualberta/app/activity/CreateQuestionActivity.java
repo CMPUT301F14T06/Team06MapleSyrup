@@ -25,6 +25,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+/**
+ * This is the activity for asking a question.
+ * @author Anni, Bicheng, Xiaocong
+ *
+ */
 public class CreateQuestionActivity extends Activity {
 	private RadioButton galary;
 	private ImageView image;
@@ -40,12 +45,19 @@ public class CreateQuestionActivity extends Activity {
 	Uri imageFileUri;
 	Uri stringFileUri;
 
+	/**
+	 * This method will be called when the asking question process done to stop the the current thread
+	 */
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
 		}
 	};
 
+	/**
+	 * onCreate method
+	 * Once the activity is created, this method will give each view an object to help other methods set data or listener
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,10 +74,16 @@ public class CreateQuestionActivity extends Activity {
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
+	/**
+	 * Create a storage for the picture in the question
+	 * @param view
+	 */
 	public void take_question_pic(View view) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		// Create a folder to store pictures
+		/**
+		 * Create a folder to store pictures
+		 */
 		String folder = Environment.getExternalStorageDirectory()
 				.getAbsolutePath() + "/tmp";
 		File folderF = new File(folder);
@@ -73,7 +91,9 @@ public class CreateQuestionActivity extends Activity {
 			folderF.mkdir();
 		}
 
-		// Create an URI for the picture file
+		/**
+		 * Create an URI for the picture file
+		 */
 		String imageFilePath = folder + "/"
 				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
 		File imageFile = new File(imageFilePath);
@@ -84,6 +104,9 @@ public class CreateQuestionActivity extends Activity {
 
 	}
 
+	/**
+	 * Display the selected photo in the question, and notify the user if the operation is successful
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 
@@ -104,10 +127,18 @@ public class CreateQuestionActivity extends Activity {
 
 	}
 
+	/**
+	 * If the user cancel the asking question operation, then stop the current thread
+	 * @param view
+	 */
 	public void cancel_question(View view) {
 		finish();
 	}
 
+	/**
+	 * If the user submit his/her question, then map the thread to the corresponding file and save all details in the file
+	 * @param view
+	 */
 	public void submit_question(View view) {
 		String title = titleText.getText().toString();
 		String content = contentText.getText().toString();
@@ -147,11 +178,19 @@ public class CreateQuestionActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Mention the user that his/her question need a title
+	 */
 	private void noTitleEntered() {
 		Toast.makeText(this, "Please fill in the Title", Toast.LENGTH_SHORT)
 				.show();
 	}
 
+	/**
+	 * Add the new question to the Arraylist, and stop the current thread when everything is done.
+	 * @author xiaocong
+	 *
+	 */
 	class AddQuestionThread extends Thread {
 		private Question question;
 
@@ -172,8 +211,12 @@ public class CreateQuestionActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Find the Author's thread
+	 * @author Anni
+	 *
+	 */
 	class SearchAuthorThread extends Thread {
-		// TODO: Implement search thread
 		private String search;
 
 		public SearchAuthorThread(String s) {

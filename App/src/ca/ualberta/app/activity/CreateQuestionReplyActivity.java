@@ -14,6 +14,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * This is the activity for the "reply a question" functionality
+ * @author Anni, Bicheng, Xiaocong
+ *
+ */
 public class CreateQuestionReplyActivity extends Activity {
 	private EditText contentText = null;
 	private Reply newReply = null;
@@ -27,6 +32,10 @@ public class CreateQuestionReplyActivity extends Activity {
 		}
 	};
 
+	/**
+	 * onCreate  method
+	 * Once the activity is created, it will build object for the views, and load the corresponding layout.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,10 +45,18 @@ public class CreateQuestionReplyActivity extends Activity {
 		intent = getIntent();
 	}
 
+	/**
+	 * If the user cancel the replying operation, then stop the current thread
+	 * @param view
+	 */
 	public void cancel_reply(View view) {
 		finish();
 	}
 
+	/**
+	 * 
+	 * @param view
+	 */
 	public void submit_reply(View view) {
 		String content = contentText.getText().toString();
 		if (content.trim().length() == 0)

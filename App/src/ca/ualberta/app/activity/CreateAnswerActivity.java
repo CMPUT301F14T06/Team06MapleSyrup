@@ -23,6 +23,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+/**
+ * This is the activity for answering a question.
+ * @author Anni, Bicheng, Xiaocong
+ *
+ */
 public class CreateAnswerActivity extends Activity {
 	private RadioButton galary;
 	private ImageView image;
@@ -35,12 +40,19 @@ public class CreateAnswerActivity extends Activity {
 	Uri imageFileUri;
 	Uri stringFileUri;
 
+	/**
+	 * This method will be called when the user finishes answering question process done to stop the the current thread
+	 */
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
 		}
 	};
 
+	/**
+	 * onCreate method
+	 * Once the activity is created, this method will give each view an object to help other methods set data or listener
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,10 +65,18 @@ public class CreateAnswerActivity extends Activity {
 		intent = getIntent();
 	}
 
+	/**
+	 * If the user cancel the answering question operation, then stop the current thread
+	 * @param view
+	 */
 	public void cancel_answer(View view) {
 		finish();
 	}
 
+	/**
+	 * If the user submit his/her answer to a question, then map the thread to the corresponding file and save all details in the file
+	 * @param view
+	 */
 	public void submit_answer(View view) {
 		String content = contentText.getText().toString();
 		if (content.trim().length() == 0)
@@ -78,6 +98,10 @@ public class CreateAnswerActivity extends Activity {
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
+	/**
+	 * Create a storage for the picture in the answer
+	 * @param view
+	 */
 	public void take_question_pic(View view) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -100,6 +124,9 @@ public class CreateAnswerActivity extends Activity {
 
 	}
 
+	/**
+	 * Display the selected photo in the question, and notify the user if the operation is successful
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 
@@ -120,6 +147,9 @@ public class CreateAnswerActivity extends Activity {
 
 	}
 
+	/**
+	 * Mention the user that his/her question need content
+	 */
 	public void noContentEntered() {
 		Toast.makeText(this, "Please fill in the content!", Toast.LENGTH_SHORT)
 				.show();
@@ -141,6 +171,13 @@ public class CreateAnswerActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+
+	/**
+	 * Add the new answer to the question details, and stop the current thread when everything is done.
+	 * @author xiaocong
+	 *
+	 */
 	class GetUpdateThread extends Thread {
 		private long id;
 		private Answer newAnswer;
