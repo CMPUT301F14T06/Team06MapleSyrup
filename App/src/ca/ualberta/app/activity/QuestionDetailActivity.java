@@ -3,8 +3,8 @@ package ca.ualberta.app.activity;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.adapter.ReplyListAdapter;
+import ca.ualberta.app.adapter.ReplyListAdapter_v2;
 import ca.ualberta.app.controller.CacheController;
-import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.thread.UpdateQuestionThread;
@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -31,7 +30,7 @@ public class QuestionDetailActivity extends Activity {
 	private TextView answerCountTextView;
 	private ImageView questionImageView;
 	private ExpandableListView question_ReplyListView;
-	private ListView question_AnswerListView;
+	private ExpandableListView question_AnswerListView;
 	private RadioButton answer_Rb;
 	private RadioButton reply_Rb;
 	private RadioButton fav_Rb;
@@ -39,9 +38,9 @@ public class QuestionDetailActivity extends Activity {
 	private long questionId;
 	private Question question;
 	private QuestionListManager questionManager;
-	private QuestionListController questionListController;
 	private AnswerListAdapter adapter = null;
 	private ReplyListAdapter replyAdapter = null;
+	private ReplyListAdapter_v2 replyAdapter_v2 = null;
 	private Context mcontext;
 	private boolean upvote = false;
 
@@ -63,17 +62,18 @@ public class QuestionDetailActivity extends Activity {
 			questionUpvoteTextView.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
-//			if (question.getReplys().size() == 0)
-//				question_ReplyListView.setVisibility(View.GONE);
+			// if (question.getReplys().size() == 0)
+			// question_ReplyListView.setVisibility(View.GONE);
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(question.getImage());
 			}
-			adapter = new AnswerListAdapter(mcontext, R.layout.single_answer,
-					question.getAnswers(), question);
 			replyAdapter = new ReplyListAdapter(mcontext,
 					R.layout.single_reply, question.getReplys(), question);
-			question_AnswerListView.setAdapter(adapter);
+			replyAdapter_v2 = new ReplyListAdapter_v2(mcontext,
+					R.layout.single_answer_v2, R.layout.single_reply,
+					question.getAnswers(), question);
+			question_AnswerListView.setAdapter(replyAdapter_v2);
 			question_ReplyListView.setAdapter(replyAdapter);
 			adapter.notifyDataSetChanged();
 			replyAdapter.notifyDataSetChanged();
@@ -85,7 +85,6 @@ public class QuestionDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_detail);
 		mcontext = this;
-		questionListController = new QuestionListController();
 		questionTitleTextView = (TextView) findViewById(R.id.questionDetailTitleTextView);
 		questionContentTextView = (TextView) findViewById(R.id.questionDetailContentTextView);
 		authorNameTextView = (TextView) findViewById(R.id.authorNameTextView);
@@ -93,7 +92,7 @@ public class QuestionDetailActivity extends Activity {
 		answerCountTextView = (TextView) findViewById(R.id.answerStateTextView);
 		questionImageView = (ImageView) findViewById(R.id.questionImage);
 		question_ReplyListView = (ExpandableListView) findViewById(R.id.question_reply_expanableListView);
-		question_AnswerListView = (ListView) findViewById(R.id.answer_listView);
+		question_AnswerListView = (ExpandableListView) findViewById(R.id.answer_listView);
 		answer_Rb = (RadioButton) findViewById(R.id.question_answer_button);
 		reply_Rb = (RadioButton) findViewById(R.id.question_reply_button);
 		save_Rb = (RadioButton) findViewById(R.id.save_detail_button);

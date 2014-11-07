@@ -103,11 +103,10 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.reply_time_textView);
 		convertView.setTag(holder);
 		Reply reply = replyList.get(childPosition);
-
 		if (reply != null) {
 			holder.replyContent.setText(reply.getContent());
 			holder.authorName.setText(reply.getAuthor());
-			holder.timestamp.setText(reply.getTimestamp().toString());	
+			holder.timestamp.setText(reply.getTimestamp().toString());
 		}
 		return convertView;
 	}
