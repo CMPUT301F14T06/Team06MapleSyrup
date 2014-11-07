@@ -32,11 +32,7 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="edit">Edit</string>
-<<<<<<< HEAD
-    <string name="reply_group">____Reply</string>
-=======
-     <string name="reply_group">Reply</string>
->>>>>>> 2c683244fc3af89364f17b03a29a67c0a9d13db6
+    <string name="reply_group">Reply</string>
     <string name="title">Title:</string>
     <string name="content">Content:</string>
     <string name="author_name">Author Name</string>

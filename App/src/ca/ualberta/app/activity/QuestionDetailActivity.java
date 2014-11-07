@@ -63,8 +63,8 @@ public class QuestionDetailActivity extends Activity {
 			questionUpvoteTextView.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
-			if (question.getReplys().size() == 0)
-				question_ReplyListView.setVisibility(View.GONE);
+//			if (question.getReplys().size() == 0)
+//				question_ReplyListView.setVisibility(View.GONE);
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(question.getImage());

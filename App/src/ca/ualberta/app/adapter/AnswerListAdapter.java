@@ -23,12 +23,14 @@ import ca.ualberta.app.activity.QuestionDetailActivity;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.User;
 import ca.ualberta.app.thread.UpdateAnswerThread;
 
 public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	private ArrayList<Answer> answerList = null;
 	private Question question;
 	private Context context;
+	private ReplyListAdapter adapter;
 
 	public AnswerListAdapter(Context context, int singleAnswer,
 			ArrayList<Answer> objects, Question question) {
@@ -65,9 +67,14 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		holder.image.setVisibility(View.GONE);
 		holder.reply_Rb = (RadioButton) convertView
 				.findViewById(R.id.answer_reply_button);
+		if (User.loginStatus == false) {
+			holder.reply_Rb.setVisibility(View.GONE);
+		} else {
+			holder.reply_Rb.setVisibility(View.VISIBLE);
+		}
 		convertView.setTag(holder);
 		Answer answer = this.getItem(position);
-
+			
 		if (answer != null) {
 			holder.answerContent.setText(answer.getContent());
 			holder.authorName.setText(answer.getAuthor());
@@ -78,11 +85,24 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 				holder.image.setVisibility(View.VISIBLE);
 				holder.image.setImageBitmap(answer.getImage());
 			}
+			adapter = new ReplyListAdapter(context, R.layout.single_reply,
+					answer.getReplyArrayList(), question);
+			holder.upvote_Rb
+					.setOnClickListener(new upvoteOnClickListener(position));
+			holder.reply_Rb
+					.setOnClickListener(new AddReplyOnClickListener(position));
+			holder.replyList.setAdapter(adapter);
+			holder.replyList.setOnChildClickListener(new OnChildClickListener() {
+	
+				@Override
+				public boolean onChildClick(ExpandableListView parent, View v,
+						int groupPosition, int childPosition, long id) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			});
 		}
-		holder.upvote_Rb
-				.setOnClickListener(new upvoteOnClickListener(position));
-		holder.reply_Rb
-				.setOnClickListener(new AddReplyOnClickListener(position));
+
 		return convertView;
 	}
 
@@ -98,7 +118,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		public void onClick(View v) {
 			Answer answer = answerList.get(position);
 			answer.upvoteAnswer();
-
+			question.calcCurrentTotalScore();
 			Thread thread = new UpdateAnswerThread(question, answer);
 			thread.start();
 
@@ -116,10 +136,15 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(getContext(),CreateAnswerReplyActivity.class);
-			intent.putExtra(CreateAnswerReplyActivity.QUESTION_ID, question.getID());
+			Intent intent = new Intent(getContext(),
+					CreateAnswerReplyActivity.class);
+			intent.putExtra(CreateAnswerReplyActivity.QUESTION_ID,
+					question.getID());
 			intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
 			context.startActivity(intent);
+
+			adapter.notifyDataSetChanged();
+			notifyDataSetChanged();
 		}
 	}
 

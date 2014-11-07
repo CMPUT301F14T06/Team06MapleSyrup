@@ -1,7 +1,6 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
-import ca.ualberta.app.activity.CreateQuestionReplyActivity.GetUpdateThread;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
