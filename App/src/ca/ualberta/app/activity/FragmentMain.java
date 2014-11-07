@@ -1,5 +1,8 @@
 package ca.ualberta.app.activity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
@@ -28,8 +31,6 @@ import android.widget.Toast;
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
 
 public class FragmentMain extends Fragment {
-	private String FAVMAP = "favMap.sav";
-	private String LOCALMAP = "localMap.sav";
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
 	static String sortByQuestionUpvote = "Sort By Question Upvote";
@@ -41,6 +42,7 @@ public class FragmentMain extends Fragment {
 	private QuestionListAdapter adapter = null;
 	private QuestionListController questionListController = null;
 	private QuestionListController myQuestionListController = null;
+	private CacheController cacheController;
 	private TextView titleBar = null;
 	private ListView questionListView = null;
 	private Spinner sortOptionSpinner;
@@ -86,8 +88,7 @@ public class FragmentMain extends Fragment {
 			// MYQUESTION = User.author.getUsername() + ".sav";
 			myQuestionListController = new QuestionListController();
 		}
-		User.favoriteId = CacheController.loadFromFile(mcontext, FAVMAP);
-		User.localCacheId = CacheController.loadFromFile(mcontext, LOCALMAP);
+		cacheController = new CacheController(mcontext);
 		questionListManager = new QuestionListManager();
 		questionListController = new QuestionListController();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -192,7 +193,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		 //updateList();
+		adapter.notifyDataSetChanged();
 
 	}
 
@@ -204,18 +205,17 @@ public class FragmentMain extends Fragment {
 
 	private void updateList() {
 		if (User.loginStatus == true) {
-			MYQUESTION = User.author.getUsername() + ".sav";
+			MYQUESTION = User.author.getUsername() + "my.sav";
 			myQuestionListController.clear();
-			myQuestionList = questionListManager.getQuestionList(User.author
-					.getAuthorQuestionId());
-			myQuestionListController.addAll(myQuestionList);
-			QuestionListController.saveInFile(mcontext,
-					myQuestionListController.getQuestionList(), MYQUESTION);
+			Thread getListThread = new GetListThread();
+			getListThread.start();
 		}
-
+		cacheController.clear();
+		Thread getMapThread = new GetMapThread();
+		getMapThread.start();
 		questionListController.clear();
-		Thread thread = new SearchThread("");
-		thread.start();
+		Thread searchThread = new SearchThread("");
+		searchThread.start();
 	}
 
 	class SearchThread extends Thread {
@@ -232,6 +232,32 @@ public class FragmentMain extends Fragment {
 					search, null, sortString));
 
 			getActivity().runOnUiThread(doUpdateGUIList);
+		}
+	}
+
+	class GetMapThread extends Thread {
+		@Override
+		public void run() {
+			cacheController.clear();
+			Map<Long, Question> tempFav = new HashMap<Long, Question>();
+			Map<Long, Question> tempSav = new HashMap<Long, Question>();
+			tempFav = questionListManager.getQuestionMap(cacheController
+					.getFavoriteId());
+			tempSav = questionListManager.getQuestionMap(cacheController
+					.getLocalCacheId());
+			cacheController.addAll(mcontext, tempFav, tempSav);
+		}
+	}
+
+	class GetListThread extends Thread {
+		@Override
+		public void run() {
+			myQuestionListController.clear();
+			myQuestionList = questionListManager.getQuestionList(User.author
+					.getAuthorQuestionId());
+			myQuestionListController.addAll(myQuestionList);
+			QuestionListController.saveInFile(mcontext,
+					myQuestionListController.getQuestionList(), MYQUESTION);
 		}
 	}
 

@@ -30,8 +30,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// private QuestionList localList = null;
 	// private QuestionList favList = null;
 	private ArrayList<Question> questionList = null;
-	private String FAVMAP = "favMap.sav";
-	private String LOCALMAP = "localMap.sav";
+	private CacheController cacheController;
 	private String sortingOption = null;
 	private String lastSortingOption = null;
 	ViewHolder holder = null;
@@ -43,6 +42,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		super(context, textViewResourceId, objects);
 		// this.context = context;
 		this.questionList = objects;
+		cacheController = new CacheController(context);
 		// this.localList = new QuestionList();
 		// this.favList = new QuestionList();
 	}
@@ -86,17 +86,16 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
 			holder.upvoteState.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
-			if (User.localCacheId.get(question.getID()) == null)
-				holder.save_Rb.setChecked(false);
-			else
+			if (cacheController.hasSaved(question))
 				holder.save_Rb.setChecked(true);
-			if (User.favoriteId.get(question.getID()) == null)
-				holder.fav_Rb.setChecked(false);
 			else
+				holder.save_Rb.setChecked(false);
+			if (cacheController.hasFavorited(question))
 				holder.fav_Rb.setChecked(true);
-			CacheController.updateFavQuestions(getContext(), FAVMAP, question);
-			CacheController.updateLocalQuestions(getContext(), LOCALMAP,
-					question);
+			else
+				holder.fav_Rb.setChecked(false);
+			cacheController.updateFavQuestions(getContext(), question);
+			cacheController.updateLocalQuestions(getContext(), question);
 		}
 		holder.save_Rb.setOnClickListener(new saveOnClickListener(position));
 		holder.fav_Rb.setOnClickListener(new favOnClickListener(position));
@@ -117,24 +116,19 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		@Override
 		public void onClick(View v) {
 			Question question = questionList.get(position);
-			User.favoriteId = CacheController.loadFromFile(getContext(),
-					LOCALMAP);
-			long questionId = question.getID();
-			if (User.localCacheId.get(questionId) == null) {
-				User.localCacheId.put(questionId, question);
-				holder.save_Rb.setChecked(true);
-			} else {
+			if (cacheController.hasSaved(question)) {
+				cacheController.removeLocalQuestions(getContext(), question);
 				holder.save_Rb.setChecked(false);
-				User.localCacheId.remove(questionId);
+			} else {
+				cacheController.addLocalQuestions(getContext(), question);
+				holder.save_Rb.setChecked(true);
+
 			}
 			sortingOption = lastSortingOption;
 			applySortMethod();
-			notifyDataSetChanged();		
-			CacheController.saveInFile(getContext(), User.localCacheId,
-					LOCALMAP);
+			notifyDataSetChanged();
 		}
 	}
-
 
 	private class favOnClickListener implements OnClickListener {
 
@@ -148,20 +142,16 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		@Override
 		public void onClick(View v) {
 			Question question = questionList.get(position);
-			long questionId = question.getID();
-			User.favoriteId = CacheController
-					.loadFromFile(getContext(), FAVMAP);
-			if (User.favoriteId.get(questionId) == null) {
-				User.favoriteId.put(questionId, question);
-				holder.fav_Rb.setChecked(true);
-			} else {
+			if (cacheController.hasFavorited(question)) {
+				cacheController.removeFavQuestions(getContext(), question);
 				holder.fav_Rb.setChecked(false);
-				User.favoriteId.remove(questionId);
+			} else {
+				cacheController.addFavQuestions(getContext(), question);
+				holder.fav_Rb.setChecked(true);
 			}
 			sortingOption = lastSortingOption;
 			applySortMethod();
 			notifyDataSetChanged();
-			CacheController.saveInFile(getContext(), User.favoriteId, FAVMAP);
 		}
 	}
 
@@ -184,18 +174,15 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			Thread thread = new UpdateQuestionThread(question);
 			thread.start();
 			sortingOption = lastSortingOption;
+			cacheController.updateFavQuestions(getContext(), question);
+			cacheController.updateLocalQuestions(getContext(), question);
 			applySortMethod();
 			notifyDataSetChanged();
-			CacheController
-					.updateFavQuestions(v.getContext(), FAVMAP, question);
-			CacheController.updateLocalQuestions(getContext(), LOCALMAP,
-					question);
 		}
 	}
 
-
 	public void applySortMethod() {
-		if (sortingOption == null){
+		if (sortingOption == null) {
 			sortingOption = lastSortingOption;
 		}
 		if (sortingOption.equals("Sort By Picture")) {
@@ -227,9 +214,9 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 		this.sortingOption = option;
 	}
-	
-	public void getSortingOption(){
-		
+
+	public void getSortingOption() {
+
 	}
 }
 

@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -62,20 +64,30 @@ public class QuestionListManager {
 		return null;
 	}
 
-	public QuestionList getQuestionList(ArrayList<Long> listID){
+	public QuestionList getQuestionList(ArrayList<Long> listID) {
 		QuestionList questionList = new QuestionList();
-		
-		for (long ID : listID){
+
+		for (long ID : listID) {
 			questionList.addQuestion(getQuestion(ID));
-		}	
+		}
 		return questionList;
 	}
-	
+
+	public Map<Long, Question> getQuestionMap(ArrayList<Long> listID) {
+		Map<Long, Question> questionMap = new HashMap<Long, Question>();
+
+		for (long ID : listID) {
+			questionMap.put(ID, getQuestion(ID));
+		}
+		return questionMap;
+	}
+
 	/**
 	 * Get questions with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.
 	 */
-	public QuestionList searchQuestions(String searchString, String field, String sortOption) {
+	public QuestionList searchQuestions(String searchString, String field,
+			String sortOption) {
 		QuestionList result = new QuestionList();
 
 		// TODO: Implement search questions using ElasticSearch
@@ -85,7 +97,8 @@ public class QuestionListManager {
 
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
-			HttpPost searchRequest = createSearchRequest(searchString, field, sortOption);
+			HttpPost searchRequest = createSearchRequest(searchString, field,
+					sortOption);
 			HttpResponse response = httpClient.execute(searchRequest);
 
 			String status = response.getStatusLine().toString();
@@ -157,7 +170,7 @@ public class QuestionListManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Deletes the question with the specified id
 	 */
@@ -180,9 +193,9 @@ public class QuestionListManager {
 	/**
 	 * Creates a search request from a search string and a field
 	 */
-	private HttpPost createSearchRequest(String searchString, String field, String sortOption)
-			throws UnsupportedEncodingException {
-		
+	private HttpPost createSearchRequest(String searchString, String field,
+			String sortOption) throws UnsupportedEncodingException {
+
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
 
 		String[] fields = null;
@@ -191,7 +204,7 @@ public class QuestionListManager {
 			fields[0] = field;
 		}
 
-		SearchCommand command = new SearchCommand(searchString,sortOption);
+		SearchCommand command = new SearchCommand(searchString, sortOption);
 
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);
