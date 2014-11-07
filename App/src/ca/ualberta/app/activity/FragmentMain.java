@@ -59,11 +59,18 @@ public class FragmentMain extends Fragment {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
+	private long from = 0;
+	private long size = 10;
+	private long currentFrom = 0;
+	private long TotalSize = 10;
+	private int needToLoadMore = 0;
 
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
-			adapter.applySortMethod();
+			if (needToLoadMore == 0) {
+				adapter.applySortMethod();
+			}
 			adapter.notifyDataSetChanged();
 			spin_adapter.notifyDataSetChanged();
 		}
@@ -162,8 +169,15 @@ public class FragmentMain extends Fragment {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
+						needToLoadMore = 0;
+						from = 0;
+						size = TotalSize;
 						updateList();
+
 						onLoad();
+						Toast.makeText(mcontext,
+								"From: " + from + "  Size: " + size + "",
+								Toast.LENGTH_LONG).show();
 					}
 				}, 2000);
 			}
@@ -173,8 +187,29 @@ public class FragmentMain extends Fragment {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						adapter.notifyDataSetChanged();
+						from = currentFrom;
+						size = 10;
+						if (from < questionListController.size()) {
+							from += 10;
+							TotalSize += 10;
+						} else {
+							from = questionListController.size();
+							if (TotalSize - from > 10) {
+								TotalSize -= 10;
+							}
+							Toast.makeText(mcontext, "All Questions loaded",
+									Toast.LENGTH_LONG).show();
+						}
+						currentFrom = from;
+						needToLoadMore = 1;
+						updateList();
 						onLoad();
+						Toast.makeText(
+								mcontext,
+								"From: " + from + "  TotalSize: " + TotalSize
+										+ "  ListSize: "
+										+ questionListController.size() + "",
+								Toast.LENGTH_LONG).show();
 					}
 				}, 2000);
 			}
@@ -214,7 +249,7 @@ public class FragmentMain extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			//updateList();
+			// updateList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -246,7 +281,7 @@ public class FragmentMain extends Fragment {
 		cacheController.clear();
 		Thread getMapThread = new GetMapThread();
 		getMapThread.start();
-		questionListController.clear();
+		// questionListController.clear();
 		Thread searchThread = new SearchThread("");
 		searchThread.start();
 	}
@@ -260,10 +295,14 @@ public class FragmentMain extends Fragment {
 		}
 
 		public void run() {
-			questionListController.clear();
+			if (needToLoadMore == 0) {
+				questionListController.clear();
+			}
 			questionListController.addAll(questionListManager.searchQuestions(
-					search, null, sortString));
-
+					search, null, from, size));
+			if (needToLoadMore == 0) {
+				size = 10;
+			}
 			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}

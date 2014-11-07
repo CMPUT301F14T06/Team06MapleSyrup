@@ -86,7 +86,7 @@ public class QuestionListManager {
 	 * specify fields, it searches on all the fields.
 	 */
 	public QuestionList searchQuestions(String searchString, String field,
-			String sortOption) {
+			long from, long size) {
 		QuestionList result = new QuestionList();
 
 		// TODO: Implement search questions using ElasticSearch
@@ -97,7 +97,7 @@ public class QuestionListManager {
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
 			HttpPost searchRequest = createSearchRequest(searchString, field,
-					sortOption);
+					from, size);
 			HttpResponse response = httpClient.execute(searchRequest);
 
 			String status = response.getStatusLine().toString();
@@ -193,7 +193,7 @@ public class QuestionListManager {
 	 * Creates a search request from a search string and a field
 	 */
 	private HttpPost createSearchRequest(String searchString, String field,
-			String sortOption) throws UnsupportedEncodingException {
+			long from, long size) throws UnsupportedEncodingException {
 
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
 
@@ -203,7 +203,7 @@ public class QuestionListManager {
 			fields[0] = field;
 		}
 
-		SearchCommand command = new SearchCommand(searchString);
+		SearchCommand command = new SearchCommand(searchString,from,size);
 
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);

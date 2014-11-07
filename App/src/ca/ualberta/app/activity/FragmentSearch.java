@@ -63,6 +63,8 @@ public class FragmentSearch extends Fragment {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
+	private long from = 0;
+	private long size = 5;
 
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
@@ -192,7 +194,8 @@ public class FragmentSearch extends Fragment {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						adapter.notifyDataSetChanged();
+						size += 5;					
+						updateSearchList();
 						onLoad();
 					}
 				}, 2000);
@@ -303,8 +306,8 @@ public class FragmentSearch extends Fragment {
 		public void run() {
 			questionListController.clear();
 			questionListController.addAll(questionListManager.searchQuestions(
-					search, null, sortString));
-			if (questionListManager.searchQuestions(search, null, sortString)
+					search, null, from, size));
+			if (questionListManager.searchQuestions(search, null, from, size)
 					.size() != 0) {
 				haveSearchResult = 1;
 			} else {

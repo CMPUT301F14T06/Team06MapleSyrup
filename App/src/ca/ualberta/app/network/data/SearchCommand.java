@@ -4,7 +4,9 @@ public class SearchCommand {
 
 	private String query = null;
 	private String[] fields = null;
-
+	private long from;
+	private long size;
+	
 	public SearchCommand(String query) {
 		this.query = query;
 	}
@@ -19,10 +21,15 @@ public class SearchCommand {
 		this.fields = fields;
 	}
 
-
+	public SearchCommand(String query, long from, long size){
+		this.query = query;
+		this.from = from;
+		this.size = size;
+	}
+	
 	public String getJsonCommand() {
 		StringBuffer command = new StringBuffer(
-				"{\"from\" : 0, \"size\" : 1000, \"query\" : {\"query_string\" : {\"query\" : \""
+				"{\"from\" : " + from + ", \"size\" : " + size + ", \"query\" : {\"query_string\" : {\"query\" : \""
 						+ query + "\"");
 
 		if (fields != null) {
@@ -35,6 +42,7 @@ public class SearchCommand {
 
 			command.append("]");
 		}
+		command.append("}}, \"sort\": {\"ID_question\" : {\"order\" : \"desc\"");
 		command.append("}}}");
 
 		return command.toString();
