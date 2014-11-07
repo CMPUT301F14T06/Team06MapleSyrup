@@ -15,12 +15,15 @@
         android:prompt="@string/sort_label"
         tools:listitem="@android:layout/simple_list_item_1" />
 
-    <ListView
+   <ca.ualberta.app.view.ScrollListView
         android:id="@+id/my_question_ListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/my_question_sort_spinner" >
-    </ListView>
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/my_question_sort_spinner"
+        android:cacheColorHint="#00000000" >
+    </ca.ualberta.app.view.ScrollListView>
 
 </RelativeLayout>

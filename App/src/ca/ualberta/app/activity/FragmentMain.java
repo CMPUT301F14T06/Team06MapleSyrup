@@ -111,7 +111,7 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-
+		updateList();
 		// Show details when click on a question
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -214,7 +214,7 @@ public class FragmentMain extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			updateList();
+			//updateList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {

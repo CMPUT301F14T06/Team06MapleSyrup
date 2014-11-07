@@ -96,13 +96,14 @@ public class FragmentFavorite extends Fragment {
 		favQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
 				favQuestionListController.getQuestionArrayList());
+		adapter.setSortingOption(sortByDate);
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
 		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-
+		updateList();
 		// Show details when click on a question
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -208,7 +209,7 @@ public class FragmentFavorite extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			updateList();
+			//updateList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {

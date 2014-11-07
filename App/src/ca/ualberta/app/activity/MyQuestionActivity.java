@@ -1,19 +1,23 @@
 package ca.ualberta.app.activity;
 
+import java.util.Date;
+
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.view.ScrollListView;
+import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -32,13 +36,16 @@ public class MyQuestionActivity extends Activity {
 	private QuestionListController myQuestionListController;
 	private QuestionListManager myQuestionListManager;
 	private QuestionList myQuestionList;
-	private ListView myquestionListView = null;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
 	private String MYQUESTION;
 	public String sortString = "Sort By Date";
+	private Date timestamp;
+	private ScrollListView mListView;
+	private Handler mHandler;
+	
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -53,8 +60,10 @@ public class MyQuestionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_question);
 		mcontext = this;
-		myquestionListView = (ListView) findViewById(R.id.my_question_ListView);
 		sortOptionSpinner = (Spinner) findViewById(R.id.my_question_sort_spinner);
+		mListView = (ScrollListView)findViewById(R.id.my_question_ListView);
+		mListView.setPullLoadEnable(true);
+		mHandler = new Handler();
 	}
 
 	@Override
@@ -65,15 +74,16 @@ public class MyQuestionActivity extends Activity {
 		myQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(this, R.layout.single_question,
 				myQuestionListController.getQuestionArrayList());
+		adapter.setSortingOption(sortByDate);
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
-		myquestionListView.setAdapter(adapter);
+		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-
+		updateList();
 		// Show details when click on a question
-		myquestionListView.setOnItemClickListener(new OnItemClickListener() {
+		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -86,7 +96,7 @@ public class MyQuestionActivity extends Activity {
 			}
 		});
 		// Delete question on long click
-		myquestionListView
+		mListView
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
 					@Override
 					public boolean onItemLongClick(AdapterView<?> parent,
@@ -111,6 +121,30 @@ public class MyQuestionActivity extends Activity {
 						return true;
 					}
 				});
+		mListView.setScrollListViewListener(new IXListViewListener() {
+
+			@Override
+			public void onRefresh() {
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						updateList();
+						onLoad();
+					}
+				}, 2000);
+			}
+
+			@Override
+			public void onLoadMore() {
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						adapter.notifyDataSetChanged();
+						onLoad();
+					}
+				}, 2000);
+			}
+		});
 	}
 
 	private class change_category_click implements OnItemSelectedListener {
@@ -142,14 +176,21 @@ public class MyQuestionActivity extends Activity {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			updateList();
+			//updateList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
 		}
 	}
-
+	
+	private void onLoad() {
+		timestamp = new Date();
+		mListView.stopRefresh();
+		mListView.stopLoadMore();
+		mListView.setRefreshTime(timestamp.toString());
+	}
+	
 	private void updateList() {
 		QuestionListController.saveInFile(mcontext,
 				myQuestionListController.getQuestionList(), MYQUESTION);

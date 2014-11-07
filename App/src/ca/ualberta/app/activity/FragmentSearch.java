@@ -115,7 +115,7 @@ public class FragmentSearch extends Fragment {
 				R.layout.single_question,
 				questionListController.getQuestionArrayList());
 		adapter.setSortingOption(sortByDate);
-//		searchResultListView.setAdapter(adapter);
+
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
 		

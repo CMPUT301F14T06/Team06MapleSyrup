@@ -87,6 +87,10 @@ public class Question extends InputsModel {
 		upvoteCount_question++;
 	}
 
+	public void setUpvoteCount(long newUpvoteCount){
+		this.upvoteCount_question = newUpvoteCount;
+	}
+	
 	public void calcCurrentTotalScore() {
 		total_score = 0;
 		for (Answer answer : this.answerList) {

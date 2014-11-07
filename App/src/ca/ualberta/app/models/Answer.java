@@ -40,6 +40,10 @@ public class Answer extends InputsModel {
 		this.upvoteCount_answer++;
 	}
 
+	public void setUpvoteCount(long newUpvoteCount){
+		this.upvoteCount_answer = newUpvoteCount;
+	}
+	
 	public long getAnswerUpvoteCount() {
 		return this.upvoteCount_answer;
 	}
