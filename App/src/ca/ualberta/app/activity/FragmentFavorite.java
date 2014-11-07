@@ -30,7 +30,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-//The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
+/**
+ * This is the fragment activity for the users' favorite question list, once a user clicks the "My Favorite" button on the bottom action bar
+ * 
+ * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
+ * 
+ * @author Anni
+ */
 public class FragmentFavorite extends Fragment {
 	private TextView titleBar;
 	static String sortByDate = "Sort By Date";
@@ -55,7 +61,9 @@ public class FragmentFavorite extends Fragment {
 	private ScrollListView mListView;
 	private Handler mHandler;
 
-	// Thread to update adapter after an operation
+	/**
+	 * Thread notify the adapter changes in data, and update the adapter after an operation
+	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.applySortMethod();
@@ -64,12 +72,18 @@ public class FragmentFavorite extends Fragment {
 		}
 	};
 
+	/**
+	 * Once the fragment is active, the user interface, R.layout.fragment_fav will be load into the fragment.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_fav, container, false);
 	}
 
+	/**
+	 * Once the fragment is created, this method will give each view an object to help other methods set data or listener
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -87,6 +101,10 @@ public class FragmentFavorite extends Fragment {
 
 	}
 
+	/**
+	 * onStart method
+	 * Setup the adapter for the users' favorite question list, and setup listener for each item (question) in the favorite list.
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -104,7 +122,10 @@ public class FragmentFavorite extends Fragment {
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
-		// Show details when click on a question
+
+		/**
+		 * Jump to the layout of the choosen question, and show details when click on an item (a question) in the favorite question list
+		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
@@ -117,7 +138,10 @@ public class FragmentFavorite extends Fragment {
 				startActivity(intent);
 			}
 		});
-		// Delete question on long click
+		
+		/**
+		 *  Delete an item (a question) in the favorite list when a user long clicks the question.
+ 		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -140,9 +164,17 @@ public class FragmentFavorite extends Fragment {
 				return true;
 			}
 		});
+		
 		// updateList();
+		/**
+		 * Update the current questions on screen, if a user scroll his/her favorite question list
+		 */
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
+			/**
+			 * Will called to update the content in the favorite question list when the data is changed or sorted;
+			 * also, this method will tell the user the current interval of the question that are displayed on the screen
+			 */
 			@Override
 			public void onRefresh() {
 				mHandler.postDelayed(new Runnable() {
@@ -154,6 +186,10 @@ public class FragmentFavorite extends Fragment {
 				}, 2000);
 			}
 
+			/**
+			 * this method will be called when a user up or down scroll the favorite question list to update the corresponding questions on the screen;
+			 * also, this method will tell the user the current interval of the question that are displayed on the screen
+			 */
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -166,7 +202,10 @@ public class FragmentFavorite extends Fragment {
 			}
 		});
 	}
-
+	
+	/**
+	 * stop refresh and loading, reset header and the footer view.
+	 */
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
@@ -174,12 +213,19 @@ public class FragmentFavorite extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 	
+	/**
+	 * onResume method
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
 		// updateList();
 	}
 
+	/**
+	 * This class represents the functions in the sorting menu in the spinner at the top of the screen
+	 * @author Anni
+	 */
 	private class change_category_click implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
@@ -211,12 +257,18 @@ public class FragmentFavorite extends Fragment {
 			}
 			//updateList();
 		}
-
+		
+		/**
+		 * Use default sort method is nothing is chosen
+		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
 		}
 	}
 
+	/**
+	 * Update the content of the main question list by finding and loading the new list contents from the data set (local/online server)
+	 */
 	private void updateList() {
 		favListId = cacheController.getFavoriteId();
 		if (favListId.size() == 0)
@@ -226,6 +278,9 @@ public class FragmentFavorite extends Fragment {
 		thread.start();
 	}
 
+	/**
+	 * this class will be called a thread of question list in the cache array for updating/other operations
+	 */
 	class GetListThread extends Thread {
 		@Override
 		public void run() {
@@ -240,10 +295,17 @@ public class FragmentFavorite extends Fragment {
 	class DeleteThread extends Thread {
 		private long questionID;
 
+		/**
+		 * delete a thread
+		 * @param questionID the ID for the thread of a question
+		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;
 		}
 
+		/**
+		 * We need to remove the question from the list as well
+		 */
 		@Override
 		public void run() {
 			favQuestionListManager.deleteQuestion(questionID);

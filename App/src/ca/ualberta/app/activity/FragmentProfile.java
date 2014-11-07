@@ -15,7 +15,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-//The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
+/**
+ * This is the fragment activity for the mean question list, once the app is started, or a user clicks the "Main" button on the bottom action bar
+ * 
+ * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
+ * 
+ * @author Anni
+ */
 public class FragmentProfile extends Fragment {
 	private TextView titleBar;
 	private ImageButton changePhotoButton;
@@ -28,6 +34,9 @@ public class FragmentProfile extends Fragment {
 	private RadioButton logout;
 	private boolean loginStatus;
 
+	/**
+	 * Once the fragment is active, the user interface, R.layout.fragment_profile will be load into the fragment.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -35,6 +44,10 @@ public class FragmentProfile extends Fragment {
 		return inflater.inflate(R.layout.fragment_profile, container, false);
 	}
 
+	/**
+	 * Once the fragment is created, this method will give each view an object to help other methods set data.
+	 * Also, the listeners for all buttons will be setup in this method.
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -76,18 +89,30 @@ public class FragmentProfile extends Fragment {
 		});
 	}
 
+	/**
+	* onResume method.
+	* Once the activity is resumed from other activities, check the user's longing statues.
+	*/
 	@Override
 	public void onResume() {
 		super.onResume();
 		checkLoginStatus();
 	}
 
+	/**
+	* onResume method.
+	* Once the activity is paused, check the user's longing statues.
+	*/
 	@Override
 	public void onPause() {
 		super.onPause();
 		checkLoginStatus();
 	}
 
+	/**
+	* this method is used to check out if an user has logged in: (1) if the user has logged in, then show the current user's profile on the screen;
+	* (2) if not, show the login window
+	*/
 	public void checkLoginStatus() {
 		loginStatus = User.loginStatus;
 		if (loginStatus) {

@@ -33,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * This is the fragment activity for the mean question list, once the app is started, or a user clicks the "Main" button on the buttom action bar
+ * This is the fragment activity for the mean question list, once the app is started, or a user clicks the "Main" button on the bottom action bar
  * 
  * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
  * 
@@ -84,7 +84,7 @@ public class FragmentMain extends Fragment {
 	};
 
 	/**
-	 * Once the fragment is active, the use interface, R.layout.fragment_main will be load in the fragment.
+	 * Once the fragment is active, the user interface, R.layout.fragment_main will be load into the fragment.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -138,7 +138,7 @@ public class FragmentMain extends Fragment {
 		updateList();
 		
 		/**
-		 * Jump to the layout of the choosen question, and show details when click on an item (a question) in the main question list
+		 * Jump to the layout of the chosen question, and show details when click on an item (a question) in the main question list
 		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -365,7 +365,7 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * this class will be called to map a thread of question list in the cache array
+	 * this class will be called a thread of question list in the cache array for updating/other operations
 	 */
 	class GetMapThread extends Thread {
 		@Override
@@ -401,7 +401,7 @@ public class FragmentMain extends Fragment {
 
 		/**
 		 * delete a thread
-		 * @param questionID the indext for the thread of a question
+		 * @param questionID the ID for the thread of a question
 		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;
