@@ -78,6 +78,7 @@ public class QuestionDetailActivity extends Activity {
 			question_AnswerListView.setAdapter(adapter);
 			question_ReplyListView.setAdapter(replyAdapter);
 			adapter.notifyDataSetChanged();
+			replyAdapter.notifyDataSetChanged();
 		}
 	};
 
