@@ -60,7 +60,7 @@ public class MyQuestionActivity extends Activity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		MYQUESTION = User.author.getUsername() + ".sav";
+		MYQUESTION = User.author.getUsername() + "my.sav";
 		myQuestionListController = new QuestionListController();
 		myQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(this, R.layout.single_question,
@@ -151,11 +151,8 @@ public class MyQuestionActivity extends Activity {
 	}
 
 	private void updateList() {
-
-		if (User.loginStatus == true) {
-			QuestionListController.saveInFile(mcontext,
-					myQuestionListController.getQuestionList(), MYQUESTION);
-		}
+		QuestionListController.saveInFile(mcontext,
+				myQuestionListController.getQuestionList(), MYQUESTION);
 		Thread thread = new GetListThread();
 		thread.start();
 	}

@@ -23,7 +23,8 @@ public class MainActivity extends FragmentActivity {
 	private RadioGroup bottom_Rg;
 	private RadioButton main_Rb, fav_Rb, add_Rb, search_Rb, profile_Rb;
 	private Boolean loginStatus;
-	//private int lastCheckedId = R.id.main_menu_button;
+
+	// private int lastCheckedId = R.id.main_menu_button;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,21 +72,7 @@ public class MainActivity extends FragmentActivity {
 					break;
 
 				case R.id.add_menu_button:
-					// go to Create Question activity
-					// switch (lastCheckedId) {
-					// case R.id.main_menu_button:
-						main_Rb.performClick();
-//						break;
-//					case R.id.fav_menu_button:
-//						fav_Rb.performClick();
-//						break;
-//					case R.id.search_menu_button:
-//						search_Rb.performClick();
-//						break;
-//					case R.id.profile_menu_button:
-//						profile_Rb.performClick();
-//						break;
-//					}
+					main_Rb.performClick();
 					add_Rb.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							Intent intent = new Intent(MainActivity.this,

@@ -128,7 +128,6 @@
             android:layout_row="0"
             android:text="@string/time"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#CCCCCC"
             android:textSize="13sp" />
 
         <TextView

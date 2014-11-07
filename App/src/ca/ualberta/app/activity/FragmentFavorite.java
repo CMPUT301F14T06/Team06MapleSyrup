@@ -30,8 +30,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 //The fragment part is from this website: http://www.programering.com/a/MjNzIDMwATI.html 2014-Oct-20
 public class FragmentFavorite extends Fragment {
 	private TextView titleBar;
-	private String FAVMAP = "favMap.sav";
-	private String LOCALMAP = "localMap.sav";
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
 	static String sortByQuestionUpvote = "Sort By Question Upvote";
@@ -43,13 +41,13 @@ public class FragmentFavorite extends Fragment {
 	private QuestionListController favQuestionListController;
 	private QuestionListManager favQuestionListManager;
 	private QuestionList favQuestionList;
+	private CacheController cacheController;
 	private ListView favQuestionListView = null;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private ArrayList<Long> favListId;
 	private static long categoryID;
-	private String FAVQUESTION;
 	public String sortString = "Sort By Date";
 	// Thread to update adapter after an operation
 	private Runnable doUpdateGUIList = new Runnable() {
@@ -83,7 +81,7 @@ public class FragmentFavorite extends Fragment {
 	public void onStart() {
 		super.onStart();
 		// FAVQUESTION = User.author.getUsername() + "FAV.sav";
-
+		cacheController = new CacheController(mcontext);
 		favQuestionListController = new QuestionListController();
 		favQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -134,6 +132,13 @@ public class FragmentFavorite extends Fragment {
 						return true;
 					}
 				});
+		// updateList();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		// updateList();
 	}
 
 	private class change_category_click implements OnItemSelectedListener {
@@ -174,7 +179,9 @@ public class FragmentFavorite extends Fragment {
 	}
 
 	private void updateList() {
-		favListId = CacheController.getFavIdList();
+		favListId = cacheController.getFavoriteId();
+		if (favListId.size() == 0)
+			Toast.makeText(mcontext, "No Favorite Question Added Yet.", Toast.LENGTH_LONG).show();
 		Thread thread = new GetListThread();
 		thread.start();
 	}

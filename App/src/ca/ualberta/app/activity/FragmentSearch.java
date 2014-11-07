@@ -1,9 +1,18 @@
 package ca.ualberta.app.activity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.activity.FragmentMain.GetListThread;
+import ca.ualberta.app.activity.FragmentMain.GetMapThread;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
+import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.QuestionList;
+import ca.ualberta.app.models.User;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,11 +39,14 @@ public class FragmentSearch extends Fragment {
 	static String sortByPicture = "Sort By Picture";
 	static String[] sortOption = { sortByDate, sortByScore, sortByPicture,
 			sortByQuestionUpvote, sortByAnswerUpvote };
-
+	private String MYQUESTION;
 	private TextView titleBar;
 	private EditText searchEditText;
+	private CacheController cacheController;
 	private QuestionListController questionListController;
+	private QuestionListController myQuestionListController;
 	private QuestionListManager questionListManager;
+	private QuestionList myQuestionList;
 	private QuestionListAdapter adapter = null;
 	private ListView searchResultListView;
 	private Button searchButton;
@@ -61,13 +73,14 @@ public class FragmentSearch extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mcontext = getActivity().getApplicationContext();
+
 		return inflater.inflate(R.layout.fragment_search, container, false);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mcontext = getActivity().getApplicationContext();
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Search");
 		searchEditText = (EditText) getView().findViewById(
@@ -85,7 +98,10 @@ public class FragmentSearch extends Fragment {
 	public void onStart() {
 		super.onStart();
 		questionListManager = new QuestionListManager();
+		cacheController = new CacheController(mcontext);
+		myQuestionListController = new QuestionListController();
 		questionListController = new QuestionListController();
+		myQuestionList = new QuestionList();
 		adapter = new QuestionListAdapter(getActivity(),
 				R.layout.single_question,
 				questionListController.getQuestionArrayList());
@@ -149,11 +165,46 @@ public class FragmentSearch extends Fragment {
 	}
 
 	private void updateSearchList() {
+		if (User.loginStatus == true) {
+			MYQUESTION = User.author.getUsername() + "my.sav";
+			myQuestionListController.clear();
+			Thread getListThread = new GetListThread();
+			getListThread.start();
+		}
+		cacheController.clear();
+		Thread getMapThread = new GetMapThread();
+		getMapThread.start();
 		questionListController.clear();
 		String searchString = searchEditText.getText().toString();
 		// searchEditText.setText("");
 		Thread thread = new SearchThread(searchString);
 		thread.start();
+	}
+
+	class GetListThread extends Thread {
+		@Override
+		public void run() {
+			myQuestionListController.clear();
+			myQuestionList = questionListManager.getQuestionList(User.author
+					.getAuthorQuestionId());
+			myQuestionListController.addAll(myQuestionList);
+			QuestionListController.saveInFile(mcontext,
+					myQuestionListController.getQuestionList(), MYQUESTION);
+		}
+	}
+
+	class GetMapThread extends Thread {
+		@Override
+		public void run() {
+			cacheController.clear();
+			Map<Long, Question> tempFav = new HashMap<Long, Question>();
+			Map<Long, Question> tempSav = new HashMap<Long, Question>();
+			tempFav = questionListManager.getQuestionMap(cacheController
+					.getFavoriteId());
+			tempSav = questionListManager.getQuestionMap(cacheController
+					.getLocalCacheId());
+			cacheController.addAll(mcontext, tempFav, tempSav);
+		}
 	}
 
 	class SearchThread extends Thread {

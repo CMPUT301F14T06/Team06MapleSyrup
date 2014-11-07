@@ -18,8 +18,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class QuestionDetailActivity extends Activity {
-	private String FAVMAP = "favMap.sav";
-	private String LOCALMAP = "localMap.sav";
 	public static String QUESTION_ID = "QUESTION_ID";
 	private TextView questionTitleTextView;
 	private TextView questionContentTextView;
@@ -37,23 +35,30 @@ public class QuestionDetailActivity extends Activity {
 	private long questionId;
 	private Question question;
 	private QuestionListManager questionManager;
+	private CacheController cacheController;
 	private ReplyListAdapter replyAdapter = null;
 	private AnswerListAdapter answerAdapter = null;
 	private Context mcontext;
-	private boolean upvote = false;
+	private boolean save_click = false;
+	private boolean fav_click = false;
+	private boolean upvote_click = false;
 
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
-			if (User.localCacheId.get(question.getID()) == null)
-				save_Rb.setChecked(false);
-			else
+			if (!(save_click || upvote_click || fav_click))
+				cacheController.addLocalQuestions(mcontext, question);
+			if (cacheController.hasSaved(question))
 				save_Rb.setChecked(true);
-
-			if (User.favoriteId.get(question.getID()) == null)
-				fav_Rb.setChecked(false);
 			else
-				fav_Rb.setChecked(true);
+				save_Rb.setChecked(false);
 
+			if (cacheController.hasFavorited(question))
+				fav_Rb.setChecked(true);
+			else
+				fav_Rb.setChecked(false);
+			save_click = false;
+			fav_click = false;
+			upvote_click = false;
 			questionTitleTextView.setText(question.getTitle());
 			questionContentTextView.setText(question.getContent());
 			authorNameTextView.setText(question.getAuthor());
@@ -97,6 +102,7 @@ public class QuestionDetailActivity extends Activity {
 		reply_Rb = (RadioButton) findViewById(R.id.question_reply_button);
 		save_Rb = (RadioButton) findViewById(R.id.save_detail_button);
 		fav_Rb = (RadioButton) findViewById(R.id.fav_detail_button);
+		cacheController = new CacheController(mcontext);
 		questionImageView.setVisibility(View.GONE);
 		if (User.loginStatus == true) {
 			answer_Rb.setVisibility(View.VISIBLE);
@@ -126,33 +132,19 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	public void save_click(View view) {
-		long questionId = question.getID();
-		if (User.localCacheId.get(questionId) == null) {
-			save_Rb.setChecked(true);
-		} else {
-			save_Rb.setChecked(false);
-			User.localCacheId.remove(questionId);
-		}
-		CacheController.saveInFile(mcontext, User.localCacheId, LOCALMAP);
+		save_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
 
 	public void fav_click(View view) {
-		long questionId = question.getID();
-		if (User.favoriteId.get(questionId) == null) {
-			fav_Rb.setChecked(true);
-		} else {
-			fav_Rb.setChecked(false);
-			User.favoriteId.remove(questionId);
-		}
-		CacheController.saveInFile(mcontext, User.favoriteId, LOCALMAP);
+		fav_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
 
 	public void upvote_click(View view) {
-		upvote = true;
+		upvote_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
@@ -179,12 +171,23 @@ public class QuestionDetailActivity extends Activity {
 		@Override
 		public void run() {
 			question = questionManager.getQuestion(id);
-			if (upvote == true) {
+			if (upvote_click == true) {
 				question.upvoteQuestion();
-				upvote = false;
+				cacheController.updateFavQuestions(mcontext, question);
+				cacheController.updateLocalQuestions(mcontext, question);
 			}
-			CacheController.updateFavQuestions(mcontext, FAVMAP, question);
-			CacheController.updateLocalQuestions(mcontext, LOCALMAP, question);
+			if (save_click == true) {
+				if (cacheController.hasSaved(question))
+					cacheController.removeLocalQuestions(mcontext, question);
+				else
+					cacheController.addLocalQuestions(mcontext, question);
+			}
+			if (fav_click == true) {
+				if (cacheController.hasFavorited(question))
+					cacheController.removeFavQuestions(mcontext, question);
+				else
+					cacheController.addFavQuestions(mcontext, question);
+			}
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
 			runOnUiThread(doUpdateGUIDetails);
