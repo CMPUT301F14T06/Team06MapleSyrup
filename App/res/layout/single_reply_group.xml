@@ -5,9 +5,15 @@
     android:orientation="vertical" >
 
     <TextView
+<<<<<<< HEAD
         android:id="@+id/answer_reply_textView"
         android:layout_width="wrap_content"
+=======
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+>>>>>>> 2c683244fc3af89364f17b03a29a67c0a9d13db6
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
         android:text="@string/reply_group"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

@@ -181,8 +181,9 @@
     <ExpandableListView
         android:id="@+id/question_reply_expanableListView"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1" >
+
     </ExpandableListView>
 
     <ListView
