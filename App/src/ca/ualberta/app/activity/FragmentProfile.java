@@ -110,8 +110,9 @@ public class FragmentProfile extends Fragment {
 	}
 
 	/**
-	* this method is used to check out if an user has logged in: (1) if the user has logged in, then show the current user's profile on the screen;
-	* (2) if not, show the login window
+	* this method is used to check out if an user has logged in: (1) if the user has logged in, then show the current user's profile
+	* (include button for the user's own questions, and the logout button) on the screen;
+	* (2) if not, only show the buttons of local questions, favorite question, and login.
 	*/
 	public void checkLoginStatus() {
 		loginStatus = User.loginStatus;
