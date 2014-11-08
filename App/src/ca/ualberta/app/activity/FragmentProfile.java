@@ -70,6 +70,7 @@ public class FragmentProfile extends Fragment {
 
 			}
 		});
+		
 		logout.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				User.loginStatus = false;
@@ -77,6 +78,7 @@ public class FragmentProfile extends Fragment {
 				getActivity().recreate();
 			}
 		});
+		
 		my_question.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -85,6 +87,16 @@ public class FragmentProfile extends Fragment {
 						MyQuestionActivity.class);
 				startActivity(intent);
 
+			}
+		});
+		fav_question.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),
+						MyFavoriteActivity.class);
+				startActivity(intent);
+				
 			}
 		});
 	}

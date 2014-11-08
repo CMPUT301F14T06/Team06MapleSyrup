@@ -14,7 +14,6 @@ import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,19 +21,22 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
- * This is the fragment activity for the mean question list, once the app is
- * started, or a user clicks the "Main" button on the bottom action bar
+ * This is the fragment activity for the search functionality, once a user
+ * clicks the "Search" button on the bottom action bar
  * 
  * The fragment part is from this web site:
  * http://www.programering.com/a/MjNzIDMwATI.html
@@ -50,27 +52,27 @@ public class FragmentMain extends Fragment {
 	static String[] sortOption = { sortByDate, sortByScore, sortByPicture,
 			sortByQuestionUpvote, sortByAnswerUpvote };
 
-	private QuestionListAdapter adapter = null;
-	private QuestionListController questionListController = null;
-	private QuestionListController myQuestionListController = null;
+	private String MYQUESTION;
+	private TextView titleBar;
+	private EditText searchEditText;
 	private CacheController cacheController;
-	private TextView titleBar = null;
-	private Spinner sortOptionSpinner;
+	private QuestionListController questionListController;
+	private QuestionListController myQuestionListController;
 	private QuestionListManager questionListManager;
+	private QuestionList myQuestionList;
+	private QuestionListAdapter adapter = null;
+	private Button searchButton;
+	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
-	public String sortString = "Sort By Date";
-	private String MYQUESTION;
-	private QuestionList myQuestionList;
+	public String sortString = "date";
+	private int haveSearchResult = 0;
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
 	private long from = 0;
-	private long size = 10;
-	private long currentFrom = 0;
-	private long TotalSize = 10;
-	private int needToLoadMore = 0;
+	private long size = 5;
 
 	/**
 	 * Thread notify the adapter changes in data, and update the adapter after
@@ -78,22 +80,24 @@ public class FragmentMain extends Fragment {
 	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
-			if (needToLoadMore == 0) {
-				adapter.applySortMethod();
+			if (haveSearchResult == 0) {
+				Toast.makeText(getActivity().getApplicationContext(),
+						"No matched results", Toast.LENGTH_LONG).show();
 			}
+			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
 			spin_adapter.notifyDataSetChanged();
 		}
 	};
 
 	/**
-	 * Once the fragment is active, the user interface, R.layout.fragment_main
+	 * Once the fragment is active, the user interface, R.layout.fragment_search
 	 * will be load into the fragment.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mcontext = getActivity().getApplicationContext();
+
 		return inflater.inflate(R.layout.fragment_main, container, false);
 	}
 
@@ -104,35 +108,39 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mcontext = getActivity().getApplicationContext();
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Main");
-		sortOptionSpinner = (Spinner) getView().findViewById(R.id.sort_spinner);
+		searchEditText = (EditText) getView().findViewById(
+				R.id.question_EditText);
+		searchButton = (Button) getView().findViewById(
+				R.id.question_Button);
+		sortOptionSpinner = (Spinner) getView().findViewById(
+				R.id.sort_spinner);
 
-		mListView = (ScrollListView) getView()
-				.findViewById(R.id.scrolllistView);
+		mListView = (ScrollListView) getView().findViewById(
+				R.id.question_ListView);
 		mListView.setPullLoadEnable(true);
 		mHandler = new Handler();
-
 	}
 
 	/**
-	 * onStart method Setup the adapter for the main question list, and setup
-	 * listener for each item (question) in the main list.
+	 * onStart method Setup the adapter for the searching result list, and setup
+	 * listener for each item (question) in the searching result list.
 	 */
 	@Override
 	public void onStart() {
 		super.onStart();
-		if (User.loginStatus == true) {
-			// MYQUESTION = User.author.getUsername() + ".sav";
-			myQuestionListController = new QuestionListController();
-		}
-		cacheController = new CacheController(mcontext);
-
 		questionListManager = new QuestionListManager();
+		cacheController = new CacheController(mcontext);
+		myQuestionListController = new QuestionListController();
 		questionListController = new QuestionListController();
-		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
+		myQuestionList = new QuestionList();
+		adapter = new QuestionListAdapter(getActivity(),
+				R.layout.single_question,
 				questionListController.getQuestionArrayList());
 		adapter.setSortingOption(sortByDate);
+
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
 
@@ -140,17 +148,28 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		updateList();
+		updateSearchList();
+		
+		/**
+		 * Setup the listener for the "Search" button is clicked, so that, once
+		 * the button is clicked, the current result list will be updated to the
+		 * newest searching result
+		 */
+		searchButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				updateSearchList();
+			}
+		});
 
 		/**
 		 * Jump to the layout of the chosen question, and show details when
-		 * click on an item (a question) in the main question list
+		 * click on an item (a question) in the searching result list
 		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-
 				long questionId = questionListController.getQuestion(pos - 1)
 						.getID();
 				Intent intent = new Intent(mcontext,
@@ -162,10 +181,11 @@ public class FragmentMain extends Fragment {
 		});
 
 		/**
-		 * Delete an item (a question) in the main list when a user long clicks
-		 * the question.
+		 * Delete an item (a question) in the searching result list when a user
+		 * long clicks the question.
 		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -190,14 +210,15 @@ public class FragmentMain extends Fragment {
 				return true;
 			}
 		});
-		// updateList();
+
 		/**
-		 * Update the current questions on screen, if a user scroll the main
-		 * question list
+		 * Update the current questions on screen, if a user scroll the
+		 * searching result list
 		 */
 		mListView.setScrollListViewListener(new IXListViewListener() {
+
 			/**
-			 * Will called to update the content in the main question list when
+			 * Will called to update the content in the current result list when
 			 * the data is changed or sorted; also, this method will tell the
 			 * user the current interval of the question that are displayed on
 			 * the screen
@@ -207,42 +228,25 @@ public class FragmentMain extends Fragment {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						needToLoadMore = 0;
-						from = 0;
-						size = TotalSize;
-						updateList();
+						updateSearchList();
 						onLoad();
 					}
 				}, 2000);
 			}
 
 			/**
-			 * this method will be called when a user up or down scroll the main
-			 * question list to update the corresponding questions on the
-			 * screen; also, this method will tell the user the current interval
-			 * of the question that are displayed on the screen
+			 * this method will be called when a user up or down scroll the
+			 * current result list to update the corresponding searching results
+			 * on the screen; also, this method will tell the user the current
+			 * interval of the question that are displayed on the screen
 			 */
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						from = currentFrom;
-						size = 10;
-						if (from < questionListController.size()) {
-							from += 10;
-							TotalSize += 10;
-						} else {
-							from = questionListController.size();
-							if (TotalSize - from > 10) {
-								TotalSize -= 10;
-							}
-							Toast.makeText(mcontext, "All Questions loaded",
-									Toast.LENGTH_LONG).show();
-						}
-						currentFrom = from;
-						needToLoadMore = 1;
-						updateList();
+						size += 5;
+						updateSearchList();
 						onLoad();
 					}
 				}, 2000);
@@ -251,14 +255,21 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
+	 * stop refresh and loading, reset header and the footer view.
+	 */
+	private void onLoad() {
+		timestamp = new Date();
+		mListView.stopRefresh();
+		mListView.stopLoadMore();
+		mListView.setRefreshTime(timestamp.toString());
+	}
+
+	/**
 	 * This class represents the functions in the sorting menu
 	 * 
 	 * @author Anni
 	 */
 	private class change_category_click implements OnItemSelectedListener {
-		/**
-		 * Call different sort method based on the user choice
-		 */
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			categoryID = position;
@@ -291,7 +302,7 @@ public class FragmentMain extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			// updateList();
+			updateSearchList();
 		}
 
 		/**
@@ -303,31 +314,10 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * stop refresh and loading, reset header and the footer view.
+	 * Update the content of the searching result list by finding and loading
+	 * the new list contents from the new searching result
 	 */
-	private void onLoad() {
-		timestamp = new Date();
-		mListView.stopRefresh();
-		mListView.stopLoadMore();
-		mListView.setRefreshTime(timestamp.toString());
-	}
-
-	/**
-	 * Once, the fragment resume from other operations, notify the list adaptor
-	 * the change in data
-	 */
-	@Override
-	public void onResume() {
-		super.onResume();
-		// updateList();
-
-	}
-
-	/**
-	 * Update the content of the main question list by finding and loading the
-	 * new list contents from the data set (local/online server)
-	 */
-	private void updateList() {
+	private void updateSearchList() {
 		if (User.loginStatus == true) {
 			MYQUESTION = User.author.getUsername() + "my.sav";
 			myQuestionListController.clear();
@@ -337,35 +327,22 @@ public class FragmentMain extends Fragment {
 		cacheController.clear();
 		Thread getMapThread = new GetMapThread();
 		getMapThread.start();
-		// questionListController.clear();
-		Thread searchThread = new SearchThread("");
-		searchThread.start();
+		questionListController.clear();
+		String searchString = searchEditText.getText().toString();
+		// searchEditText.setText("");
+		Thread thread = new SearchThread(searchString);
+		thread.start();
 	}
 
-	/**
-	 * this class will be used to run thread for push and updating data
-	 * 
-	 * @author Anni, Bicheng
-	 * 
-	 */
-	class SearchThread extends Thread {
-		private String search;
-
-		public SearchThread(String s) {
-			search = s;
-
-		}
-
+	class GetListThread extends Thread {
+		@Override
 		public void run() {
-			if (needToLoadMore == 0) {
-				questionListController.clear();
-			}
-			questionListController.addAll(questionListManager.searchQuestions(
-					search, null, from, size));
-			if (needToLoadMore == 0) {
-				size = 10;
-			}
-			getActivity().runOnUiThread(doUpdateGUIList);
+			myQuestionListController.clear();
+			myQuestionList = questionListManager.getQuestionList(User.author
+					.getAuthorQuestionId());
+			myQuestionListController.addAll(myQuestionList);
+			QuestionListController.saveInFile(mcontext,
+					myQuestionListController.getQuestionList(), MYQUESTION);
 		}
 	}
 
@@ -388,17 +365,31 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * get a thread of the corresponding question list
+	 * this class will be used to run thread for push and updating data
+	 * 
+	 * @author Anni, Bicheng
+	 * 
 	 */
-	class GetListThread extends Thread {
+	class SearchThread extends Thread {
+		private String search;
+
+		public SearchThread(String s) {
+			search = s;
+
+		}
+
 		@Override
 		public void run() {
-			myQuestionListController.clear();
-			myQuestionList = questionListManager.getQuestionList(User.author
-					.getAuthorQuestionId());
-			myQuestionListController.addAll(myQuestionList);
-			QuestionListController.saveInFile(mcontext,
-					myQuestionListController.getQuestionList(), MYQUESTION);
+			questionListController.clear();
+			questionListController.addAll(questionListManager.searchQuestions(
+					search, null, from, size));
+			if (questionListManager.searchQuestions(search, null, from, size)
+					.size() != 0) {
+				haveSearchResult = 1;
+			} else {
+				haveSearchResult = 0;
+			}
+			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}
 

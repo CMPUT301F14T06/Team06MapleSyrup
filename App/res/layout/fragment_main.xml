@@ -20,15 +20,37 @@
         android:prompt="@string/sort_label"
         tools:listitem="@android:layout/simple_list_item_1" />
 
-    <ca.ualberta.app.view.ScrollListView
-        android:id="@+id/scrolllistView"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/question_EditText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/question_Button"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/question_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/question_EditText"
+        android:background="@drawable/btn_click_bg"
+        android:text="@string/search" />
+
+    <ca.ualberta.app.view.ScrollListView
+        android:id="@+id/question_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/question_EditText"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/sort_spinner"
         android:cacheColorHint="#00000000" >
+
     </ca.ualberta.app.view.ScrollListView>
 
 </RelativeLayout>

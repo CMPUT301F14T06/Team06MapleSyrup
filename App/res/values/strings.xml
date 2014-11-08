@@ -58,19 +58,19 @@
     <color name="menu_clicked">#CCCCCC</color>
     <color name="question_selected">#CCCCCC</color>
 
-    <string name="title_activity_test">TestActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_internet_test">InternetTestActivity</string>
-    <string name="title_activity_my_question">MyQuestionActivity</string>
-    <string name="title_activity_create_answer">CreateAnswerActivity</string>
-    <string name="title_activity_create_question_reply">CreateQuestionReplyActivity</string>
-    <string name="title_activity_create_answer_reply">CreateAnswerReplyActivity</string>
+    <string name="title_activity_my_question">My Questions</string>
+    <string name="title_activity_create_answer">Create Answer</string>
+    <string name="title_activity_create_question_reply">Create Reply</string>
+    <string name="title_activity_create_answer_reply">Create Reply</string>
+    <string name="title_activity_my_favorite">My Favorite Questions</string>
     
     <string name="header_hint_normal">Pull down to refresh</string>
     <string name="header_hint_ready">release to refresh</string>
-    <string name="header_hint_loading">Updating</string>
-    <string name="header_last_time">Last Update time：</string>
-    <string name="footer_hint_normal">View More</string>
-    <string name="footer_hint_ready">release to load</string>
+    <string name="header_hint_loading">Updating...</string>
+    <string name="header_last_time">Last Update Time：</string>
+    <string name="footer_hint_normal">Pull up to view more</string>
+    <string name="footer_hint_ready">release to load more</string>
 
 </resources>
