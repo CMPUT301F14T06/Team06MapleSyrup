@@ -33,9 +33,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * This is the fragment activity for the mean question list, once the app is started, or a user clicks the "Main" button on the bottom action bar
+ * This is the fragment activity for the mean question list, once the app is
+ * started, or a user clicks the "Main" button on the bottom action bar
  * 
- * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
+ * The fragment part is from this web site:
+ * http://www.programering.com/a/MjNzIDMwATI.html
  * 
  * @author Anni, Bicheng, Xiaocong
  */
@@ -71,7 +73,8 @@ public class FragmentMain extends Fragment {
 	private int needToLoadMore = 0;
 
 	/**
-	 * Thread notify the adapter changes in data, and update the adapter after an operation
+	 * Thread notify the adapter changes in data, and update the adapter after
+	 * an operation
 	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -84,7 +87,8 @@ public class FragmentMain extends Fragment {
 	};
 
 	/**
-	 * Once the fragment is active, the user interface, R.layout.fragment_main will be load into the fragment.
+	 * Once the fragment is active, the user interface, R.layout.fragment_main
+	 * will be load into the fragment.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,7 +98,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * Once the fragment is created, this method will give each view an object to help other methods set data or listener
+	 * Once the fragment is created, this method will give each view an object
+	 * to help other methods set data or listener
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -111,8 +116,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * onStart method
-	 * Setup the adapter for the main question list, and setup listener for each item (question) in the main list.
+	 * onStart method Setup the adapter for the main question list, and setup
+	 * listener for each item (question) in the main list.
 	 */
 	@Override
 	public void onStart() {
@@ -136,15 +141,16 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
-		
+
 		/**
-		 * Jump to the layout of the chosen question, and show details when click on an item (a question) in the main question list
+		 * Jump to the layout of the chosen question, and show details when
+		 * click on an item (a question) in the main question list
 		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionId = questionListController.getQuestion(pos)
+				long questionId = questionListController.getQuestion(pos-1)
 						.getID();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
@@ -155,8 +161,9 @@ public class FragmentMain extends Fragment {
 		});
 
 		/**
-		 *  Delete an item (a question) in the main list when a user long clicks the question.
- 		 */
+		 * Delete an item (a question) in the main list when a user long clicks
+		 * the question.
+		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -184,12 +191,15 @@ public class FragmentMain extends Fragment {
 		});
 		// updateList();
 		/**
-		 * Update the current questions on screen, if a user scroll the main question list
+		 * Update the current questions on screen, if a user scroll the main
+		 * question list
 		 */
 		mListView.setScrollListViewListener(new IXListViewListener() {
 			/**
-			 * Will called to update the content in the main question list when the data is changed or sorted;
-			 * also, this method will tell the user the current interval of the question that are displayed on the screen
+			 * Will called to update the content in the main question list when
+			 * the data is changed or sorted; also, this method will tell the
+			 * user the current interval of the question that are displayed on
+			 * the screen
 			 */
 			@Override
 			public void onRefresh() {
@@ -210,8 +220,10 @@ public class FragmentMain extends Fragment {
 			}
 
 			/**
-			 * this method will be called when a user up or down scroll the main question list to update the corresponding questions on the screen;
-			 * also, this method will tell the user the current interval of the question that are displayed on the screen
+			 * this method will be called when a user up or down scroll the main
+			 * question list to update the corresponding questions on the
+			 * screen; also, this method will tell the user the current interval
+			 * of the question that are displayed on the screen
 			 */
 			@Override
 			public void onLoadMore() {
@@ -249,6 +261,7 @@ public class FragmentMain extends Fragment {
 
 	/**
 	 * This class represents the functions in the sorting menu
+	 * 
 	 * @author Anni
 	 */
 	private class change_category_click implements OnItemSelectedListener {
@@ -309,7 +322,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * Once, the fragment resume from other operations, notify the list adaptor the change in data
+	 * Once, the fragment resume from other operations, notify the list adaptor
+	 * the change in data
 	 */
 	@Override
 	public void onResume() {
@@ -319,7 +333,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * Update the content of the main question list by finding and loading the new list contents from the data set (local/online server)
+	 * Update the content of the main question list by finding and loading the
+	 * new list contents from the data set (local/online server)
 	 */
 	private void updateList() {
 		if (User.loginStatus == true) {
@@ -336,11 +351,11 @@ public class FragmentMain extends Fragment {
 		searchThread.start();
 	}
 
-
 	/**
 	 * this class will be used to run thread for push and updating data
+	 * 
 	 * @author Anni, Bicheng
-	 *
+	 * 
 	 */
 	class SearchThread extends Thread {
 		private String search;
@@ -364,7 +379,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * this class will be called a thread of question list in the cache array for updating/other operations
+	 * this class will be called a thread of question list in the cache array
+	 * for updating/other operations
 	 */
 	class GetMapThread extends Thread {
 		@Override
@@ -400,7 +416,9 @@ public class FragmentMain extends Fragment {
 
 		/**
 		 * delete a thread
-		 * @param questionID the ID for the thread of a question
+		 * 
+		 * @param questionID
+		 *            the ID for the thread of a question
 		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;
