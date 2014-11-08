@@ -63,8 +63,11 @@ public class AuthorMapManager {
 	/**
 	 * Get authors with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.
+	 * @param size 
+	 * @param from 
+	 * @param lable 
 	 */
-	public AuthorMap searchAuthors(String searchString, String field) {
+	public AuthorMap searchAuthors(String searchString, String field, long from, long size, String lable) {
 		AuthorMap result = new AuthorMap();
 
 		// TODO: Implement search authors using ElasticSearch
@@ -74,7 +77,7 @@ public class AuthorMapManager {
 
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
-			HttpPost searchRequest = createSearchRequest(searchString, field);
+			HttpPost searchRequest = createSearchRequest(searchString, field, from, size, lable);
 			HttpResponse response = httpClient.execute(searchRequest);
 
 			String status = response.getStatusLine().toString();
@@ -170,8 +173,11 @@ public class AuthorMapManager {
 
 	/**
 	 * Creates a search request from a search string and a field
+	 * @param size 
+	 * @param from 
+	 * @param lable 
 	 */
-	private HttpPost createSearchRequest(String searchString, String field)
+	private HttpPost createSearchRequest(String searchString, String field, long from, long size, String lable)
 			throws UnsupportedEncodingException {
 
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
@@ -182,7 +188,7 @@ public class AuthorMapManager {
 			fields[0] = field;
 		}
 
-		SearchCommand command = new SearchCommand(searchString);
+		SearchCommand command = new SearchCommand(searchString, from, size, lable);
 
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);

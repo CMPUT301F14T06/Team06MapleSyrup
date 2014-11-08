@@ -28,6 +28,9 @@ public class LoginActivity extends Activity {
 	private String FILENAME = "AUTHORMAP.sav";
 	private Context context;
 	private AuthorMapManager authorMapManager;
+	private long from = 0;
+	private long size = 1000;
+	private String lable = "author";
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
@@ -145,7 +148,9 @@ public class LoginActivity extends Activity {
 		@Override
 		public void run() {
 			authorMap.clear();
-			authorMap.putAll(authorMapManager.searchAuthors(search, null));
+
+			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
+					size, lable));
 
 		}
 	}

@@ -86,11 +86,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
 			holder.upvoteState.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
-			if (cacheController.hasSaved(question))
+			if (cacheController.hasSaved(getContext(), question))
 				holder.save_Rb.setChecked(true);
 			else
 				holder.save_Rb.setChecked(false);
-			if (cacheController.hasFavorited(question))
+			if (cacheController.hasFavorited(getContext(), question))
 				holder.fav_Rb.setChecked(true);
 			else
 				holder.fav_Rb.setChecked(false);
@@ -116,7 +116,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		@Override
 		public void onClick(View v) {
 			Question question = questionList.get(position);
-			if (cacheController.hasSaved(question)) {
+			if (cacheController.hasSaved(getContext(), question)) {
 				cacheController.removeLocalQuestions(getContext(), question);
 				holder.save_Rb.setChecked(false);
 			} else {
@@ -140,7 +140,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		@Override
 		public void onClick(View v) {
 			Question question = questionList.get(position);
-			if (cacheController.hasFavorited(question)) {
+			if (cacheController.hasFavorited(getContext(), question)) {
 				cacheController.removeFavQuestions(getContext(), question);
 				holder.fav_Rb.setChecked(false);
 			} else {

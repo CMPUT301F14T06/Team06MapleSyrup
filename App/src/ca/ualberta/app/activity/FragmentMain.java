@@ -171,7 +171,7 @@ public class FragmentMain extends Fragment {
 					int position, long id) {
 
 				Question question = questionListController
-						.getQuestion(position);
+						.getQuestion(position - 1);
 
 				if (User.author != null
 						&& User.author.getUsername().equals(
@@ -329,7 +329,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		adapter.notifyDataSetChanged();
+		updateList();
 
 	}
 
@@ -390,9 +390,9 @@ public class FragmentMain extends Fragment {
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
 			tempFav = questionListManager.getQuestionMap(cacheController
-					.getFavoriteId());
+					.getFavoriteId(mcontext));
 			tempSav = questionListManager.getQuestionMap(cacheController
-					.getLocalCacheId());
+					.getLocalCacheId(mcontext));
 			cacheController.addAll(mcontext, tempFav, tempSav);
 		}
 	}

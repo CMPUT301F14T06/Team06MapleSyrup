@@ -35,9 +35,11 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
- * This is the fragment activity for the search functionality, once a user clicks the "Search" button on the bottom action bar
+ * This is the fragment activity for the search functionality, once a user
+ * clicks the "Search" button on the bottom action bar
  * 
- * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
+ * The fragment part is from this web site:
+ * http://www.programering.com/a/MjNzIDMwATI.html
  * 
  * @author Anni, Bicheng, Xiaocong
  */
@@ -73,7 +75,8 @@ public class FragmentSearch extends Fragment {
 	private long size = 5;
 
 	/**
-	 * Thread notify the adapter changes in data, and update the adapter after an operation
+	 * Thread notify the adapter changes in data, and update the adapter after
+	 * an operation
 	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -88,7 +91,8 @@ public class FragmentSearch extends Fragment {
 	};
 
 	/**
-	 * Once the fragment is active, the user interface, R.layout.fragment_search will be load into the fragment.
+	 * Once the fragment is active, the user interface, R.layout.fragment_search
+	 * will be load into the fragment.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,7 +102,8 @@ public class FragmentSearch extends Fragment {
 	}
 
 	/**
-	 * Once the fragment is created, this method will give each view an object to help other methods set data or listener
+	 * Once the fragment is created, this method will give each view an object
+	 * to help other methods set data or listener
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -113,15 +118,15 @@ public class FragmentSearch extends Fragment {
 		sortOptionSpinner = (Spinner) getView().findViewById(
 				R.id.search_sort_spinner);
 
-		mListView = (ScrollListView) getView()
-				.findViewById(R.id.searchQuestion_ListView);
+		mListView = (ScrollListView) getView().findViewById(
+				R.id.searchQuestion_ListView);
 		mListView.setPullLoadEnable(true);
 		mHandler = new Handler();
 	}
 
 	/**
-	 * onStart method
-	 * Setup the adapter for the searching result list, and setup listener for each item (question) in the searching result list.
+	 * onStart method Setup the adapter for the searching result list, and setup
+	 * listener for each item (question) in the searching result list.
 	 */
 	@Override
 	public void onStart() {
@@ -138,13 +143,14 @@ public class FragmentSearch extends Fragment {
 
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
-		
+
 		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
-		
+
 		/**
-		 * Setup the listener for the "Search" button is clicked, so that, once the button is clicked, the current result list will
-		 * be updated to the newest searching result
+		 * Setup the listener for the "Search" button is clicked, so that, once
+		 * the button is clicked, the current result list will be updated to the
+		 * newest searching result
 		 */
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -154,15 +160,16 @@ public class FragmentSearch extends Fragment {
 				updateSearchList();
 			}
 		});
-		
+
 		/**
-		 * Jump to the layout of the chosen question, and show details when click on an item (a question) in the searching result list
+		 * Jump to the layout of the chosen question, and show details when
+		 * click on an item (a question) in the searching result list
 		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionId = questionListController.getQuestion(pos)
+				long questionId = questionListController.getQuestion(pos - 1)
 						.getID();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
@@ -173,8 +180,9 @@ public class FragmentSearch extends Fragment {
 		});
 
 		/**
-		 *  Delete an item (a question) in the searching result list when a user long clicks the question.
- 		 */
+		 * Delete an item (a question) in the searching result list when a user
+		 * long clicks the question.
+		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
@@ -182,7 +190,7 @@ public class FragmentSearch extends Fragment {
 					int position, long id) {
 
 				Question question = questionListController
-						.getQuestion(position);
+						.getQuestion(position - 1);
 
 				if (User.author != null
 						&& User.author.getUsername().equals(
@@ -201,16 +209,19 @@ public class FragmentSearch extends Fragment {
 				return true;
 			}
 		});
-		
+
 		// updateList();
 		/**
-		 * Update the current questions on screen, if a user scroll the searching result list
+		 * Update the current questions on screen, if a user scroll the
+		 * searching result list
 		 */
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
 			/**
-			 * Will called to update the content in the current result list when the data is changed or sorted;
-			 * also, this method will tell the user the current interval of the question that are displayed on the screen
+			 * Will called to update the content in the current result list when
+			 * the data is changed or sorted; also, this method will tell the
+			 * user the current interval of the question that are displayed on
+			 * the screen
 			 */
 			@Override
 			public void onRefresh() {
@@ -224,15 +235,17 @@ public class FragmentSearch extends Fragment {
 			}
 
 			/**
-			 * this method will be called when a user up or down scroll the current result list to update the corresponding searching results on the screen;
-			 * also, this method will tell the user the current interval of the question that are displayed on the screen
+			 * this method will be called when a user up or down scroll the
+			 * current result list to update the corresponding searching results
+			 * on the screen; also, this method will tell the user the current
+			 * interval of the question that are displayed on the screen
 			 */
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						size += 5;					
+						size += 5;
 						updateSearchList();
 						onLoad();
 					}
@@ -240,7 +253,7 @@ public class FragmentSearch extends Fragment {
 			}
 		});
 	}
-	
+
 	/**
 	 * stop refresh and loading, reset header and the footer view.
 	 */
@@ -250,10 +263,10 @@ public class FragmentSearch extends Fragment {
 		mListView.stopLoadMore();
 		mListView.setRefreshTime(timestamp.toString());
 	}
-	
-	
+
 	/**
 	 * This class represents the functions in the sorting menu
+	 * 
 	 * @author Anni
 	 */
 	private class change_category_click implements OnItemSelectedListener {
@@ -291,7 +304,7 @@ public class FragmentSearch extends Fragment {
 			}
 			updateSearchList();
 		}
-		
+
 		/**
 		 * Use default sort method is nothing is chosen
 		 */
@@ -299,9 +312,10 @@ public class FragmentSearch extends Fragment {
 			sortOptionSpinner.setSelection(0);
 		}
 	}
-	
+
 	/**
-	 * Update the content of the searching result list by finding and loading the new list contents from the new searching result
+	 * Update the content of the searching result list by finding and loading
+	 * the new list contents from the new searching result
 	 */
 	private void updateSearchList() {
 		if (User.loginStatus == true) {
@@ -333,7 +347,8 @@ public class FragmentSearch extends Fragment {
 	}
 
 	/**
-	 * this class will be called a thread of question list in the cache array for updating/other operations
+	 * this class will be called a thread of question list in the cache array
+	 * for updating/other operations
 	 */
 	class GetMapThread extends Thread {
 		@Override
@@ -342,17 +357,18 @@ public class FragmentSearch extends Fragment {
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
 			tempFav = questionListManager.getQuestionMap(cacheController
-					.getFavoriteId());
+					.getFavoriteId(mcontext));
 			tempSav = questionListManager.getQuestionMap(cacheController
-					.getLocalCacheId());
+					.getLocalCacheId(mcontext));
 			cacheController.addAll(mcontext, tempFav, tempSav);
 		}
 	}
 
 	/**
 	 * this class will be used to run thread for push and updating data
+	 * 
 	 * @author Anni, Bicheng
-	 *
+	 * 
 	 */
 	class SearchThread extends Thread {
 		private String search;
@@ -376,13 +392,15 @@ public class FragmentSearch extends Fragment {
 			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}
-	
+
 	class DeleteThread extends Thread {
 		private long questionID;
 
 		/**
 		 * delete a thread
-		 * @param questionID the ID for the thread of a question
+		 * 
+		 * @param questionID
+		 *            the ID for the thread of a question
 		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;

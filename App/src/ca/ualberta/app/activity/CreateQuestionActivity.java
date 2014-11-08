@@ -41,7 +41,9 @@ public class CreateQuestionActivity extends Activity {
 	private AuthorMapManager authorMapManager;
 	private String FILENAME = "AUTHORMAP.sav";
 	private AuthorMap authorMap;
-
+	private long from = 0;
+	private long size= 1000;
+	private String lable = "author";
 	Uri imageFileUri;
 	Uri stringFileUri;
 
@@ -226,7 +228,7 @@ public class CreateQuestionActivity extends Activity {
 		@Override
 		public void run() {
 			authorMap.clear();
-			authorMap.putAll(authorMapManager.searchAuthors(search, null));
+			authorMap.putAll(authorMapManager.searchAuthors(search, null, from, size, lable));
 		}
 	}
 

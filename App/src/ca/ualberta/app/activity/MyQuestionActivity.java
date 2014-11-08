@@ -101,7 +101,7 @@ public class MyQuestionActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = myQuestionListController.getQuestion(pos)
+				long questionID = myQuestionListController.getQuestion(pos-1)
 						.getID();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
@@ -118,7 +118,7 @@ public class MyQuestionActivity extends Activity {
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View view, int position, long id) {
 						Question question = myQuestionListController
-								.getQuestion(position);
+								.getQuestion(position-1);
 						if (User.author != null
 								&& User.author.getUsername().equals(
 										question.getAuthor())) {
