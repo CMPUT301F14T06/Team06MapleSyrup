@@ -45,42 +45,48 @@ public class CacheController {
 		localCacheId = loadIdFromFile(mcontext, LOCALID);
 	}
 
-	public Map<Long, Question> getFavoriteMap() {
+	public Map<Long, Question> getFavoriteMap(Context mcontext) {
+		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		return favoriteMap;
 	}
 
-	public Map<Long, Question> getLocalCacheMap() {
+	public Map<Long, Question> getLocalCacheMap(Context mcontext) {
+		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		return localCacheMap;
 
 	}
 
-	public ArrayList<Long> getFavoriteId() {
+	public ArrayList<Long> getFavoriteId(Context mcontext) {
+		favoriteId = loadIdFromFile(mcontext, FAVID);
 		return favoriteId;
 
 	}
 
-	public ArrayList<Long> getLocalCacheId() {
+	public ArrayList<Long> getLocalCacheId(Context mcontext) {
+		localCacheId = loadIdFromFile(mcontext, LOCALID);
 		return localCacheId;
 
 	}
 
-	public boolean hasFavorited(Question question) {
+	public boolean hasFavorited(Context mcontext, Question question) {
+		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		if (favoriteMap.get(question.getID()) == null)
 			return false;
 		return true;
 	}
 
-	public boolean hasSaved(Question question) {
+	public boolean hasSaved(Context mcontext, Question question) {
+		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		if (localCacheMap.get(question.getID()) == null)
 			return false;
 		return true;
 	}
 
 	public void addFavQuestions(Context mcontext, Question question) {
-		if (!hasFavorited(question)) {
-			// favoriteMap = loadMapFromFile(mcontext, FAVMAP);
+		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
+		favoriteId = loadIdFromFile(mcontext, FAVID);
+		if (!hasFavorited(mcontext, question)) {
 			favoriteMap.put(question.getID(), question);
-			// favoriteId = loadIdFromFile(mcontext, FAVID);
 			favoriteId.add(question.getID());
 			saveInFile(mcontext, favoriteMap, FAVMAP);
 			saveInFile(mcontext, favoriteId, FAVID);
@@ -88,7 +94,9 @@ public class CacheController {
 	}
 
 	public void addLocalQuestions(Context mcontext, Question question) {
-		if (!hasSaved(question)) {
+		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
+		localCacheId = loadIdFromFile(mcontext, LOCALID);
+		if (!hasSaved(mcontext, question)) {
 			localCacheMap.put(question.getID(), question);
 			localCacheId.add(question.getID());
 			saveInFile(mcontext, localCacheMap, LOCALMAP);
@@ -97,9 +105,9 @@ public class CacheController {
 	}
 
 	public void removeFavQuestions(Context mcontext, Question question) {
-		// favoriteMap = loadMapFromFile(mcontext, FAVMAP);
+		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
+		favoriteId = loadIdFromFile(mcontext, FAVID);
 		favoriteMap.remove(question.getID());
-		// favoriteId = loadIdFromFile(mcontext, FAVID);
 		for (int i = 0; i < favoriteId.size(); i++) {
 			if (favoriteId.get(i) == question.getID()) {
 				favoriteId.remove(i);
@@ -111,6 +119,8 @@ public class CacheController {
 	}
 
 	public void removeLocalQuestions(Context mcontext, Question question) {
+		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
+		localCacheId = loadIdFromFile(mcontext, LOCALID);
 		localCacheMap.remove(question.getID());
 		for (int i = 0; i < localCacheId.size(); i++) {
 			if (localCacheId.get(i) == question.getID()) {
@@ -123,11 +133,27 @@ public class CacheController {
 	}
 
 	public void updateFavQuestions(Context mcontext, Question question) {
+		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		if (favoriteMap.get(question.getID()) != null) {
 			favoriteMap.remove(question.getID());
 			favoriteMap.put(question.getID(), question);
 			saveInFile(mcontext, favoriteMap, FAVMAP);
 		}
+	}
+
+	public void updateLocalQuestions(Context mcontext, Question question) {
+		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
+		if (localCacheMap.get(question.getID()) != null) {
+			localCacheMap.remove(question.getID());
+			localCacheMap.put(question.getID(), question);
+			saveInFile(mcontext, localCacheMap, LOCALMAP);
+		}
+	}
+
+	public QuestionList getFavoriteQuestionList() {
+		QuestionList questionList = new QuestionList();
+		questionList.getCollection().addAll(this.favoriteMap.values());
+		return questionList;
 	}
 
 	public void clear() {
@@ -141,21 +167,6 @@ public class CacheController {
 		localCacheMap.putAll(tempSav);
 		saveInFile(mcontext, favoriteMap, FAVMAP);
 		saveInFile(mcontext, localCacheMap, LOCALMAP);
-
-	}
-
-	public void updateLocalQuestions(Context mcontext, Question question) {
-		if (localCacheMap.get(question.getID()) != null) {
-			localCacheMap.remove(question.getID());
-			localCacheMap.put(question.getID(), question);
-			saveInFile(mcontext, localCacheMap, LOCALMAP);
-		}
-	}
-
-	public QuestionList getFavoriteQuestionList() {
-		QuestionList questionList = new QuestionList();
-		questionList.getCollection().addAll(this.favoriteMap.values());
-		return questionList;
 	}
 
 	public QuestionList getLocalQuestionsList() {

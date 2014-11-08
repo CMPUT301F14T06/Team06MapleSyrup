@@ -18,8 +18,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
- * This is the activity of each single question in all kinds of question lists in the app.
- * This activity will be call when a item (a question) in a question list is clicked.
+ * This is the activity of each single question in all kinds of question lists
+ * in the app. This activity will be call when a item (a question) in a question
+ * list is clicked.
+ * 
  * @author Anni
  */
 public class QuestionDetailActivity extends Activity {
@@ -49,20 +51,21 @@ public class QuestionDetailActivity extends Activity {
 	private boolean upvote_click = false;
 
 	/**
-	 * This method will be called when the activity is active.
-	 * If a question is selected, then all specific information (question content, title, author, and post date etc.) will be found from the data set.
-	 * This method will also insert the adapter for the single question.
+	 * This method will be called when the activity is active. If a question is
+	 * selected, then all specific information (question content, title, author,
+	 * and post date etc.) will be found from the data set. This method will
+	 * also insert the adapter for the single question.
 	 */
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
 			if (!(save_click || upvote_click || fav_click))
 				cacheController.addLocalQuestions(mcontext, question);
-			if (cacheController.hasSaved(question))
+			if (cacheController.hasSaved(mcontext, question))
 				save_Rb.setChecked(true);
 			else
 				save_Rb.setChecked(false);
 
-			if (cacheController.hasFavorited(question))
+			if (cacheController.hasFavorited(mcontext, question))
 				fav_Rb.setChecked(true);
 			else
 				fav_Rb.setChecked(false);
@@ -95,10 +98,11 @@ public class QuestionDetailActivity extends Activity {
 	};
 
 	/**
-	 * onCreate method
-	 * Once this activity is created, this method will give each view an object to help other methods set data or listener.
-	 * Then, the method will check is the current user has logged in. If the login statue is true, then the  user will be 
-	 * able to see and user the "Add Answer" button. Otherwise, the user cannot see the button.
+	 * onCreate method Once this activity is created, this method will give each
+	 * view an object to help other methods set data or listener. Then, the
+	 * method will check is the current user has logged in. If the login statue
+	 * is true, then the user will be able to see and user the "Add Answer"
+	 * button. Otherwise, the user cannot see the button.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +134,8 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	/**
-	 * onStart method
-	 * Once the activity starts, this method will start the thread for the current question
+	 * onStart method Once the activity starts, this method will start the
+	 * thread for the current question
 	 */
 	@Override
 	protected void onStart() {
@@ -153,6 +157,7 @@ public class QuestionDetailActivity extends Activity {
 
 	/**
 	 * Set the boolean of the save statue of the question to True
+	 * 
 	 * @param view
 	 */
 	public void save_click(View view) {
@@ -163,6 +168,7 @@ public class QuestionDetailActivity extends Activity {
 
 	/**
 	 * Set the boolean of the favorite statue of the question to True
+	 * 
 	 * @param view
 	 */
 	public void fav_click(View view) {
@@ -173,6 +179,7 @@ public class QuestionDetailActivity extends Activity {
 
 	/**
 	 * increase the upvote counter of the question to True
+	 * 
 	 * @param view
 	 */
 	public void upvote_click(View view) {
@@ -182,8 +189,9 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	/**
-	 * This method will be called when the "Add Answer" button is clicked.
-	 * It will start a new activity for answering a question. 
+	 * This method will be called when the "Add Answer" button is clicked. It
+	 * will start a new activity for answering a question.
+	 * 
 	 * @param view
 	 */
 	public void answer_question(View view) {
@@ -193,8 +201,9 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	/**
-	 * This method will be called when the "Add Reply" button is clicked.
-	 * It will start a new activity for replying a question. 
+	 * This method will be called when the "Add Reply" button is clicked. It
+	 * will start a new activity for replying a question.
+	 * 
 	 * @param view
 	 */
 	public void reply_question(View view) {
@@ -204,9 +213,11 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	/**
-	 * Find the current thread and cache all change in information (include answer and reply) for the question
+	 * Find the current thread and cache all change in information (include
+	 * answer and reply) for the question
+	 * 
 	 * @author Anni
-	 *
+	 * 
 	 */
 	class GetThread extends Thread {
 		private long id;
@@ -224,13 +235,13 @@ public class QuestionDetailActivity extends Activity {
 				cacheController.updateLocalQuestions(mcontext, question);
 			}
 			if (save_click == true) {
-				if (cacheController.hasSaved(question))
+				if (cacheController.hasSaved(mcontext, question))
 					cacheController.removeLocalQuestions(mcontext, question);
 				else
 					cacheController.addLocalQuestions(mcontext, question);
 			}
 			if (fav_click == true) {
-				if (cacheController.hasFavorited(question))
+				if (cacheController.hasFavorited(mcontext, question))
 					cacheController.removeFavQuestions(mcontext, question);
 				else
 					cacheController.addFavQuestions(mcontext, question);

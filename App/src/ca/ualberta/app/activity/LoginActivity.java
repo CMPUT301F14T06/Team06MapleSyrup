@@ -17,15 +17,16 @@ import android.widget.Toast;
 
 /**
  * This is the activity for the login functionality.
+ * 
  * @author Anni, Bicheng, Xiaocong
- *
+ * 
  */
 public class LoginActivity extends Activity {
 	private EditText usernameEdit;
 	private String username;
 	private AuthorMap authorMap;
 	private String FILENAME = "AUTHORMAP.sav";
-	private Context context = this;
+	private Context context;
 	private AuthorMapManager authorMapManager;
 	private long from = 0;
 	private long size = 1000;
@@ -37,32 +38,38 @@ public class LoginActivity extends Activity {
 	};
 
 	/**
-	 * onCreate method
-	 * Once a user enter this activity, this method will give each view an object to help other methods set data or listener.
-	 * Also, a new thread for the current user will be created.
+	 * onCreate method Once a user enter this activity, this method will give
+	 * each view an object to help other methods set data or listener. Also, a
+	 * new thread for the current user will be created.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		context = this;
 		usernameEdit = (EditText) findViewById(R.id.username_editText);
 		authorMap = new AuthorMap();
 		authorMapManager = new AuthorMapManager();
 		Thread thread = new SearchThread("");
 		thread.start();
+
 	}
 
 	/**
 	 * Cancel a login action
+	 * 
 	 * @param view
 	 */
 	public void cancel_login(View view) {
 		finish();
+
 	}
 
 	/**
-	 * This method will be called when the user types in a user name and want to login.
-	 * It will check if the user name has already exist in the current data set, and give the user a response.
+	 * This method will be called when the user types in a user name and want to
+	 * login. It will check if the user name has already exist in the current
+	 * data set, and give the user a response.
+	 * 
 	 * @param view
 	 */
 	public void login(View view) {
@@ -97,6 +104,7 @@ public class LoginActivity extends Activity {
 	 */
 	private void notifyAddNewAuthor() {
 		Toast.makeText(this, "Login as New Author", Toast.LENGTH_SHORT).show();
+
 	}
 
 	/**
@@ -117,9 +125,9 @@ public class LoginActivity extends Activity {
 	}
 
 	/**
-	 * Handle action bar item clicks here. The action bar will
-	 * automatically handle clicks on the Home/Up button, so long
-	 * as you specify a parent activity in AndroidManifest.xml.
+	 * Handle action bar item clicks here. The action bar will automatically
+	 * handle clicks on the Home/Up button, so long as you specify a parent
+	 * activity in AndroidManifest.xml.
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -140,14 +148,18 @@ public class LoginActivity extends Activity {
 		@Override
 		public void run() {
 			authorMap.clear();
-			authorMap.putAll(authorMapManager.searchAuthors(search, null, from, size, lable));
+
+			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
+					size, lable));
+
 		}
 	}
 
 	/**
 	 * If the user is not a new user, find the thread for he/her
+	 * 
 	 * @author Anni
-	 *
+	 * 
 	 */
 	class GetThread extends Thread {
 		// TODO: Implement search thread
@@ -165,8 +177,9 @@ public class LoginActivity extends Activity {
 
 	/**
 	 * If the user is a new user, add a new thread for he/her
+	 * 
 	 * @author Anni
-	 *
+	 * 
 	 */
 	class AddThread extends Thread {
 		private Author newAuthor;

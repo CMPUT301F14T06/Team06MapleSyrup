@@ -34,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/author_name"
                 android:textColor="#696969" />
         </LinearLayout>
 
@@ -51,7 +50,6 @@
                 android:id="@+id/questionDetailTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/question_title"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000"
                 android:textSize="16sp" />
@@ -60,7 +58,6 @@
                 android:id="@+id/questionDetailContentTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/single_question"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#696969"
                 android:textSize="13sp" />
@@ -181,12 +178,12 @@
             android:id="@+id/questionTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/linearLayout4"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
             android:layout_below="@+id/linearLayout4"
-            android:text="@string/time" />
-
-    </RelativeLayout>
+            android:layout_marginRight="5dp"
+            android:gravity="center|right" />
+</RelativeLayout>
 
     <ExpandableListView
         android:id="@+id/question_reply_expanableListView"
