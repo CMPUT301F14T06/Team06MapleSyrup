@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
-import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
@@ -13,14 +12,12 @@ import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -30,17 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-/**
- * This is the fragment activity for the users' favorite question list, once a
- * user clicks the "My Favorite" button on the bottom action bar
- * 
- * The fragment part is from this web site:
- * http://www.programering.com/a/MjNzIDMwATI.html
- * 
- * @author Anni
- */
-public class FragmentFavorite extends Fragment {
-	private TextView titleBar;
+public class MyFavoriteActivity extends Activity {
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
 	static String sortByQuestionUpvote = "Sort By Question Upvote";
@@ -75,35 +62,17 @@ public class FragmentFavorite extends Fragment {
 		}
 	};
 
-	/**
-	 * Once the fragment is active, the user interface, R.layout.fragment_fav
-	 * will be load into the fragment.
-	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_fav, container, false);
-	}
-
-	/**
-	 * Once the fragment is created, this method will give each view an object
-	 * to help other methods set data or listener
-	 */
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		titleBar = (TextView) getView().findViewById(R.id.titleTv);
-		titleBar.setText("Favorite");
-		mcontext = getActivity().getApplicationContext();
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_my_favorite);
 		// favQuestionListView = (ListView) getActivity().findViewById(
 		// R.id.favQuestion_ListView);
-		sortOptionSpinner = (Spinner) getActivity().findViewById(
-				R.id.favSort_spinner);
-		mListView = (ScrollListView) getView().findViewById(
-				R.id.favQuestion_ListView);
+		sortOptionSpinner = (Spinner) findViewById(R.id.favSort_spinner);
+		mListView = (ScrollListView) findViewById(R.id.favQuestion_ListView);
 		mListView.setPullLoadEnable(true);
 		mHandler = new Handler();
-
+		mcontext = this;
 	}
 
 	/**
@@ -126,7 +95,6 @@ public class FragmentFavorite extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		updateList();
 
 		/**
 		 * Jump to the layout of the choosen question, and show details when
@@ -304,7 +272,7 @@ public class FragmentFavorite extends Fragment {
 			favQuestionList = favQuestionListManager.getQuestionList(favListId);
 			favQuestionListController.addAll(favQuestionList);
 
-			getActivity().runOnUiThread(doUpdateGUIList);
+			runOnUiThread(doUpdateGUIList);
 		}
 	}
 
@@ -335,7 +303,8 @@ public class FragmentFavorite extends Fragment {
 					break;
 				}
 			}
-			getActivity().runOnUiThread(doUpdateGUIList);
+			runOnUiThread(doUpdateGUIList);
 		}
 	}
+
 }

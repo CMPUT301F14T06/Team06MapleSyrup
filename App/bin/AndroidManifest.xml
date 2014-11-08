@@ -7,8 +7,10 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="17" />
-    <!-- Add permission for internet (android.permission.INTERNET) -->
+
+    <!-- Add permission for Internet (android.permission.INTERNET) -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Add permission for camera (android.permission.CAMERA) -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- Add permission for writing to external storage (android.permission.WRITE_EXTERNAL_STORAGE) -->
@@ -20,7 +22,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="ca.ualberta.app.activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,32 +31,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateQuestionActivity"
+            android:name="ca.ualberta.app.activity.CreateQuestionActivity"
             android:label="@string/title_activity_create_input" >
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="ca.ualberta.app.activity.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name=".QuestionDetailActivity"
+            android:name="ca.ualberta.app.activity.QuestionDetailActivity"
             android:label="@string/title_activity_question_detail" >
         </activity>
         <activity
-            android:name=".MyQuestionActivity"
+            android:name="ca.ualberta.app.activity.MyQuestionActivity"
             android:label="@string/title_activity_my_question" >
         </activity>
         <activity
-            android:name=".CreateAnswerActivity"
+            android:name="ca.ualberta.app.activity.CreateAnswerActivity"
             android:label="@string/title_activity_create_answer" >
         </activity>
         <activity
-            android:name=".CreateQuestionReplyActivity"
+            android:name="ca.ualberta.app.activity.CreateQuestionReplyActivity"
             android:label="@string/title_activity_create_question_reply" >
         </activity>
         <activity
-            android:name=".CreateAnswerReplyActivity"
+            android:name="ca.ualberta.app.activity.CreateAnswerReplyActivity"
             android:label="@string/title_activity_create_answer_reply" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.app.activity.MyFavoriteActivity"
+            android:label="@string/title_activity_my_favorite" >
         </activity>
     </application>
 
