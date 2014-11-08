@@ -124,8 +124,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				holder.save_Rb.setChecked(true);
 
 			}
-			sortingOption = lastSortingOption;
-			applySortMethod();
 			notifyDataSetChanged();
 		}
 	}
@@ -149,8 +147,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				cacheController.addFavQuestions(getContext(), question);
 				holder.fav_Rb.setChecked(true);
 			}
-			sortingOption = lastSortingOption;
-			applySortMethod();
 			notifyDataSetChanged();
 		}
 	}

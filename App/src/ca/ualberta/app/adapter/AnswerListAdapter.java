@@ -52,7 +52,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return answerList.get(groupPosition).getReplyArrayList().get(childPosition);
+		return answerList.get(groupPosition).getReplyArrayList()
+				.get(childPosition);
 	}
 
 	@Override
@@ -82,7 +83,6 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		} else {
 			holder = (ViewHolder_answer) convertView.getTag();
 		}
-		holder.authorPic = (ImageView) convertView.findViewById(R.id.authorPic);
 		holder.image = (ImageView) convertView.findViewById(R.id.answerImage);
 		holder.authorName = (TextView) convertView
 				.findViewById(R.id.authorNameTextView);
@@ -94,8 +94,6 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.upvote_button);
 		holder.timestamp = (TextView) convertView
 				.findViewById(R.id.answer_time_textView);
-		holder.replyList = (ExpandableListView) convertView
-				.findViewById(R.id.answer_reply_expandableListView);
 		holder.image.setVisibility(View.GONE);
 		holder.reply_Rb = (RadioButton) convertView
 				.findViewById(R.id.answer_reply_button);
@@ -118,10 +116,10 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				holder.image.setImageBitmap(answer.getImage());
 			}
 		}
-		holder.upvote_Rb
-				.setOnClickListener(new upvoteOnClickListener(groupPosition));
-		holder.reply_Rb
-				.setOnClickListener(new AddReplyOnClickListener(groupPosition));
+		holder.upvote_Rb.setOnClickListener(new upvoteOnClickListener(
+				groupPosition));
+		holder.reply_Rb.setOnClickListener(new AddReplyOnClickListener(
+				groupPosition));
 
 		return convertView;
 	}
@@ -145,7 +143,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		holder.timestamp = (TextView) convertView
 				.findViewById(R.id.reply_time_textView);
 		convertView.setTag(holder);
-		Reply reply = answerList.get(groupPosition).getReplyArrayList().get(childPosition);
+		Reply reply = answerList.get(groupPosition).getReplyArrayList()
+				.get(childPosition);
 		if (reply != null) {
 			holder.replyContent.setText(reply.getContent());
 			holder.authorName.setText(reply.getAuthor());
@@ -158,7 +157,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
 	}
-	
+
 	private class upvoteOnClickListener implements OnClickListener {
 
 		int position;
@@ -189,8 +188,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(context,
-					CreateAnswerReplyActivity.class);
+			Intent intent = new Intent(context, CreateAnswerReplyActivity.class);
 			intent.putExtra(CreateAnswerReplyActivity.QUESTION_ID,
 					question.getID());
 			intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
@@ -198,14 +196,14 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			notifyDataSetChanged();
 		}
 	}
+
 	class ViewHolder_reply {
 		TextView authorName;
 		TextView replyContent;
 		TextView timestamp;
 	}
-	
+
 	class ViewHolder_answer {
-		ImageView authorPic;
 		TextView authorName;
 		TextView answerContent;
 		RadioButton upvote_Rb;
