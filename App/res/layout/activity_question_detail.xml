@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/questionImage"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/questionImage"
+            android:layout_below="@+id/questionTimeTextView"
             android:orientation="horizontal" >
 
             <RadioButton
@@ -171,43 +171,50 @@
                 android:text="@string/add_reply"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#696969" />
-
         </LinearLayout>
 
         <TextView
             android:id="@+id/questionTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/linearLayout4"
+            android:layout_alignLeft="@+id/questionImage"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/linearLayout4"
-            android:layout_marginRight="5dp"
-            android:gravity="center|right" />
-</RelativeLayout>
-
-    <ExpandableListView
-        android:id="@+id/question_reply_expanableListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1" >
-
-    </ExpandableListView>
-
-    <ExpandableListView
-        android:id="@+id/answer_listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/question_reply_expanableListView" >
-
-    </ExpandableListView>
+            android:layout_below="@+id/questionImage"
+            android:gravity="center|right"
+            android:textSize="12sp" />
+    </RelativeLayout>
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/separator1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/question_detail_Layout"
         android:background="@drawable/separator" />
+
+    <ExpandableListView
+        android:id="@+id/question_reply_expanableListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separator1" >
+    </ExpandableListView>
+
+    <ImageView
+        android:id="@+id/separator2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/question_reply_expanableListView"
+        android:background="@drawable/separator" />
+
+    <ExpandableListView
+        android:id="@+id/answer_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separator2"
+        android:groupIndicator="@null" >
+    </ExpandableListView>
 
 </RelativeLayout>

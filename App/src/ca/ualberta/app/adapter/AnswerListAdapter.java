@@ -120,7 +120,13 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				groupPosition));
 		holder.reply_Rb.setOnClickListener(new AddReplyOnClickListener(
 				groupPosition));
-
+		ImageView expandIndicator = (ImageView) convertView
+				.findViewById(R.id.expandIndicator);
+		if (isExpanded) {
+			expandIndicator.setBackgroundResource(R.drawable.br_up_icon);
+		} else {
+			expandIndicator.setBackgroundResource(R.drawable.br_down_icon);
+		}
 		return convertView;
 	}
 

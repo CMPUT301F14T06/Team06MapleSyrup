@@ -24,6 +24,7 @@
     <string name="add_reply">Add Reply</string>
     <string name="search">Search</string>
     <string name="answer">Answer</string>
+    <string name="answer1">Answer:</string>
     <string name="add_answer">Add Answer</string>
     <string name="question">Question</string>
     <string name="submit">Submit</string>
@@ -65,7 +66,6 @@
     <string name="title_activity_create_answer">CreateAnswerActivity</string>
     <string name="title_activity_create_question_reply">CreateQuestionReplyActivity</string>
     <string name="title_activity_create_answer_reply">CreateAnswerReplyActivity</string>
-    
     <string name="header_hint_normal">Pull down to refresh</string>
     <string name="header_hint_ready">release to refresh</string>
     <string name="header_hint_loading">Updating</string>
