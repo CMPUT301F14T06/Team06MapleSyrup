@@ -211,11 +211,7 @@ public class FragmentMain extends Fragment {
 						from = 0;
 						size = TotalSize;
 						updateList();
-
 						onLoad();
-						Toast.makeText(mcontext,
-								"From: " + from + "  Size: " + size + "",
-								Toast.LENGTH_LONG).show();
 					}
 				}, 2000);
 			}
@@ -248,12 +244,6 @@ public class FragmentMain extends Fragment {
 						needToLoadMore = 1;
 						updateList();
 						onLoad();
-						Toast.makeText(
-								mcontext,
-								"From: " + from + "  TotalSize: " + TotalSize
-										+ "  ListSize: "
-										+ questionListController.size() + "",
-								Toast.LENGTH_LONG).show();
 					}
 				}, 2000);
 			}
