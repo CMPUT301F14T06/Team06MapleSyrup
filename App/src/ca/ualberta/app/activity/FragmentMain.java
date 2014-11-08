@@ -150,6 +150,7 @@ public class FragmentMain extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
+
 				long questionId = questionListController.getQuestion(pos - 1)
 						.getID();
 				Intent intent = new Intent(mcontext,
