@@ -72,7 +72,10 @@ public class FragmentMain extends Fragment {
 	private ScrollListView mListView;
 	private Handler mHandler;
 	private long from = 0;
-	private long size = 5;
+	private long size = 10;
+	private long currentFrom = 0;
+	private long TotalSize = 10;
+	private int needToLoadMore = 0;
 
 	/**
 	 * Thread notify the adapter changes in data, and update the adapter after
@@ -84,7 +87,9 @@ public class FragmentMain extends Fragment {
 				Toast.makeText(getActivity().getApplicationContext(),
 						"No matched results", Toast.LENGTH_LONG).show();
 			}
-			adapter.applySortMethod();
+			if (needToLoadMore == 0) {
+				adapter.applySortMethod();
+			}
 			adapter.notifyDataSetChanged();
 			spin_adapter.notifyDataSetChanged();
 		}
@@ -113,10 +118,8 @@ public class FragmentMain extends Fragment {
 		titleBar.setText("Main");
 		searchEditText = (EditText) getView().findViewById(
 				R.id.question_EditText);
-		searchButton = (Button) getView().findViewById(
-				R.id.question_Button);
-		sortOptionSpinner = (Spinner) getView().findViewById(
-				R.id.sort_spinner);
+		searchButton = (Button) getView().findViewById(R.id.question_Button);
+		sortOptionSpinner = (Spinner) getView().findViewById(R.id.sort_spinner);
 
 		mListView = (ScrollListView) getView().findViewById(
 				R.id.question_ListView);
@@ -148,8 +151,7 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		updateSearchList();
-		
+
 		/**
 		 * Setup the listener for the "Search" button is clicked, so that, once
 		 * the button is clicked, the current result list will be updated to the
@@ -161,7 +163,7 @@ public class FragmentMain extends Fragment {
 				updateSearchList();
 			}
 		});
-
+		
 		/**
 		 * Jump to the layout of the chosen question, and show details when
 		 * click on an item (a question) in the searching result list
@@ -228,6 +230,9 @@ public class FragmentMain extends Fragment {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
+						needToLoadMore = 0;
+						from = 0;
+						size = TotalSize;
 						updateSearchList();
 						onLoad();
 					}
@@ -245,7 +250,21 @@ public class FragmentMain extends Fragment {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						size += 5;
+						from = currentFrom;
+						size = 10;
+						if (from < questionListController.size()) {
+							from += 10;
+							TotalSize += 10;
+						} else {
+							from = questionListController.size();
+							if (TotalSize - from > 10) {
+								TotalSize -= 10;
+							}
+							Toast.makeText(mcontext, "All Questions loaded",
+									Toast.LENGTH_LONG).show();
+						}
+						currentFrom = from;
+						needToLoadMore = 1;
 						updateSearchList();
 						onLoad();
 					}
@@ -266,8 +285,6 @@ public class FragmentMain extends Fragment {
 
 	/**
 	 * This class represents the functions in the sorting menu
-	 * 
-	 * @author Anni
 	 */
 	private class change_category_click implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view,
@@ -327,7 +344,6 @@ public class FragmentMain extends Fragment {
 		cacheController.clear();
 		Thread getMapThread = new GetMapThread();
 		getMapThread.start();
-		questionListController.clear();
 		String searchString = searchEditText.getText().toString();
 		// searchEditText.setText("");
 		Thread thread = new SearchThread(searchString);
@@ -380,9 +396,14 @@ public class FragmentMain extends Fragment {
 
 		@Override
 		public void run() {
-			questionListController.clear();
+			if (needToLoadMore == 0) {
+				questionListController.clear();
+			}
 			questionListController.addAll(questionListManager.searchQuestions(
 					search, null, from, size));
+			if (needToLoadMore == 0) {
+				size = 10;
+			}
 			if (questionListManager.searchQuestions(search, null, from, size)
 					.size() != 0) {
 				haveSearchResult = 1;
