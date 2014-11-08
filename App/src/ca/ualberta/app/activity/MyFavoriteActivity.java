@@ -95,7 +95,6 @@ public class MyFavoriteActivity extends Activity {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		updateList();
 
 		/**
 		 * Jump to the layout of the choosen question, and show details when

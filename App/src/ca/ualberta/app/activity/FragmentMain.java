@@ -12,6 +12,7 @@ import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnection;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.content.Context;
@@ -163,7 +164,7 @@ public class FragmentMain extends Fragment {
 				updateSearchList();
 			}
 		});
-		
+
 		/**
 		 * Jump to the layout of the chosen question, and show details when
 		 * click on an item (a question) in the searching result list
@@ -283,6 +284,19 @@ public class FragmentMain extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		if (InternetConnection.isNetworkAvailable(mcontext)) {
+			Toast.makeText(mcontext, "Internet is avaliable",
+					Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(mcontext,
+					"Internet is not avaliable",
+					Toast.LENGTH_LONG).show();
+		}
+	}
 	/**
 	 * This class represents the functions in the sorting menu
 	 */
@@ -404,6 +418,7 @@ public class FragmentMain extends Fragment {
 			if (needToLoadMore == 0) {
 				size = 10;
 			}
+
 			if (questionListManager.searchQuestions(search, null, from, size)
 					.size() != 0) {
 				haveSearchResult = 1;
