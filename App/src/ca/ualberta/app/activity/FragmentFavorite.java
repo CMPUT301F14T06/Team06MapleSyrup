@@ -130,7 +130,7 @@ public class FragmentFavorite extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = favQuestionListController.getQuestion(pos)
+				long questionID = favQuestionListController.getQuestion(pos-1)
 						.getID();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
@@ -147,7 +147,7 @@ public class FragmentFavorite extends Fragment {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Question question = favQuestionListController
-						.getQuestion(position);
+						.getQuestion(position-1);
 				if (User.author != null
 						&& User.author.getUsername().equals(
 								question.getAuthor())) {

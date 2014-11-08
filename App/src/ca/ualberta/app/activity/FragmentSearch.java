@@ -162,7 +162,7 @@ public class FragmentSearch extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionId = questionListController.getQuestion(pos)
+				long questionId = questionListController.getQuestion(pos-1)
 						.getID();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
@@ -182,7 +182,7 @@ public class FragmentSearch extends Fragment {
 					int position, long id) {
 
 				Question question = questionListController
-						.getQuestion(position);
+						.getQuestion(position-1);
 
 				if (User.author != null
 						&& User.author.getUsername().equals(

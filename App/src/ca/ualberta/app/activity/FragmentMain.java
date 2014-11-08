@@ -171,7 +171,7 @@ public class FragmentMain extends Fragment {
 					int position, long id) {
 
 				Question question = questionListController
-						.getQuestion(position);
+						.getQuestion(position-1);
 
 				if (User.author != null
 						&& User.author.getUsername().equals(
