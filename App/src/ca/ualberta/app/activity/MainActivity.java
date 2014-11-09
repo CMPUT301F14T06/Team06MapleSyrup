@@ -1,3 +1,23 @@
+/*
+ * Copyright 2014 Anni Dai
+ * Copyright 2014 Bicheng Yan
+ * Copyright 2014 Liwen Chen
+ * Copyright 2014 Liang Jingjing
+ * Copyright 2014 Xiaocong Zhou
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
@@ -16,8 +36,8 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 /**
- * This is the mian active that contains 5 mean functionalities by using
- * fragments: (1) view all questions authors have posted; (2) view users'
+ * This is the mean active that contains 5 mean functionalities by Inflating
+ * 5 fragments: (1) view all questions authors have posted; (2) view users'
  * favorite questions; (3) login as an author, and create a new question; (4)
  * search questions which contain a given keyword; (5) view and modify user
  * profiles.
@@ -25,7 +45,9 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
  * The fragment part is from this web site:
  * http://www.programering.com/a/MjNzIDMwATI.html
  * 
- * @author Anni, Bicheng, Xiaocong
+ * @author Anni
+ * @author Bicheng
+ * @author Xiaocong
  */
 public class MainActivity extends FragmentActivity {
 	private Fragment[] fragments;
@@ -41,6 +63,8 @@ public class MainActivity extends FragmentActivity {
 	 * onCreate method. Once the activity is created, first set the content
 	 * view, and initialize ActionBar for fragments, and a Spinner for sort
 	 * options.
+	 * 
+	 * @param savedInstanceState the saved instance state bundle
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +87,8 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * Connect all fragment activities to the corresponding buttons in the
-	 * action bar at the bottom of the screen. Hide the "ask a question"
+	 * Connecting all fragment activities to the corresponding buttons in the
+	 * action bar at the bottom of the screen. Hiding the "ask a question"
 	 * fragment, until the user login as an author
 	 */
 	private void setFragmentIndicator() {
