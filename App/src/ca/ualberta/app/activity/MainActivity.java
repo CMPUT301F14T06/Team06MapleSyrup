@@ -36,7 +36,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 /**
- * This is the mean active that contains 5 mean functionalities by Inflating
+ * This is the mean activity that contains 5 mean functionalities by inflating
  * 5 fragments: (1) view all questions authors have posted; (2) view users'
  * favorite questions; (3) login as an author, and create a new question; (4)
  * search questions which contain a given keyword; (5) view and modify user

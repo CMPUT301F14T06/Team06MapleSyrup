@@ -35,6 +35,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * This is the activity for the mean functionality of asking a question.
+ * This activity will be acted when the "Reply" button in the
+ * QuestionDetailActivity.java is clicked.
+ * 
+ * @author Anni
+ * @author Bicheng
+ * @author Xiaocong
+ *
+ */
 public class CreateAnswerReplyActivity extends Activity {
 	private EditText contentText = null;
 	private Reply newReply = null;
@@ -42,7 +52,11 @@ public class CreateAnswerReplyActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String ANSWER_POS = "ANSWER_POS";
 	private Intent intent;
-
+	
+	/**
+	 * This method will be called when the user finishes replying an answer 
+	 * to stop the the current thread.
+	 */
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
