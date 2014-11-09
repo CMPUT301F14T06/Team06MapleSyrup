@@ -2,7 +2,6 @@ package ca.ualberta.app.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
@@ -11,7 +10,7 @@ import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
-import ca.ualberta.app.network.InternetConnection;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.os.Bundle;
@@ -71,7 +70,7 @@ public class MyFavoriteActivity extends Activity {
 		// R.id.favQuestion_ListView);
 		sortOptionSpinner = (Spinner) findViewById(R.id.favSort_spinner);
 		mListView = (ScrollListView) findViewById(R.id.favQuestion_ListView);
-		mListView.setPullLoadEnable(true);
+		mListView.setPullLoadEnable(false);
 		mHandler = new Handler();
 		mcontext = this;
 	}
@@ -251,21 +250,22 @@ public class MyFavoriteActivity extends Activity {
 	 * Update the content of the main question list by finding and loading the
 	 * new list contents from the data set (local/online server)
 	 */
-	private void updateList() {
+	public void updateList() {
 		favListId = cacheController.getFavoriteId(mcontext);
 		if (favListId.size() == 0)
 			Toast.makeText(mcontext, "No Favorite Question Added Yet.",
 					Toast.LENGTH_LONG).show();
 
-		if (InternetConnection.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			Thread thread = new GetListThread();
 			thread.start();
+			
 		} else {
 			favQuestionListController.clear();
 			favQuestionList = cacheController.getFavoriteQuestionList();
 			favQuestionListController.addAll(favQuestionList);
 			adapter.applySortMethod();
-			adapter.notifyDataSetChanged();
+			adapter.notifyDataSetChanged();	
 		}
 
 	}

@@ -1,9 +1,8 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.User;
-import ca.ualberta.app.network.InternetConnection;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +20,6 @@ import android.widget.TextView;
  * This is the fragment activity for the mean question list, once the app is started, or a user clicks the "Main" button on the bottom action bar
  * 
  * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
- * 
- * @author Anni
  */
 public class FragmentProfile extends Fragment {
 	private TextView titleBar;
@@ -124,7 +121,7 @@ public class FragmentProfile extends Fragment {
 	public void onResume() {
 		super.onResume();
 		checkLoginStatus();
-		if (InternetConnection.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			titleBar.setText("Profile");
 		} else {
 			titleBar.setText("Profile(Not Connected)");
