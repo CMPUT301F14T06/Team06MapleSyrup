@@ -50,7 +50,7 @@ public class MyFavoriteActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-	
+
 	/**
 	 * Thread notify the adapter changes in data, and update the adapter after
 	 * an operation

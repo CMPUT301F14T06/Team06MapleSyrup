@@ -27,8 +27,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class QuestionListAdapter extends ArrayAdapter<Question> {
-	// private QuestionList localList = null;
-	// private QuestionList favList = null;
 	private ArrayList<Question> questionList = null;
 	private CacheController cacheController;
 	private String sortingOption = null;
@@ -40,11 +38,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	public QuestionListAdapter(Context context, int textViewResourceId,
 			ArrayList<Question> objects) {
 		super(context, textViewResourceId, objects);
-		// this.context = context;
 		this.questionList = objects;
 		cacheController = new CacheController(context);
-		// this.localList = new QuestionList();
-		// this.favList = new QuestionList();
 	}
 
 	@SuppressLint("InflateParams")
@@ -77,7 +72,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				.findViewById(R.id.timeTextView);
 		convertView.setTag(holder);
 		Question question = this.getItem(position);
-
+		
 		if (question != null) {
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
@@ -143,6 +138,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			if (cacheController.hasFavorited(getContext(), question)) {
 				cacheController.removeFavQuestions(getContext(), question);
 				holder.fav_Rb.setChecked(false);
+
 			} else {
 				cacheController.addFavQuestions(getContext(), question);
 				holder.fav_Rb.setChecked(true);

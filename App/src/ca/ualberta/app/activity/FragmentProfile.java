@@ -32,6 +32,7 @@ public class FragmentProfile extends Fragment {
 	private RadioButton local_cache;
 	private RadioButton fav_question;
 	private RadioButton my_question;
+	private RadioButton waiting_list;
 	private RadioButton login;
 	private RadioButton logout;
 	private boolean loginStatus;
@@ -64,6 +65,7 @@ public class FragmentProfile extends Fragment {
 		local_cache = (RadioButton) getView().findViewById(R.id.local_cache);
 		fav_question = (RadioButton) getView().findViewById(R.id.fav_question);
 		my_question = (RadioButton) getView().findViewById(R.id.my_question);
+		waiting_list = (RadioButton) getView().findViewById(R.id.waiting_list);
 		login = (RadioButton) getView().findViewById(R.id.login);
 		logout = (RadioButton) getView().findViewById(R.id.logout);
 		checkLoginStatus();
@@ -152,6 +154,7 @@ public class FragmentProfile extends Fragment {
 			changePhotoButton.setVisibility(View.VISIBLE);
 			setAuthorName.setVisibility(View.VISIBLE);
 			login.setVisibility(View.GONE);
+			waiting_list.setVisibility(View.VISIBLE);
 			logout.setVisibility(View.VISIBLE);
 			my_question.setVisibility(View.VISIBLE);
 			setAuthorName.setText(User.author.getUsername());
@@ -159,6 +162,7 @@ public class FragmentProfile extends Fragment {
 		} else {
 			changePhotoButton.setVisibility(View.GONE);
 			setAuthorName.setVisibility(View.GONE);
+			waiting_list.setVisibility(View.GONE);
 			login.setVisibility(View.VISIBLE);
 			logout.setVisibility(View.GONE);
 			my_question.setVisibility(View.GONE);

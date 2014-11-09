@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ReplyListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Reply> replyList = null;
 	private Context context;
+
 	public ReplyListAdapter(Context context, int singleReply,
 			ArrayList<Reply> objects, Question question) {
 		this.context = context;
@@ -62,9 +64,15 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-			LayoutInflater inflater = LayoutInflater.from(context);
-			convertView = inflater.inflate(R.layout.single_reply_group, null);
-
+		LayoutInflater inflater = LayoutInflater.from(context);
+		convertView = inflater.inflate(R.layout.single_reply_group, null);
+		ImageView expandIndicator = (ImageView) convertView
+				.findViewById(R.id.reply_group_expandIndicator);
+		if (isExpanded) {
+			expandIndicator.setBackgroundResource(R.drawable.br_up_icon);
+		} else {
+			expandIndicator.setBackgroundResource(R.drawable.br_down_icon);
+		}
 		return convertView;
 	}
 
@@ -100,7 +108,7 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
 	}
-	
+
 	class ViewHolder {
 		TextView authorName;
 		TextView replyContent;
