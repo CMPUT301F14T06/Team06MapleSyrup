@@ -22,7 +22,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="ca.ualberta.app.activity.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,36 +31,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.CreateQuestionActivity"
+            android:name=".CreateQuestionActivity"
             android:label="@string/title_activity_create_input" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.QuestionDetailActivity"
+            android:name=".QuestionDetailActivity"
             android:label="@string/title_activity_question_detail" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.MyQuestionActivity"
+            android:name=".MyQuestionActivity"
             android:label="@string/title_activity_my_question" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.CreateAnswerActivity"
+            android:name=".CreateAnswerActivity"
             android:label="@string/title_activity_create_answer" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.CreateQuestionReplyActivity"
+            android:name=".CreateQuestionReplyActivity"
             android:label="@string/title_activity_create_question_reply" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.CreateAnswerReplyActivity"
+            android:name=".CreateAnswerReplyActivity"
             android:label="@string/title_activity_create_answer_reply" >
         </activity>
         <activity
-            android:name="ca.ualberta.app.activity.MyFavoriteActivity"
+            android:name=".MyFavoriteActivity"
             android:label="@string/title_activity_my_favorite" >
+        </activity>
+        <activity
+            android:name=".MyLocalActivity"
+            android:label="@string/title_activity_my_local" >
         </activity>
     </application>
 

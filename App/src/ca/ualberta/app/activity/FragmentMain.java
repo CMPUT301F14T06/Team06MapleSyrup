@@ -289,12 +289,9 @@ public class FragmentMain extends Fragment {
 	public void onResume(){
 		super.onResume();
 		if (InternetConnection.isNetworkAvailable(mcontext)) {
-			Toast.makeText(mcontext, "Internet is avaliable",
-					Toast.LENGTH_LONG).show();
+			titleBar.setText("Main");
 		} else {
-			Toast.makeText(mcontext,
-					"Internet is not avaliable",
-					Toast.LENGTH_LONG).show();
+			titleBar.setText("Main(Not Connected)");
 		}
 	}
 	/**

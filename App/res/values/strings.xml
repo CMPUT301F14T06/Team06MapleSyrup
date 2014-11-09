@@ -72,5 +72,6 @@
     <string name="header_last_time">Last Update Time：</string>
     <string name="footer_hint_normal">Pull up to view more</string>
     <string name="footer_hint_ready">release to load more</string>
+    <string name="title_activity_my_local">MyLocalActivity</string>
 
 </resources>

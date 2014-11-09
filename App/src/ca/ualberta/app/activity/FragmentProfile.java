@@ -3,6 +3,8 @@ package ca.ualberta.app.activity;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnection;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,6 +35,7 @@ public class FragmentProfile extends Fragment {
 	private RadioButton login;
 	private RadioButton logout;
 	private boolean loginStatus;
+	private Context mcontext;
 
 	/**
 	 * Once the fragment is active, the user interface, R.layout.fragment_profile will be load into the fragment.
@@ -51,6 +54,7 @@ public class FragmentProfile extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mcontext = getActivity().getApplicationContext();
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Profile");
 		changePhotoButton = (ImageButton) getView().findViewById(
@@ -89,6 +93,7 @@ public class FragmentProfile extends Fragment {
 
 			}
 		});
+		
 		fav_question.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -97,6 +102,16 @@ public class FragmentProfile extends Fragment {
 						MyFavoriteActivity.class);
 				startActivity(intent);
 				
+			}
+		});
+		
+		local_cache.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),
+						MyLocalActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
@@ -109,6 +124,11 @@ public class FragmentProfile extends Fragment {
 	public void onResume() {
 		super.onResume();
 		checkLoginStatus();
+		if (InternetConnection.isNetworkAvailable(mcontext)) {
+			titleBar.setText("Profile");
+		} else {
+			titleBar.setText("Profile(Not Connected)");
+		}
 	}
 
 	/**

@@ -2,6 +2,7 @@ package ca.ualberta.app.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
@@ -10,6 +11,7 @@ import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnection;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.os.Bundle;
@@ -21,7 +23,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -49,7 +50,7 @@ public class MyFavoriteActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-
+	
 	/**
 	 * Thread notify the adapter changes in data, and update the adapter after
 	 * an operation
@@ -199,14 +200,12 @@ public class MyFavoriteActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		// updateList();
+		updateList();
 	}
 
 	/**
 	 * This class represents the functions in the sorting menu in the spinner at
 	 * the top of the screen
-	 * 
-	 * @author Anni
 	 */
 	private class change_category_click implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view,
@@ -237,7 +236,7 @@ public class MyFavoriteActivity extends Activity {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			updateList();
+			// updateList();
 		}
 
 		/**
@@ -257,8 +256,18 @@ public class MyFavoriteActivity extends Activity {
 		if (favListId.size() == 0)
 			Toast.makeText(mcontext, "No Favorite Question Added Yet.",
 					Toast.LENGTH_LONG).show();
-		Thread thread = new GetListThread();
-		thread.start();
+
+		if (InternetConnection.isNetworkAvailable(mcontext)) {
+			Thread thread = new GetListThread();
+			thread.start();
+		} else {
+			favQuestionListController.clear();
+			favQuestionList = cacheController.getFavoriteQuestionList();
+			favQuestionListController.addAll(favQuestionList);
+			adapter.applySortMethod();
+			adapter.notifyDataSetChanged();
+		}
+
 	}
 
 	/**
