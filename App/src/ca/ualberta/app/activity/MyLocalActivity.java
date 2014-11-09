@@ -81,7 +81,6 @@ public class MyLocalActivity extends Activity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		// FAVQUESTION = User.author.getUsername() + "FAV.sav";
 		cacheController = new CacheController(mcontext);
 		localQuestionListController = new QuestionListController();
 		localQuestionListManager = new QuestionListManager();
@@ -94,7 +93,8 @@ public class MyLocalActivity extends Activity {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-
+		updateList();
+		
 		/**
 		 * Jump to the layout of the choosen question, and show details when
 		 * click on an item (a question) in the favorite question list
@@ -192,14 +192,14 @@ public class MyLocalActivity extends Activity {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	/**
-	 * onResume method
-	 */
-	@Override
-	public void onResume() {
-		super.onResume();
-		updateList();
-	}
+//	/**
+//	 * onResume method
+//	 */
+//	@Override
+//	public void onResume() {
+//		super.onResume();
+//		updateList();
+//	}
 
 	/**
 	 * This class represents the functions in the sorting menu in the spinner at
@@ -249,7 +249,7 @@ public class MyLocalActivity extends Activity {
 	 * Update the content of the main question list by finding and loading the
 	 * new list contents from the data set (local/online server)
 	 */
-	public void updateList() {
+	private void updateList() {
 		localListId = cacheController.getLocalCacheId(mcontext);
 		if (localListId.size() == 0)
 			Toast.makeText(mcontext, "No Question Cached Yet.",

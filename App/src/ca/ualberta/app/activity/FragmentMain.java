@@ -153,7 +153,7 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-
+		updateList();
 		/**
 		 * Setup the listener for the "Search" button is clicked, so that, once
 		 * the button is clicked, the current result list will be updated to the
@@ -358,7 +358,7 @@ public class FragmentMain extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			updateList();
+			//updateList();
 		}
 
 		/**
@@ -373,7 +373,7 @@ public class FragmentMain extends Fragment {
 	 * Update the content of the searching result list by finding and loading
 	 * the new list contents from the new searching result
 	 */
-	public void updateList() {
+	private void updateList() {
 		if (User.loginStatus == true) {
 			MYQUESTION = User.author.getUsername() + "my.sav";
 			myQuestionListController.clear();

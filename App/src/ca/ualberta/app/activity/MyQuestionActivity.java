@@ -228,7 +228,7 @@ public class MyQuestionActivity extends Activity {
 	 * Update the content of the user's own question list by finding and loading
 	 * the new list contents from the data set (local/online server)
 	 */
-	public void updateList() {
+	private void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
 			QuestionListController.saveInFile(mcontext,
 					myQuestionListController.getQuestionList(), MYQUESTION);
