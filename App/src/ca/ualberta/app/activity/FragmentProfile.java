@@ -40,6 +40,10 @@ import android.widget.TextView;
  * This is the fragment activity for the mean question list, once the app is started, or a user clicks the "Main" button on the bottom action bar
  * 
  * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
+ * 
+ * @author Anni
+ * @author Bicheng
+ * @author Xiaocong
  */
 public class FragmentProfile extends Fragment {
 	private TextView titleBar;
