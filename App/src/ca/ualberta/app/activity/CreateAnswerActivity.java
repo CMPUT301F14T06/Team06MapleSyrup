@@ -95,7 +95,8 @@ public class CreateAnswerActivity extends Activity {
 	}
 
 	/**
-	 * If the user cancel the answering question operation, then stop the current thread
+	 * If the user cancel the current operation, then stop the current thread
+	 * 
 	 * @param view View passed to the activity to check which button was pressed.
 	 */
 	public void cancel_answer(View view) {
@@ -203,8 +204,13 @@ public class CreateAnswerActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * check if the item in the menu is selected
+	 * 
+	 * @param menu The menu.
+	 * @return true if the item is selected.
+	 */
 	@Override
-
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
