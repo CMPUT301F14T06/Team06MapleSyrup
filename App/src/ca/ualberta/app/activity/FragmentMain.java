@@ -12,7 +12,7 @@ import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
-import ca.ualberta.app.network.InternetConnection;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.content.Context;
@@ -166,12 +166,12 @@ public class FragmentMain extends Fragment {
 						&& !(searchEditText.getText().length() == 0)) {
 					searchButton.setText("Cancel");
 					searchEditText.clearFocus();
-					updateSearchList();
+					updateList();
 				} else {
 					searchButton.setText("Search");
 					searchEditText.clearFocus();
 					searchEditText.setText("");
-					updateSearchList();
+					updateList();
 				}
 			}
 		});
@@ -179,7 +179,6 @@ public class FragmentMain extends Fragment {
 
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				// TODO Auto-generated method stub
 				if (hasFocus) {
 					searchButton.setText("Search");
 				}
@@ -189,7 +188,6 @@ public class FragmentMain extends Fragment {
 		searchEditText.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				searchButton.setText("Search");
 			}
 		});
@@ -263,7 +261,7 @@ public class FragmentMain extends Fragment {
 						needToLoadMore = 0;
 						from = 0;
 						size = TotalSize;
-						updateSearchList();
+						updateList();
 						onLoad();
 					}
 				}, 2000);
@@ -295,7 +293,7 @@ public class FragmentMain extends Fragment {
 						}
 						currentFrom = from;
 						needToLoadMore = 1;
-						updateSearchList();
+						updateList();
 						onLoad();
 					}
 				}, 2000);
@@ -316,7 +314,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (InternetConnection.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			titleBar.setText("Main");
 		} else {
 			titleBar.setText("Main(Not Connected)");
@@ -360,7 +358,7 @@ public class FragmentMain extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			updateSearchList();
+			updateList();
 		}
 
 		/**
@@ -375,7 +373,7 @@ public class FragmentMain extends Fragment {
 	 * Update the content of the searching result list by finding and loading
 	 * the new list contents from the new searching result
 	 */
-	private void updateSearchList() {
+	public void updateList() {
 		if (User.loginStatus == true) {
 			MYQUESTION = User.author.getUsername() + "my.sav";
 			myQuestionListController.clear();

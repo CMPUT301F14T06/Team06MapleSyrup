@@ -10,7 +10,7 @@ import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
-import ca.ualberta.app.network.InternetConnection;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.app.Activity;
@@ -50,7 +50,6 @@ public class MyLocalActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-	
 	/**
 	 * Thread notify the adapter changes in data, and update the adapter after
 	 * an operation
@@ -62,22 +61,23 @@ public class MyLocalActivity extends Activity {
 			spin_adapter.notifyDataSetChanged();
 		}
 	};
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_local);
 		sortOptionSpinner = (Spinner) findViewById(R.id.localSort_spinner);
 		mListView = (ScrollListView) findViewById(R.id.localQuestion_ListView);
-		mListView.setPullLoadEnable(true);
+		mListView.setPullLoadEnable(false);
 		mHandler = new Handler();
 		mcontext = this;
 	}
+
 	/**
 	 * onStart method Setup the adapter for the users' favorite question list,
 	 * and setup listener for each item (question) in the favorite list.
 	 */
-	
+
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -103,8 +103,8 @@ public class MyLocalActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = localQuestionListController
-						.getQuestion(pos - 1).getID();
+				long questionID = localQuestionListController.getQuestion(
+						pos - 1).getID();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
@@ -181,7 +181,7 @@ public class MyLocalActivity extends Activity {
 			}
 		});
 	}
-	
+
 	/**
 	 * stop refresh and loading, reset header and the footer view.
 	 */
@@ -191,7 +191,7 @@ public class MyLocalActivity extends Activity {
 		mListView.stopLoadMore();
 		mListView.setRefreshTime(timestamp.toString());
 	}
-	
+
 	/**
 	 * onResume method
 	 */
@@ -200,7 +200,7 @@ public class MyLocalActivity extends Activity {
 		super.onResume();
 		updateList();
 	}
-	
+
 	/**
 	 * This class represents the functions in the sorting menu in the spinner at
 	 * the top of the screen
@@ -244,18 +244,18 @@ public class MyLocalActivity extends Activity {
 			sortOptionSpinner.setSelection(0);
 		}
 	}
-	
+
 	/**
 	 * Update the content of the main question list by finding and loading the
 	 * new list contents from the data set (local/online server)
 	 */
-	private void updateList() {
+	public void updateList() {
 		localListId = cacheController.getLocalCacheId(mcontext);
 		if (localListId.size() == 0)
 			Toast.makeText(mcontext, "No Question Cached Yet.",
 					Toast.LENGTH_LONG).show();
 
-		if (InternetConnection.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable(this)) {
 			Thread thread = new GetListThread();
 			thread.start();
 		} else {
@@ -267,6 +267,7 @@ public class MyLocalActivity extends Activity {
 		}
 
 	}
+
 	/**
 	 * this class will be called a thread of question list in the cache array
 	 * for updating/other operations
@@ -275,7 +276,8 @@ public class MyLocalActivity extends Activity {
 		@Override
 		public void run() {
 			localQuestionListController.clear();
-			localQuestionList = localQuestionListManager.getQuestionList(localListId);
+			localQuestionList = localQuestionListManager
+					.getQuestionList(localListId);
 			localQuestionListController.addAll(localQuestionList);
 
 			runOnUiThread(doUpdateGUIList);
@@ -312,7 +314,7 @@ public class MyLocalActivity extends Activity {
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
