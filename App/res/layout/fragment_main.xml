@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical" >
 
     <include
@@ -27,9 +29,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/question_Button"
-        android:ems="10" >
-
-        <requestFocus />
+        android:ems="10"
+        android:hint="@string/search" >
     </EditText>
 
     <Button
@@ -50,7 +51,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/sort_spinner"
         android:cacheColorHint="#00000000" >
-
     </ca.ualberta.app.view.ScrollListView>
 
 </RelativeLayout>

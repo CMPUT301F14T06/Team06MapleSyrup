@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -161,7 +162,35 @@ public class FragmentMain extends Fragment {
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				updateSearchList();
+				if (searchButton.getText().equals("Search")
+						&& !(searchEditText.getText().length() == 0)) {
+					searchButton.setText("Cancel");
+					searchEditText.clearFocus();
+					updateSearchList();
+				} else {
+					searchButton.setText("Search");
+					searchEditText.clearFocus();
+					searchEditText.setText("");
+					updateSearchList();
+				}
+			}
+		});
+		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				if (hasFocus) {
+					searchButton.setText("Search");
+				}
+			}
+
+		});
+		searchEditText.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				searchButton.setText("Search");
 			}
 		});
 
@@ -284,19 +313,18 @@ public class FragmentMain extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	
 	@Override
-	public void onResume(){
+	public void onResume() {
 		super.onResume();
 		if (InternetConnection.isNetworkAvailable(mcontext)) {
-			Toast.makeText(mcontext, "Internet is avaliable",
-					Toast.LENGTH_LONG).show();
+			Toast.makeText(mcontext, "Internet is avaliable", Toast.LENGTH_LONG)
+					.show();
 		} else {
-			Toast.makeText(mcontext,
-					"Internet is not avaliable",
+			Toast.makeText(mcontext, "Internet is not avaliable",
 					Toast.LENGTH_LONG).show();
 		}
 	}
+
 	/**
 	 * This class represents the functions in the sorting menu
 	 */
