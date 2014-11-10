@@ -231,9 +231,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 /**
  * class ViewHolder
- * 
- * @author Anni
- * 
  */
 class ViewHolder {
 	ImageView authorPic;

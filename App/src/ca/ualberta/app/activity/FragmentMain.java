@@ -428,19 +428,21 @@ public class FragmentMain extends Fragment {
 	 * the new list contents from the new searching result
 	 */
 	private void updateList() {
-		if (User.loginStatus == true) {
-			MYQUESTION = User.author.getUsername() + "my.sav";
-			myQuestionListController.clear();
-			Thread getListThread = new GetListThread();
-			getListThread.start();
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)){
+			if (User.loginStatus == true) {
+				MYQUESTION = User.author.getUsername() + "my.sav";
+				myQuestionListController.clear();
+				Thread getListThread = new GetListThread();
+				getListThread.start();
+			}
+			cacheController.clear();
+			Thread getMapThread = new GetMapThread();
+			getMapThread.start();
+			String searchString = searchEditText.getText().toString();
+			// searchEditText.setText("");
+			Thread thread = new SearchThread(searchString);
+			thread.start();
 		}
-		cacheController.clear();
-		Thread getMapThread = new GetMapThread();
-		getMapThread.start();
-		String searchString = searchEditText.getText().toString();
-		// searchEditText.setText("");
-		Thread thread = new SearchThread(searchString);
-		thread.start();
 	}
 
 	/**
