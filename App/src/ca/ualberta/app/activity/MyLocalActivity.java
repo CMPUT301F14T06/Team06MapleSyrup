@@ -48,6 +48,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+/**
+ * This is the fragment activity for the functionality of displaying the user's
+ * own question(s). It will be acted when a user clicks the "My Questions"
+ * button in the user profile.
+ * 
+ * The fragment part is from this web site:
+ * http://www.programering.com/a/MjNzIDMwATI.html
+ * 
+ * @author Anni
+ * @author Bicheng
+ * @author Xiaocong
+ */
+
 public class MyLocalActivity extends Activity {
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
@@ -70,6 +83,7 @@ public class MyLocalActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
+	
 	/**
 	 * Thread notify the adapter changes in data, and update the adapter after
 	 * an operation
@@ -82,6 +96,13 @@ public class MyLocalActivity extends Activity {
 		}
 	};
 
+	/**
+	 * onCreate method
+	 * Once a user enter this activity, this method will give each view an object
+	 * to help other methods set data or listeners.
+	 * 
+	 * @param savedInstanceState The saved instance state bundle.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,10 +115,9 @@ public class MyLocalActivity extends Activity {
 	}
 
 	/**
-	 * onStart method Setup the adapter for the users' favorite question list,
-	 * and setup listener for each item (question) in the favorite list.
+	 * onStart method Setup the adapter for the user's question list,
+	 * and setup listener for each item (question) in the user's question list.
 	 */
-
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -120,6 +140,15 @@ public class MyLocalActivity extends Activity {
 		 * click on an item (a question) in the favorite question list
 		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
+			/**
+			 * display the layout of the chosen question, and show details when
+			 * click on an item (a question) in the searching result list
+			 * 
+			 * @param parent The adapter of the item in the list.
+			 * @param view The view.
+			 * @param pos The position of a question.
+			 * @param id The ID of a question. 
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -137,6 +166,17 @@ public class MyLocalActivity extends Activity {
 		 * clicks the question.
 		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			
+			/**
+			 * If the user is the author of the question, and the user long click the
+			 * item (the question) in the question list, then remove the selected question
+			 * from the question list.
+			 * 
+			 * @param parent The adapter of the item in the list.
+			 * @param view The view.
+			 * @param pos The position of a question.
+			 * @param id The ID of a question. 
+			 */
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -226,6 +266,15 @@ public class MyLocalActivity extends Activity {
 	 * the top of the screen
 	 */
 	private class change_category_click implements OnItemSelectedListener {
+		
+		/**
+		 * Based on different conditions, call different sorting functions.
+		 * 
+		 * @param parent The adapter of the item in the list.
+		 * @param view The view.
+		 * @param pos The position of a question.
+		 * @param id The ID of a question. 
+		 */
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			categoryID = position;
@@ -297,10 +346,16 @@ public class MyLocalActivity extends Activity {
 	class GetListThread extends Thread {
 		private ArrayList<Long> localListId;
 
+		/**
+		 * the the constructor of the class.
+		 */
 		public GetListThread(ArrayList<Long> localListId) {
 			this.localListId = localListId;
 		}
 
+		/**
+		 * load questions by question ID
+		 */
 		@Override
 		public void run() {
 			localQuestionListController.clear();
@@ -318,15 +373,14 @@ public class MyLocalActivity extends Activity {
 		/**
 		 * delete a thread
 		 * 
-		 * @param questionID
-		 *            the ID for the thread of a question
+		 * @param questionID The ID for the thread of a question.
 		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;
 		}
 
 		/**
-		 * We need to remove the question from the list as well
+		 * remove the question from the list as well
 		 */
 		@Override
 		public void run() {
@@ -343,11 +397,17 @@ public class MyLocalActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Handle action bar item clicks here. The action bar will
+	 * automatically handle clicks on the Home/Up button, so long
+	 * as you specify a parent activity in AndroidManifest.xml.
+	 * 
+	 * @param menu The menu.
+	 * @return true if the item is selected.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;

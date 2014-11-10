@@ -417,6 +417,7 @@ public class FragmentMain extends Fragment {
 
 		/**
 		 * Use default sort method is nothing is chosen
+		 * @param parent The adapter of the item in the list.
 		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
@@ -453,6 +454,9 @@ public class FragmentMain extends Fragment {
 	 *
 	 */
 	class GetListThread extends Thread {
+		/**
+		 * load questions by question ID
+		 */
 		@Override
 		public void run() {
 			myQuestionListController.clear();
@@ -469,6 +473,10 @@ public class FragmentMain extends Fragment {
 	 * for updating operation or other operations.
 	 */
 	class GetMapThread extends Thread {
+
+		/**
+		 * map the question and the question ID, and save the question
+		 */
 		@Override
 		public void run() {
 			cacheController.clear();

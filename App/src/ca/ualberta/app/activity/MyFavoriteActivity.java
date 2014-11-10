@@ -309,6 +309,7 @@ public class MyFavoriteActivity extends Activity {
 
 		/**
 		 * Use default sort method is nothing is chosen
+		 * @param parent The adapter of the item in the list.
 		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
