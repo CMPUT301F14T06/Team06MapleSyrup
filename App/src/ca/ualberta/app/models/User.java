@@ -23,6 +23,12 @@ package ca.ualberta.app.models;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is the interface of user.
+ * 
+ * @author xiaocong
+ *
+ */
 public class User {
 
 	public static boolean loginStatus = false;
