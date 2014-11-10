@@ -100,9 +100,9 @@ public class AuthorMapManager {
 	 * 
 	 * @param searchString The keyword for searching an author.
 	 * @param field the specified searching field
-	 * @param from 
-	 * @param size
-	 * @param lable
+	 * @param size The size of the string buffer for searching.
+	 * @param from The starting position of searching.
+	 * @param lable The lable of the string buffer.
 	 * 
 	 * @return the searching result.
 	 */
@@ -144,6 +144,8 @@ public class AuthorMapManager {
 
 	/**
 	 * Adds a new author
+	 * 
+	 * @param author The new author.
 	 */
 	public void addAuthor(Author author) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -166,7 +168,9 @@ public class AuthorMapManager {
 	}
 
 	/**
-	 * Update an author
+	 * Update an exist author
+	 * 
+	 * @param author The author.
 	 */
 	public void updateAuthor(Author author) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -190,6 +194,8 @@ public class AuthorMapManager {
 
 	/**
 	 * Deletes the Author with the specified userName
+	 * 
+	 * @param userName the given userName.
 	 */
 	public void deleteAuthor(String userName) {
 		HttpClient httpClient = new DefaultHttpClient();
