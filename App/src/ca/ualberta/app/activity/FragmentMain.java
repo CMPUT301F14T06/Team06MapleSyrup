@@ -361,6 +361,10 @@ public class FragmentMain extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
+	/**
+	 * onResume method
+	 * Once this fragment resumes from other operations, set the text in the title bar.
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -495,7 +499,7 @@ public class FragmentMain extends Fragment {
 		}
 		
 		/**
-		 * check if the app needs to load of the scrolling or load the search result
+		 * check if there are search result
 		 */
 		@Override
 		public void run() {

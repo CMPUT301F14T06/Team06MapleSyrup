@@ -212,7 +212,9 @@ public class CreateQuestionActivity extends Activity {
 	}
 
 	/**
-	 * check if the item in the menu is selected
+	 * Handle action bar item clicks here. The action bar will automatically
+	 * handle clicks on the Home/Up button, so long as you specify a parent
+	 * activity in AndroidManifest.xml.
 	 * 
 	 * @param menu The menu.
 	 * @return true if the item is selected.
