@@ -299,7 +299,7 @@ public class CacheController {
 	}
 
 	/**
-	 * Load the question ID's from the file with give name.
+	 * Load the question ID's from the file with given name.
 	 * 
 	 * @param context The context.
 	 * @param FILENAME The name of the local file.
@@ -326,7 +326,7 @@ public class CacheController {
 	}
 
 	/**
-	 * Load the question Map's from the file with give name.
+	 * Load the question Map's from the file with given name.
 	 * 
 	 * @param context The context.
 	 * @param FILENAME The name of the local file.
