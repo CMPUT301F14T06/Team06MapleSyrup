@@ -38,7 +38,7 @@ public class UpdateAnswerThread extends Thread {
 	private int ansPosition;
 
 	/**
-	 * Set the current answer to the new answer
+	 * The constructor of the class
 	 * 
 	 * @param question The corresponding question.
 	 * @param answer_gonna_update The new answer.

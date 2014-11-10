@@ -35,7 +35,7 @@ public class UpdateAuthorThread extends Thread {
 	private AuthorMapManager authorMapManager;
 	
 	/**
-	 * Set the current author to the new one
+	 * The constructor of the class
 	 * 
 	 * @param author the author object with new author information.
 	 */

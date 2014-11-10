@@ -23,16 +23,31 @@ package ca.ualberta.app.thread;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.models.Question;
 
+/**
+ * This is the functionality of the thread which is used to update 
+ * question details in online server.
+ * 
+ * @author Bicheng
+ *
+ */
 public class UpdateQuestionThread extends Thread {
 	private Question question_gonna_update;
 	private Question question_onServer;
 	private QuestionListManager questionListManager;
 
+	/**
+	 * The constructor of the class
+	 * 
+	 * @param question_update the question instant with new detials.
+	 */
 	public UpdateQuestionThread(Question question_update) {
 		this.question_gonna_update = question_update;
 		this.questionListManager = new QuestionListManager();
 	}
 
+	/**
+	 * start the thread for updating the question instant with new detials
+	 */
 	@Override
 	public void run() {
 		//get the current upvote that stored on server
