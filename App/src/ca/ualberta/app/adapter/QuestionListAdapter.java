@@ -1,3 +1,23 @@
+/*
+ * Copyright 2014 Anni Dai
+ * Copyright 2014 Bicheng Yan
+ * Copyright 2014 Liwen Chen
+ * Copyright 2014 Liang Jingjing
+ * Copyright 2014 Xiaocong Zhou
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
@@ -27,8 +47,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class QuestionListAdapter extends ArrayAdapter<Question> {
-	// private QuestionList localList = null;
-	// private QuestionList favList = null;
 	private ArrayList<Question> questionList = null;
 	private CacheController cacheController;
 	private String sortingOption = null;
@@ -40,11 +58,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	public QuestionListAdapter(Context context, int textViewResourceId,
 			ArrayList<Question> objects) {
 		super(context, textViewResourceId, objects);
-		// this.context = context;
 		this.questionList = objects;
 		cacheController = new CacheController(context);
-		// this.localList = new QuestionList();
-		// this.favList = new QuestionList();
 	}
 
 	@SuppressLint("InflateParams")
@@ -77,7 +92,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				.findViewById(R.id.timeTextView);
 		convertView.setTag(holder);
 		Question question = this.getItem(position);
-
+		
 		if (question != null) {
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
@@ -143,6 +158,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			if (cacheController.hasFavorited(getContext(), question)) {
 				cacheController.removeFavQuestions(getContext(), question);
 				holder.fav_Rb.setChecked(false);
+
 			} else {
 				cacheController.addFavQuestions(getContext(), question);
 				holder.fav_Rb.setChecked(true);

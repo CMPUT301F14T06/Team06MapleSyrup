@@ -14,6 +14,7 @@
     <string name="fav_question">Favoriate Questions</string>
     <string name="local_question">Local Questions</string>
     <string name="my_question">My Questions</string>
+    <string name="waiting_list">Waiting List</string>
     <string name="most_voteQ">Most Upvoted Question:</string>
     <string name="most_voteA">Most Upvoted Answer:</string>
     <string name="current_question">Current Question List:</string>

@@ -1,3 +1,23 @@
+/*
+ * Copyright 2014 Anni Dai
+ * Copyright 2014 Bicheng Yan
+ * Copyright 2014 Liwen Chen
+ * Copyright 2014 Liang Jingjing
+ * Copyright 2014 Xiaocong Zhou
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
@@ -20,6 +40,10 @@ import android.widget.TextView;
  * This is the fragment activity for the mean question list, once the app is started, or a user clicks the "Main" button on the bottom action bar
  * 
  * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
+ * 
+ * @author Anni
+ * @author Bicheng
+ * @author Xiaocong
  */
 public class FragmentProfile extends Fragment {
 	private TextView titleBar;
@@ -29,6 +53,7 @@ public class FragmentProfile extends Fragment {
 	private RadioButton local_cache;
 	private RadioButton fav_question;
 	private RadioButton my_question;
+	private RadioButton waiting_list;
 	private RadioButton login;
 	private RadioButton logout;
 	private boolean loginStatus;
@@ -36,6 +61,12 @@ public class FragmentProfile extends Fragment {
 
 	/**
 	 * Once the fragment is active, the user interface, R.layout.fragment_profile will be load into the fragment.
+	 * 
+	 * @param inflater is used to find out the layout defined in the xml file.
+	 * @param container the view container that contains all views of an single item.
+	 * @param savedInstanceState the saved instance state bundle.
+	 * 
+	 * @return inflater the layout of this fragment.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,8 +76,10 @@ public class FragmentProfile extends Fragment {
 	}
 
 	/**
-	 * Once the fragment is created, this method will give each view an object to help other methods set data.
-	 * Also, the listeners for all buttons will be setup in this method.
+	 * Once the fragment is created, this method will give each view an object
+	 * to help other methods set data or listener.
+	 * 
+	 * @param savedInstanceState the saved instance state bundle.
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -61,10 +94,18 @@ public class FragmentProfile extends Fragment {
 		local_cache = (RadioButton) getView().findViewById(R.id.local_cache);
 		fav_question = (RadioButton) getView().findViewById(R.id.fav_question);
 		my_question = (RadioButton) getView().findViewById(R.id.my_question);
+		waiting_list = (RadioButton) getView().findViewById(R.id.waiting_list);
 		login = (RadioButton) getView().findViewById(R.id.login);
 		logout = (RadioButton) getView().findViewById(R.id.logout);
 		checkLoginStatus();
+		
 		login.setOnClickListener(new OnClickListener() {
+			/**
+			 * Setup the listener for the "Login" button, so that, once
+			 * the button is clicked, the login window will be displayed.
+			 * 
+			 * @param v The view of the button.
+			 */
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), LoginActivity.class);
 				startActivity(intent);
@@ -73,6 +114,13 @@ public class FragmentProfile extends Fragment {
 		});
 		
 		logout.setOnClickListener(new OnClickListener() {
+			/**
+			 * Setup the listener for the "Logout" button, so that, once
+			 * the button is clicked, the activity will be set to the statues before
+			 * logging in.
+			 * 
+			 * @param v The view of the button.
+			 */
 			public void onClick(View v) {
 				User.loginStatus = false;
 				User.author = null;
@@ -81,7 +129,12 @@ public class FragmentProfile extends Fragment {
 		});
 		
 		my_question.setOnClickListener(new OnClickListener() {
-
+			/**
+			 * Setup the listener for the "My Questions" button, so that, once
+			 * the button is clicked, the author's own question(s) can be displayed.
+			 * 
+			 * @param v The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
@@ -92,7 +145,12 @@ public class FragmentProfile extends Fragment {
 		});
 		
 		fav_question.setOnClickListener(new OnClickListener() {
-			
+			/**
+			 * Setup the listener for the "Favorite Questions" button, so that, once
+			 * the button is clicked, the favorite question(s) can be displayed.
+			 * 
+			 * @param v The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
@@ -101,9 +159,14 @@ public class FragmentProfile extends Fragment {
 				
 			}
 		});
-		
+
 		local_cache.setOnClickListener(new OnClickListener() {
-			
+			/**
+			 * Setup the listener for the "My Questions" button, so that, once
+			 * the button is clicked, the author's own question(s) can be displayed.
+			 * 
+			 * @param v The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
@@ -149,6 +212,7 @@ public class FragmentProfile extends Fragment {
 			changePhotoButton.setVisibility(View.VISIBLE);
 			setAuthorName.setVisibility(View.VISIBLE);
 			login.setVisibility(View.GONE);
+			waiting_list.setVisibility(View.VISIBLE);
 			logout.setVisibility(View.VISIBLE);
 			my_question.setVisibility(View.VISIBLE);
 			setAuthorName.setText(User.author.getUsername());
@@ -156,6 +220,7 @@ public class FragmentProfile extends Fragment {
 		} else {
 			changePhotoButton.setVisibility(View.GONE);
 			setAuthorName.setVisibility(View.GONE);
+			waiting_list.setVisibility(View.GONE);
 			login.setVisibility(View.VISIBLE);
 			logout.setVisibility(View.GONE);
 			my_question.setVisibility(View.GONE);

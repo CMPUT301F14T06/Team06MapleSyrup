@@ -1,3 +1,23 @@
+/*
+ * Copyright 2014 Anni Dai
+ * Copyright 2014 Bicheng Yan
+ * Copyright 2014 Liwen Chen
+ * Copyright 2014 Liang Jingjing
+ * Copyright 2014 Xiaocong Zhou
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ca.ualberta.app.activity;
 
 import java.util.Date;
@@ -43,7 +63,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
  * The fragment part is from this web site:
  * http://www.programering.com/a/MjNzIDMwATI.html
  * 
- * @author Anni, Bicheng, Xiaocong
+ * @author Anni
+ * @author Bicheng
+ * @author Xiaocong
  */
 public class FragmentMain extends Fragment {
 	static String sortByDate = "Sort By Date";
@@ -100,6 +122,12 @@ public class FragmentMain extends Fragment {
 	/**
 	 * Once the fragment is active, the user interface, R.layout.fragment_search
 	 * will be load into the fragment.
+	 * 
+	 * @param inflater is used to find out the layout defined in the xml file.
+	 * @param container the view container that contains all views of an single item.
+	 * @param savedInstanceState the saved instance state bundle.
+	 * 
+	 * @return inflater the layout of this fragment.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,7 +138,9 @@ public class FragmentMain extends Fragment {
 
 	/**
 	 * Once the fragment is created, this method will give each view an object
-	 * to help other methods set data or listener
+	 * to help other methods set data or listener.
+	 * 
+	 * @param savedInstanceState the saved instance state bundle.
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -130,7 +160,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * onStart method Setup the adapter for the searching result list, and setup
+	 * onStart method
+	 * Setup the adapter for the searching result list, and setup
 	 * listener for each item (question) in the searching result list.
 	 */
 	@Override
@@ -154,12 +185,15 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
-		/**
-		 * Setup the listener for the "Search" button is clicked, so that, once
-		 * the button is clicked, the current result list will be updated to the
-		 * newest searching result
-		 */
+		
 		searchButton.setOnClickListener(new OnClickListener() {
+			/**
+			 * Setup the listener for the "Search" button, so that, once
+			 * the button is clicked, the current result list will be updated to the
+			 * newest searching result
+			 * 
+			 * @param v The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				if (searchButton.getText().equals("Search")
@@ -175,8 +209,15 @@ public class FragmentMain extends Fragment {
 				}
 			}
 		});
+		
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
-
+			/**
+			 * Setup the listener for the Search edit text, so that, once
+			 * the edit text bar is filled, the app can get the user input text.
+			 * 
+			 * @param v The view of the button.
+			 * @param hasFocus True if the edit text bar are edited. 
+			 */
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
@@ -192,11 +233,16 @@ public class FragmentMain extends Fragment {
 			}
 		});
 
-		/**
-		 * Jump to the layout of the chosen question, and show details when
-		 * click on an item (a question) in the searching result list
-		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
+			/**
+			 * display the layout of the chosen question, and show details when
+			 * click on an item (a question) in the searching result list
+			 * 
+			 * @param parent The adapter of the item in the list.
+			 * @param view The view.
+			 * @param pos The position of a question.
+			 * @param id The ID of a question. 
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -210,12 +256,16 @@ public class FragmentMain extends Fragment {
 
 		});
 
-		/**
-		 * Delete an item (a question) in the searching result list when a user
-		 * long clicks the question.
-		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
+			/**
+			 * Delete an item (a question) in the searching result list when a user
+			 * long clicks the question.
+			 * 
+			 * @param parent The adapter of the item in the list.
+			 * @param view The view.
+			 * @param pos The position of a question.
+			 * @param id The ID of a question. 
+			 */
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -248,7 +298,7 @@ public class FragmentMain extends Fragment {
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
 			/**
-			 * Will called to update the content in the current result list when
+			 * This method will called to update the content in the current result list when
 			 * the data is changed or sorted; also, this method will tell the
 			 * user the current interval of the question that are displayed on
 			 * the screen
@@ -311,6 +361,10 @@ public class FragmentMain extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
+	/**
+	 * onResume method
+	 * Once this fragment resumes from other operations, set the text in the title bar.
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -391,6 +445,13 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
+	/**
+	 * find the author's ID and start the corresponding thread to load all contents
+	 * from the storage.
+	 * 
+	 * @author Anni
+	 *
+	 */
 	class GetListThread extends Thread {
 		@Override
 		public void run() {
@@ -404,8 +465,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * this class will be called a thread of question list in the cache array
-	 * for updating/other operations
+	 * this class will starts a thread of question list in the cache array
+	 * for updating operation or other operations.
 	 */
 	class GetMapThread extends Thread {
 		@Override
@@ -422,19 +483,26 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * this class will be used to run thread for push and updating data
+	 * this class will be used to run thread to load data when the
+	 * question list is searched.
 	 * 
-	 * @author Anni, Bicheng
-	 * 
+	 * @author Bicheng
 	 */
 	class SearchThread extends Thread {
 		private String search;
 
+		/**
+		 * the constructor of the class
+		 * @param s the keyword.
+		 */
 		public SearchThread(String s) {
 			search = s;
 
 		}
-
+		
+		/**
+		 * check if there are search result
+		 */
 		@Override
 		public void run() {
 			if (needToLoadMore == 0) {
@@ -470,7 +538,7 @@ public class FragmentMain extends Fragment {
 		}
 
 		/**
-		 * We need to remove the question from the list as well
+		 * to remove the question from the list
 		 */
 		@Override
 		public void run() {
