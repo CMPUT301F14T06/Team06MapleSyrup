@@ -23,15 +23,30 @@ package ca.ualberta.app.thread;
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.models.Author;
 
+/**
+ * This is the functionality of the thread which is used to update 
+ * author information in online server.
+ * 
+ * @author Bicheng
+ *
+ */
 public class UpdateAuthorThread extends Thread {
 	private Author author;
 	private AuthorMapManager authorMapManager;
 	
+	/**
+	 * Set the current author to the new one
+	 * 
+	 * @param author the author object with new author information.
+	 */
 	public UpdateAuthorThread(Author author) {
 		this.author = author;
 		this.authorMapManager = new AuthorMapManager();
 	}
 
+	/**
+	 * start the thread and update the new author
+	 */
 	@Override
 	public void run() {
 		authorMapManager.updateAuthor(author);
