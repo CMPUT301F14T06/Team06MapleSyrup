@@ -34,7 +34,22 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * Load and save the author map from/to the local files.
+ * 
+ * @author Anni
+ * @author Bicheng
+ *
+ */
 public class AuthorMapIO {
+	/**
+	 * load the author map from the local file
+	 * 
+	 * @param context the context.
+	 * @param FILENAME the name of the local file.
+	 * 
+	 * @return authorMap, the author map.
+	 */
 	public static AuthorMap loadFromFile(Context context, String FILENAME) {
 		AuthorMap authorMap = null;
 		try {
@@ -54,6 +69,13 @@ public class AuthorMapIO {
 		return authorMap;
 	}
 
+	/**
+	 * save the author map to the local file
+	 * 
+	 * @param context the context.
+	 * @param authorMap the given author map.
+	 * @param FILENAME the name of the local file.
+	 */
 	public static void saveInFile(Context context, AuthorMap authorMap,
 			String FILENAME) {
 		try {
