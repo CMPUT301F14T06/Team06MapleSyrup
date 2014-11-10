@@ -27,9 +27,6 @@ import ca.ualberta.app.models.Question;
 /**
  * This is the functionality of the thread which is used to update a answer in
  * online server.
- * 
- * @author Bicheng
- * 
  */
 public class UpdateAnswerThread extends Thread {
 	private Question question;

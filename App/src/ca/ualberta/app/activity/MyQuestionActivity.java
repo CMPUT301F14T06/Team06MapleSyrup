@@ -49,9 +49,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
  * This is the activity of the user's personal question list. It is similar to
  * the main question list, except that only questions that asked by the current
  * user will be shown
- * 
- * @author Anni, Bicheng, Xiaocong
- * 
  */
 public class MyQuestionActivity extends Activity {
 	static String sortByDate = "Sort By Date";

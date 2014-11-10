@@ -62,10 +62,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
  * 
  * The fragment part is from this web site:
  * http://www.programering.com/a/MjNzIDMwATI.html
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
  */
 public class FragmentMain extends Fragment {
 	static String sortByDate = "Sort By Date";

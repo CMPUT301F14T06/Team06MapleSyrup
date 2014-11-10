@@ -36,13 +36,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * This is the activity for the login functionality.
- * Once the "Login" button is clicked or other operations that
- * need author authority are called by a non-author user.
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
+ * This is the activity for the login functionality. Once the "Login" button is
+ * clicked or other operations that need author authority are called by a
+ * non-author user.
  */
 public class LoginActivity extends Activity {
 	private EditText usernameEdit;
@@ -61,12 +57,12 @@ public class LoginActivity extends Activity {
 	};
 
 	/**
-	 * onCreate method
-	 * Once a user enter this activity, this method will give
+	 * onCreate method Once a user enter this activity, this method will give
 	 * each view an object to help other methods set data or listener. Also, a
 	 * new thread for the current user will be created.
 	 * 
-	 * @param savedInstanceState the saved instance state bundle.
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +80,8 @@ public class LoginActivity extends Activity {
 	/**
 	 * stop the thread when cancel a login operation
 	 * 
-	 * @param view The view.
+	 * @param view
+	 *            The view.
 	 */
 	public void cancel_login(View view) {
 		finish();
@@ -96,7 +93,8 @@ public class LoginActivity extends Activity {
 	 * login. It will check if the user name has already exist in the current
 	 * data set, and give the user a response.
 	 * 
-	 * @param view The view.
+	 * @param view
+	 *            The view.
 	 */
 	public void login(View view) {
 		AuthorMapIO.saveInFile(context, authorMap, FILENAME);
@@ -144,7 +142,8 @@ public class LoginActivity extends Activity {
 	/**
 	 * Inflate the menu.
 	 * 
-	 * @param menu The menu.
+	 * @param menu
+	 *            The menu.
 	 * @return true if the menu is acted.
 	 */
 	@Override
@@ -158,7 +157,8 @@ public class LoginActivity extends Activity {
 	 * handle clicks on the Home/Up button, so long as you specify a parent
 	 * activity in AndroidManifest.xml.
 	 * 
-	 * @param menu The menu.
+	 * @param menu
+	 *            The menu.
 	 * @return true if the item is selected.
 	 */
 	@Override
@@ -171,15 +171,17 @@ public class LoginActivity extends Activity {
 	}
 
 	/**
-	 * this class will be used to run thread to load data when the
-	 * question list is searched.
+	 * this class will be used to run thread to load data when the question list
+	 * is searched.
 	 */
 	class SearchThread extends Thread {
 		private String search;
 
 		/**
 		 * the constructor of the class
-		 * @param s the keyword.
+		 * 
+		 * @param s
+		 *            the keyword.
 		 */
 		public SearchThread(String s) {
 			search = s;
@@ -207,7 +209,8 @@ public class LoginActivity extends Activity {
 		/**
 		 * find the thread corresponds to the given user name.
 		 * 
-		 * @param username the user name of the current user.
+		 * @param username
+		 *            the user name of the current user.
 		 */
 		public GetThread(String username) {
 			this.username = username;
@@ -231,7 +234,8 @@ public class LoginActivity extends Activity {
 		/**
 		 * the constructor of the class
 		 * 
-		 * @param newAuthor the current author.
+		 * @param newAuthor
+		 *            the current author.
 		 */
 		public AddThread(Author newAuthor) {
 			this.newAuthor = newAuthor;

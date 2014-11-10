@@ -39,12 +39,9 @@ import com.google.gson.reflect.TypeToken;
 
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
-import ca.ualberta.app.models.User;
 
 /**
  * load question map from local file
- * 
- * @author Bicheng
  */
 public class CacheController {
 	public Map<Long, Question> favoriteMap;

@@ -48,10 +48,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * This manager manages all operations on authors and authors' ID's. 
- * 
- * @author Bicheng
- *
+ * This manager manages all operations on authors and authors' ID's.
  */
 public class AuthorMapManager {
 	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author/_search";
@@ -61,8 +58,7 @@ public class AuthorMapManager {
 	private Gson gson;
 
 	/**
-	 * The constructor of the class
-	 * Initial an instant for gson
+	 * The constructor of the class Initial an instant for gson
 	 */
 	public AuthorMapManager() {
 		gson = new Gson();
@@ -71,7 +67,8 @@ public class AuthorMapManager {
 	/**
 	 * Get a author with the specified ID
 	 * 
-	 * @param username The user's specified ID.
+	 * @param username
+	 *            The user's specified ID.
 	 * 
 	 * @return null.
 	 */
@@ -93,20 +90,26 @@ public class AuthorMapManager {
 
 		return null;
 	}
-	
+
 	/**
 	 * Get authors with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.
 	 * 
-	 * @param searchString The keyword for searching an author.
-	 * @param field the specified searching field
-	 * @param size The size of the string buffer for searching.
-	 * @param from The starting position of searching.
-	 * @param lable The lable of the string buffer.
+	 * @param searchString
+	 *            The keyword for searching an author.
+	 * @param field
+	 *            the specified searching field
+	 * @param size
+	 *            The size of the string buffer for searching.
+	 * @param from
+	 *            The starting position of searching.
+	 * @param lable
+	 *            The lable of the string buffer.
 	 * 
 	 * @return the searching result.
 	 */
-	public AuthorMap searchAuthors(String searchString, String field, long from, long size, String lable) {
+	public AuthorMap searchAuthors(String searchString, String field,
+			long from, long size, String lable) {
 		AuthorMap result = new AuthorMap();
 
 		// TODO: Implement search authors using ElasticSearch
@@ -116,7 +119,8 @@ public class AuthorMapManager {
 
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
-			HttpPost searchRequest = createSearchRequest(searchString, field, from, size, lable);
+			HttpPost searchRequest = createSearchRequest(searchString, field,
+					from, size, lable);
 			HttpResponse response = httpClient.execute(searchRequest);
 
 			String status = response.getStatusLine().toString();
@@ -145,7 +149,8 @@ public class AuthorMapManager {
 	/**
 	 * Adds a new author
 	 * 
-	 * @param author The new author.
+	 * @param author
+	 *            The new author.
 	 */
 	public void addAuthor(Author author) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -170,7 +175,8 @@ public class AuthorMapManager {
 	/**
 	 * Update an exist author
 	 * 
-	 * @param author The author.
+	 * @param author
+	 *            The author.
 	 */
 	public void updateAuthor(Author author) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -195,7 +201,8 @@ public class AuthorMapManager {
 	/**
 	 * Deletes the Author with the specified userName
 	 * 
-	 * @param userName the given userName.
+	 * @param userName
+	 *            the given userName.
 	 */
 	public void deleteAuthor(String userName) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -216,13 +223,17 @@ public class AuthorMapManager {
 	/**
 	 * Creates a search request from a search string and a field
 	 * 
-	 * @param size The size of the string buffer for searching.
-	 * @param from The starting position of searching.
-	 * @param lable The lable of the string buffer.
+	 * @param size
+	 *            The size of the string buffer for searching.
+	 * @param from
+	 *            The starting position of searching.
+	 * @param lable
+	 *            The lable of the string buffer.
 	 * 
 	 * @return searchRequest The searching result.
 	 */
-	private HttpPost createSearchRequest(String searchString, String field, long from, long size, String lable)
+	private HttpPost createSearchRequest(String searchString, String field,
+			long from, long size, String lable)
 			throws UnsupportedEncodingException {
 
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
@@ -233,7 +244,8 @@ public class AuthorMapManager {
 			fields[0] = field;
 		}
 
-		SearchCommand command = new SearchCommand(searchString, from, size, lable);
+		SearchCommand command = new SearchCommand(searchString, from, size,
+				lable);
 
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);
@@ -250,7 +262,8 @@ public class AuthorMapManager {
 	/**
 	 * Load an author form online server
 	 * 
-	 * @param response The online server connection response.
+	 * @param response
+	 *            The online server connection response.
 	 * 
 	 * @return null.
 	 */
@@ -273,7 +286,8 @@ public class AuthorMapManager {
 	/**
 	 * Parses the response of a search
 	 * 
-	 * @param response The online server connection response.
+	 * @param response
+	 *            The online server connection response.
 	 * 
 	 * @return esResponse The parsed response of a search.
 	 * 
@@ -296,7 +310,8 @@ public class AuthorMapManager {
 	/**
 	 * Gets content from an HTTP response
 	 * 
-	 * @param response The online server connection response.
+	 * @param response
+	 *            The online server connection response.
 	 * 
 	 * @return the content from an HTTP response.
 	 * 

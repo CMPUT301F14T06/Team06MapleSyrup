@@ -49,15 +49,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
  * This is the fragment activity for the functionality of displaying the user's
- * favorite question(s). It will be acted when a user clicks the "Favorite Questions"
- * button in the user profile.
+ * favorite question(s). It will be acted when a user clicks the
+ * "Favorite Questions" button in the user profile.
  * 
- * The fragment part is from this web site:
- * http://www.programering.com/a/MjNzIDMwATI.html
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
  */
 public class MyFavoriteActivity extends Activity {
 	static String sortByDate = "Sort By Date";
@@ -95,11 +89,11 @@ public class MyFavoriteActivity extends Activity {
 	};
 
 	/**
-	 * onCreate method
-	 * Once a user enter this activity, this method will give each view an object
-	 * to help other methods set data or listeners.
+	 * onCreate method Once a user enter this activity, this method will give
+	 * each view an object to help other methods set data or listeners.
 	 * 
-	 * @param savedInstanceState The saved instance state bundle.
+	 * @param savedInstanceState
+	 *            The saved instance state bundle.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +109,7 @@ public class MyFavoriteActivity extends Activity {
 	}
 
 	/**
-	 * onStart method
-	 * Setup the adapter for the users' favorite question list,
+	 * onStart method Setup the adapter for the users' favorite question list,
 	 * and setup listener for each item (question) in the favorite list.
 	 */
 	@Override
@@ -138,18 +131,22 @@ public class MyFavoriteActivity extends Activity {
 		updateList();
 
 		/**
-		 * act the layout of the chosen question, and show details when
-		 * click on an item (a question) in the favorite question list
+		 * act the layout of the chosen question, and show details when click on
+		 * an item (a question) in the favorite question list
 		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			/**
 			 * display the layout of the chosen question, and show details when
 			 * click on an item (a question) in the searching result list
 			 * 
-			 * @param parent The adapter of the item in the list.
-			 * @param view The view.
-			 * @param pos The position of a question.
-			 * @param id The ID of a question. 
+			 * @param parent
+			 *            The adapter of the item in the list.
+			 * @param view
+			 *            The view.
+			 * @param pos
+			 *            The position of a question.
+			 * @param id
+			 *            The ID of a question.
 			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
@@ -168,16 +165,20 @@ public class MyFavoriteActivity extends Activity {
 		 * clicks the question.
 		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-			
+
 			/**
-			 * If the user is the author of the question, and the user long click the
-			 * item (the question) in the question list, then remove the selected question
-			 * from the question list.
+			 * If the user is the author of the question, and the user long
+			 * click the item (the question) in the question list, then remove
+			 * the selected question from the question list.
 			 * 
-			 * @param parent The adapter of the item in the list.
-			 * @param view The view.
-			 * @param pos The position of a question.
-			 * @param id The ID of a question. 
+			 * @param parent
+			 *            The adapter of the item in the list.
+			 * @param view
+			 *            The view.
+			 * @param pos
+			 *            The position of a question.
+			 * @param id
+			 *            The ID of a question.
 			 */
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -271,10 +272,14 @@ public class MyFavoriteActivity extends Activity {
 		/**
 		 * Based on different conditions, call different sorting functions.
 		 * 
-		 * @param parent The adapter of the item in the list.
-		 * @param view The view.
-		 * @param pos The position of a question.
-		 * @param id The ID of a question. 
+		 * @param parent
+		 *            The adapter of the item in the list.
+		 * @param view
+		 *            The view.
+		 * @param pos
+		 *            The position of a question.
+		 * @param id
+		 *            The ID of a question.
 		 */
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
@@ -309,7 +314,9 @@ public class MyFavoriteActivity extends Activity {
 
 		/**
 		 * Use default sort method is nothing is chosen
-		 * @param parent The adapter of the item in the list.
+		 * 
+		 * @param parent
+		 *            The adapter of the item in the list.
 		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
@@ -340,11 +347,11 @@ public class MyFavoriteActivity extends Activity {
 	}
 
 	/**
-	 * this class will be called a thread of question list in the cache array
-	 * to load the question list.
+	 * this class will be called a thread of question list in the cache array to
+	 * load the question list.
 	 */
 	class GetListThread extends Thread {
-		
+
 		/**
 		 * load questions by question ID
 		 */
@@ -364,7 +371,8 @@ public class MyFavoriteActivity extends Activity {
 		/**
 		 * delete a thread
 		 * 
-		 * @param questionID the ID for the thread of a question.
+		 * @param questionID
+		 *            the ID for the thread of a question.
 		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;

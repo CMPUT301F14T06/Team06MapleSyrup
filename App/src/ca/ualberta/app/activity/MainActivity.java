@@ -36,18 +36,14 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 /**
- * This is the mean activity that contains 5 mean functionalities by inflating
- * 5 fragments: (1) view all questions authors have posted; (2) view users'
+ * This is the mean activity that contains 5 mean functionalities by inflating 5
+ * fragments: (1) view all questions authors have posted; (2) view users'
  * favorite questions; (3) login as an author, and create a new question; (4)
  * search questions which contain a given keyword; (5) view and modify user
  * profiles.
  * 
  * The fragment part is from this web site:
  * http://www.programering.com/a/MjNzIDMwATI.html
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
  */
 public class MainActivity extends FragmentActivity {
 	private Fragment[] fragments;
@@ -64,7 +60,8 @@ public class MainActivity extends FragmentActivity {
 	 * view, and initialize ActionBar for fragments, and a Spinner for sort
 	 * options.
 	 * 
-	 * @param savedInstanceState the saved instance state bundle
+	 * @param savedInstanceState
+	 *            the saved instance state bundle
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

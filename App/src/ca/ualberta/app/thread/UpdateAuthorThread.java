@@ -24,20 +24,18 @@ import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.models.Author;
 
 /**
- * This is the functionality of the thread which is used to update 
- * author information in online server.
- * 
- * @author Bicheng
- *
+ * This is the functionality of the thread which is used to update author
+ * information in online server.
  */
 public class UpdateAuthorThread extends Thread {
 	private Author author;
 	private AuthorMapManager authorMapManager;
-	
+
 	/**
 	 * The constructor of the class
 	 * 
-	 * @param author the author object with new author information.
+	 * @param author
+	 *            the author object with new author information.
 	 */
 	public UpdateAuthorThread(Author author) {
 		this.author = author;

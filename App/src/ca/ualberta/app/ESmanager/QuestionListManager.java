@@ -51,10 +51,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * This manager manages all operations on questions and question IDs. 
- * 
- * @author Bicheng
- *
+ * This manager manages all operations on questions and question IDs.
  */
 public class QuestionListManager {
 	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question/_search";
@@ -64,8 +61,7 @@ public class QuestionListManager {
 	private Gson gson;
 
 	/**
-	 * The constructor of the class
-	 * Initial an instant for gson
+	 * The constructor of the class Initial an instant for gson
 	 */
 	public QuestionListManager() {
 		gson = new Gson();
@@ -74,7 +70,8 @@ public class QuestionListManager {
 	/**
 	 * Get a question with the specified id
 	 * 
-	 * @param ID the specified id of a question.
+	 * @param ID
+	 *            the specified id of a question.
 	 * 
 	 * @return null.
 	 */
@@ -100,7 +97,8 @@ public class QuestionListManager {
 	/**
 	 * Get the list of questions with the specified ID's in ID list
 	 * 
-	 * @param listID The list of question ID's.
+	 * @param listID
+	 *            The list of question ID's.
 	 * 
 	 * @return questionList The list of questions.
 	 */
@@ -116,7 +114,8 @@ public class QuestionListManager {
 	/**
 	 * Get the map of questions with the specified ID's in ID list
 	 * 
-	 * @param listID The list of question ID's.
+	 * @param listID
+	 *            The list of question ID's.
 	 * 
 	 * @return questionMap The map of questions.
 	 */
@@ -133,11 +132,16 @@ public class QuestionListManager {
 	 * Get questions with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.
 	 * 
-	 * @param searchString The keyword for searching questions.
-	 * @param field the specified searching field
-	 * @param size The size of the string buffer for searching.
-	 * @param from The starting position of searching.
-	 * @param lable The label of the string buffer.
+	 * @param searchString
+	 *            The keyword for searching questions.
+	 * @param field
+	 *            the specified searching field
+	 * @param size
+	 *            The size of the string buffer for searching.
+	 * @param from
+	 *            The starting position of searching.
+	 * @param lable
+	 *            The label of the string buffer.
 	 * 
 	 * @return the searching result.
 	 */
@@ -182,7 +186,8 @@ public class QuestionListManager {
 	/**
 	 * Add a new question to he online server
 	 * 
-	 * @param question The question.
+	 * @param question
+	 *            The question.
 	 */
 	public void addQuestion(Question question) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -206,7 +211,8 @@ public class QuestionListManager {
 	/**
 	 * Update a exist question on the online server
 	 * 
-	 * @param question The question.
+	 * @param question
+	 *            The question.
 	 */
 	public void updateQuestion(Question question) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -227,11 +233,11 @@ public class QuestionListManager {
 		}
 	}
 
-
 	/**
 	 * Deletes the question with a given question ID
 	 * 
-	 * @param questionId The given question ID.
+	 * @param questionId
+	 *            The given question ID.
 	 */
 	public void deleteQuestion(long questionId) {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -252,10 +258,14 @@ public class QuestionListManager {
 	/**
 	 * Creates a search request from a search string and a field
 	 * 
-	 * @param searchString The keyword for searching.
-	 * @param field the specified searching field
-	 * @param size The size of the string buffer for searching.
-	 * @param from The starting position of searching.
+	 * @param searchString
+	 *            The keyword for searching.
+	 * @param field
+	 *            the specified searching field
+	 * @param size
+	 *            The size of the string buffer for searching.
+	 * @param from
+	 *            The starting position of searching.
 	 * 
 	 * @return searchRequest.
 	 * 
@@ -272,7 +282,7 @@ public class QuestionListManager {
 			fields[0] = field;
 		}
 
-		SearchCommand command = new SearchCommand(searchString,from,size);
+		SearchCommand command = new SearchCommand(searchString, from, size);
 
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);
@@ -289,7 +299,8 @@ public class QuestionListManager {
 	/**
 	 * Load a question form online server
 	 * 
-	 * @param response The online server connection response.
+	 * @param response
+	 *            The online server connection response.
 	 * 
 	 * @return null.
 	 */
@@ -312,7 +323,8 @@ public class QuestionListManager {
 	/**
 	 * Parses the response of a search
 	 * 
-	 * @param response The online server connection response.
+	 * @param response
+	 *            The online server connection response.
 	 * 
 	 * @return esResponse The parsed response of a search.
 	 * 
@@ -335,7 +347,8 @@ public class QuestionListManager {
 	/**
 	 * Gets content from an HTTP response
 	 * 
-	 * @param response The online server connection response.
+	 * @param response
+	 *            The online server connection response.
 	 * 
 	 * @return the content from an HTTP response.
 	 * 

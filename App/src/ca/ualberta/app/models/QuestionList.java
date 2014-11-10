@@ -42,7 +42,7 @@ public class QuestionList {
 	}
 
 	/**
-	 * Reurn the question list
+	 * Return the question list
 	 * 
 	 * @return The question list.
 	 */
@@ -77,7 +77,8 @@ public class QuestionList {
 	/**
 	 * Add a question to the question list
 	 * 
-	 * @param newQuestion the question needs to be added to the question list.
+	 * @param newQuestion
+	 *            the question needs to be added to the question list.
 	 */
 	public void addQuestion(Question newQuestion) {
 		this.questionList.add(newQuestion);
@@ -87,7 +88,8 @@ public class QuestionList {
 	/**
 	 * Remove a question from the question list
 	 * 
-	 * @param position The position of the question.
+	 * @param position
+	 *            The position of the question.
 	 */
 	public void removeQuestion(int position) {
 		questionList.remove(position);
@@ -106,7 +108,8 @@ public class QuestionList {
 	/**
 	 * Return the question with a given position
 	 * 
-	 * @param position The given position.
+	 * @param position
+	 *            The given position.
 	 * 
 	 * @return The question.
 	 */
@@ -117,8 +120,10 @@ public class QuestionList {
 	/**
 	 * Add a reply to the given question
 	 * 
-	 * @param newReply The reply.
-	 * @param position The position of the given question.
+	 * @param newReply
+	 *            The reply.
+	 * @param position
+	 *            The position of the given question.
 	 */
 	public void addReplyToQ(Reply newReply, int position) {
 		getReplys(position).add(newReply);
@@ -127,9 +132,12 @@ public class QuestionList {
 	/**
 	 * Add a reply to a given answer to a given question
 	 * 
-	 * @param newReply The reply.
-	 * @param q_position The position of the given question.
-	 * @param a_position The position of the given answer.
+	 * @param newReply
+	 *            The reply.
+	 * @param q_position
+	 *            The position of the given question.
+	 * @param a_position
+	 *            The position of the given answer.
 	 */
 	public void addReplyToA(Reply newReply, int q_position, int a_position) {
 		getAnswers(q_position).get(a_position).addReply(newReply);
@@ -138,8 +146,10 @@ public class QuestionList {
 	/**
 	 * Add an answer to a given question
 	 * 
-	 * @param newAnswer the answer.
-	 * @param position The given question.
+	 * @param newAnswer
+	 *            the answer.
+	 * @param position
+	 *            The given question.
 	 */
 	public void addAnswerToQ(Answer newAnswer, int position) {
 		getAnswers(position).add(newAnswer);
@@ -148,7 +158,8 @@ public class QuestionList {
 	/**
 	 * Return all answers to a question
 	 * 
-	 * @param position the position of the given question.
+	 * @param position
+	 *            the position of the given question.
 	 * 
 	 * @return the list contains all answers to the given question.
 	 */
@@ -159,7 +170,8 @@ public class QuestionList {
 	/**
 	 * Return all replies of a given question
 	 * 
-	 * @param position the position of the given question.
+	 * @param position
+	 *            the position of the given question.
 	 * 
 	 * @return the list contains all replies of the given question.
 	 */
@@ -170,10 +182,13 @@ public class QuestionList {
 	/**
 	 * Return all the replies of the given answer to a given question
 	 * 
-	 * @param q_position The position of the given question.
-	 * @param a_position The position of the given answer.
+	 * @param q_position
+	 *            The position of the given question.
+	 * @param a_position
+	 *            The position of the given answer.
 	 * 
-	 * @return the list contains all the replies of the given answer to a given question.
+	 * @return the list contains all the replies of the given answer to a given
+	 *         question.
 	 */
 	public ArrayList<Reply> getReplysOfAnswer(int q_position, int a_position) {
 		return questionList.get(q_position).answerList.get(a_position).replyList;
@@ -182,7 +197,8 @@ public class QuestionList {
 	/**
 	 * Return the answer at the given position in the answer list
 	 * 
-	 * @param position The given position of the answer.
+	 * @param position
+	 *            The given position of the answer.
 	 * 
 	 * @return The answer at the given position.
 	 */
@@ -193,7 +209,8 @@ public class QuestionList {
 	/**
 	 * Return replies at the given position in the question list.
 	 * 
-	 * @param position the given position of the replies
+	 * @param position
+	 *            the given position of the replies
 	 * 
 	 * @return replies at the given position in the question list.
 	 */
