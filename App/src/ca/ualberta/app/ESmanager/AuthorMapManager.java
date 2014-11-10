@@ -47,6 +47,12 @@ import ca.ualberta.app.network.data.SearchResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * This manager manages all operations on authors and authors' ID's. 
+ * 
+ * @author Bicheng
+ *
+ */
 public class AuthorMapManager {
 	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author/_search";
 	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author/";
@@ -54,12 +60,20 @@ public class AuthorMapManager {
 
 	private Gson gson;
 
+	/**
+	 * The constructor of the class
+	 * Initial an instant for gson
+	 */
 	public AuthorMapManager() {
 		gson = new Gson();
 	}
 
 	/**
-	 * Get a author with the specified id
+	 * Get a author with the specified ID
+	 * 
+	 * @param username The user's specified ID.
+	 * 
+	 * @return null.
 	 */
 	public Author getAuthor(String username) {
 
@@ -83,9 +97,14 @@ public class AuthorMapManager {
 	/**
 	 * Get authors with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.
-	 * @param size 
+	 * 
+	 * @param searchString The keyword for searching an author.
+	 * @param field the specified searching field
 	 * @param from 
-	 * @param lable 
+	 * @param size
+	 * @param lable
+	 * 
+	 * @return the searching result.
 	 */
 	public AuthorMap searchAuthors(String searchString, String field, long from, long size, String lable) {
 		AuthorMap result = new AuthorMap();
@@ -190,9 +209,12 @@ public class AuthorMapManager {
 
 	/**
 	 * Creates a search request from a search string and a field
-	 * @param size 
-	 * @param from 
-	 * @param lable 
+	 * 
+	 * @param size The size of the string buffer for searching.
+	 * @param from The starting position of searching.
+	 * @param lable The lable of the string buffer.
+	 * 
+	 * @return searchRequest The searching result.
 	 */
 	private HttpPost createSearchRequest(String searchString, String field, long from, long size, String lable)
 			throws UnsupportedEncodingException {
@@ -219,6 +241,13 @@ public class AuthorMapManager {
 		return searchRequest;
 	}
 
+	/**
+	 * Load an author form online server
+	 * 
+	 * @param response The online server connection response.
+	 * 
+	 * @return null.
+	 */
 	private SearchHit<Author> parseAuthorHit(HttpResponse response) {
 
 		try {
@@ -237,6 +266,12 @@ public class AuthorMapManager {
 
 	/**
 	 * Parses the response of a search
+	 * 
+	 * @param response The online server connection response.
+	 * 
+	 * @return esResponse The parsed response of a search.
+	 * 
+	 * @throws IOException
 	 */
 	private SearchResponse<Author> parseSearchResponse(HttpResponse response)
 			throws IOException {
@@ -254,6 +289,12 @@ public class AuthorMapManager {
 
 	/**
 	 * Gets content from an HTTP response
+	 * 
+	 * @param response The online server connection response.
+	 * 
+	 * @return the content from an HTTP response.
+	 * 
+	 * @throws IOException
 	 */
 	public String getEntityContent(HttpResponse response) throws IOException {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response
