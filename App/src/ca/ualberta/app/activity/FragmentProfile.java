@@ -61,6 +61,12 @@ public class FragmentProfile extends Fragment {
 
 	/**
 	 * Once the fragment is active, the user interface, R.layout.fragment_profile will be load into the fragment.
+	 * 
+	 * @param inflater is used to find out the layout defined in the xml file.
+	 * @param container the view container that contains all views of an single item.
+	 * @param savedInstanceState the saved instance state bundle.
+	 * 
+	 * @return inflater the layout of this fragment.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,8 +76,10 @@ public class FragmentProfile extends Fragment {
 	}
 
 	/**
-	 * Once the fragment is created, this method will give each view an object to help other methods set data.
-	 * Also, the listeners for all buttons will be setup in this method.
+	 * Once the fragment is created, this method will give each view an object
+	 * to help other methods set data or listener.
+	 * 
+	 * @param savedInstanceState the saved instance state bundle.
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -90,7 +98,14 @@ public class FragmentProfile extends Fragment {
 		login = (RadioButton) getView().findViewById(R.id.login);
 		logout = (RadioButton) getView().findViewById(R.id.logout);
 		checkLoginStatus();
+		
 		login.setOnClickListener(new OnClickListener() {
+			/**
+			 * Setup the listener for the "Login" button, so that, once
+			 * the button is clicked, the login window will be displayed.
+			 * 
+			 * @param v The view of the button.
+			 */
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), LoginActivity.class);
 				startActivity(intent);
@@ -99,6 +114,13 @@ public class FragmentProfile extends Fragment {
 		});
 		
 		logout.setOnClickListener(new OnClickListener() {
+			/**
+			 * Setup the listener for the "Logout" button, so that, once
+			 * the button is clicked, the activity will be set to the statues before
+			 * logging in.
+			 * 
+			 * @param v The view of the button.
+			 */
 			public void onClick(View v) {
 				User.loginStatus = false;
 				User.author = null;
@@ -107,7 +129,12 @@ public class FragmentProfile extends Fragment {
 		});
 		
 		my_question.setOnClickListener(new OnClickListener() {
-
+			/**
+			 * Setup the listener for the "My Questions" button, so that, once
+			 * the button is clicked, the author's own question(s) can be displayed.
+			 * 
+			 * @param v The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
@@ -118,7 +145,12 @@ public class FragmentProfile extends Fragment {
 		});
 		
 		fav_question.setOnClickListener(new OnClickListener() {
-			
+			/**
+			 * Setup the listener for the "Favorite Questions" button, so that, once
+			 * the button is clicked, the favorite question(s) can be displayed.
+			 * 
+			 * @param v The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
@@ -127,9 +159,14 @@ public class FragmentProfile extends Fragment {
 				
 			}
 		});
-		
+
 		local_cache.setOnClickListener(new OnClickListener() {
-			
+			/**
+			 * Setup the listener for the "My Questions" button, so that, once
+			 * the button is clicked, the author's own question(s) can be displayed.
+			 * 
+			 * @param v The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),

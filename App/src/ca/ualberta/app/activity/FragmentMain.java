@@ -126,6 +126,8 @@ public class FragmentMain extends Fragment {
 	 * @param inflater is used to find out the layout defined in the xml file.
 	 * @param container the view container that contains all views of an single item.
 	 * @param savedInstanceState the saved instance state bundle.
+	 * 
+	 * @return inflater the layout of this fragment.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -184,12 +186,14 @@ public class FragmentMain extends Fragment {
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
 		
-		/**
-		 * Setup the listener for the "Search" button, so that, once
-		 * the button is clicked, the current result list will be updated to the
-		 * newest searching result
-		 */
 		searchButton.setOnClickListener(new OnClickListener() {
+			/**
+			 * Setup the listener for the "Search" button, so that, once
+			 * the button is clicked, the current result list will be updated to the
+			 * newest searching result
+			 * 
+			 * @param v The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				if (searchButton.getText().equals("Search")
@@ -206,12 +210,14 @@ public class FragmentMain extends Fragment {
 			}
 		});
 		
-		/**
-		 * Setup the listener for the Search edit text, so that, once
-		 * the edit text bar is filled, the app can get the user input text.
-		 */
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
-
+			/**
+			 * Setup the listener for the Search edit text, so that, once
+			 * the edit text bar is filled, the app can get the user input text.
+			 * 
+			 * @param v The view of the button.
+			 * @param hasFocus True if the edit text bar are edited. 
+			 */
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
@@ -227,11 +233,16 @@ public class FragmentMain extends Fragment {
 			}
 		});
 
-		/**
-		 * display the layout of the chosen question, and show details when
-		 * click on an item (a question) in the searching result list
-		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
+			/**
+			 * display the layout of the chosen question, and show details when
+			 * click on an item (a question) in the searching result list
+			 * 
+			 * @param parent The adapter of the item in the list.
+			 * @param view The view.
+			 * @param pos The position of a question.
+			 * @param id The ID of a question. 
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -245,12 +256,16 @@ public class FragmentMain extends Fragment {
 
 		});
 
-		/**
-		 * Delete an item (a question) in the searching result list when a user
-		 * long clicks the question.
-		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
+			/**
+			 * Delete an item (a question) in the searching result list when a user
+			 * long clicks the question.
+			 * 
+			 * @param parent The adapter of the item in the list.
+			 * @param view The view.
+			 * @param pos The position of a question.
+			 * @param id The ID of a question. 
+			 */
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -463,7 +478,7 @@ public class FragmentMain extends Fragment {
 
 	/**
 	 * this class will be used to run thread to load data when the
-	 * question list is scrolled/searched.
+	 * question list is searched.
 	 * 
 	 * @author Bicheng
 	 */
@@ -472,7 +487,7 @@ public class FragmentMain extends Fragment {
 
 		/**
 		 * the constructor of the class
-		 * @param s the keyword 
+		 * @param s the keyword.
 		 */
 		public SearchThread(String s) {
 			search = s;
