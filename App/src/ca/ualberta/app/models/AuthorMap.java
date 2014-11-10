@@ -23,18 +23,39 @@ package ca.ualberta.app.models;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class contains some operations on author map
+ * 
+ * @author Anni
+ *
+ */
 public class AuthorMap {
 	Map<String, Author> authorMap;
 
+	/**
+	 * the constructor of the class
+	 */
 	public AuthorMap() {
 		authorMap = new HashMap<String, Author>();
 	}
 
-	// return Map<String, Author>
+	/**
+	 * Return the author map
+	 * 
+	 * @return authorMap A map that maps user name and the Author object.
+	 */
 	public Map<String, Author> getMap() {
 		return authorMap;
 	}
 
+	/**
+	 * Based on different conditions, update the current user name
+	 * 
+	 * @param username the current user name.
+	 * @param newUsername the new user name.
+	 * 
+	 * @return false is the new user name has already existed in the author map, return true if not.
+	 */
 	public boolean setUsername(String username, String newUsername) {
 		if (authorMap.get(newUsername) != null) {
 			return false;
@@ -44,25 +65,48 @@ public class AuthorMap {
 		}
 	}
 
-	// if Login name exist then login otherwise create a new account
+	/**
+	 * If Login name exist then login otherwise create a new account
+	 * 
+	 * @param newAuthor the new author.
+	 */
 	public void addAuthor(Author newAuthor) {
 		String newUsername = newAuthor.getUsername();
 		authorMap.put(newUsername, newAuthor);
 	}
 
+	/**
+	 * Return the total number of authors
+	 * 
+	 * @return the total number of authors.
+	 */
 	public int size() {
 		return authorMap.size();
 	}
 
+	/**
+	 * clear the author map
+	 */
 	public void clear() {
 		authorMap.clear();
 	}
 
+	/**
+	 * Show all authors in the searching result
+	 * 
+	 * @param searchAuthors the searching result.
+	 */
 	public void putAll(AuthorMap searchAuthors) {
 		authorMap.putAll(searchAuthors.getMap());
 
 	}
 
+	/**
+	 * Map an user name to an author
+	 * 
+	 * @param username The user name.
+	 * @param author The author.
+	 */
 	public void put(String username, Author author) {
 		authorMap.put(username, author);
 	}
