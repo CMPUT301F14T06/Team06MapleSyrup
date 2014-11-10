@@ -22,9 +22,6 @@ package ca.ualberta.app.models;
 
 /**
  * This is the interface of reply
- * 
- * @author Anni
- *
  */
 public class Reply extends InputsModel {
 

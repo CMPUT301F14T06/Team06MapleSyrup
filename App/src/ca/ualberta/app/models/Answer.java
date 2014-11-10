@@ -27,10 +27,7 @@ import java.util.List;
 import android.graphics.Bitmap;
 
 /**
- * This class contains all functinalities an answer object should have.
- * 
- * @author Anni
- *
+ * This class contains all functionalities an answer object should have.
  */
 public class Answer extends InputsModel {
 	ArrayList<Reply> replyList;

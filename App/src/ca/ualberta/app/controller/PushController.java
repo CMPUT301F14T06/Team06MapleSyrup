@@ -24,9 +24,6 @@ import ca.ualberta.app.models.QuestionList;
 
 /**
  * Will be completed in the next part of the project
- * 
- * @author Anni
- *
  */
 public class PushController {
 

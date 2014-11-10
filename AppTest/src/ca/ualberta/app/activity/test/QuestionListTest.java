@@ -12,6 +12,7 @@ import junit.framework.TestCase;
 
 public class QuestionListTest extends TestCase {
 	public void testQuestionList() {
+		//test initial QuestionList
 		QuestionListController inputListController = new QuestionListController();
 		List<Question> quesList = inputListController.getQuestionList().getList();
 		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
@@ -20,14 +21,19 @@ public class QuestionListTest extends TestCase {
 	}
 
 	public void testAddQuestion() {
+		//create a Question object
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
+		
+		//add the Question through Controller
 		QuestionListController inputListController = new QuestionListController();
 		inputListController.addQuestion(question);
+		
+		//check the result
 		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
 		assertTrue("Question List Size", quesArrayList.size() == 1);
 		assertTrue("Question List contains question",
@@ -35,20 +41,26 @@ public class QuestionListTest extends TestCase {
 	}
 
 	public void testRemoveQuestion() {
+		//create a Question object
 		String questionString = "A question";
 		String userName = "userName";
 		String titleString = "A title";
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
+		
+		//remove the Question from the List through the Controller
 		QuestionListController inputListController = new QuestionListController();
 		inputListController.addQuestion(question);
 		inputListController.removeQuestion(0);
+		
+		//check the result
 		ArrayList<Question> quesArrayList = inputListController.getQuestionList().getArrayList();
 		assertTrue("Question List Size", quesArrayList.size() == 0);
 	}
 	
 	public void testAddReplyToQ(){
+		//create a Question and a Reply object
 		String questionString = "A question";
 		String ReplyString = "A Reply";
 		String userName = "userName";
@@ -56,13 +68,18 @@ public class QuestionListTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString, image);
 		Reply reply = new Reply(ReplyString, userName);
+
 		QuestionListController inputListController = new QuestionListController();
+		//add the Question to the List
 		inputListController.addQuestion(question);
+		//add the Reply to the Question
 		inputListController.addReplyToQ(reply, 0);
+		//check the result
 		assertTrue("Cannot add reply to Question",inputListController.getReplys(0).contains(reply));
 	}
 	
 	 public void testAddAnswerToQ(){
+		//create a Question and an answer object
 		String questionString = "A question";
 		String AnswerString = "A answer";
 		String userName = "userName";
@@ -70,13 +87,18 @@ public class QuestionListTest extends TestCase {
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString, image);
 		Answer answer = new Answer(AnswerString, userName, image);
+		
 		QuestionListController inputListController = new QuestionListController();
+		//add the Question to the List
 		inputListController.addQuestion(question);
+		//add the Answer to the Question
 		inputListController.addAnswerToQ(answer, 0);
+		//check the result
 		assertTrue("Cannot add answer to Question",inputListController.getAnswers(0).contains(answer));
 	 }
 	 
 	 public void testAddReplyToA(){
+		//create a Question, an answer and a Reply object
 		String questionString = "A question";
 		String AnswerString = "A answer";
 		String ReplyString = "A Reply";
@@ -86,10 +108,15 @@ public class QuestionListTest extends TestCase {
 		Question question = new Question(questionString, userName, titleString, image);
 		Answer answer = new Answer(AnswerString, userName, image);
 		Reply reply = new Reply(ReplyString, userName);
+		
 		QuestionListController inputListController = new QuestionListController();
+		//add the Question to List
 		inputListController.addQuestion(question);
+		//add the Answer to Question
 		inputListController.addAnswerToQ(answer, 0);
+		//add the Reply to Answer
 		inputListController.addReplyToA(reply, 0, 0);
+		//check the result
 		assertTrue("Cannot add reply to answer",inputListController.getReplysOfAnswer(0, 0).contains(reply));
 	 }
 }

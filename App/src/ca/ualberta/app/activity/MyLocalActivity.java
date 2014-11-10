@@ -327,14 +327,12 @@ public class MyLocalActivity extends Activity {
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
 			Thread thread = new GetListThread(localListId);
 			thread.start();
-			Toast.makeText(mcontext, "online", Toast.LENGTH_LONG).show();
 		} else {
 			localQuestionListController.clear();
 			localQuestionList = cacheController.getLocalQuestionsList();
 			localQuestionListController.addAll(localQuestionList);
 			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
-			Toast.makeText(mcontext, "offline", Toast.LENGTH_LONG).show();
 		}
 
 	}

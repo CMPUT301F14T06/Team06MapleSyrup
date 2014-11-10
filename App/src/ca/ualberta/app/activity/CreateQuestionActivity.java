@@ -238,8 +238,6 @@ public class CreateQuestionActivity extends Activity {
 
 	/**
 	 * Add the new question to the array list, and stop the current thread when everything is done.
-	 * @author Anni
-	 *
 	 */
 	class AddQuestionThread extends Thread {
 		private Question question;
@@ -263,8 +261,6 @@ public class CreateQuestionActivity extends Activity {
 
 	/**
 	 * Find the Author's thread, update the infor of the current user on online server.
-	 * @author Anni
-	 *
 	 */
 	class SearchAuthorThread extends Thread {
 		private String search;

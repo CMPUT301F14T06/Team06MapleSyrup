@@ -26,9 +26,6 @@ import java.util.List;
 
 /**
  * This class defines most of the functionalities that a question should have.
- * 
- * @author Anni
- *
  */
 public class QuestionList {
 	// Question List

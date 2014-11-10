@@ -219,9 +219,6 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 
 	/**
 	 * The container of the views for a single reply
-	 * 
-	 * @author Anni
-	 *
 	 */
 	class ViewHolder {
 		TextView authorName;

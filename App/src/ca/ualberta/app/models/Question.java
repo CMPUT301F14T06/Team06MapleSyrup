@@ -27,9 +27,6 @@ import android.graphics.Bitmap;
 
 /**
  * This class defines all functionalities a Question should have.
- * 
- * @author Anni
- *
  */
 public class Question extends InputsModel {
 

@@ -25,9 +25,6 @@ import java.util.Map;
 
 /**
  * This is the interface of user.
- * 
- * @author xiaocong
- *
  */
 public class User {
 

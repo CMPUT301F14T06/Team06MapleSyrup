@@ -25,9 +25,6 @@ import java.util.Map;
 
 /**
  * This class contains some operations on author map
- * 
- * @author Anni
- *
  */
 public class AuthorMap {
 	Map<String, Author> authorMap;

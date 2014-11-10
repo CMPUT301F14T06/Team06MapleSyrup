@@ -41,8 +41,6 @@ import android.widget.TextView;
  * This is the activity of each single question in all kinds of question lists
  * in the app. This activity will be call when a item (a question) in a question
  * list is clicked.
- * 
- * @author Anni
  */
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
@@ -237,9 +235,6 @@ public class QuestionDetailActivity extends Activity {
 	/**
 	 * Find the current thread and cache all change in information (include
 	 * answer and reply) for the question
-	 * 
-	 * @author Anni
-	 * 
 	 */
 	class GetThread extends Thread {
 		private long id;

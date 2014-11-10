@@ -8,16 +8,21 @@ import ca.ualberta.app.models.Question;
 import junit.framework.TestCase;
 
 public class BrowseQuestionTest extends TestCase {
+	//test Browse Question offline
 	public void testBrowseQuestionsOffline() {
+		//create a Question object
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
+		
+		//add the question to the QuestionListController
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		
+		//check the result
 		Question result = inputsListController.getQuestion(0);
 		assertEquals(question.getContent(), result.getContent());
 		assertEquals(question.getAuthor(), result.getAuthor());
@@ -26,18 +31,23 @@ public class BrowseQuestionTest extends TestCase {
 	}
 	
 	public void testBrowseQuestionsOffline_extremeCase(){
+		//create a Question object
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
+		
+		//add the question to the QuestionListController
 		QuestionListController inputsListController = new QuestionListController();
 		inputsListController.addQuestion(question);
 		
+		//get the Question position on the Controller
 		int position = inputsListController.getQuestionPosition(question);
 		Question result = inputsListController.getQuestion(position);
 		
+		//check the result
 		assertEquals(question.getContent(), result.getContent());
 		assertEquals(question.getAuthor(), result.getAuthor());
 		assertEquals(question.getTitle(), result.getTitle());
@@ -45,16 +55,20 @@ public class BrowseQuestionTest extends TestCase {
 	}
 	
 	public void testBrowseQuestionsOnline(){
+		//create a Question object
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
 		Bitmap image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
+		
+		//add the Question to the server through Manager
 		QuestionListManager questionListManager = new QuestionListManager();
 		questionListManager.addQuestion(question);
-		Question result = questionListManager.getQuestion(question.getID());
 		
+		//check the result
+		Question result = questionListManager.getQuestion(question.getID());		
 		assertEquals(question.getContent(), result.getContent());
 		assertEquals(question.getAuthor(), result.getAuthor());
 		assertEquals(question.getTitle(), result.getTitle());

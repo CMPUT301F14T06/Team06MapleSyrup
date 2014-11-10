@@ -8,6 +8,7 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 
 public class QuestionTest extends TestCase {
+	//test initial Question object
 	public void testQuestion() {
 		String username = "username";
 		String questionString = "A qustion";
@@ -20,6 +21,7 @@ public class QuestionTest extends TestCase {
 	}
 
 	public void testAddAnswer() {
+		//create a Question and an Answer object
 		String username = "username";
 		String questionString = "A qustion";
 		String answerString = "A answer";
@@ -29,12 +31,17 @@ public class QuestionTest extends TestCase {
 		Answer answer = new Answer(answerString, author.getUsername(), image);
 		Question question = new Question(questionString, author.getUsername(),
 				titleString, image);
+		
+		//add the answer to Question
 		question.addAnswer(answer);
+		
+		//check the result
 		assertTrue("Answer is not equal",
 				answerString.equals(answer.getContent()));
 	}
 
 	public void testAddReply() {
+		//create a Question and a Reply Object
 		String username = "username";
 		String questionString = "A qustion";
 		String replyString = "A reply";
@@ -44,7 +51,11 @@ public class QuestionTest extends TestCase {
 		Reply reply = new Reply(replyString, author.getUsername());
 		Question question = new Question(questionString, author.getUsername(),
 				titleString, image);
+		
+		//add the reply to the Question
 		question.addReply(reply);
+		
+		//check the result
 		assertTrue("Reply is not equal", replyString.equals(reply.getContent()));
 	}
 }

@@ -26,9 +26,6 @@ import android.graphics.Bitmap;
 
 /**
  * This class will handle all kinds of user input
- * 
- * @author Anni
- *
  */
 public abstract class InputsModel {
 	public String title;

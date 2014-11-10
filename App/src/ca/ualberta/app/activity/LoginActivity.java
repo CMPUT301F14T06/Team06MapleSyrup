@@ -173,8 +173,6 @@ public class LoginActivity extends Activity {
 	/**
 	 * this class will be used to run thread to load data when the
 	 * question list is searched.
-	 * 
-	 * @author Anni
 	 */
 	class SearchThread extends Thread {
 		private String search;
@@ -201,9 +199,6 @@ public class LoginActivity extends Activity {
 
 	/**
 	 * If the user is not a new user, find the thread for he/her
-	 * 
-	 * @author Anni
-	 * 
 	 */
 	class GetThread extends Thread {
 		// TODO: Implement search thread
@@ -229,9 +224,6 @@ public class LoginActivity extends Activity {
 
 	/**
 	 * If the user is a new user, add a new thread for he/her
-	 * 
-	 * @author Anni
-	 * 
 	 */
 	class AddThread extends Thread {
 		private Author newAuthor;
@@ -246,7 +238,7 @@ public class LoginActivity extends Activity {
 		}
 
 		/**
-		 * add new thread to the current user, and upadate the user infor.
+		 * add new thread to the current user, and update the user info.
 		 */
 		@Override
 		public void run() {

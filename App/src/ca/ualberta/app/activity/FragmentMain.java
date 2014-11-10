@@ -476,9 +476,6 @@ public class FragmentMain extends Fragment {
 	/**
 	 * find the author's ID and start the corresponding thread to load all
 	 * contents from the storage.
-	 * 
-	 * @author Anni
-	 * 
 	 */
 	class GetListThread extends Thread {
 		/**
@@ -520,8 +517,6 @@ public class FragmentMain extends Fragment {
 	/**
 	 * this class will be used to run thread to load data when the question list
 	 * is searched.
-	 * 
-	 * @author Bicheng
 	 */
 	class SearchThread extends Thread {
 		private String search;

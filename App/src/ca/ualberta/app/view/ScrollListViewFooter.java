@@ -19,7 +19,7 @@
  */
 
 package ca.ualberta.app.view;
-
+//https://github.com/bichengyan/XListView-Android 2014-11-01
 import ca.ualberta.app.activity.R;
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -147,8 +147,6 @@ public class CreateQuestionReplyActivity extends Activity {
 
 	/**
 	 * Add the new reply to the question details, and stop the current thread when everything is done.
-	 * 
-	 * @author Anni
 	 */
 	class GetUpdateThread extends Thread {
 		private long id;

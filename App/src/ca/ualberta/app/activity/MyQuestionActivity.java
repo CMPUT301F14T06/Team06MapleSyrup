@@ -74,7 +74,7 @@ public class MyQuestionActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-	
+
 	/**
 	 * Thread to update adapter after an operation
 	 */
@@ -254,8 +254,7 @@ public class MyQuestionActivity extends Activity {
 					myQuestionListController.getQuestionList(), MYQUESTION);
 			Thread thread = new GetListThread();
 			thread.start();
-		}
-		else{
+		} else {
 		}
 	}
 

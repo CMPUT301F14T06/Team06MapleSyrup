@@ -36,10 +36,6 @@ import com.google.gson.reflect.TypeToken;
 
 /**
  * Load and save the author map from/to the local files.
- * 
- * @author Anni
- * @author Bicheng
- *
  */
 public class AuthorMapIO {
 	/**

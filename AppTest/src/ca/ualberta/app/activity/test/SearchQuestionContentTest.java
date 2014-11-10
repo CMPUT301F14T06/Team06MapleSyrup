@@ -7,7 +7,9 @@ import ca.ualberta.app.models.Question;
 import junit.framework.TestCase;
 
 public class SearchQuestionContentTest extends TestCase {
+	// test the search Question
 	public void testSearchQuestionContent() {
+		// create a Question object
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
@@ -16,14 +18,19 @@ public class SearchQuestionContentTest extends TestCase {
 		Question question = new Question(questionString, userName, titleString,
 				image);
 
+		// add the Question to server through Manager
 		QuestionListManager questionListManager = new QuestionListManager();
 		QuestionListController questionListController = new QuestionListController();
 		questionListManager.addQuestion(question);
 
+		// get the Question from server and add it to QuestionList through
+		// Controller
 		questionListController.clear();
 		questionListController.addAll(questionListManager.searchQuestions(
 				questionString, null, 0, 10));
 
+		
+		//check the result
 		if (questionListController.size() == 1) {
 			result = questionListController.getQuestion(0);
 		}

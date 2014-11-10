@@ -25,9 +25,6 @@ import android.graphics.Bitmap;
 
 /**
  * This class contains all functinalities an author object should have.
- * 
- * @author Anni
- *
  */
 public class Author extends User {
 	// final static boolean loginState = true;
