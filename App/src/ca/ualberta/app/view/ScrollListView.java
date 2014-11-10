@@ -36,6 +36,12 @@ import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 
+/**
+ * This is a customer list view. We have used it in the lists of question, lists of answer, and lists of reply
+ * 
+ * @author Bicheng
+ *
+ */
 public class ScrollListView extends ListView implements OnScrollListener{
 
 	private float mLastY = -1; // save event y
@@ -77,27 +83,46 @@ public class ScrollListView extends ListView implements OnScrollListener{
 													// feature.
 
 	/**
-	 * @param context
+	 * This constructor of the class
+	 * 
+	 * @param context The context.
 	 */
 	public ScrollListView(Context context) {
 		super(context);
 		initWithContext(context);
 	}
 
+	/**
+	 * Another definition of the class
+	 * 
+	 * @param context the context.
+	 * @param attrs An attribute set.
+	 */
 	public ScrollListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initWithContext(context);
 	}
 
+	/**
+	 * Another definition of the class
+	 * 
+	 * @param context the context.
+	 * @param attrs An attribute set.
+	 * @param defStyle the ID of the definition style.
+	 */
 	public ScrollListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		initWithContext(context);
 	}
 
+	/**
+	 * XListView need the scroll event, and it will dispatch the event to user's listener (as a proxy).
+	 * 
+	 * @param context the context.
+	 */
 	private void initWithContext(Context context) {
 		mScroller = new Scroller(context, new DecelerateInterpolator());
-		// XListView need the scroll event, and it will dispatch the event to
-		// user's listener (as a proxy).
+
 		super.setOnScrollListener(this);
 
 		// init header view
@@ -123,9 +148,13 @@ public class ScrollListView extends ListView implements OnScrollListener{
 				});
 	}
 
+	/**
+	 * make sure XListViewFooter is the last footer view, and only add once.
+	 * 
+	 * @param adapter A list adapter.
+	 */
 	@Override
 	public void setAdapter(ListAdapter adapter) {
-		// make sure XListViewFooter is the last footer view, and only add once.
 		if (mIsFooterReady == false) {
 			mIsFooterReady = true;
 			addFooterView(mFooterView);
@@ -136,7 +165,7 @@ public class ScrollListView extends ListView implements OnScrollListener{
 	/**
 	 * enable or disable pull down refresh feature.
 	 * 
-	 * @param enable
+	 * @param enable A value that can decide if the content should be hidden.
 	 */
 	public void setPullRefreshEnable(boolean enable) {
 		mEnablePullRefresh = enable;
@@ -150,7 +179,7 @@ public class ScrollListView extends ListView implements OnScrollListener{
 	/**
 	 * enable or disable pull up load more feature.
 	 * 
-	 * @param enable
+	 * @param enable A value that can decide if the content should be hidden.
 	 */
 	public void setPullLoadEnable(boolean enable) {
 		mEnablePullLoad = enable;
@@ -172,7 +201,7 @@ public class ScrollListView extends ListView implements OnScrollListener{
 	}
 
 	/**
-	 * stop refresh, reset header view.
+	 * stop refreshing, reset header view.
 	 */
 	public void stopRefresh() {
 		if (mPullRefreshing == true) {
@@ -194,7 +223,7 @@ public class ScrollListView extends ListView implements OnScrollListener{
 	/**
 	 * set last refresh time
 	 * 
-	 * @param time
+	 * @param time the text of time which will be displayed in the header view.
 	 */
 	public void setRefreshTime(String time) {
 		mHeaderTimeView.setText(time);
@@ -276,6 +305,9 @@ public class ScrollListView extends ListView implements OnScrollListener{
 		}
 	}
 
+	/**
+	 * To catch the movements on the list.
+	 */
 	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
@@ -328,6 +360,9 @@ public class ScrollListView extends ListView implements OnScrollListener{
 		return super.onTouchEvent(ev);
 	}
 
+	/**
+	 * compute the X,Y coordinates to implement the scroll action of the list.
+	 */
 	@Override
 	public void computeScroll() {
 		if (mScroller.computeScrollOffset()) {
@@ -342,6 +377,11 @@ public class ScrollListView extends ListView implements OnScrollListener{
 		super.computeScroll();
 	}
 
+	/**
+	 * Set customer listener
+	 * 
+	 * @param l the customer listener.
+	 */
 	@Override
 	public void setOnScrollListener(OnScrollListener l) {
 		mScrollListener = l;
