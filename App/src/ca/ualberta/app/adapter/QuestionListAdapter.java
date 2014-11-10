@@ -46,6 +46,13 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+/**
+ *  Adapter for the question list, used to display a question.
+ * 
+ * @author Anni
+ * @author Bicheng
+ * @author Xiaocong
+ */
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private ArrayList<Question> questionList = null;
 	private CacheController cacheController;
@@ -54,7 +61,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	ViewHolder holder = null;
 
 	// Thread that close the activity after finishing update
-
+	/**
+	 * Constructs the adapter and initializes its context.
+	 * @param context The Context in which the adapter is running.
+	 * @param textViewResourceId The resource ID of the text view that contains the context of the question.
+	 * @param objects the instant of the array list that contains all questions.
+	 */
 	public QuestionListAdapter(Context context, int textViewResourceId,
 			ArrayList<Question> objects) {
 		super(context, textViewResourceId, objects);
@@ -62,6 +74,13 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		cacheController = new CacheController(context);
 	}
 
+	/**
+	 * Gets a View that displays the given view holder for the specific values in a question.
+	 * @param Position The position of the question.
+	 * @param convertView A previous recycled view.
+     * @param parent Parent view
+     * @return The View.
+	 */
 	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -119,15 +138,28 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		return convertView;
 	}
 
+	/**
+	 * Setup listener for the "Save" button of each question.
+	 * @author Anni
+	 *
+	 */
 	private class saveOnClickListener implements OnClickListener {
 
 		int position;
 
+		/**
+		 * The constructor of the class
+		 * @param position The position of the question.
+		 */
 		public saveOnClickListener(int position) {
-			// TODO Auto-generated constructor stub
 			this.position = position;
 		}
 
+		/**
+		 * If the button is clicked, save the selected question to local question list in cache;
+		 * If the button is un-clicked, then remove the selected question from the local question list in cache.
+		 * @param v the view of the button.
+		 */
 		@Override
 		public void onClick(View v) {
 			Question question = questionList.get(position);
@@ -143,15 +175,28 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		}
 	}
 
+	/**
+	 * Set up the listener for the "Fav" (favorite) button in each question
+	 * @author Anni
+	 *
+	 */
 	private class favOnClickListener implements OnClickListener {
 
 		int position;
 
+		/**
+		 * The constructor of the class
+		 * @param position The position of the question.
+		 */
 		public favOnClickListener(int position) {
-			// TODO Auto-generated constructor stub
 			this.position = position;
 		}
 
+		/**
+		 * If the button is clicked, then save the question to the favorite question list;
+		 * if the button is un-clicked, then remove the question from the favorite question list.
+		 * @param v the view of the button.
+		 */
 		@Override
 		public void onClick(View v) {
 			Question question = questionList.get(position);
@@ -167,18 +212,29 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		}
 	}
 
+	/**
+	 * Setup the listener for the up vote button
+	 * @author Anni
+	 *
+	 */
 	private class upvoteOnClickListener implements OnClickListener {
 
 		int position;
 
+		/**
+		 * The constructor of the class
+		 * @param position the position of the question.
+		 */
 		public upvoteOnClickListener(int position) {
-			// TODO Auto-generated constructor stub
 			this.position = position;
 		}
 
+		/**
+		 * If the answer is up voted, then add the counter of the vote, and update it in the data set.
+		 * @param v The view of the up vote button.
+		 */
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
 			Question question = questionList.get(position);
 			question.upvoteQuestion();
 			question.calcCurrentTotalScore();
@@ -193,6 +249,9 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		}
 	}
 
+	/**
+	 * Based on the user's choice, call different sorting methods.
+	 */
 	public void applySortMethod() {
 		if (sortingOption == null) {
 			sortingOption = lastSortingOption;
@@ -230,7 +289,9 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 }
 
 /**
- * class ViewHolder
+ * The container of the views for a single question
+ * @author Anni
+ *
  */
 class ViewHolder {
 	ImageView authorPic;

@@ -147,7 +147,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	 * @param isExpanded To indicate if the group view of the answer is expandable.
 	 * @param convertView A previous recycled view.
      * @param parent Parent view
-     * @return The View
+     * @return The View.
 	 */
 	@SuppressLint("InflateParams")
 	@Override
