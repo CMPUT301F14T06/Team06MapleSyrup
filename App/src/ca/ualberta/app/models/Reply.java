@@ -28,8 +28,10 @@ public class Reply extends InputsModel {
 	/**
 	 * The constructor of the class
 	 * 
-	 * @param content The content of a reply.
-	 * @param userName The user name of the author of the reply.
+	 * @param content
+	 *            The content of a reply.
+	 * @param userName
+	 *            The user name of the author of the reply.
 	 */
 	public Reply(String content, String userName) {
 		super(content, userName);

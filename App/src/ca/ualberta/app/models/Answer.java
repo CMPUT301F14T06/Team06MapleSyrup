@@ -37,9 +37,12 @@ public class Answer extends InputsModel {
 	/**
 	 * The constructor of the class
 	 * 
-	 * @param content The content of the answer.
-	 * @param userName the user name of the user who answers the answer.
-	 * @param image The image inside the answer.
+	 * @param content
+	 *            The content of the answer.
+	 * @param userName
+	 *            the user name of the user who answers the answer.
+	 * @param image
+	 *            The image inside the answer.
 	 */
 	public Answer(String content, String userName, Bitmap image) {
 		super(content, userName, image);
@@ -51,7 +54,8 @@ public class Answer extends InputsModel {
 	/**
 	 * Add a reply to the answer
 	 * 
-	 * @param newReply the new reply to the answer.
+	 * @param newReply
+	 *            the new reply to the answer.
 	 */
 	public void addReply(Reply newReply) {
 		this.replyList.add(newReply);
@@ -78,7 +82,8 @@ public class Answer extends InputsModel {
 	/**
 	 * Return the position of a reply in the reply list
 	 * 
-	 * @param reply The given reply.
+	 * @param reply
+	 *            The given reply.
 	 * 
 	 * @return The position of given reply.
 	 */
@@ -96,12 +101,13 @@ public class Answer extends InputsModel {
 	/**
 	 * Update the upvote counter
 	 * 
-	 * @param newUpvoteCount the new value of the counter.
+	 * @param newUpvoteCount
+	 *            the new value of the counter.
 	 */
-	public void setUpvoteCount(long newUpvoteCount){
+	public void setUpvoteCount(long newUpvoteCount) {
 		this.upvoteCount_answer = newUpvoteCount;
 	}
-	
+
 	/**
 	 * Return the upvote number of the question
 	 * 

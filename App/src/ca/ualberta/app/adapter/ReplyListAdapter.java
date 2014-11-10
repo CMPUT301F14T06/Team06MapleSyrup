@@ -36,11 +36,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- *  Adapter for the reply list, used to display a reply.
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
+ * Adapter for the reply list, used to display a reply.
  */
 public class ReplyListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Reply> replyList = null;
@@ -49,17 +45,21 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * Constructs the adapter and initializes its context.
 	 * 
-	 * @param context The Context in which the adapter is running.
-	 * @param singleReply single reply.
-	 * @param objects the instant of the array list that contains all replies.
-	 * @param question The question that the reply belongs to.
+	 * @param context
+	 *            The Context in which the adapter is running.
+	 * @param singleReply
+	 *            single reply.
+	 * @param objects
+	 *            the instant of the array list that contains all replies.
+	 * @param question
+	 *            The question that the reply belongs to.
 	 */
 	public ReplyListAdapter(Context context, int singleReply,
 			ArrayList<Reply> objects, Question question) {
 		this.context = context;
 		this.replyList = objects;
 	}
-	
+
 	/**
 	 * Gets the number of groups.
 	 * 
@@ -69,11 +69,12 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	public int getGroupCount() {
 		return 1;
 	}
-	
+
 	/**
 	 * Gets the number of children in a specified group.
 	 * 
-	 * @param groupPosition the position of the group.
+	 * @param groupPosition
+	 *            the position of the group.
 	 * 
 	 * @return the number of children in a specified group.
 	 */
@@ -81,10 +82,12 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	public int getChildrenCount(int groupPosition) {
 		return replyList.size();
 	}
+
 	/**
 	 * Gets the data associated with the given group.
 	 * 
-	 * @param groupPosition the position of the group.
+	 * @param groupPosition
+	 *            the position of the group.
 	 * 
 	 * @return the data associated with the given group.
 	 */
@@ -92,12 +95,14 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	public Object getGroup(int groupPosition) {
 		return null;
 	}
-	
+
 	/**
 	 * Gets the data associated with the given child within the given group.
 	 * 
-	 * @param groupPosition the position of the group.
-	 * @param childPosition the position of the child with in the given group.
+	 * @param groupPosition
+	 *            the position of the group.
+	 * @param childPosition
+	 *            the position of the child with in the given group.
 	 * 
 	 * @return the data associated with the given child within the given group.
 	 */
@@ -109,7 +114,8 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * Gets the ID for the group at the given position.
 	 * 
-	 * @param groupPosition the position of the group.
+	 * @param groupPosition
+	 *            the position of the group.
 	 * 
 	 * @return the ID for the group at the given position.
 	 */
@@ -121,8 +127,10 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * Gets the ID for the given child within the given group.
 	 * 
-	 * @param groupPosition the position of the group.
-	 * @param childPosition the position of the child with in the given group.
+	 * @param groupPosition
+	 *            the position of the group.
+	 * @param childPosition
+	 *            the position of the child with in the given group.
 	 * 
 	 * @return the ID for the given child within the given group.
 	 */
@@ -132,7 +140,8 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * Indicates whether the child and group IDs are stable across changes to the underlying data.
+	 * Indicates whether the child and group IDs are stable across changes to
+	 * the underlying data.
 	 */
 	@Override
 	public boolean hasStableIds() {
@@ -140,14 +149,19 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * Gets a View that displays the given view holder for the specific values in a reply.
+	 * Gets a View that displays the given view holder for the specific values
+	 * in a reply.
 	 * 
-	 * @param groupPosition The position of the answer.
-	 * @param isExpanded To indicate if the group view of the reply is expandable.
-	 * @param convertView A previous recycled view.
-     * @param parent Parent view
-     * 
-     * @return The View.
+	 * @param groupPosition
+	 *            The position of the answer.
+	 * @param isExpanded
+	 *            To indicate if the group view of the reply is expandable.
+	 * @param convertView
+	 *            A previous recycled view.
+	 * @param parent
+	 *            Parent view
+	 * 
+	 * @return The View.
 	 */
 	@SuppressLint("InflateParams")
 	@Override
@@ -166,15 +180,21 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * Gets a View that displays the given view holder for the specific values in a reply.
+	 * Gets a View that displays the given view holder for the specific values
+	 * in a reply.
 	 * 
-	 * @param groupPosition The position of the answer.
-	 * @param childPosition The position of the reply.
-	 * @param isLastChild To indicate if the reply is the last one in the reply list.
-	 * @param convertView A previous recycled view.
-     * @param parent Parent view
-     * 
-     * @return The View
+	 * @param groupPosition
+	 *            The position of the answer.
+	 * @param childPosition
+	 *            The position of the reply.
+	 * @param isLastChild
+	 *            To indicate if the reply is the last one in the reply list.
+	 * @param convertView
+	 *            A previous recycled view.
+	 * @param parent
+	 *            Parent view
+	 * 
+	 * @return The View
 	 */
 	@SuppressLint("InflateParams")
 	@Override
@@ -207,8 +227,10 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * Whether the child at the specified position is selectable.
 	 * 
-	 * @param groupPosition the position of the answer.
-	 * @param childPosition the position of the reply.
+	 * @param groupPosition
+	 *            the position of the answer.
+	 * @param childPosition
+	 *            the position of the reply.
 	 * 
 	 * @return whether the child at the specified position is selectable.
 	 */

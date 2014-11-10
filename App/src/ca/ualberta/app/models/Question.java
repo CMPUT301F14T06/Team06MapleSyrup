@@ -42,10 +42,14 @@ public class Question extends InputsModel {
 	/**
 	 * The constructor of the class
 	 * 
-	 * @param content The content.
-	 * @param userName The ID of the user who posted the question.
-	 * @param title The title of the question.
-	 * @param image The image belongs to the question.
+	 * @param content
+	 *            The content.
+	 * @param userName
+	 *            The ID of the user who posted the question.
+	 * @param title
+	 *            The title of the question.
+	 * @param image
+	 *            The image belongs to the question.
 	 */
 	public Question(String content, String userName, String title, Bitmap image) {
 		super(content, userName, title, image);
@@ -59,7 +63,8 @@ public class Question extends InputsModel {
 	/**
 	 * Add a new reply to the question
 	 * 
-	 * @param newReply The new reply.
+	 * @param newReply
+	 *            The new reply.
 	 */
 	public void addReply(Reply newReply) {
 		this.replyList.add(newReply);
@@ -68,7 +73,8 @@ public class Question extends InputsModel {
 	/**
 	 * Add a new answer to the question
 	 * 
-	 * @param newAnswer The new question.
+	 * @param newAnswer
+	 *            The new question.
 	 */
 	public void addAnswer(Answer newAnswer) {
 		this.answerList.add(newAnswer);
@@ -119,13 +125,14 @@ public class Question extends InputsModel {
 
 	/**
 	 * Set the ID of a question
-	 *  
-	 * @param newID The new ID.
+	 * 
+	 * @param newID
+	 *            The new ID.
 	 */
-	public void setID(long newID){
+	public void setID(long newID) {
 		this.ID_question = newID;
 	}
-	
+
 	/**
 	 * Return the total number of answers of the question
 	 * 
@@ -156,7 +163,8 @@ public class Question extends InputsModel {
 	/**
 	 * Return the position of an given answer of a question
 	 * 
-	 * @param answer The given answer.
+	 * @param answer
+	 *            The given answer.
 	 * 
 	 * @return The position of an given answer.
 	 */
@@ -167,7 +175,8 @@ public class Question extends InputsModel {
 	/**
 	 * Return the position of an given reply question
 	 * 
-	 * @param reply The given reply.
+	 * @param reply
+	 *            The given reply.
 	 * 
 	 * @return The position of an given reply.
 	 */
@@ -194,12 +203,13 @@ public class Question extends InputsModel {
 	/**
 	 * Set the number of the upvote counter
 	 * 
-	 * @param newUpvoteCount The new value of the upvote counter.
+	 * @param newUpvoteCount
+	 *            The new value of the upvote counter.
 	 */
-	public void setUpvoteCount(long newUpvoteCount){
+	public void setUpvoteCount(long newUpvoteCount) {
 		this.upvoteCount_question = newUpvoteCount;
 	}
-	
+
 	/**
 	 * Calculate the current total score of a question/answer
 	 */
@@ -226,20 +236,21 @@ public class Question extends InputsModel {
 	 * @return The answer with highest upvote number.
 	 */
 	public long getTheHighestAnswerUpvote() {
-		for (Answer answer : this.answerList) {		
-			if (answer.getAnswerUpvoteCount() >= TheHighestAnswerUpvote){
+		for (Answer answer : this.answerList) {
+			if (answer.getAnswerUpvoteCount() >= TheHighestAnswerUpvote) {
 				TheHighestAnswerUpvote = answer.getAnswerUpvoteCount();
 			}
 		}
 		return TheHighestAnswerUpvote;
 	}
-	
+
 	/**
 	 * update an answer to the question
 	 * 
-	 * @param answer The new answer.
+	 * @param answer
+	 *            The new answer.
 	 */
-	public void updateAnswer(Answer answer){
+	public void updateAnswer(Answer answer) {
 		int index = this.answerList.indexOf(answer);
 		this.answerList.remove(index);
 		this.answerList.add(answer);

@@ -48,10 +48,13 @@ public class AuthorMap {
 	/**
 	 * Based on different conditions, update the current user name
 	 * 
-	 * @param username the current user name.
-	 * @param newUsername the new user name.
+	 * @param username
+	 *            the current user name.
+	 * @param newUsername
+	 *            the new user name.
 	 * 
-	 * @return false is the new user name has already existed in the author map, return true if not.
+	 * @return false is the new user name has already existed in the author map,
+	 *         return true if not.
 	 */
 	public boolean setUsername(String username, String newUsername) {
 		if (authorMap.get(newUsername) != null) {
@@ -65,7 +68,8 @@ public class AuthorMap {
 	/**
 	 * If Login name exist then login otherwise create a new account
 	 * 
-	 * @param newAuthor the new author.
+	 * @param newAuthor
+	 *            the new author.
 	 */
 	public void addAuthor(Author newAuthor) {
 		String newUsername = newAuthor.getUsername();
@@ -91,7 +95,8 @@ public class AuthorMap {
 	/**
 	 * Show all authors in the searching result
 	 * 
-	 * @param searchAuthors the searching result.
+	 * @param searchAuthors
+	 *            the searching result.
 	 */
 	public void putAll(AuthorMap searchAuthors) {
 		authorMap.putAll(searchAuthors.getMap());
@@ -101,8 +106,10 @@ public class AuthorMap {
 	/**
 	 * Map an user name to an author
 	 * 
-	 * @param username The user name.
-	 * @param author The author.
+	 * @param username
+	 *            The user name.
+	 * @param author
+	 *            The author.
 	 */
 	public void put(String username, Author author) {
 		authorMap.put(username, author);

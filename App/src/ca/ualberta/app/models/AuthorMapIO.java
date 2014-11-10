@@ -41,8 +41,10 @@ public class AuthorMapIO {
 	/**
 	 * load the author map from the local file
 	 * 
-	 * @param context the context.
-	 * @param FILENAME the name of the local file.
+	 * @param context
+	 *            the context.
+	 * @param FILENAME
+	 *            the name of the local file.
 	 * 
 	 * @return authorMap, the author map.
 	 */
@@ -68,9 +70,12 @@ public class AuthorMapIO {
 	/**
 	 * save the author map to the local file
 	 * 
-	 * @param context the context.
-	 * @param authorMap the given author map.
-	 * @param FILENAME the name of the local file.
+	 * @param context
+	 *            the context.
+	 * @param authorMap
+	 *            the given author map.
+	 * @param FILENAME
+	 *            the name of the local file.
 	 */
 	public static void saveInFile(Context context, AuthorMap authorMap,
 			String FILENAME) {

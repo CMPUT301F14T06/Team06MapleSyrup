@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import android.graphics.Bitmap;
 
 /**
- * This class contains all functinalities an author object should have.
+ * This class contains all functionalities an author object should have.
  */
 public class Author extends User {
 	// final static boolean loginState = true;
@@ -36,7 +36,8 @@ public class Author extends User {
 	/**
 	 * The constructor of the class
 	 * 
-	 * @param username An unique user ID of the user.
+	 * @param username
+	 *            An unique user ID of the user.
 	 */
 	public Author(String username) {
 		super();
@@ -47,7 +48,8 @@ public class Author extends User {
 	/**
 	 * Ask a question
 	 * 
-	 * @param questionId An unique ID of the new question.
+	 * @param questionId
+	 *            An unique ID of the new question.
 	 */
 	public void addAQuestion(long questionId) {
 		this.myQuestionId.add(questionId);
@@ -56,7 +58,8 @@ public class Author extends User {
 	/**
 	 * Modify the current user name
 	 * 
-	 * @param newUsername The new user name.
+	 * @param newUsername
+	 *            The new user name.
 	 */
 	public void setUsername(String newUsername) {
 		this.username = newUsername;

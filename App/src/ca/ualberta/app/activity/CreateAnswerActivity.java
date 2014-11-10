@@ -44,14 +44,9 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 /**
- * This is the activity for the mean functionality of answering a question.
- * This activity will be acted when the "Add Answer" button in the
+ * This is the activity for the mean functionality of answering a question. This
+ * activity will be acted when the "Add Answer" button in the
  * QuestionDetailActivity.java is clicked.
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
- *
  */
 public class CreateAnswerActivity extends Activity {
 	private RadioButton galary;
@@ -66,8 +61,8 @@ public class CreateAnswerActivity extends Activity {
 	Uri stringFileUri;
 
 	/**
-	 * This method will be called when the user finishes answering a question 
-	 * to stop the the current thread.
+	 * This method will be called when the user finishes answering a question to
+	 * stop the the current thread.
 	 */
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -76,11 +71,11 @@ public class CreateAnswerActivity extends Activity {
 	};
 
 	/**
-	 * onCreate method
-	 * Once the activity is created, this method will give each view an object
-	 * to help other methods set data or listeners.
+	 * onCreate method Once the activity is created, this method will give each
+	 * view an object to help other methods set data or listeners.
 	 * 
-	 * @param savedInstanceState the saved instance state bundle
+	 * @param savedInstanceState
+	 *            the saved instance state bundle
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,17 +92,20 @@ public class CreateAnswerActivity extends Activity {
 	/**
 	 * If the user cancel the current operation, then stop the current thread
 	 * 
-	 * @param view View passed to the activity to check which button was pressed.
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
 	 */
 	public void cancel_answer(View view) {
 		finish();
 	}
 
 	/**
-	 * This method will be called when the current answer is submitted, then map the 
-	 * thread to the corresponding question and save all details into the question.
+	 * This method will be called when the current answer is submitted, then map
+	 * the thread to the corresponding question and save all details into the
+	 * question.
 	 * 
-	 * @param view View passed to the activity to check which button was pressed.
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
 	 */
 	public void submit_answer(View view) {
 		String content = contentText.getText().toString();
@@ -133,7 +131,8 @@ public class CreateAnswerActivity extends Activity {
 	/**
 	 * Create a storage for the picture in the answer
 	 * 
-	 * @param view View passed to the activity to check which button was pressed.
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
 	 */
 	public void take_question_pic(View view) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -158,11 +157,16 @@ public class CreateAnswerActivity extends Activity {
 	}
 
 	/**
-	 * Display the selected photo in the answer, and notify the user if the operation is successful
+	 * Display the selected photo in the answer, and notify the user if the
+	 * operation is successful
 	 * 
-	 * @param requestCode A code that represents the activity of adding an image.
-	 * @param resultCode A code that represent if the image adding process is committed/canceled.
-	 * @param Intent data The data.
+	 * @param requestCode
+	 *            A code that represents the activity of adding an image.
+	 * @param resultCode
+	 *            A code that represent if the image adding process is
+	 *            committed/canceled.
+	 * @param Intent
+	 *            data The data.
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -195,7 +199,8 @@ public class CreateAnswerActivity extends Activity {
 	/**
 	 * initial the menu on the top right corner of the screen
 	 * 
-	 * @param menu The menu.
+	 * @param menu
+	 *            The menu.
 	 * @return true if the menu is acted.
 	 */
 	@Override
@@ -209,7 +214,8 @@ public class CreateAnswerActivity extends Activity {
 	 * handle clicks on the Home/Up button, so long as you specify a parent
 	 * activity in AndroidManifest.xml.
 	 * 
-	 * @param menu The menu.
+	 * @param menu
+	 *            The menu.
 	 * @return true if the item is selected.
 	 */
 	@Override
@@ -221,10 +227,9 @@ public class CreateAnswerActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	
-
 	/**
-	 * Add the new answer to the question details, and stop the current thread when everything is done.
+	 * Add the new answer to the question details, and stop the current thread
+	 * when everything is done.
 	 */
 	class GetUpdateThread extends Thread {
 		private long id;
@@ -232,8 +237,11 @@ public class CreateAnswerActivity extends Activity {
 
 		/**
 		 * the constructor of the class
-		 * @param id the ID of the current answer.
-		 * @param newAnswer the current answer.
+		 * 
+		 * @param id
+		 *            the ID of the current answer.
+		 * @param newAnswer
+		 *            the current answer.
 		 */
 		public GetUpdateThread(long id, Answer newAnswer) {
 			this.newAnswer = newAnswer;

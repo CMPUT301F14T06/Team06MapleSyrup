@@ -46,14 +46,9 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 /**
- * This is the activity for the mean functionality of asking a question.
- * This activity will be acted when the "Ask Question" button in the
+ * This is the activity for the mean functionality of asking a question. This
+ * activity will be acted when the "Ask Question" button in the
  * MainActivity.java is clicked.
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
- *
  */
 public class CreateQuestionActivity extends Activity {
 	private RadioButton galary;
@@ -67,14 +62,14 @@ public class CreateQuestionActivity extends Activity {
 	private String FILENAME = "AUTHORMAP.sav";
 	private AuthorMap authorMap;
 	private long from = 0;
-	private long size= 1000;
+	private long size = 1000;
 	private String lable = "author";
 	Uri imageFileUri;
 	Uri stringFileUri;
 
 	/**
-	 * This method will be called when the user finishes asking a question 
-	 * to stop the the current thread.
+	 * This method will be called when the user finishes asking a question to
+	 * stop the the current thread.
 	 */
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -83,11 +78,11 @@ public class CreateQuestionActivity extends Activity {
 	};
 
 	/**
-	 * onCreate method
-	 * Once the activity is created, this method will give each view an object
-	 * to help other methods set data or listeners.
+	 * onCreate method Once the activity is created, this method will give each
+	 * view an object to help other methods set data or listeners.
 	 * 
-	 * @param savedInstanceState the saved instance state bundle.
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,12 +103,13 @@ public class CreateQuestionActivity extends Activity {
 	/**
 	 * Create a storage for the picture in the question
 	 * 
-	 * @param view View passed to the activity to check which button was pressed.
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
 	 */
 	public void take_question_pic(View view) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		//Create a folder to store pictures
+		// Create a folder to store pictures
 
 		String folder = Environment.getExternalStorageDirectory()
 				.getAbsolutePath() + "/tmp";
@@ -121,8 +117,8 @@ public class CreateQuestionActivity extends Activity {
 		if (!folderF.exists()) {
 			folderF.mkdir();
 		}
-		
-		//Create an URI for the picture file
+
+		// Create an URI for the picture file
 		String imageFilePath = folder + "/"
 				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
 		File imageFile = new File(imageFilePath);
@@ -134,11 +130,16 @@ public class CreateQuestionActivity extends Activity {
 	}
 
 	/**
-	 * Display the selected photo in the question, and notify the user if the operation is successful
+	 * Display the selected photo in the question, and notify the user if the
+	 * operation is successful
 	 * 
-	 * @param requestCode A code that represents the activity of adding an image.
-	 * @param resultCode A code that represent if the image adding process is committed/canceled.
-	 * @param Intent data The data.
+	 * @param requestCode
+	 *            A code that represents the activity of adding an image.
+	 * @param resultCode
+	 *            A code that represent if the image adding process is
+	 *            committed/canceled.
+	 * @param Intent
+	 *            data The data.
 	 */
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -162,18 +163,23 @@ public class CreateQuestionActivity extends Activity {
 	}
 
 	/**
-	 * If the user cancel the asking question operation, then stop the current thread
-	 * @param view View passed to the activity to check which button was pressed.
+	 * If the user cancel the asking question operation, then stop the current
+	 * thread
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
 	 */
 	public void cancel_question(View view) {
 		finish();
 	}
 
 	/**
-	 * This method will be called when the current question is submitted, then map the 
-	 * thread to the corresponding question and save all details into the question.
+	 * This method will be called when the current question is submitted, then
+	 * map the thread to the corresponding question and save all details into
+	 * the question.
 	 * 
-	 * @param view View passed to the activity to check which button was pressed.
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
 	 */
 	public void submit_question(View view) {
 		String title = titleText.getText().toString();
@@ -202,7 +208,8 @@ public class CreateQuestionActivity extends Activity {
 	/**
 	 * initial the menu on the top right corner of the screen
 	 * 
-	 * @param menu The menu.
+	 * @param menu
+	 *            The menu.
 	 * @return true if the menu is acted.
 	 */
 	@Override
@@ -216,7 +223,8 @@ public class CreateQuestionActivity extends Activity {
 	 * handle clicks on the Home/Up button, so long as you specify a parent
 	 * activity in AndroidManifest.xml.
 	 * 
-	 * @param menu The menu.
+	 * @param menu
+	 *            The menu.
 	 * @return true if the item is selected.
 	 */
 	@Override
@@ -237,7 +245,8 @@ public class CreateQuestionActivity extends Activity {
 	}
 
 	/**
-	 * Add the new question to the array list, and stop the current thread when everything is done.
+	 * Add the new question to the array list, and stop the current thread when
+	 * everything is done.
 	 */
 	class AddQuestionThread extends Thread {
 		private Question question;
@@ -260,14 +269,17 @@ public class CreateQuestionActivity extends Activity {
 	}
 
 	/**
-	 * Find the Author's thread, update the infor of the current user on online server.
+	 * Find the Author's thread, update the infor of the current user on online
+	 * server.
 	 */
 	class SearchAuthorThread extends Thread {
 		private String search;
-		
+
 		/**
 		 * the constructor of the class
-		 * @param s the keyword 
+		 * 
+		 * @param s
+		 *            the keyword
 		 */
 		public SearchAuthorThread(String s) {
 			search = s;
@@ -281,7 +293,8 @@ public class CreateQuestionActivity extends Activity {
 		@Override
 		public void run() {
 			authorMap.clear();
-			authorMap.putAll(authorMapManager.searchAuthors(search, null, from, size, lable));
+			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
+					size, lable));
 		}
 	}
 

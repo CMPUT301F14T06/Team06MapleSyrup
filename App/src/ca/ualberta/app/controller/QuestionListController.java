@@ -42,10 +42,6 @@ import ca.ualberta.app.models.Reply;
 
 /**
  * Combine and define functionalities of the question list.
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
  */
 public class QuestionListController {
 

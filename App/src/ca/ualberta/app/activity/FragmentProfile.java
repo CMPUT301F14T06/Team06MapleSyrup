@@ -37,13 +37,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 /**
- * This is the fragment activity for the mean question list, once the app is started, or a user clicks the "Main" button on the bottom action bar
+ * This is the fragment activity for the mean question list, once the app is
+ * started, or a user clicks the "Main" button on the bottom action bar
  * 
- * The fragment part is from this web site: http://www.programering.com/a/MjNzIDMwATI.html
+ * The fragment part is from this web site:
+ * http://www.programering.com/a/MjNzIDMwATI.html
  * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
  */
 public class FragmentProfile extends Fragment {
 	private TextView titleBar;
@@ -60,11 +59,15 @@ public class FragmentProfile extends Fragment {
 	private Context mcontext;
 
 	/**
-	 * Once the fragment is active, the user interface, R.layout.fragment_profile will be load into the fragment.
+	 * Once the fragment is active, the user interface,
+	 * R.layout.fragment_profile will be load into the fragment.
 	 * 
-	 * @param inflater is used to find out the layout defined in the xml file.
-	 * @param container the view container that contains all views of an single item.
-	 * @param savedInstanceState the saved instance state bundle.
+	 * @param inflater
+	 *            is used to find out the layout defined in the xml file.
+	 * @param container
+	 *            the view container that contains all views of an single item.
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
 	 * 
 	 * @return inflater the layout of this fragment.
 	 */
@@ -79,7 +82,8 @@ public class FragmentProfile extends Fragment {
 	 * Once the fragment is created, this method will give each view an object
 	 * to help other methods set data or listener.
 	 * 
-	 * @param savedInstanceState the saved instance state bundle.
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -98,13 +102,14 @@ public class FragmentProfile extends Fragment {
 		login = (RadioButton) getView().findViewById(R.id.login);
 		logout = (RadioButton) getView().findViewById(R.id.logout);
 		checkLoginStatus();
-		
+
 		login.setOnClickListener(new OnClickListener() {
 			/**
-			 * Setup the listener for the "Login" button, so that, once
-			 * the button is clicked, the login window will be displayed.
+			 * Setup the listener for the "Login" button, so that, once the
+			 * button is clicked, the login window will be displayed.
 			 * 
-			 * @param v The view of the button.
+			 * @param v
+			 *            The view of the button.
 			 */
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -112,14 +117,15 @@ public class FragmentProfile extends Fragment {
 
 			}
 		});
-		
+
 		logout.setOnClickListener(new OnClickListener() {
 			/**
-			 * Setup the listener for the "Logout" button, so that, once
-			 * the button is clicked, the activity will be set to the statues before
+			 * Setup the listener for the "Logout" button, so that, once the
+			 * button is clicked, the activity will be set to the statues before
 			 * logging in.
 			 * 
-			 * @param v The view of the button.
+			 * @param v
+			 *            The view of the button.
 			 */
 			public void onClick(View v) {
 				User.loginStatus = false;
@@ -127,13 +133,15 @@ public class FragmentProfile extends Fragment {
 				getActivity().recreate();
 			}
 		});
-		
+
 		my_question.setOnClickListener(new OnClickListener() {
 			/**
 			 * Setup the listener for the "My Questions" button, so that, once
-			 * the button is clicked, the author's own question(s) can be displayed.
+			 * the button is clicked, the author's own question(s) can be
+			 * displayed.
 			 * 
-			 * @param v The view of the button.
+			 * @param v
+			 *            The view of the button.
 			 */
 			@Override
 			public void onClick(View v) {
@@ -143,43 +151,46 @@ public class FragmentProfile extends Fragment {
 
 			}
 		});
-		
+
 		fav_question.setOnClickListener(new OnClickListener() {
 			/**
-			 * Setup the listener for the "Favorite Questions" button, so that, once
-			 * the button is clicked, the favorite question(s) can be displayed.
+			 * Setup the listener for the "Favorite Questions" button, so that,
+			 * once the button is clicked, the favorite question(s) can be
+			 * displayed.
 			 * 
-			 * @param v The view of the button.
+			 * @param v
+			 *            The view of the button.
 			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
 						MyFavoriteActivity.class);
 				startActivity(intent);
-				
+
 			}
 		});
 
 		local_cache.setOnClickListener(new OnClickListener() {
 			/**
 			 * Setup the listener for the "My Questions" button, so that, once
-			 * the button is clicked, the author's own question(s) can be displayed.
+			 * the button is clicked, the author's own question(s) can be
+			 * displayed.
 			 * 
-			 * @param v The view of the button.
+			 * @param v
+			 *            The view of the button.
 			 */
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(),
-						MyLocalActivity.class);
+				Intent intent = new Intent(getActivity(), MyLocalActivity.class);
 				startActivity(intent);
 			}
 		});
 	}
 
 	/**
-	* onResume method.
-	* Once the activity is resumed from other activities, check the user's longing statues.
-	*/
+	 * onResume method. Once the activity is resumed from other activities,
+	 * check the user's longing statues.
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -192,9 +203,9 @@ public class FragmentProfile extends Fragment {
 	}
 
 	/**
-	* onResume method.
-	* Once the activity is paused, check the user's longing statues.
-	*/
+	 * onResume method. Once the activity is paused, check the user's longing
+	 * statues.
+	 */
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -202,10 +213,12 @@ public class FragmentProfile extends Fragment {
 	}
 
 	/**
-	* this method is used to check out if an user has logged in: (1) if the user has logged in, then show the current user's profile
-	* (include button for the user's own questions, and the logout button) on the screen;
-	* (2) if not, only show the buttons of local questions, favorite question, and login.
-	*/
+	 * this method is used to check out if an user has logged in: (1) if the
+	 * user has logged in, then show the current user's profile (include button
+	 * for the user's own questions, and the logout button) on the screen; (2)
+	 * if not, only show the buttons of local questions, favorite question, and
+	 * login.
+	 */
 	public void checkLoginStatus() {
 		loginStatus = User.loginStatus;
 		if (loginStatus) {

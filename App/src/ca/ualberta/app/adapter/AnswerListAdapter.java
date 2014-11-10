@@ -44,26 +44,27 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
- *  Adapter for the answer list, used to display all answers to a question.
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
+ * Adapter for the answer list, used to display all answers to a question.
  */
 public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Answer> answerList = null;
 	private Question question;
 	private Context context;
-	
-    /**
-     * Constructs the adapter and initializes its context.
-     * 
-     * @param context  The Context in which the adapter is running.
-     * @param singleAnswer One answer in a answer.
-     * @param singleReply One reply of an answer in the answer list.
-     * @param answers The answer list.
-     * @param question The question that the answer list belongs to.
-     */
+
+	/**
+	 * Constructs the adapter and initializes its context.
+	 * 
+	 * @param context
+	 *            The Context in which the adapter is running.
+	 * @param singleAnswer
+	 *            One answer in a answer.
+	 * @param singleReply
+	 *            One reply of an answer in the answer list.
+	 * @param answers
+	 *            The answer list.
+	 * @param question
+	 *            The question that the answer list belongs to.
+	 */
 	public AnswerListAdapter(Context context, int singleAnswer,
 			int singleReply, ArrayList<Answer> answers, Question question) {
 		this.context = context;
@@ -84,7 +85,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * return the size of the replies in the answer.
 	 * 
-	 * @param groupPosition the position of the answer.
+	 * @param groupPosition
+	 *            the position of the answer.
 	 * 
 	 * @return the size of the replies in the answer.
 	 */
@@ -96,7 +98,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * Return answer at the given position.
 	 * 
-	 * @param groupPosition the position of the answer.
+	 * @param groupPosition
+	 *            the position of the answer.
 	 * 
 	 * @return answer at the given position
 	 */
@@ -108,9 +111,11 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * Return one reply list of the answer in the given position.
 	 * 
-	 * @param groupPosition the position of the answer.
+	 * @param groupPosition
+	 *            the position of the answer.
 	 * 
-	 * @param childPosition the position of the reply list in the answer list.
+	 * @param childPosition
+	 *            the position of the reply list in the answer list.
 	 * 
 	 * @return one reply list of the answer in the given position.
 	 */
@@ -123,7 +128,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * Return the position of the answer list in the question detail list.
 	 * 
-	 * @param groupPosition the position of the answer list.
+	 * @param groupPosition
+	 *            the position of the answer list.
 	 * 
 	 * @return groupPosition the position of the answer list.
 	 */
@@ -133,12 +139,15 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * Return the position of the 
+	 * Return the position of the
 	 * 
-	 * @param groupPosition the position of the current answer list.
-	 * @param childPosition the position of a given reply list in the answer list.
+	 * @param groupPosition
+	 *            the position of the current answer list.
+	 * @param childPosition
+	 *            the position of a given reply list in the answer list.
 	 * 
-	 * @return childPosition the position of a given reply list in the answer list.
+	 * @return childPosition the position of a given reply list in the answer
+	 *         list.
 	 */
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
@@ -146,7 +155,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * Indicates whether the child and group IDs are stable across changes to the underlying data.
+	 * Indicates whether the child and group IDs are stable across changes to
+	 * the underlying data.
 	 */
 	@Override
 	public boolean hasStableIds() {
@@ -154,14 +164,19 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * Gets a View that displays the given view holder for the specific values in an answer.
+	 * Gets a View that displays the given view holder for the specific values
+	 * in an answer.
 	 * 
-	 * @param groupPosition The position of the answer.
-	 * @param isExpanded To indicate if the group view of the answer is expandable.
-	 * @param convertView A previous recycled view.
-     * @param parent Parent view
-     * 
-     * @return The View.
+	 * @param groupPosition
+	 *            The position of the answer.
+	 * @param isExpanded
+	 *            To indicate if the group view of the answer is expandable.
+	 * @param convertView
+	 *            A previous recycled view.
+	 * @param parent
+	 *            Parent view
+	 * 
+	 * @return The View.
 	 */
 	@SuppressLint("InflateParams")
 	@Override
@@ -223,15 +238,21 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * Gets a View that displays the given view holder for the specific values in a reply.
+	 * Gets a View that displays the given view holder for the specific values
+	 * in a reply.
 	 * 
-	 * @param groupPosition The position of the answer.
-	 * @param childPosition The position of the reply.
-	 * @param isLastChild To indicate if the reply is the last one in the reply list.
-	 * @param convertView A previous recycled view.
-     * @param parent Parent view
-     * 
-     * @return The View
+	 * @param groupPosition
+	 *            The position of the answer.
+	 * @param childPosition
+	 *            The position of the reply.
+	 * @param isLastChild
+	 *            To indicate if the reply is the last one in the reply list.
+	 * @param convertView
+	 *            A previous recycled view.
+	 * @param parent
+	 *            Parent view
+	 * 
+	 * @return The View
 	 */
 	@SuppressLint("InflateParams")
 	@Override
@@ -265,8 +286,10 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	/**
 	 * Whether the child at the specified position is selectable.
 	 * 
-	 * @param groupPosition the position of the answer.
-	 * @param childPosition the position of the reply.
+	 * @param groupPosition
+	 *            the position of the answer.
+	 * @param childPosition
+	 *            the position of the reply.
 	 * 
 	 * @return whether the child at the specified position is selectable.
 	 */
@@ -279,7 +302,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	 * Setup the listener for the up vote button
 	 * 
 	 * @author Bicheng
-	 *
+	 * 
 	 */
 	private class upvoteOnClickListener implements OnClickListener {
 
@@ -288,16 +311,19 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		/**
 		 * The constructor of the class
 		 * 
-		 * @param position the position of the answer.
+		 * @param position
+		 *            the position of the answer.
 		 */
 		public upvoteOnClickListener(int position) {
 			this.position = position;
 		}
 
 		/**
-		 * If the answer is up voted, then add the counter of the vote, and update it in the data set.
+		 * If the answer is up voted, then add the counter of the vote, and
+		 * update it in the data set.
 		 * 
-		 * @param v The view of the up vote button.
+		 * @param v
+		 *            The view of the up vote button.
 		 */
 		@Override
 		public void onClick(View v) {
@@ -323,7 +349,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		/**
 		 * The constructor of the class.
 		 * 
-		 * @param position the position of the answer.
+		 * @param position
+		 *            the position of the answer.
 		 */
 		public AddReplyOnClickListener(int position) {
 			this.position = position;
@@ -332,7 +359,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		/**
 		 * If the button is clicked, act the activity for adding reply
 		 * 
-		 * @param v The view of the reply button.
+		 * @param v
+		 *            The view of the reply button.
 		 */
 		@Override
 		public void onClick(View v) {
@@ -349,7 +377,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	 * The container of the views for a single reply
 	 * 
 	 * @author Bicheng
-	 *
+	 * 
 	 */
 	class ViewHolder_reply {
 		TextView authorName;
@@ -361,7 +389,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	 * The container of the views for a single answer
 	 * 
 	 * @author Bicheng
-	 *
+	 * 
 	 */
 	class ViewHolder_answer {
 		TextView authorName;

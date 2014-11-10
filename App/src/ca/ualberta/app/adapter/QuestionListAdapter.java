@@ -47,11 +47,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
- *  Adapter for the question list, used to display a question.
- * 
- * @author Anni
- * @author Bicheng
- * @author Xiaocong
+ * Adapter for the question list, used to display a question.
  */
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private ArrayList<Question> questionList = null;
@@ -64,9 +60,13 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	/**
 	 * Constructs the adapter and initializes its context.
 	 * 
-	 * @param context The Context in which the adapter is running.
-	 * @param textViewResourceId The resource ID of the text view that contains the context of the question.
-	 * @param objects the instant of the array list that contains all questions.
+	 * @param context
+	 *            The Context in which the adapter is running.
+	 * @param textViewResourceId
+	 *            The resource ID of the text view that contains the context of
+	 *            the question.
+	 * @param objects
+	 *            the instant of the array list that contains all questions.
 	 */
 	public QuestionListAdapter(Context context, int textViewResourceId,
 			ArrayList<Question> objects) {
@@ -76,13 +76,17 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	}
 
 	/**
-	 * Gets a View that displays the given view holder for the specific values in a question.
+	 * Gets a View that displays the given view holder for the specific values
+	 * in a question.
 	 * 
-	 * @param Position The position of the question.
-	 * @param convertView A previous recycled view.
-     * @param parent Parent view.
-     * 
-     * @return The View.
+	 * @param Position
+	 *            The position of the question.
+	 * @param convertView
+	 *            A previous recycled view.
+	 * @param parent
+	 *            Parent view.
+	 * 
+	 * @return The View.
 	 */
 	@SuppressLint("InflateParams")
 	@Override
@@ -114,7 +118,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				.findViewById(R.id.timeTextView);
 		convertView.setTag(holder);
 		Question question = this.getItem(position);
-		
+
 		if (question != null) {
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
@@ -145,7 +149,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	 * Setup listener for the "Save" button of each question.
 	 * 
 	 * @author Anni
-	 *
+	 * 
 	 */
 	private class saveOnClickListener implements OnClickListener {
 
@@ -154,17 +158,20 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		/**
 		 * The constructor of the class
 		 * 
-		 * @param position The position of the question.
+		 * @param position
+		 *            The position of the question.
 		 */
 		public saveOnClickListener(int position) {
 			this.position = position;
 		}
 
 		/**
-		 * If the button is clicked, save the selected question to local question list in cache;
-		 * If the button is un-clicked, then remove the selected question from the local question list in cache.
+		 * If the button is clicked, save the selected question to local
+		 * question list in cache; If the button is un-clicked, then remove the
+		 * selected question from the local question list in cache.
 		 * 
-		 * @param v the view of the button.
+		 * @param v
+		 *            the view of the button.
 		 */
 		@Override
 		public void onClick(View v) {
@@ -185,7 +192,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	 * Set up the listener for the "Fav" (favorite) button in each question
 	 * 
 	 * @author Anni
-	 *
+	 * 
 	 */
 	private class favOnClickListener implements OnClickListener {
 
@@ -194,17 +201,20 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		/**
 		 * The constructor of the class
 		 * 
-		 * @param position The position of the question.
+		 * @param position
+		 *            The position of the question.
 		 */
 		public favOnClickListener(int position) {
 			this.position = position;
 		}
 
 		/**
-		 * If the button is clicked, then save the question to the favorite question list;
-		 * if the button is un-clicked, then remove the question from the favorite question list.
+		 * If the button is clicked, then save the question to the favorite
+		 * question list; if the button is un-clicked, then remove the question
+		 * from the favorite question list.
 		 * 
-		 * @param v the view of the button.
+		 * @param v
+		 *            the view of the button.
 		 */
 		@Override
 		public void onClick(View v) {
@@ -225,7 +235,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	 * Setup the listener for the up vote button
 	 * 
 	 * @author Anni
-	 *
+	 * 
 	 */
 	private class upvoteOnClickListener implements OnClickListener {
 
@@ -234,16 +244,19 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		/**
 		 * The constructor of the class
 		 * 
-		 * @param position the position of the question.
+		 * @param position
+		 *            the position of the question.
 		 */
 		public upvoteOnClickListener(int position) {
 			this.position = position;
 		}
 
 		/**
-		 * If the answer is up voted, then add the counter of the vote, and update it in the data set.
+		 * If the answer is up voted, then add the counter of the vote, and
+		 * update it in the data set.
 		 * 
-		 * @param v The view of the up vote button.
+		 * @param v
+		 *            The view of the up vote button.
 		 */
 		@Override
 		public void onClick(View v) {
@@ -304,7 +317,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
  * The container of the views for a single question
  * 
  * @author Anni
- *
+ * 
  */
 class ViewHolder {
 	ImageView authorPic;
