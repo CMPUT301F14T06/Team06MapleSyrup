@@ -81,47 +81,45 @@ public class ViewReplysTest extends TestCase {
 	}
 	
 	public void testViewReplysOnline(){
-//		String questionString = "A Question";
-//		String answerString = "A Answer";
-//		String replyString = "A reply";
-//		String userName = "userName";
-//		String titleString = "title";
-//		Bitmap image = null;
-//		Question question = new Question(questionString, userName, titleString,
-//				image);
-//		Answer answer = new Answer(answerString, userName, image);
-//		Reply reply_A = new Reply(replyString, userName);
-//		Reply reply_B = new Reply(replyString, userName);
-//		
-//		QuestionListManager questionListManager = new QuestionListManager();
-//		question.addReply(reply_A);
-//		answer.addReply(reply_B);
-//		question.addAnswer(answer);
-//		questionListManager.addQuestion(question);
-//		Question targetQuestion = questionListManager.getQuestion(question.getID());
-//		
-//		int position_a = targetQuestion.getAnswerPosition(answer);
-//		
-//		ArrayList<Reply> replyList_Q = targetQuestion.getReplys();
-//		ArrayList<Answer> answerList = targetQuestion.getAnswers();
-//		Answer answerResult = answerList.get(position_a);
-//		
-//		int position_q_r = targetQuestion.getReplyPosition(reply_A);
-//		int position_a_r = answerResult.getReplyPosition(reply_B);
-//				
-//		ArrayList<Reply> replyList_A = answerResult.getReplyArrayList();
-//
-//		Reply result_A = replyList_Q.get(position_q_r);
-//		Reply result_B = replyList_A.get(position_a_r);
-//		
-//		assertTrue("User cannot view QuestionReplys", replyList_Q.size() == 1);
-//		assertTrue("User cannot view AnswerReplys", replyList_A.size() == 1);
-//		assertEquals(reply_A.getContent(), result_A.getContent());
-//		assertEquals(reply_A.getAuthor(), result_A.getAuthor());
-//		assertEquals(reply_B.getContent(), result_B.getContent());
-//		assertEquals(reply_B.getAuthor(), result_B.getAuthor());
-//		
-//		questionListManager.deleteQuestion(question.getID());
+		String questionString = "A Question";
+		String answerString = "A Answer";
+		String replyString = "A reply";
+		String userName = "userName";
+		String titleString = "title";
+		Bitmap image = null;
+		Question question = new Question(questionString, userName, titleString,
+				image);
+		Answer answer = new Answer(answerString, userName, image);
+		Reply reply_A = new Reply(replyString, userName);
+		Reply reply_B = new Reply(replyString, userName);
+		
+		QuestionListManager questionListManager = new QuestionListManager();
+		question.addReply(reply_A);
+		answer.addReply(reply_B);
+		question.addAnswer(answer);
+		questionListManager.addQuestion(question);
+		Question targetQuestion = questionListManager.getQuestion(question.getID());
+		
+		ArrayList<Reply> replyList_Q = targetQuestion.getReplys();
+		ArrayList<Answer> answerList = targetQuestion.getAnswers();
+		Answer answerResult = answerList.get(0);
+		
+		int position_q_r = targetQuestion.getReplyPosition(reply_A);
+		int position_a_r = answerResult.getReplyPosition(reply_B);
+				
+		ArrayList<Reply> replyList_A = answerResult.getReplyArrayList();
+
+		Reply result_A = replyList_Q.get(position_q_r);
+		Reply result_B = replyList_A.get(position_a_r);
+		
+		assertTrue("User cannot view QuestionReplys", replyList_Q.size() == 1);
+		assertTrue("User cannot view AnswerReplys", replyList_A.size() == 1);
+		assertEquals(reply_A.getContent(), result_A.getContent());
+		assertEquals(reply_A.getAuthor(), result_A.getAuthor());
+		assertEquals(reply_B.getContent(), result_B.getContent());
+		assertEquals(reply_B.getAuthor(), result_B.getAuthor());
+		
+		questionListManager.deleteQuestion(question.getID());
 	}
 	
 }

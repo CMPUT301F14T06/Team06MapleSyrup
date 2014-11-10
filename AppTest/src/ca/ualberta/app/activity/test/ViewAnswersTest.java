@@ -73,7 +73,6 @@ public class ViewAnswersTest extends TestCase {
 		Question targetQuestion = questionListManager.getQuestion(question.getID());
 		
 		ArrayList<Answer> answerList = targetQuestion.getAnswers();
-		int position = targetQuestion.getAnswerPosition(answer);
 		Answer result = answerList.get(0);
 		
 		assertTrue("User cannot view answers", answerList.size() == 1);
