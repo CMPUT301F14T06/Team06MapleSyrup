@@ -49,7 +49,7 @@ public class MyFavoriteActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-	
+
 	/**
 	 * Thread notify the adapter changes in data, and update the adapter after
 	 * an operation
@@ -96,7 +96,7 @@ public class MyFavoriteActivity extends Activity {
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
-		
+
 		/**
 		 * Jump to the layout of the choosen question, and show details when
 		 * click on an item (a question) in the favorite question list
@@ -159,7 +159,7 @@ public class MyFavoriteActivity extends Activity {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						updateList();
+						adapter.notifyDataSetChanged();
 						onLoad();
 					}
 				}, 2000);
@@ -194,14 +194,14 @@ public class MyFavoriteActivity extends Activity {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-//	/**
-//	 * onResume method
-//	 */
-//	@Override
-//	public void onResume() {
-//		super.onResume();
-//		updateList();
-//	}
+	// /**
+	// * onResume method
+	// */
+	// @Override
+	// public void onResume() {
+	// super.onResume();
+	// updateList();
+	// }
 
 	/**
 	 * This class represents the functions in the sorting menu in the spinner at
@@ -260,15 +260,14 @@ public class MyFavoriteActivity extends Activity {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			Thread thread = new GetListThread();
 			thread.start();
-			
+
 		} else {
 			favQuestionListController.clear();
-			favQuestionList = cacheController.getFavoriteQuestionList();
-			favQuestionListController.addAll(favQuestionList);
+			favQuestionListController.addAll(cacheController
+					.getFavoriteQuestionList());
 			adapter.applySortMethod();
-			adapter.notifyDataSetChanged();	
+			adapter.notifyDataSetChanged();
 		}
-
 	}
 
 	/**
@@ -279,8 +278,8 @@ public class MyFavoriteActivity extends Activity {
 		@Override
 		public void run() {
 			favQuestionListController.clear();
-			favQuestionList = favQuestionListManager.getQuestionList(favListId);
-			favQuestionListController.addAll(favQuestionList);
+			favQuestionListController.addAll(favQuestionListManager
+					.getQuestionList(favListId));
 
 			runOnUiThread(doUpdateGUIList);
 		}

@@ -94,7 +94,7 @@ public class MyLocalActivity extends Activity {
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
-		
+
 		/**
 		 * Jump to the layout of the choosen question, and show details when
 		 * click on an item (a question) in the favorite question list
@@ -157,7 +157,7 @@ public class MyLocalActivity extends Activity {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						updateList();
+						adapter.notifyDataSetChanged();
 						onLoad();
 					}
 				}, 2000);
@@ -192,14 +192,14 @@ public class MyLocalActivity extends Activity {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-//	/**
-//	 * onResume method
-//	 */
-//	@Override
-//	public void onResume() {
-//		super.onResume();
-//		updateList();
-//	}
+	// /**
+	// * onResume method
+	// */
+	// @Override
+	// public void onResume() {
+	// super.onResume();
+	// updateList();
+	// }
 
 	/**
 	 * This class represents the functions in the sorting menu in the spinner at
@@ -256,14 +256,16 @@ public class MyLocalActivity extends Activity {
 					Toast.LENGTH_LONG).show();
 
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
-			Thread thread = new GetListThread();
+			Thread thread = new GetListThread(localListId);
 			thread.start();
+			Toast.makeText(mcontext, "online", Toast.LENGTH_LONG).show();
 		} else {
 			localQuestionListController.clear();
 			localQuestionList = cacheController.getLocalQuestionsList();
 			localQuestionListController.addAll(localQuestionList);
 			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
+			Toast.makeText(mcontext, "offline", Toast.LENGTH_LONG).show();
 		}
 
 	}
@@ -273,6 +275,12 @@ public class MyLocalActivity extends Activity {
 	 * for updating/other operations
 	 */
 	class GetListThread extends Thread {
+		private ArrayList<Long> localListId;
+
+		public GetListThread(ArrayList<Long> localListId) {
+			this.localListId = localListId;
+		}
+
 		@Override
 		public void run() {
 			localQuestionListController.clear();
