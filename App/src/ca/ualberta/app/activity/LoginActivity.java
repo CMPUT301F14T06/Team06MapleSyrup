@@ -157,8 +157,8 @@ public class LoginActivity extends Activity {
 	 * handle clicks on the Home/Up button, so long as you specify a parent
 	 * activity in AndroidManifest.xml.
 	 * 
-	 * @param menu
-	 *            The menu.
+	 * @param item
+	 *            The menu item.
 	 * @return true if the item is selected.
 	 */
 	@Override

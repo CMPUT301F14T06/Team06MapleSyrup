@@ -138,8 +138,8 @@ public class CreateAnswerReplyActivity extends Activity {
 	/**
 	 * check if the item in the menu is selected
 	 * 
-	 * @param menu
-	 *            The menu.
+	 * @param item
+	 *            The menu item.
 	 * @return true if the item is selected.
 	 */
 	@Override

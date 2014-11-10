@@ -79,7 +79,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	 * Gets a View that displays the given view holder for the specific values
 	 * in a question.
 	 * 
-	 * @param Position
+	 * @param position
 	 *            The position of the question.
 	 * @param convertView
 	 *            A previous recycled view.

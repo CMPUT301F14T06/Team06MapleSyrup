@@ -27,10 +27,12 @@ public class SearchCommand {
 	private long from;
 	private long size;
 	private String lable = "question";
-	
+
 	/**
 	 * The constructor of the class
-	 * @param query A piece of string that can be used in online server.S
+	 * 
+	 * @param query
+	 *            A piece of string that can be used in online server.S
 	 */
 	public SearchCommand(String query) {
 		this.query = query;
@@ -39,8 +41,10 @@ public class SearchCommand {
 	/**
 	 * Another definition of the class
 	 * 
-	 * @param query A piece of string that can be used in online server.S
-	 * @param fields the fields of operations.
+	 * @param query
+	 *            A piece of string that can be used in online server.S
+	 * @param fields
+	 *            the fields of operations.
 	 */
 	public SearchCommand(String query, String[] fields) {
 		this.query = query;
@@ -50,8 +54,10 @@ public class SearchCommand {
 	/**
 	 * Another definition of the class
 	 * 
-	 * @param query A piece of string that can be used in online server.S
-	 * @param fields the fields of operations.
+	 * @param query
+	 *            A piece of string that can be used in online server.S
+	 * @param fields
+	 *            the fields of operations.
 	 */
 	public SearchCommand(String query, String[] fields, String SortOption) {
 		this.query = query;
@@ -61,30 +67,36 @@ public class SearchCommand {
 	/**
 	 * Another definition of the class
 	 * 
-	 * @param query A piece of string that can be used in online server.S
-	 * @param fields the fields of operations.
+	 * @param query
+	 *            A piece of string that can be used in online server.S
+	 * @param from
+	 *            the index of QuestionList stored in the server
 	 * @param size
+	 *            the size of questions that will get by one query
 	 */
-	public SearchCommand(String query, long from, long size){
+	public SearchCommand(String query, long from, long size) {
 		this.query = query;
 		this.from = from;
 		this.size = size;
 	}
-	
+
 	/**
 	 * Another definition of the class
 	 * 
-	 * @param query A piece of string that can be used in online server.S
-	 * @param fields the fields of operations.
+	 * @param query
+	 *            A piece of string that can be used in online server.S
+	 * @param from
+	 *            the index of QuestionList stored in the server
 	 * @param size
+	 *            the size of questions that will get by one query
 	 * @param lable
+	 *            the lable for identify the caller
 	 */
-	public SearchCommand(String query, long from, long size,
-			String lable) {
+	public SearchCommand(String query, long from, long size, String lable) {
 		this.query = query;
 		this.from = from;
 		this.size = size;
-		this.lable  = lable;
+		this.lable = lable;
 	}
 
 	/**
@@ -93,9 +105,10 @@ public class SearchCommand {
 	 * @return the json command.
 	 */
 	public String getJsonCommand() {
-		StringBuffer command = new StringBuffer(
-				"{\"from\" : " + from + ", \"size\" : " + size + ", \"query\" : {\"query_string\" : {\"query\" : \""
-						+ query + "\"");
+		StringBuffer command = new StringBuffer("{\"from\" : " + from
+				+ ", \"size\" : " + size
+				+ ", \"query\" : {\"query_string\" : {\"query\" : \"" + query
+				+ "\"");
 
 		if (fields != null) {
 			command.append(", \"fields\":  [");
@@ -107,10 +120,10 @@ public class SearchCommand {
 
 			command.append("]");
 		}
-		if (lable == "question"){
+		if (lable == "question") {
 			command.append("}}, \"sort\": {\"ID_question\" : {\"order\" : \"desc\"");
 		}
-		
+
 		command.append("}}}");
 
 		return command.toString();
