@@ -41,14 +41,12 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 
+/**
+ * load question map from local file
+ * 
+ * @author Bicheng
+ */
 public class CacheController {
-	/**
-	 * load question map from local file
-	 * 
-	 * @param context
-	 * @param FILENAME
-	 * @return questionMap
-	 */
 	public Map<Long, Question> favoriteMap;
 	public Map<Long, Question> localCacheMap;
 	public ArrayList<Long> favoriteId;
@@ -58,6 +56,12 @@ public class CacheController {
 	private String FAVID = "favId.sav";
 	private String LOCALID = "localId.sav";
 
+	/**
+	 * The constructor of the class
+	 * load question map from local file
+	 * 
+	 * @param mcontext the context.
+	 */
 	public CacheController(Context mcontext) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
@@ -65,29 +69,65 @@ public class CacheController {
 		localCacheId = loadIdFromFile(mcontext, LOCALID);
 	}
 
+	/**
+	 * Return the question map of the favorite question from local file
+	 * 
+	 * @param mcontext the context.
+	 * 
+	 * @return the question map of the favorite question from the local file.
+	 */
 	public Map<Long, Question> getFavoriteMap(Context mcontext) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		return favoriteMap;
 	}
 
+	/**
+	 * Return the question map of the local question from local file
+	 * 
+	 * @param mcontext the context.
+	 * 
+	 * @return the question map of the local question from the local file.
+	 */
 	public Map<Long, Question> getLocalCacheMap(Context mcontext) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		return localCacheMap;
 
 	}
 
+	/**
+	 * Return the question ID of the favorite question from local file
+	 * 
+	 * @param mcontext the context.
+	 * 
+	 * @return the question ID of the favorite question from the local file.
+	 */
 	public ArrayList<Long> getFavoriteId(Context mcontext) {
 		favoriteId = loadIdFromFile(mcontext, FAVID);
 		return favoriteId;
 
 	}
 
+	/**
+	 * Return the question ID of the local question from local file
+	 * 
+	 * @param mcontext the context.
+	 * 
+	 * @return the question ID of the local question from the local file.
+	 */
 	public ArrayList<Long> getLocalCacheId(Context mcontext) {
 		localCacheId = loadIdFromFile(mcontext, LOCALID);
 		return localCacheId;
 
 	}
 
+	/**
+	 * Return whether the local file for favorite question contain the question.
+	 * 
+	 * @param mcontext the context.
+	 * @param question the question.
+	 * 
+	 * @return true if the local file for favorite question has the question, false if not.
+	 */
 	public boolean hasFavorited(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		if (favoriteMap.get(question.getID()) == null)
@@ -95,6 +135,14 @@ public class CacheController {
 		return true;
 	}
 
+	/**
+	 * Return whether the local file for local question contain the question.
+	 * 
+	 * @param mcontext the context.
+	 * @param question the question.
+	 * 
+	 * @return true if the local file for favorite question has the question, false if not.
+	 */
 	public boolean hasSaved(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		if (localCacheMap.get(question.getID()) == null)
@@ -102,6 +150,12 @@ public class CacheController {
 		return true;
 	}
 
+	/**
+	 * Save a question into the the local file of the favorite questions.
+	 * 
+	 * @param mcontext the context.
+	 * @param question the question.
+	 */
 	public void addFavQuestions(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		favoriteId = loadIdFromFile(mcontext, FAVID);
@@ -113,6 +167,12 @@ public class CacheController {
 		}
 	}
 
+	/**
+	 * Save a question into the the local file of the local questions.
+	 * 
+	 * @param mcontext the context.
+	 * @param question the question.
+	 */
 	public void addLocalQuestions(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		localCacheId = loadIdFromFile(mcontext, LOCALID);
@@ -124,6 +184,12 @@ public class CacheController {
 		}
 	}
 
+	/**
+	 * Remove a question into the the local file of the favorite questions.
+	 * 
+	 * @param mcontext the context.
+	 * @param question the question.
+	 */
 	public void removeFavQuestions(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		favoriteId = loadIdFromFile(mcontext, FAVID);
@@ -138,6 +204,12 @@ public class CacheController {
 		saveInFile(mcontext, favoriteId, FAVID);
 	}
 
+	/**
+	 * Remove a question into the the local file of the local questions.
+	 * 
+	 * @param mcontext the context.
+	 * @param question the question.
+	 */
 	public void removeLocalQuestions(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		localCacheId = loadIdFromFile(mcontext, LOCALID);
@@ -152,6 +224,12 @@ public class CacheController {
 		saveInFile(mcontext, localCacheId, LOCALID);
 	}
 
+	/**
+	 * Update a question in the the local file of the favorite questions.
+	 * 
+	 * @param mcontext the context.
+	 * @param question the question.
+	 */
 	public void updateFavQuestions(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		if (favoriteMap.get(question.getID()) != null) {
@@ -161,6 +239,12 @@ public class CacheController {
 		}
 	}
 
+	/**
+	 * Update a question in the the local file of the local questions.
+	 * 
+	 * @param mcontext the context.
+	 * @param question the question.
+	 */
 	public void updateLocalQuestions(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		if (localCacheMap.get(question.getID()) != null) {
@@ -170,17 +254,32 @@ public class CacheController {
 		}
 	}
 
+	/**
+	 * Load and return the question list in the the local file of the favorite questions.
+	 * 
+	 * @return the favorite question list.
+	 */
 	public QuestionList getFavoriteQuestionList() {
 		QuestionList questionList = new QuestionList();
 		questionList.getCollection().addAll(this.favoriteMap.values());
 		return questionList;
 	}
 
+	/**
+	 * Clear all MAP's in the local files
+	 */
 	public void clear() {
 		favoriteMap.clear();
 		localCacheMap.clear();
 	}
 
+	/**
+	 * Save all MAP's into the local files
+	 * 
+	 * @param mcontext The context.
+	 * @param tempFav the buffer of the Map of the favorite question and it's ID.
+	 * @param tempSav the buffer of the Map of the local question and it's ID.
+	 */
 	public void addAll(Context mcontext, Map<Long, Question> tempFav,
 			Map<Long, Question> tempSav) {
 		favoriteMap.putAll(tempFav);
@@ -189,12 +288,24 @@ public class CacheController {
 		saveInFile(mcontext, localCacheMap, LOCALMAP);
 	}
 
+	/**
+	 * Load and return the local question list
+	 * @return the local question list.
+	 */
 	public QuestionList getLocalQuestionsList() {
 		QuestionList questionList = new QuestionList();
 		questionList.getCollection().addAll(this.localCacheMap.values());
 		return questionList;
 	}
 
+	/**
+	 * Load the question ID's from the file with give name.
+	 * 
+	 * @param context The context.
+	 * @param FILENAME The name of the local file.
+	 * 
+	 * @return the ID of the question(s).
+	 */
 	public ArrayList<Long> loadIdFromFile(Context context, String FILENAME) {
 		ArrayList<Long> questionId = null;
 		try {
@@ -214,6 +325,14 @@ public class CacheController {
 		return questionId;
 	}
 
+	/**
+	 * Load the question Map's from the file with give name.
+	 * 
+	 * @param context The context.
+	 * @param FILENAME The name of the local file.
+	 * 
+	 * @return the Map of the question(s).
+	 */
 	public Map<Long, Question> loadMapFromFile(Context context, String FILENAME) {
 		Map<Long, Question> questionMap = null;
 		try {
@@ -234,11 +353,11 @@ public class CacheController {
 	}
 
 	/**
-	 * save question map to local
+	 * save question map to local file
 	 * 
-	 * @param context
-	 * @param object
-	 * @param FILENAME
+	 * @param context The context.
+	 * @param object The object.
+	 * @param FILENAME The name of the file.
 	 */
 	public void saveInFile(Context context, Object object, String FILENAME) {
 		try {
