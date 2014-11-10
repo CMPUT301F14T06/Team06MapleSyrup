@@ -28,26 +28,57 @@ public class SearchCommand {
 	private long size;
 	private String lable = "question";
 	
+	/**
+	 * The constructor of the class
+	 * @param query A piece of string that can be used in online server.S
+	 */
 	public SearchCommand(String query) {
 		this.query = query;
 	}
 
+	/**
+	 * Another definition of the class
+	 * 
+	 * @param query A piece of string that can be used in online server.S
+	 * @param fields the fields of operations.
+	 */
 	public SearchCommand(String query, String[] fields) {
 		this.query = query;
 		this.fields = fields;
 	}
 
+	/**
+	 * Another definition of the class
+	 * 
+	 * @param query A piece of string that can be used in online server.S
+	 * @param fields the fields of operations.
+	 */
 	public SearchCommand(String query, String[] fields, String SortOption) {
 		this.query = query;
 		this.fields = fields;
 	}
 
+	/**
+	 * Another definition of the class
+	 * 
+	 * @param query A piece of string that can be used in online server.S
+	 * @param fields the fields of operations.
+	 * @param size
+	 */
 	public SearchCommand(String query, long from, long size){
 		this.query = query;
 		this.from = from;
 		this.size = size;
 	}
 	
+	/**
+	 * Another definition of the class
+	 * 
+	 * @param query A piece of string that can be used in online server.S
+	 * @param fields the fields of operations.
+	 * @param size
+	 * @param lable
+	 */
 	public SearchCommand(String query, long from, long size,
 			String lable) {
 		this.query = query;
@@ -56,6 +87,11 @@ public class SearchCommand {
 		this.lable  = lable;
 	}
 
+	/**
+	 * Merge and convert data set into one json commit
+	 * 
+	 * @return the json command.
+	 */
 	public String getJsonCommand() {
 		StringBuffer command = new StringBuffer(
 				"{\"from\" : " + from + ", \"size\" : " + size + ", \"query\" : {\"query_string\" : {\"query\" : \""
