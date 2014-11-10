@@ -23,6 +23,12 @@ package ca.ualberta.app.models;
 import java.util.ArrayList;
 import android.graphics.Bitmap;
 
+/**
+ * This class contains all functinalities an author object should have.
+ * 
+ * @author Anni
+ *
+ */
 public class Author extends User {
 	// final static boolean loginState = true;
 
@@ -30,24 +36,49 @@ public class Author extends User {
 	Bitmap image;
 	ArrayList<Long> myQuestionId;
 
+	/**
+	 * The constructor of the class
+	 * 
+	 * @param username An unique user ID of the user.
+	 */
 	public Author(String username) {
 		super();
 		this.username = username;
 		this.myQuestionId = new ArrayList<Long>();
 	}
 
+	/**
+	 * Ask a question
+	 * 
+	 * @param questionId An unique ID of the new question.
+	 */
 	public void addAQuestion(long questionId) {
 		this.myQuestionId.add(questionId);
 	}
 
+	/**
+	 * Modify the current user name
+	 * 
+	 * @param newUsername The new user name.
+	 */
 	public void setUsername(String newUsername) {
 		this.username = newUsername;
 	}
 
+	/**
+	 * Return the ID of the author's Question
+	 * 
+	 * @return the ID of the author's Question.
+	 */
 	public ArrayList<Long> getAuthorQuestionId() {
 		return this.myQuestionId;
 	}
 
+	/**
+	 * Return the user name of the user
+	 * 
+	 * @return the user name of the user.
+	 */
 	public String getUsername() {
 		return this.username;
 	}
