@@ -61,7 +61,8 @@ public class LoginActivity extends Activity {
 	};
 
 	/**
-	 * onCreate method Once a user enter this activity, this method will give
+	 * onCreate method
+	 * Once a user enter this activity, this method will give
 	 * each view an object to help other methods set data or listener. Also, a
 	 * new thread for the current user will be created.
 	 * 
