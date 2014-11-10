@@ -123,6 +123,8 @@ public class QuestionDetailActivity extends Activity {
 	 * method will check is the current user has logged in. If the login statue
 	 * is true, then the user will be able to see and user the "Add Answer"
 	 * button. Otherwise, the user cannot see the button.
+	 * 
+	 * @param savedInstanceState The saved instance state bundle.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -178,7 +180,7 @@ public class QuestionDetailActivity extends Activity {
 	/**
 	 * Set the boolean of the save statue of the question to True
 	 * 
-	 * @param view
+	 * @param view The view.
 	 */
 	public void save_click(View view) {
 		save_click = true;
@@ -189,7 +191,7 @@ public class QuestionDetailActivity extends Activity {
 	/**
 	 * Set the boolean of the favorite statue of the question to True
 	 * 
-	 * @param view
+	 * @param view The view.
 	 */
 	public void fav_click(View view) {
 		fav_click = true;
@@ -198,9 +200,9 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	/**
-	 * increase the upvote counter of the question to True
+	 * increase the up vote counter of the question to True
 	 * 
-	 * @param view
+	 * @param view The view.
 	 */
 	public void upvote_click(View view) {
 		upvote_click = true;
@@ -212,7 +214,7 @@ public class QuestionDetailActivity extends Activity {
 	 * This method will be called when the "Add Answer" button is clicked. It
 	 * will start a new activity for answering a question.
 	 * 
-	 * @param view
+	 * @param view The view.
 	 */
 	public void answer_question(View view) {
 		Intent intent = new Intent(this, CreateAnswerActivity.class);
@@ -224,7 +226,7 @@ public class QuestionDetailActivity extends Activity {
 	 * This method will be called when the "Add Reply" button is clicked. It
 	 * will start a new activity for replying a question.
 	 * 
-	 * @param view
+	 * @param view The view.
 	 */
 	public void reply_question(View view) {
 		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
@@ -242,10 +244,19 @@ public class QuestionDetailActivity extends Activity {
 	class GetThread extends Thread {
 		private long id;
 
+		/**
+		 * the constructor of the class
+		 * 
+		 * @param id the ID of the question.
+		 */
 		public GetThread(long id) {
 			this.id = id;
 		}
 
+		/**
+		 * check which list the current question belongs to, and save the question in different lists.
+		 * 
+		 */
 		@Override
 		public void run() {
 			question = questionManager.getQuestion(id);
