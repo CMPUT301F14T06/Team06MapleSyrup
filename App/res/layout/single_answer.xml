@@ -151,7 +151,7 @@
         android:layout_alignBottom="@+id/imageView1"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ImageView01"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="34dp" />
 
     <ImageView
         android:id="@+id/ImageView02"

@@ -25,23 +25,24 @@ import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 
 /**
- * This is the functionality of the thread which is used to update a answer in online server.
+ * This is the functionality of the thread which is used to update a answer in
+ * online server.
  * 
  * @author Bicheng
- *
+ * 
  */
 public class UpdateAnswerThread extends Thread {
 	private Question question;
 	private Answer answer_gonna_update;
-	private Answer answer_onServer;
 	private QuestionListManager questionListManager;
-	private int ansPosition;
 
 	/**
 	 * The constructor of the class
 	 * 
-	 * @param question The corresponding question.
-	 * @param answer_gonna_update The new answer.
+	 * @param question
+	 *            The corresponding question.
+	 * @param answer_gonna_update
+	 *            The new answer.
 	 */
 	public UpdateAnswerThread(Question question, Answer answer_gonna_update) {
 		this.answer_gonna_update = answer_gonna_update;
@@ -55,14 +56,6 @@ public class UpdateAnswerThread extends Thread {
 	 */
 	@Override
 	public void run() {
-		ansPosition = question.getAnswerPosition(answer_gonna_update);
-		answer_onServer = questionListManager.getQuestion(question.getID())
-				.getAnswers().get(ansPosition);
-		
-		if (answer_onServer.getAnswerUpvoteCount() >= answer_gonna_update.getAnswerUpvoteCount()){
-			answer_gonna_update.setUpvoteCount(answer_onServer.getAnswerUpvoteCount());
-			answer_gonna_update.upvoteAnswer();
-		}
 
 		question.updateAnswer(answer_gonna_update);
 		questionListManager.updateQuestion(question);

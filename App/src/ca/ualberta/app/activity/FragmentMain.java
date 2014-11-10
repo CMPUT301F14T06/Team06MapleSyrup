@@ -123,9 +123,12 @@ public class FragmentMain extends Fragment {
 	 * Once the fragment is active, the user interface, R.layout.fragment_search
 	 * will be load into the fragment.
 	 * 
-	 * @param inflater is used to find out the layout defined in the xml file.
-	 * @param container the view container that contains all views of an single item.
-	 * @param savedInstanceState the saved instance state bundle.
+	 * @param inflater
+	 *            is used to find out the layout defined in the xml file.
+	 * @param container
+	 *            the view container that contains all views of an single item.
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
 	 * 
 	 * @return inflater the layout of this fragment.
 	 */
@@ -140,7 +143,8 @@ public class FragmentMain extends Fragment {
 	 * Once the fragment is created, this method will give each view an object
 	 * to help other methods set data or listener.
 	 * 
-	 * @param savedInstanceState the saved instance state bundle.
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -160,8 +164,7 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * onStart method
-	 * Setup the adapter for the searching result list, and setup
+	 * onStart method Setup the adapter for the searching result list, and setup
 	 * listener for each item (question) in the searching result list.
 	 */
 	@Override
@@ -185,14 +188,18 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
-		
+
 		searchButton.setOnClickListener(new OnClickListener() {
 			/**
-			 * Setup the listener for the "Search" button, so that, once
-			 * the button is clicked, the current result list will be updated to the
-			 * newest searching result
+			 * Setup the listener for the "Search" button, so that, once the
+			 * button is clicked, the current result list will be updated to the
+			 * newest searching result, and the text on search button will
+			 * change to "Cancel". If the "Cancel" button is clicked, the button
+			 * will change back to Search, and the text in Edit text view will
+			 * be cleared.
 			 * 
-			 * @param v The view of the button.
+			 * @param v
+			 *            The view of the button.
 			 */
 			@Override
 			public void onClick(View v) {
@@ -209,14 +216,16 @@ public class FragmentMain extends Fragment {
 				}
 			}
 		});
-		
+
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
 			/**
-			 * Setup the listener for the Search edit text, so that, once
-			 * the edit text bar is filled, the app can get the user input text.
+			 * Once the edit text bar has been focused, set the search button's
+			 * text to "Search"
 			 * 
-			 * @param v The view of the button.
-			 * @param hasFocus True if the edit text bar are edited. 
+			 * @param v
+			 *            The view of the edit text.
+			 * @param hasFocus
+			 *            True if the edit text bar are been focused.
 			 */
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -226,7 +235,15 @@ public class FragmentMain extends Fragment {
 			}
 
 		});
+
 		searchEditText.setOnClickListener(new OnClickListener() {
+			/**
+			 * Once the edit text bar has been clicked, set the search buton's
+			 * text to "Search"
+			 * 
+			 * @param v
+			 *            The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				searchButton.setText("Search");
@@ -238,10 +255,14 @@ public class FragmentMain extends Fragment {
 			 * display the layout of the chosen question, and show details when
 			 * click on an item (a question) in the searching result list
 			 * 
-			 * @param parent The adapter of the item in the list.
-			 * @param view The view.
-			 * @param pos The position of a question.
-			 * @param id The ID of a question. 
+			 * @param parent
+			 *            The adapter of the item in the list.
+			 * @param view
+			 *            The view.
+			 * @param pos
+			 *            The position of a question.
+			 * @param id
+			 *            The ID of a question.
 			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
@@ -258,13 +279,17 @@ public class FragmentMain extends Fragment {
 
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			/**
-			 * Delete an item (a question) in the searching result list when a user
-			 * long clicks the question.
+			 * Delete an item (a question) in the searching result list when a
+			 * user long clicks the question.
 			 * 
-			 * @param parent The adapter of the item in the list.
-			 * @param view The view.
-			 * @param pos The position of a question.
-			 * @param id The ID of a question. 
+			 * @param parent
+			 *            The adapter of the item in the list.
+			 * @param view
+			 *            The view.
+			 * @param pos
+			 *            The position of a question.
+			 * @param id
+			 *            The ID of a question.
 			 */
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -298,10 +323,10 @@ public class FragmentMain extends Fragment {
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
 			/**
-			 * This method will called to update the content in the current result list when
-			 * the data is changed or sorted; also, this method will tell the
-			 * user the current interval of the question that are displayed on
-			 * the screen
+			 * This method will called to update the content in the current
+			 * result list when the data is changed or sorted; also, this method
+			 * will tell the user the current interval of the question that are
+			 * displayed on the screen
 			 */
 			@Override
 			public void onRefresh() {
@@ -362,8 +387,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * onResume method
-	 * Once this fragment resumes from other operations, set the text in the title bar.
+	 * onResume method Once this fragment resumes from other operations, set the
+	 * text in the title bar.
 	 */
 	@Override
 	public void onResume() {
@@ -412,12 +437,14 @@ public class FragmentMain extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			//updateList();
+			// updateList();
 		}
 
 		/**
 		 * Use default sort method is nothing is chosen
-		 * @param parent The adapter of the item in the list.
+		 * 
+		 * @param parent
+		 *            The adapter of the item in the list.
 		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
@@ -429,7 +456,7 @@ public class FragmentMain extends Fragment {
 	 * the new list contents from the new searching result
 	 */
 	private void updateList() {
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)){
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			if (User.loginStatus == true) {
 				MYQUESTION = User.author.getUsername() + "my.sav";
 				myQuestionListController.clear();
@@ -447,11 +474,11 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * find the author's ID and start the corresponding thread to load all contents
-	 * from the storage.
+	 * find the author's ID and start the corresponding thread to load all
+	 * contents from the storage.
 	 * 
 	 * @author Anni
-	 *
+	 * 
 	 */
 	class GetListThread extends Thread {
 		/**
@@ -469,8 +496,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * this class will starts a thread of question list in the cache array
-	 * for updating operation or other operations.
+	 * this class will starts a thread of question list in the cache array for
+	 * updating operation or other operations.
 	 */
 	class GetMapThread extends Thread {
 
@@ -491,8 +518,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	/**
-	 * this class will be used to run thread to load data when the
-	 * question list is searched.
+	 * this class will be used to run thread to load data when the question list
+	 * is searched.
 	 * 
 	 * @author Bicheng
 	 */
@@ -501,13 +528,15 @@ public class FragmentMain extends Fragment {
 
 		/**
 		 * the constructor of the class
-		 * @param s the keyword.
+		 * 
+		 * @param s
+		 *            the keyword.
 		 */
 		public SearchThread(String s) {
 			search = s;
 
 		}
-		
+
 		/**
 		 * check if there are search result
 		 */
