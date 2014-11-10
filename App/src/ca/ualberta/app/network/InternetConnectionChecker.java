@@ -24,8 +24,21 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+/**
+ * Check if the device connects the Internet
+ * 
+ * @author Bicheng
+ *
+ */
 public class InternetConnectionChecker {
 	
+	/**
+	 * Check if the device connects the Internet
+	 * 
+	 * @param context The context.
+	 * 
+	 * @return true if the Internet is connected; else return false.
+	 */
 	public static boolean isNetworkAvailable(Context context) {
 	    ConnectivityManager connectivityManager 
 	         = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
