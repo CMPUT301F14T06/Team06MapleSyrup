@@ -26,11 +26,24 @@ import java.util.List;
 
 import android.graphics.Bitmap;
 
+/**
+ * This class contains all functinalities an answer object should have.
+ * 
+ * @author Anni
+ *
+ */
 public class Answer extends InputsModel {
 	ArrayList<Reply> replyList;
 	long upvoteCount_answer;
 	long ID_answer;
 
+	/**
+	 * The constructor of the class
+	 * 
+	 * @param content The content of the answer.
+	 * @param userName the user name of the user who answers the answer.
+	 * @param image The image inside the answer.
+	 */
 	public Answer(String content, String userName, Bitmap image) {
 		super(content, userName, image);
 		this.replyList = new ArrayList<Reply>();
@@ -38,30 +51,65 @@ public class Answer extends InputsModel {
 		this.upvoteCount_answer = 0;
 	}
 
+	/**
+	 * Add a reply to the answer
+	 * 
+	 * @param newReply the new reply to the answer.
+	 */
 	public void addReply(Reply newReply) {
 		this.replyList.add(newReply);
 	}
 
+	/**
+	 * Return the reply list of the answer
+	 * 
+	 * @return replyList The reply list of the answer.
+	 */
 	public List<Reply> getReplyList() {
 		return this.replyList;
 	}
 
+	/**
+	 * Return the reply arraylist of the answer
+	 * 
+	 * @return replyList The reply arraylist of the answer.
+	 */
 	public ArrayList<Reply> getReplyArrayList() {
 		return this.replyList;
 	}
 
+	/**
+	 * Return the position of a reply in the reply list
+	 * 
+	 * @param reply The given reply.
+	 * 
+	 * @return The position of given reply.
+	 */
 	public int getReplyPosition(Reply reply) {
 		return this.replyList.indexOf(reply);
 	}
 
+	/**
+	 * increase the counter counts the up vote number
+	 */
 	public void upvoteAnswer() {
 		this.upvoteCount_answer++;
 	}
 
+	/**
+	 * Update the upvote counter
+	 * 
+	 * @param newUpvoteCount the new value of the counter.
+	 */
 	public void setUpvoteCount(long newUpvoteCount){
 		this.upvoteCount_answer = newUpvoteCount;
 	}
 	
+	/**
+	 * Return the upvote number of the question
+	 * 
+	 * @return the upvote number of the question.
+	 */
 	public long getAnswerUpvoteCount() {
 		return this.upvoteCount_answer;
 	}
