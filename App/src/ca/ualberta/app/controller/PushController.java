@@ -22,8 +22,18 @@ package ca.ualberta.app.controller;
 
 import ca.ualberta.app.models.QuestionList;
 
+/**
+ * Will be completed in the next part of the project
+ * 
+ * @author Anni
+ *
+ */
 public class PushController {
 
+	/**
+	 * Will be completed in the next part of the project
+	 * @param questionList the list of the question.
+	 */
 	public void push(QuestionList questionList) {
 		
 	}
