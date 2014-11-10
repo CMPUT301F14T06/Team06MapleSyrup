@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="/cshome/adai1/c301/Team06MapleSyrup/App/libs/gson-2.3-sources.jar:/cshome/adai1/c301/Team06MapleSyrup/App/libs/gson-2.3-javadoc.jar:/cshome/adai1/c301/Team06MapleSyrup/App/libs/gson-2.3.jar:/cshome/adai1/c301/Team06MapleSyrup/App/libs/persistence-api-1.0.jar:/cshome/adai1/c301/Team06MapleSyrup/App/libs/android-support-v4.jar" destdir="/cshome/adai1/c301/Team06MapleSyrup/App/doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="ca.ualberta.app.activity,ca.ualberta.app.thread,ca.ualberta.app.adapter,ca.ualberta.app.models,ca.ualberta.app.comparator,ca.ualberta.app.ESmanager,ca.ualberta.app.view,ca.ualberta.app.network,ca.ualberta.app.controller,ca.ualberta.app.network.data" source="1.6" sourcepath="/cshome/adai1/c301/Team06MapleSyrup/App/gen:/cshome/adai1/c301/Team06MapleSyrup/App/src" splitindex="true" use="true" version="true">
+            <link href="file:/cshome/adai1/c301/Team06MapleSyrup/App/doc/"/>
+            <link href="file:/usr/local/share/android-sdk-linux/docs/reference"/>
+        </javadoc>
+    </target>
+</project>

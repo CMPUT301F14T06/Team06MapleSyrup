@@ -1,0 +1,8 @@
+ca.ualberta.app.ESmanager
+ca.ualberta.app.activity
+ca.ualberta.app.comparator
+ca.ualberta.app.controller
+ca.ualberta.app.models
+ca.ualberta.app.network
+ca.ualberta.app.network.data
+ca.ualberta.app.thread
