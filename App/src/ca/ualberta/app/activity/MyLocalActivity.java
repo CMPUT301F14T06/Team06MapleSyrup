@@ -48,11 +48,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-/**
- * This is the fragment activity for the functionality of displaying the user's
- * own question(s). It will be acted when a user clicks the "My Questions"
- * button in the user profile.
- */
 
 public class MyLocalActivity extends Activity {
 	static String sortByDate = "Sort By Date";
@@ -77,10 +72,6 @@ public class MyLocalActivity extends Activity {
 	private ScrollListView mListView;
 	private Handler mHandler;
 
-	/**
-	 * Thread notify the adapter changes in data, and update the adapter after
-	 * an operation
-	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.applySortMethod();
@@ -89,13 +80,7 @@ public class MyLocalActivity extends Activity {
 		}
 	};
 
-	/**
-	 * onCreate method Once a user enter this activity, this method will give
-	 * each view an object to help other methods set data or listeners.
-	 * 
-	 * @param savedInstanceState
-	 *            The saved instance state bundle.
-	 */
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,10 +92,7 @@ public class MyLocalActivity extends Activity {
 		mcontext = this;
 	}
 
-	/**
-	 * onStart method Setup the adapter for the user's question list, and setup
-	 * listener for each item (question) in the user's question list.
-	 */
+
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -128,24 +110,8 @@ public class MyLocalActivity extends Activity {
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
 
-		/**
-		 * Jump to the layout of the choosen question, and show details when
-		 * click on an item (a question) in the favorite question list
-		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
-			/**
-			 * display the layout of the chosen question, and show details when
-			 * click on an item (a question) in the searching result list
-			 * 
-			 * @param parent
-			 *            The adapter of the item in the list.
-			 * @param view
-			 *            The view.
-			 * @param pos
-			 *            The position of a question.
-			 * @param id
-			 *            The ID of a question.
-			 */
+	
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -158,26 +124,8 @@ public class MyLocalActivity extends Activity {
 			}
 		});
 
-		/**
-		 * Delete an item (a question) in the favorite list when a user long
-		 * clicks the question.
-		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-			/**
-			 * If the user is the author of the question, and the user long
-			 * click the item (the question) in the question list, then remove
-			 * the selected question from the question list.
-			 * 
-			 * @param parent
-			 *            The adapter of the item in the list.
-			 * @param view
-			 *            The view.
-			 * @param pos
-			 *            The position of a question.
-			 * @param id
-			 *            The ID of a question.
-			 */
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -200,19 +148,9 @@ public class MyLocalActivity extends Activity {
 			}
 		});
 
-		// updateList();
-		/**
-		 * Update the current questions on screen, if a user scroll his/her
-		 * favorite question list
-		 */
+
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
-			/**
-			 * Will called to update the content in the favorite question list
-			 * when the data is changed or sorted; also, this method will tell
-			 * the user the current interval of the question that are displayed
-			 * on the screen
-			 */
 			@Override
 			public void onRefresh() {
 				mHandler.postDelayed(new Runnable() {
@@ -224,12 +162,7 @@ public class MyLocalActivity extends Activity {
 				}, 2000);
 			}
 
-			/**
-			 * this method will be called when a user up or down scroll the
-			 * favorite question list to update the corresponding questions on
-			 * the screen; also, this method will tell the user the current
-			 * interval of the question that are displayed on the screen
-			 */
+		
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -243,9 +176,6 @@ public class MyLocalActivity extends Activity {
 		});
 	}
 
-	/**
-	 * stop refresh and loading, reset header and the footer view.
-	 */
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
@@ -262,24 +192,9 @@ public class MyLocalActivity extends Activity {
 	// updateList();
 	// }
 
-	/**
-	 * This class represents the functions in the sorting menu in the spinner at
-	 * the top of the screen
-	 */
+	
 	private class change_category_click implements OnItemSelectedListener {
 
-		/**
-		 * Based on different conditions, call different sorting functions.
-		 * 
-		 * @param parent
-		 *            The adapter of the item in the list.
-		 * @param view
-		 *            The view.
-		 * @param pos
-		 *            The position of a question.
-		 * @param id
-		 *            The ID of a question.
-		 */
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			categoryID = position;
@@ -308,21 +223,14 @@ public class MyLocalActivity extends Activity {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			// updateList();
+		
 		}
 
-		/**
-		 * Use default sort method is nothing is chosen
-		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
 		}
 	}
 
-	/**
-	 * Update the content of the main question list by finding and loading the
-	 * new list contents from the data set (local/online server)
-	 */
 	private void updateList() {
 		localListId = cacheController.getLocalCacheId(mcontext);
 		if (localListId.size() == 0)
@@ -342,23 +250,14 @@ public class MyLocalActivity extends Activity {
 
 	}
 
-	/**
-	 * this class will be called a thread of question list in the cache array
-	 * for updating/other operations
-	 */
 	class GetListThread extends Thread {
 		private ArrayList<Long> localListId;
 
-		/**
-		 * the the constructor of the class.
-		 */
 		public GetListThread(ArrayList<Long> localListId) {
 			this.localListId = localListId;
 		}
 
-		/**
-		 * load questions by question ID
-		 */
+		
 		@Override
 		public void run() {
 			localQuestionListController.clear();
@@ -373,19 +272,11 @@ public class MyLocalActivity extends Activity {
 	class DeleteThread extends Thread {
 		private long questionID;
 
-		/**
-		 * delete a thread
-		 * 
-		 * @param questionID
-		 *            The ID for the thread of a question.
-		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;
 		}
 
-		/**
-		 * remove the question from the list as well
-		 */
+	
 		@Override
 		public void run() {
 			localQuestionListManager.deleteQuestion(questionID);
@@ -401,15 +292,6 @@ public class MyLocalActivity extends Activity {
 		}
 	}
 
-	/**
-	 * Handle action bar item clicks here. The action bar will automatically
-	 * handle clicks on the Home/Up button, so long as you specify a parent
-	 * activity in AndroidManifest.xml.
-	 * 
-	 * @param menu
-	 *            The menu.
-	 * @return true if the item is selected.
-	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 

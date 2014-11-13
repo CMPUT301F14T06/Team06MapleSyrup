@@ -56,13 +56,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-/**
- * This is the fragment activity for the search functionality, once a user
- * clicks the "Search" button on the bottom action bar
- * 
- * The fragment part is from this web site:
- * http://www.programering.com/a/MjNzIDMwATI.html
- */
 public class FragmentMain extends Fragment {
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
@@ -97,10 +90,6 @@ public class FragmentMain extends Fragment {
 	private long TotalSize = 10;
 	private int needToLoadMore = 0;
 
-	/**
-	 * Thread notify the adapter changes in data, and update the adapter after
-	 * an operation
-	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			if (haveSearchResult == 0) {
@@ -115,19 +104,7 @@ public class FragmentMain extends Fragment {
 		}
 	};
 
-	/**
-	 * Once the fragment is active, the user interface, R.layout.fragment_search
-	 * will be load into the fragment.
-	 * 
-	 * @param inflater
-	 *            is used to find out the layout defined in the xml file.
-	 * @param container
-	 *            the view container that contains all views of an single item.
-	 * @param savedInstanceState
-	 *            the saved instance state bundle.
-	 * 
-	 * @return inflater the layout of this fragment.
-	 */
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -135,13 +112,7 @@ public class FragmentMain extends Fragment {
 		return inflater.inflate(R.layout.fragment_main, container, false);
 	}
 
-	/**
-	 * Once the fragment is created, this method will give each view an object
-	 * to help other methods set data or listener.
-	 * 
-	 * @param savedInstanceState
-	 *            the saved instance state bundle.
-	 */
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -159,10 +130,7 @@ public class FragmentMain extends Fragment {
 		mHandler = new Handler();
 	}
 
-	/**
-	 * onStart method Setup the adapter for the searching result list, and setup
-	 * listener for each item (question) in the searching result list.
-	 */
+	
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -186,17 +154,7 @@ public class FragmentMain extends Fragment {
 		updateList();
 
 		searchButton.setOnClickListener(new OnClickListener() {
-			/**
-			 * Setup the listener for the "Search" button, so that, once the
-			 * button is clicked, the current result list will be updated to the
-			 * newest searching result, and the text on search button will
-			 * change to "Cancel". If the "Cancel" button is clicked, the button
-			 * will change back to Search, and the text in Edit text view will
-			 * be cleared.
-			 * 
-			 * @param v
-			 *            The view of the button.
-			 */
+		
 			@Override
 			public void onClick(View v) {
 				if (searchButton.getText().equals("Search")
@@ -214,15 +172,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
-			/**
-			 * Once the edit text bar has been focused, set the search button's
-			 * text to "Search"
-			 * 
-			 * @param v
-			 *            The view of the edit text.
-			 * @param hasFocus
-			 *            True if the edit text bar are been focused.
-			 */
+		
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
@@ -233,13 +183,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		searchEditText.setOnClickListener(new OnClickListener() {
-			/**
-			 * Once the edit text bar has been clicked, set the search buton's
-			 * text to "Search"
-			 * 
-			 * @param v
-			 *            The view of the button.
-			 */
+			
 			@Override
 			public void onClick(View v) {
 				searchButton.setText("Search");
@@ -247,19 +191,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
-			/**
-			 * display the layout of the chosen question, and show details when
-			 * click on an item (a question) in the searching result list
-			 * 
-			 * @param parent
-			 *            The adapter of the item in the list.
-			 * @param view
-			 *            The view.
-			 * @param pos
-			 *            The position of a question.
-			 * @param id
-			 *            The ID of a question.
-			 */
+	
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -274,19 +206,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-			/**
-			 * Delete an item (a question) in the searching result list when a
-			 * user long clicks the question.
-			 * 
-			 * @param parent
-			 *            The adapter of the item in the list.
-			 * @param view
-			 *            The view.
-			 * @param pos
-			 *            The position of a question.
-			 * @param id
-			 *            The ID of a question.
-			 */
+	
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -312,18 +232,8 @@ public class FragmentMain extends Fragment {
 			}
 		});
 
-		/**
-		 * Update the current questions on screen, if a user scroll the
-		 * searching result list
-		 */
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
-			/**
-			 * This method will called to update the content in the current
-			 * result list when the data is changed or sorted; also, this method
-			 * will tell the user the current interval of the question that are
-			 * displayed on the screen
-			 */
 			@Override
 			public void onRefresh() {
 				mHandler.postDelayed(new Runnable() {
@@ -338,12 +248,6 @@ public class FragmentMain extends Fragment {
 				}, 2000);
 			}
 
-			/**
-			 * this method will be called when a user up or down scroll the
-			 * current result list to update the corresponding searching results
-			 * on the screen; also, this method will tell the user the current
-			 * interval of the question that are displayed on the screen
-			 */
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -372,9 +276,7 @@ public class FragmentMain extends Fragment {
 		});
 	}
 
-	/**
-	 * stop refresh and loading, reset header and the footer view.
-	 */
+	
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
@@ -382,10 +284,7 @@ public class FragmentMain extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	/**
-	 * onResume method Once this fragment resumes from other operations, set the
-	 * text in the title bar.
-	 */
+	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -397,9 +296,6 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	/**
-	 * This class represents the functions in the sorting menu
-	 */
 	private class change_category_click implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
@@ -435,22 +331,12 @@ public class FragmentMain extends Fragment {
 			}
 			// updateList();
 		}
-
-		/**
-		 * Use default sort method is nothing is chosen
-		 * 
-		 * @param parent
-		 *            The adapter of the item in the list.
-		 */
+		
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
 		}
 	}
 
-	/**
-	 * Update the content of the searching result list by finding and loading
-	 * the new list contents from the new searching result
-	 */
 	private void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			if (User.loginStatus == true) {
@@ -469,14 +355,9 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	/**
-	 * find the author's ID and start the corresponding thread to load all
-	 * contents from the storage.
-	 */
+
 	class GetListThread extends Thread {
-		/**
-		 * load questions by question ID
-		 */
+	
 		@Override
 		public void run() {
 			myQuestionListController.clear();
@@ -488,15 +369,8 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	/**
-	 * this class will starts a thread of question list in the cache array for
-	 * updating operation or other operations.
-	 */
 	class GetMapThread extends Thread {
 
-		/**
-		 * map the question and the question ID, and save the question
-		 */
 		@Override
 		public void run() {
 			cacheController.clear();
@@ -510,27 +384,15 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	/**
-	 * this class will be used to run thread to load data when the question list
-	 * is searched.
-	 */
+
 	class SearchThread extends Thread {
 		private String search;
 
-		/**
-		 * the constructor of the class
-		 * 
-		 * @param s
-		 *            the keyword.
-		 */
 		public SearchThread(String s) {
 			search = s;
 
 		}
 
-		/**
-		 * check if there are search result
-		 */
 		@Override
 		public void run() {
 			if (needToLoadMore == 0) {
@@ -555,19 +417,10 @@ public class FragmentMain extends Fragment {
 	class DeleteThread extends Thread {
 		private long questionID;
 
-		/**
-		 * delete a thread
-		 * 
-		 * @param questionID
-		 *            the ID for the thread of a question
-		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;
 		}
 
-		/**
-		 * to remove the question from the list
-		 */
 		@Override
 		public void run() {
 			questionListManager.deleteQuestion(questionID);

@@ -55,10 +55,7 @@ public class ScrollListViewHeader extends LinearLayout{
 		initView(context);
 	}
 
-	/**
-	 * @param context
-	 * @param attrs
-	 */
+
 	public ScrollListViewHeader(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView(context);

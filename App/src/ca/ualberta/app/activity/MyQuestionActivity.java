@@ -45,11 +45,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-/**
- * This is the activity of the user's personal question list. It is similar to
- * the main question list, except that only questions that asked by the current
- * user will be shown
- */
 public class MyQuestionActivity extends Activity {
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
@@ -72,9 +67,6 @@ public class MyQuestionActivity extends Activity {
 	private ScrollListView mListView;
 	private Handler mHandler;
 
-	/**
-	 * Thread to update adapter after an operation
-	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.applySortMethod();
@@ -83,11 +75,6 @@ public class MyQuestionActivity extends Activity {
 		}
 	};
 
-	/**
-	 * onCreate method. Once the activity is created, first set the content
-	 * view, and initialize the list view of "my question", and a Spinner for
-	 * sort options.
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -115,9 +102,7 @@ public class MyQuestionActivity extends Activity {
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
-		/**
-		 * Show details when click on a question
-		 */
+
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
@@ -130,9 +115,7 @@ public class MyQuestionActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		/**
-		 * Delete question on long click
-		 */
+
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -156,10 +139,7 @@ public class MyQuestionActivity extends Activity {
 			}
 		});
 		mListView.setScrollListViewListener(new IXListViewListener() {
-			/**
-			 * Will called to update the content in the user's own question list
-			 * when the data is changed or sorted;
-			 */
+
 			@Override
 			public void onRefresh() {
 				mHandler.postDelayed(new Runnable() {
@@ -171,10 +151,6 @@ public class MyQuestionActivity extends Activity {
 				}, 2000);
 			}
 
-			/**
-			 * this method will be called when a user up or down scroll the
-			 * user's own question list;
-			 */
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -188,9 +164,6 @@ public class MyQuestionActivity extends Activity {
 		});
 	}
 
-	/**
-	 * This class represents the functions in the sorting menu
-	 */
 	private class change_category_click implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
@@ -223,17 +196,11 @@ public class MyQuestionActivity extends Activity {
 			// updateList();
 		}
 
-		/**
-		 * Use default sort method is nothing is chosen
-		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
 		}
 	}
 
-	/**
-	 * stop refresh and loading, reset header and the footer view.
-	 */
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
@@ -241,10 +208,6 @@ public class MyQuestionActivity extends Activity {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	/**
-	 * Update the content of the user's own question list by finding and loading
-	 * the new list contents from the data set (local/online server)
-	 */
 	private void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
 			QuestionListController.saveInFile(mcontext,
@@ -252,12 +215,12 @@ public class MyQuestionActivity extends Activity {
 			Thread thread = new GetListThread();
 			thread.start();
 		} else {
+			myQuestionListController.clear();
+			myQuestionListController.addAll(QuestionListController
+					.loadFromFile(mcontext, MYQUESTION));
 		}
 	}
 
-	/**
-	 * get a thread of the corresponding question list
-	 */
 	class GetListThread extends Thread {
 		@Override
 		public void run() {
@@ -273,19 +236,10 @@ public class MyQuestionActivity extends Activity {
 	class DeleteThread extends Thread {
 		private long questionID;
 
-		/**
-		 * delete a thread
-		 * 
-		 * @param questionID
-		 *            the ID for the thread of a question
-		 */
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;
 		}
 
-		/**
-		 * We need to remove the question from the list as well
-		 */
 		@Override
 		public void run() {
 			myQuestionListManager.deleteQuestion(questionID);
