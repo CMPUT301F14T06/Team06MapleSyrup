@@ -22,6 +22,7 @@ package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
 
+import ca.ualberta.app.activity.LoginActivity;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.comparator.AnswerUpvoteComparator;
 import ca.ualberta.app.comparator.DateComparator;
@@ -37,6 +38,7 @@ import ca.ualberta.app.thread.UpdateQuestionThread;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,6 +47,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Adapter for the question list, used to display a question.
@@ -260,17 +263,26 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		 */
 		@Override
 		public void onClick(View v) {
-			Question question = questionList.get(position);
-			question.upvoteQuestion();
-			question.calcCurrentTotalScore();
-			// long questionID = question.getID();
-			Thread thread = new UpdateQuestionThread(question);
-			thread.start();
-			sortingOption = lastSortingOption;
-			cacheController.updateFavQuestions(getContext(), question);
-			cacheController.updateLocalQuestions(getContext(), question);
-			applySortMethod();
-			notifyDataSetChanged();
+			if(User.loginStatus){
+				Question question = questionList.get(position);
+				if(!question.upvoteQuestion()){
+					Toast.makeText(v.getContext(), "You have upvoted this question", Toast.LENGTH_SHORT).show();
+				}
+				question.calcCurrentTotalScore();
+				Thread thread = new UpdateQuestionThread(question);
+				thread.start();
+				sortingOption = lastSortingOption;
+				cacheController.updateFavQuestions(getContext(), question);
+				cacheController.updateLocalQuestions(getContext(), question);
+				applySortMethod();
+				notifyDataSetChanged();
+			} else {
+				Toast.makeText(v.getContext(), "Login to upvote", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(v.getContext(),
+						LoginActivity.class);
+				v.getContext().startActivity(intent);
+			}
+			
 		}
 	}
 

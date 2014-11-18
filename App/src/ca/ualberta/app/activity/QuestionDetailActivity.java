@@ -36,6 +36,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * This is the activity of each single question in all kinds of question lists
@@ -97,8 +98,6 @@ public class QuestionDetailActivity extends Activity {
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
 			questionTimeTextView.setText(question.getTimestamp().toString());
-			// if (question.getReplys().size() == 0)
-			// question_ReplyListView.setVisibility(View.GONE);
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(question.getImage());
@@ -256,9 +255,19 @@ public class QuestionDetailActivity extends Activity {
 		public void run() {
 			question = questionManager.getQuestion(id);
 			if (upvote_click == true) {
-				question.upvoteQuestion();
+				if(User.loginStatus){
+				if(!question.upvoteQuestion()){
+					Toast.makeText(mcontext, "You have upvoted this question", Toast.LENGTH_SHORT).show();
+				}
 				cacheController.updateFavQuestions(mcontext, question);
 				cacheController.updateLocalQuestions(mcontext, question);
+				} else {
+					Toast.makeText(mcontext, "Login to upvote", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(mcontext,
+							LoginActivity.class);
+					startActivity(intent);
+				}
+				
 			}
 			if (save_click == true) {
 				if (cacheController.hasSaved(mcontext, question))
