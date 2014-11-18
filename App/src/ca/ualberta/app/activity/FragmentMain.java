@@ -104,7 +104,6 @@ public class FragmentMain extends Fragment {
 		}
 	};
 
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -112,7 +111,6 @@ public class FragmentMain extends Fragment {
 		return inflater.inflate(R.layout.fragment_main, container, false);
 	}
 
-	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -130,7 +128,6 @@ public class FragmentMain extends Fragment {
 		mHandler = new Handler();
 	}
 
-	
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -151,10 +148,10 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		updateList();
+		//updateList();
 
 		searchButton.setOnClickListener(new OnClickListener() {
-		
+
 			@Override
 			public void onClick(View v) {
 				if (searchButton.getText().equals("Search")
@@ -172,7 +169,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
-		
+
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
@@ -183,7 +180,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		searchEditText.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				searchButton.setText("Search");
@@ -191,7 +188,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
-	
+
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -206,7 +203,7 @@ public class FragmentMain extends Fragment {
 		});
 
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-	
+
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -276,7 +273,6 @@ public class FragmentMain extends Fragment {
 		});
 	}
 
-	
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
@@ -284,7 +280,6 @@ public class FragmentMain extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -329,9 +324,9 @@ public class FragmentMain extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			// updateList();
+			updateList();
 		}
-		
+
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
 		}
@@ -355,9 +350,8 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-
 	class GetListThread extends Thread {
-	
+
 		@Override
 		public void run() {
 			myQuestionListController.clear();
@@ -383,7 +377,6 @@ public class FragmentMain extends Fragment {
 			cacheController.addAll(mcontext, tempFav, tempSav);
 		}
 	}
-
 
 	class SearchThread extends Thread {
 		private String search;

@@ -31,13 +31,10 @@ public class QuestionList {
 	// Question List
 	ArrayList<Question> questionList;
 
-	// Map<Long, Question> questionMap;
-
 	/**
 	 * The constructor of the class
 	 */
 	public QuestionList() {
-		// questionMap = new HashMap<Long, Question>();
 		questionList = new ArrayList<Question>();
 	}
 

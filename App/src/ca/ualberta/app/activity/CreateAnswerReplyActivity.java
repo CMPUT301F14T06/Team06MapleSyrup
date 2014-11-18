@@ -49,7 +49,6 @@ public class CreateAnswerReplyActivity extends Activity {
 		}
 	};
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +61,6 @@ public class CreateAnswerReplyActivity extends Activity {
 	public void cancel_answer_reply(View view) {
 		finish();
 	}
-
 
 	public void submit_answer_reply(View view) {
 		String content = contentText.getText().toString();
@@ -85,7 +83,6 @@ public class CreateAnswerReplyActivity extends Activity {
 
 	}
 
-
 	public void noContentEntered() {
 		Toast.makeText(this, "Please fill in the content!", Toast.LENGTH_SHORT)
 				.show();
@@ -97,6 +94,13 @@ public class CreateAnswerReplyActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * check if the item in the menu is selected
+	 * 
+	 * @param item
+	 *            The menu item.
+	 * @return true if the item is selected.
+	 */
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

@@ -63,7 +63,6 @@ public class QuestionDetailActivity extends Activity {
 	private boolean fav_click = false;
 	private boolean upvote_click = false;
 
-	
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
 			if (!(save_click || upvote_click || fav_click))
@@ -134,7 +133,6 @@ public class QuestionDetailActivity extends Activity {
 		}
 	}
 
-
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -153,7 +151,6 @@ public class QuestionDetailActivity extends Activity {
 
 	}
 
-	
 	public void save_click(View view) {
 		save_click = true;
 		Thread thread = new GetThread(questionId);
@@ -166,21 +163,18 @@ public class QuestionDetailActivity extends Activity {
 		thread.start();
 	}
 
-	
 	public void upvote_click(View view) {
 		upvote_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
 
-	
 	public void answer_question(View view) {
 		Intent intent = new Intent(this, CreateAnswerActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
 
-	
 	public void reply_question(View view) {
 		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);

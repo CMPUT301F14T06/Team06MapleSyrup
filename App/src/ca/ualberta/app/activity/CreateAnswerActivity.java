@@ -43,7 +43,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-
 public class CreateAnswerActivity extends Activity {
 	private RadioButton galary;
 	private ImageView image;
@@ -56,13 +55,11 @@ public class CreateAnswerActivity extends Activity {
 	Uri imageFileUri;
 	Uri stringFileUri;
 
-
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
 		}
 	};
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +72,6 @@ public class CreateAnswerActivity extends Activity {
 		image.setVisibility(View.GONE);
 		intent = getIntent();
 	}
-
 
 	public void cancel_answer(View view) {
 		finish();
@@ -144,7 +140,6 @@ public class CreateAnswerActivity extends Activity {
 
 	}
 
-
 	public void noContentEntered() {
 		Toast.makeText(this, "Please fill in the content!", Toast.LENGTH_SHORT)
 				.show();
@@ -156,6 +151,15 @@ public class CreateAnswerActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Handle action bar item clicks here. The action bar will automatically
+	 * handle clicks on the Home/Up button, so long as you specify a parent
+	 * activity in AndroidManifest.xml.
+	 * 
+	 * @param item
+	 *            The menu item.
+	 * @return true if the item is selected.
+	 */
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -165,7 +169,6 @@ public class CreateAnswerActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 
 	class GetUpdateThread extends Thread {
 		private long id;

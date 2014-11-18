@@ -140,8 +140,6 @@ public class QuestionListManager {
 	 *            The size of the string buffer for searching.
 	 * @param from
 	 *            The starting position of searching.
-	 * @param lable
-	 *            The label of the string buffer.
 	 * 
 	 * @return the searching result.
 	 */

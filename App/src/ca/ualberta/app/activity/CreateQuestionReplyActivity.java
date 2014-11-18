@@ -90,7 +90,14 @@ public class CreateQuestionReplyActivity extends Activity {
 		return true;
 	}
 
-	
+	/**
+	 * check if the item in the menu is selected
+	 * 
+	 * @param item
+	 *            The menu item.
+	 * @return true if the item is selected.
+	 */
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
