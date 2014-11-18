@@ -20,6 +20,7 @@
 
 package ca.ualberta.app.activity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
@@ -30,25 +31,27 @@ import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
+
 import android.widget.Toast;
 
 public class CreateAnswerActivity extends Activity {
-	private RadioButton galary;
-	private ImageView image;
+	private ImageView imageView;
 	private EditText contentText = null;
 	private Answer newAnswer = null;
-	private Bitmap addImage = null;
+	private Bitmap image = null;
+	private byte[] imageByteArray = null;
 	private QuestionListManager questionListManager;
 	public static String QUESTION_ID = "QUESTION_ID";
 	private Intent intent;
@@ -65,11 +68,10 @@ public class CreateAnswerActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_answer);
-		galary = (RadioButton) findViewById(R.id.add_answer_pic);
 		contentText = (EditText) findViewById(R.id.answer_content_editText);
-		image = (ImageView) findViewById(R.id.answer_image_imageView);
+		imageView = (ImageView) findViewById(R.id.answer_image_imageView);
 		questionListManager = new QuestionListManager();
-		image.setVisibility(View.GONE);
+		imageView.setVisibility(View.GONE);
 		intent = getIntent();
 	}
 
@@ -87,7 +89,7 @@ public class CreateAnswerActivity extends Activity {
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
 					newAnswer = new Answer(content, User.author.getUsername(),
-							addImage);
+							imageByteArray);
 					Thread thread = new GetUpdateThread(questionId, newAnswer);
 					thread.start();
 				}
@@ -96,9 +98,10 @@ public class CreateAnswerActivity extends Activity {
 		}
 	}
 
-	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
+	private static final int GET_IMAGE_ACTIVITY_REQUEST_CODE = 2;
 
-	public void take_question_pic(View view) {
+	public void take_answer_pic(View view) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		// Create a folder to store pictures
@@ -120,24 +123,49 @@ public class CreateAnswerActivity extends Activity {
 
 	}
 
+	public void select_answer_pic(View view) {
+		Intent intent = new Intent(Intent.ACTION_PICK, null);
+		intent.setType("image/*");
+		startActivityForResult(intent, GET_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-
-			if (resultCode == RESULT_OK) {
+		if (resultCode == RESULT_OK) {
+			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+				String imagePath = imageFileUri.getPath();
 				Toast.makeText(this, "Photo OK!", Toast.LENGTH_SHORT).show();
+				setImageView(imagePath);
+				saveImageView(imagePath);
 
-				image.setVisibility(View.VISIBLE);
-				image.setImageDrawable(Drawable.createFromPath(imageFileUri
-						.getPath()));
-			} else if (resultCode == RESULT_CANCELED) {
-				Toast.makeText(this, "Photo Canceled!", Toast.LENGTH_SHORT)
-						.show();
-			} else {
-				Toast.makeText(this, "Have no idea what happened!",
-						Toast.LENGTH_SHORT).show();
 			}
+			if (requestCode == GET_IMAGE_ACTIVITY_REQUEST_CODE) {
+				imageFileUri = data.getData();
+				String imagePath = imageFileUri.getPath();
+				Toast.makeText(this, "Picture OK!", Toast.LENGTH_SHORT).show();
+				setImageView(imagePath);
+				saveImageView(imagePath);
+
+			}
+		} else if (resultCode == RESULT_CANCELED) {
+			Toast.makeText(this, "Photo Canceled!", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(this, "Have no idea what happened!",
+					Toast.LENGTH_SHORT).show();
 		}
 
+	}
+
+	private void setImageView(String imagePath) {
+		imageView.setVisibility(View.VISIBLE);
+		imageView.setImageDrawable(Drawable.createFromPath(imagePath));
+	}
+
+	private void saveImageView(String imagePath) {
+		image = BitmapFactory.decodeFile(imagePath);
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] byteArray = stream.toByteArray();
+		imageByteArray = Base64.encode(byteArray, 1);
 	}
 
 	public void noContentEntered() {

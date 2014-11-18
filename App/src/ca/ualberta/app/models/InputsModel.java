@@ -22,8 +22,6 @@ package ca.ualberta.app.models;
 
 import java.util.Date;
 
-import android.graphics.Bitmap;
-
 /**
  * This class will handle all kinds of user input
  */
@@ -31,7 +29,7 @@ public abstract class InputsModel {
 	public String title;
 	public String content;
 	public String userName;
-	Bitmap image = null;
+	byte[] imageByteArray;
 	Date timestamp;
 
 	/**
@@ -47,9 +45,9 @@ public abstract class InputsModel {
 	 *            The image in the question.
 	 */
 	public InputsModel(String content, String userName, String title,
-			Bitmap image) {
+			byte[] imageByteArray) {
 		this.timestamp = new Date();
-		this.image = image;
+		this.imageByteArray = imageByteArray;
 		this.title = title;
 		this.content = content;
 		this.userName = userName;
@@ -65,9 +63,9 @@ public abstract class InputsModel {
 	 * @param image
 	 *            The image in the question.
 	 */
-	public InputsModel(String content, String userName, Bitmap image) {
+	public InputsModel(String content, String userName, byte[] imageByteArray) {
 		timestamp = new Date();
-		this.image = image;
+		this.imageByteArray = imageByteArray;
 		this.content = content;
 		this.userName = userName;
 	}
@@ -93,7 +91,7 @@ public abstract class InputsModel {
 	 *         false.
 	 */
 	public boolean hasImage() {
-		return image != null;
+		return imageByteArray != null;
 	}
 
 	/**
@@ -102,8 +100,8 @@ public abstract class InputsModel {
 	 * @param image
 	 *            The image of the question/answer.
 	 */
-	public void setImage(Bitmap image) {
-		this.image = image;
+	public void setImage(byte[] imageByteArray) {
+		this.imageByteArray = imageByteArray;
 	}
 
 	/**
@@ -111,8 +109,8 @@ public abstract class InputsModel {
 	 * 
 	 * @return the image.
 	 */
-	public Bitmap getImage() {
-		return image;
+	public byte[] getImage() {
+		return imageByteArray;
 	}
 
 	/**

@@ -23,8 +23,7 @@ package ca.ualberta.app.models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import android.graphics.Bitmap;
+import java.util.Map;
 
 /**
  * This class contains all functionalities an answer object should have.
@@ -33,6 +32,7 @@ public class Answer extends InputsModel {
 	ArrayList<Reply> replyList;
 	long upvoteCount_answer;
 	long ID_answer;
+	Map<String, Author> upvotedPerson;
 
 	/**
 	 * The constructor of the class
@@ -44,8 +44,8 @@ public class Answer extends InputsModel {
 	 * @param image
 	 *            The image inside the answer.
 	 */
-	public Answer(String content, String userName, Bitmap image) {
-		super(content, userName, image);
+	public Answer(String content, String userName, byte[] imageByteArray) {
+		super(content, userName, imageByteArray);
 		this.replyList = new ArrayList<Reply>();
 		this.ID_answer = new Date().getTime() - 100;
 		this.upvoteCount_answer = 0;
@@ -94,8 +94,14 @@ public class Answer extends InputsModel {
 	/**
 	 * increase the counter counts the up vote number
 	 */
-	public void upvoteAnswer() {
-		this.upvoteCount_answer++;
+	public boolean upvoteAnswer() {
+		String username = User.author.getUsername();
+		if (upvotedPerson.get(username) == null) {
+			upvotedPerson.put(username, User.author);
+			upvoteCount_answer++;
+			return true;
+		}
+		return false;
 	}
 
 	/**

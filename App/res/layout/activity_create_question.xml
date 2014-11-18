@@ -105,7 +105,8 @@
             style="@style/create_menu_bottom"
             android:layout_height="fill_parent"
             android:layout_weight="0.3"
-            android:drawableLeft="@drawable/picture_icon32" />
+            android:drawableLeft="@drawable/picture_icon32"
+            android:onClick="select_question_pic" />
     </RadioGroup>
 
 </RelativeLayout>

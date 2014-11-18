@@ -20,6 +20,9 @@
 
 package ca.ualberta.app.activity;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.adapter.ReplyListAdapter;
@@ -30,8 +33,11 @@ import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -85,7 +91,10 @@ public class QuestionDetailActivity extends Activity {
 			questionTimeTextView.setText(question.getTimestamp().toString());
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
-				questionImageView.setImageBitmap(question.getImage());
+				byte[] imageByteArray = Base64.decode(question.getImage(), 1);
+				InputStream iStream = new ByteArrayInputStream(imageByteArray);
+				Bitmap image = BitmapFactory.decodeStream(iStream);
+				questionImageView.setImageBitmap(image);
 			}
 			replyAdapter = new ReplyListAdapter(mcontext,
 					R.layout.single_reply, question.getReplys(), question);
@@ -157,7 +166,6 @@ public class QuestionDetailActivity extends Activity {
 
 	}
 
-
 	/**
 	 * Set the boolean of the save statue of the question to True
 	 * 
@@ -170,7 +178,6 @@ public class QuestionDetailActivity extends Activity {
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
-
 
 	/**
 	 * Set the boolean of the favorite statue of the question to True
@@ -185,7 +192,6 @@ public class QuestionDetailActivity extends Activity {
 		thread.start();
 	}
 
-
 	/**
 	 * increase the up vote counter of the question to True
 	 * 
@@ -198,7 +204,6 @@ public class QuestionDetailActivity extends Activity {
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
-
 
 	/**
 	 * This method will be called when the "Add Answer" button is clicked. It
@@ -213,7 +218,6 @@ public class QuestionDetailActivity extends Activity {
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
-
 
 	/**
 	 * This method will be called when the "Add Reply" button is clicked. It
@@ -232,7 +236,6 @@ public class QuestionDetailActivity extends Activity {
 	class GetThread extends Thread {
 		private long id;
 
-
 		/**
 		 * the constructor of the class
 		 * 
@@ -244,7 +247,6 @@ public class QuestionDetailActivity extends Activity {
 			this.id = id;
 		}
 
-
 		/**
 		 * check which list the current question belongs to, and save the
 		 * question in different lists.
@@ -253,7 +255,7 @@ public class QuestionDetailActivity extends Activity {
 
 		@Override
 		public void run() {
-			Looper.prepare(); 
+			Looper.prepare();
 			question = questionManager.getQuestion(id);
 			if (!(save_click || upvote_click || fav_click))
 				cacheController.addLocalQuestions(mcontext, question);

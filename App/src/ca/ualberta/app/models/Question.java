@@ -54,8 +54,9 @@ public class Question extends InputsModel {
 	 * @param image
 	 *            The image belongs to the question.
 	 */
-	public Question(String content, String userName, String title, Bitmap image) {
-		super(content, userName, title, image);
+	public Question(String content, String userName, String title,
+			byte[] imageByteArray) {
+		super(content, userName, title, imageByteArray);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
 		upvotedPerson = new HashMap<String, Author>();
@@ -202,13 +203,14 @@ public class Question extends InputsModel {
 	 */
 	public boolean upvoteQuestion() {
 		String username = User.author.getUsername();
-		if(upvotedPerson.get(username)== null){
+		if (upvotedPerson.get(username) == null) {
 			upvotedPerson.put(username, User.author);
 			upvoteCount_question++;
 			return true;
 		}
 		return false;
 	}
+
 	/**
 	 * Set the number of the upvote counter
 	 * 

@@ -20,10 +20,14 @@
 
 package ca.ualberta.app.adapter;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import ca.ualberta.app.activity.CreateAnswerReplyActivity;
+import ca.ualberta.app.activity.LoginActivity;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
@@ -33,6 +37,9 @@ import ca.ualberta.app.thread.UpdateAnswerThread;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +49,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Adapter for the answer list, used to display all answers to a question.
@@ -50,6 +58,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Answer> answerList = null;
 	private Question question;
 	private Context context;
+	private CacheController cacheController;
 
 	/**
 	 * Constructs the adapter and initializes its context.
@@ -70,6 +79,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		this.context = context;
 		this.answerList = answers;
 		this.question = question;
+		cacheController = new CacheController(context);
 	}
 
 	/**
@@ -219,8 +229,11 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			holder.upvoteState.setText("Upvote: "
 					+ answer.getAnswerUpvoteCount());
 			if (answer.hasImage()) {
+				byte[] imageByteArray = Base64.decode(answer.getImage(), 1);
+				InputStream iStream = new ByteArrayInputStream(imageByteArray);
+				Bitmap image = BitmapFactory.decodeStream(iStream);
 				holder.image.setVisibility(View.VISIBLE);
-				holder.image.setImageBitmap(answer.getImage());
+				holder.image.setImageBitmap(image);
 			}
 		}
 		holder.upvote_Rb.setOnClickListener(new upvoteOnClickListener(
@@ -327,13 +340,27 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		 */
 		@Override
 		public void onClick(View v) {
-			Answer answer = answerList.get(position);
-			answer.upvoteAnswer();
-			question.calcCurrentTotalScore();
-			Thread thread = new UpdateAnswerThread(question, answer);
-			thread.start();
+			if (User.loginStatus) {
+				Answer answer = answerList.get(position);
+				if (!answer.upvoteAnswer()) {
+					Toast.makeText(v.getContext(),
+							"You have upvoted this answer", Toast.LENGTH_SHORT)
+							.show();
+				}
+				question.calcCurrentTotalScore();
+				Thread thread = new UpdateAnswerThread(question, answer);
+				thread.start();
+				cacheController.updateFavQuestions(v.getContext(), question);
+				cacheController.updateLocalQuestions(v.getContext(), question);
 
-			notifyDataSetChanged();
+				notifyDataSetChanged();
+			} else {
+				Toast.makeText(v.getContext(), "Login to upvote",
+						Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(v.getContext(), LoginActivity.class);
+				v.getContext().startActivity(intent);
+			}
+
 		}
 	}
 

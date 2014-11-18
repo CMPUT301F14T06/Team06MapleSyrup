@@ -263,10 +263,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		 */
 		@Override
 		public void onClick(View v) {
-			if(User.loginStatus){
+			if (User.loginStatus) {
 				Question question = questionList.get(position);
-				if(!question.upvoteQuestion()){
-					Toast.makeText(v.getContext(), "You have upvoted this question", Toast.LENGTH_SHORT).show();
+				if (!question.upvoteQuestion()) {
+					Toast.makeText(getContext(),
+							"You have upvoted this question",
+							Toast.LENGTH_SHORT).show();
 				}
 				question.calcCurrentTotalScore();
 				Thread thread = new UpdateQuestionThread(question);
@@ -277,12 +279,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				applySortMethod();
 				notifyDataSetChanged();
 			} else {
-				Toast.makeText(v.getContext(), "Login to upvote", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(v.getContext(),
-						LoginActivity.class);
-				v.getContext().startActivity(intent);
+				Toast.makeText(v.getContext(), "Login to upvote",
+						Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getContext(), LoginActivity.class);
+				getContext().startActivity(intent);
 			}
-			
+
 		}
 	}
 
