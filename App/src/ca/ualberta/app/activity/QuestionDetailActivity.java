@@ -31,11 +31,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
@@ -65,8 +67,6 @@ public class QuestionDetailActivity extends Activity {
 
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
-			if (!(save_click || upvote_click || fav_click))
-				cacheController.addLocalQuestions(mcontext, question);
 			if (cacheController.hasSaved(mcontext, question))
 				save_Rb.setChecked(true);
 			else
@@ -76,9 +76,6 @@ public class QuestionDetailActivity extends Activity {
 				fav_Rb.setChecked(true);
 			else
 				fav_Rb.setChecked(false);
-			save_click = false;
-			fav_click = false;
-			upvote_click = false;
 			questionTitleTextView.setText(question.getTitle());
 			questionContentTextView.setText(question.getContent());
 			authorNameTextView.setText(question.getAuthor());
@@ -86,8 +83,6 @@ public class QuestionDetailActivity extends Activity {
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
 			questionTimeTextView.setText(question.getTimestamp().toString());
-			// if (question.getReplys().size() == 0)
-			// question_ReplyListView.setVisibility(View.GONE);
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(question.getImage());
@@ -103,6 +98,17 @@ public class QuestionDetailActivity extends Activity {
 			answerAdapter.notifyDataSetChanged();
 		}
 	};
+
+	/**
+	 * onCreate method Once this activity is created, this method will give each
+	 * view an object to help other methods set data or listener. Then, the
+	 * method will check is the current user has logged in. If the login statue
+	 * is true, then the user will be able to see and user the "Add Answer"
+	 * button. Otherwise, the user cannot see the button.
+	 * 
+	 * @param savedInstanceState
+	 *            The saved instance state bundle.
+	 */
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -151,11 +157,27 @@ public class QuestionDetailActivity extends Activity {
 
 	}
 
+
+	/**
+	 * Set the boolean of the save statue of the question to True
+	 * 
+	 * @param view
+	 *            The view.
+	 */
+
 	public void save_click(View view) {
 		save_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
+
+
+	/**
+	 * Set the boolean of the favorite statue of the question to True
+	 * 
+	 * @param view
+	 *            The view.
+	 */
 
 	public void fav_click(View view) {
 		fav_click = true;
@@ -163,17 +185,43 @@ public class QuestionDetailActivity extends Activity {
 		thread.start();
 	}
 
+
+	/**
+	 * increase the up vote counter of the question to True
+	 * 
+	 * @param view
+	 *            The view.
+	 */
+
 	public void upvote_click(View view) {
 		upvote_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
 	}
 
+
+	/**
+	 * This method will be called when the "Add Answer" button is clicked. It
+	 * will start a new activity for answering a question.
+	 * 
+	 * @param view
+	 *            The view.
+	 */
+
 	public void answer_question(View view) {
 		Intent intent = new Intent(this, CreateAnswerActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
+
+
+	/**
+	 * This method will be called when the "Add Reply" button is clicked. It
+	 * will start a new activity for replying a question.
+	 * 
+	 * @param view
+	 *            The view.
+	 */
 
 	public void reply_question(View view) {
 		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
@@ -184,17 +232,47 @@ public class QuestionDetailActivity extends Activity {
 	class GetThread extends Thread {
 		private long id;
 
+
+		/**
+		 * the constructor of the class
+		 * 
+		 * @param id
+		 *            the ID of the question.
+		 */
+
 		public GetThread(long id) {
 			this.id = id;
 		}
 
+
+		/**
+		 * check which list the current question belongs to, and save the
+		 * question in different lists.
+		 * 
+		 */
+
 		@Override
 		public void run() {
+			Looper.prepare(); 
 			question = questionManager.getQuestion(id);
+			if (!(save_click || upvote_click || fav_click))
+				cacheController.addLocalQuestions(mcontext, question);
 			if (upvote_click == true) {
-				question.upvoteQuestion();
-				cacheController.updateFavQuestions(mcontext, question);
-				cacheController.updateLocalQuestions(mcontext, question);
+				if (User.loginStatus) {
+					if (!question.upvoteQuestion()) {
+						Toast.makeText(mcontext,
+								"You have upvoted this question",
+								Toast.LENGTH_SHORT).show();
+					}
+					cacheController.updateFavQuestions(mcontext, question);
+					cacheController.updateLocalQuestions(mcontext, question);
+				} else {
+					Toast.makeText(mcontext, "Login to upvote",
+							Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(mcontext, LoginActivity.class);
+					startActivity(intent);
+				}
+
 			}
 			if (save_click == true) {
 				if (cacheController.hasSaved(mcontext, question))
@@ -208,9 +286,13 @@ public class QuestionDetailActivity extends Activity {
 				else
 					cacheController.addFavQuestions(mcontext, question);
 			}
+			save_click = false;
+			fav_click = false;
+			upvote_click = false;
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
 			runOnUiThread(doUpdateGUIDetails);
+			Looper.loop();
 		}
 	}
 

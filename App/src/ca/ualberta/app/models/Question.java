@@ -22,6 +22,8 @@ package ca.ualberta.app.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.graphics.Bitmap;
 
@@ -32,6 +34,7 @@ public class Question extends InputsModel {
 
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
+	Map<String, Author> upvotedPerson;
 	Boolean selected = false;
 	long upvoteCount_question;
 	long answerCount;
@@ -55,6 +58,7 @@ public class Question extends InputsModel {
 		super(content, userName, title, image);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
+		upvotedPerson = new HashMap<String, Author>();
 		this.ID_question = new Date().getTime();
 		answerCount = 0;
 		upvoteCount_question = 0;
@@ -196,10 +200,15 @@ public class Question extends InputsModel {
 	/**
 	 * Increase the upvote counter
 	 */
-	public void upvoteQuestion() {
-		upvoteCount_question++;
+	public boolean upvoteQuestion() {
+		String username = User.author.getUsername();
+		if(upvotedPerson.get(username)== null){
+			upvotedPerson.put(username, User.author);
+			upvoteCount_question++;
+			return true;
+		}
+		return false;
 	}
-
 	/**
 	 * Set the number of the upvote counter
 	 * 
