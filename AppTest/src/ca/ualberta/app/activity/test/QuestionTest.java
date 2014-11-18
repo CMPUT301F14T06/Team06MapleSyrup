@@ -13,7 +13,7 @@ public class QuestionTest extends TestCase {
 		String username = "username";
 		String questionString = "A qustion";
 		String titleString = "A title";
-		Bitmap image = null;
+		byte[] image = null;
 		Author author = new Author( username);
 		Question question = new Question(questionString, author.getUsername(),
 				titleString, image);
@@ -26,7 +26,7 @@ public class QuestionTest extends TestCase {
 		String questionString = "A qustion";
 		String answerString = "A answer";
 		String titleString = "A title";
-		Bitmap image = null;
+		byte[] image = null;
 		Author author = new Author(username);
 		Answer answer = new Answer(answerString, author.getUsername(), image);
 		Question question = new Question(questionString, author.getUsername(),
@@ -46,7 +46,7 @@ public class QuestionTest extends TestCase {
 		String questionString = "A qustion";
 		String replyString = "A reply";
 		String titleString = "A title";
-		Bitmap image = null;
+		byte[] image = null;
 		Author author = new Author(username);
 		Reply reply = new Reply(replyString, author.getUsername());
 		Question question = new Question(questionString, author.getUsername(),

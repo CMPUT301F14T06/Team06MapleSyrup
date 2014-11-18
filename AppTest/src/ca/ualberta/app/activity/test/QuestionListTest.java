@@ -25,7 +25,7 @@ public class QuestionListTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "A title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
 		
@@ -45,7 +45,7 @@ public class QuestionListTest extends TestCase {
 		String questionString = "A question";
 		String userName = "userName";
 		String titleString = "A title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
 		
@@ -65,7 +65,7 @@ public class QuestionListTest extends TestCase {
 		String ReplyString = "A Reply";
 		String userName = "userName";
 		String titleString = "A title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString, image);
 		Reply reply = new Reply(ReplyString, userName);
 
@@ -84,7 +84,7 @@ public class QuestionListTest extends TestCase {
 		String AnswerString = "A answer";
 		String userName = "userName";
 		String titleString = "A title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString, image);
 		Answer answer = new Answer(AnswerString, userName, image);
 		
@@ -104,7 +104,7 @@ public class QuestionListTest extends TestCase {
 		String ReplyString = "A Reply";
 		String userName = "userName";
 		String titleString = "A title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString, image);
 		Answer answer = new Answer(AnswerString, userName, image);
 		Reply reply = new Reply(ReplyString, userName);

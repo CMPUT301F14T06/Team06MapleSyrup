@@ -12,9 +12,9 @@ public class CacheControllerTest extends AndroidTestCase {
 	String questionString = "A Question";
 	String userName = "userName";
 	String titleString = "title";
-	Bitmap image = null;
+	byte[] imageByteArray = null;
 	Question question = new Question(questionString, userName, titleString,
-			image);
+			imageByteArray);
 	
 	
 	public void testAddFavQuestion() {

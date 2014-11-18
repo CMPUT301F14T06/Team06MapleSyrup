@@ -15,7 +15,7 @@ public class QuestionListManagerTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
 
@@ -39,7 +39,7 @@ public class QuestionListManagerTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
 
@@ -63,7 +63,7 @@ public class QuestionListManagerTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "TestUser";
 		String titleString = "title";
-		Bitmap image = null;
+		byte[] image = null;
 		Author author = new Author(userName);
 		Question question1 = new Question(questionString, userName,
 				titleString, image);

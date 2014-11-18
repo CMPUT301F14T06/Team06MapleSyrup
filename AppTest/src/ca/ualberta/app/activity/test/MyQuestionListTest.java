@@ -18,7 +18,7 @@ public class MyQuestionListTest extends TestCase {
 		//create a Question object
 		String questionString = "A Question";
 		String titleString = "title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
 		

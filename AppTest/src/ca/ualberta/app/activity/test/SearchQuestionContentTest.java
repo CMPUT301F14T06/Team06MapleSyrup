@@ -13,7 +13,7 @@ public class SearchQuestionContentTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question result = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);

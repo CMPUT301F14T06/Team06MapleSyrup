@@ -17,7 +17,7 @@ public class ViewAnswersTest extends TestCase {
 		String answerString = "A Answer";
 		String userName = "userName";
 		String titleString = "title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
 		Answer answer = new Answer(answerString, userName, image);
@@ -44,7 +44,7 @@ public class ViewAnswersTest extends TestCase {
 		String answerString = "A Answer";
 		String userName = "userName";
 		String titleString = "title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
 		Answer answer = new Answer(answerString, userName, image);
@@ -76,7 +76,7 @@ public class ViewAnswersTest extends TestCase {
 		String answerString = "A Answer";
 		String userName = "userName";
 		String titleString = "title";
-		Bitmap image = null;
+		byte[] image = null;
 		Question question = new Question(questionString, userName, titleString,
 				image);
 		Answer answer = new Answer(answerString, userName, image);
