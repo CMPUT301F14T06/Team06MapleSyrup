@@ -14,14 +14,14 @@ public class CalculateTotalScoreTest extends TestCase {
 		String answerString = "A Answer";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
+				imageByteArray);
 		
 		//crease three answer objects
-		Answer answer1 = new Answer(answerString, userName, image);
-		Answer answer2 = new Answer(answerString, userName, image);
-		Answer answer3 = new Answer(answerString, userName, image);
+		Answer answer1 = new Answer(answerString, userName, imageByteArray);
+		Answer answer2 = new Answer(answerString, userName, imageByteArray);
+		Answer answer3 = new Answer(answerString, userName, imageByteArray);
 		
 		QuestionListManager questionListManager = new QuestionListManager();
 		

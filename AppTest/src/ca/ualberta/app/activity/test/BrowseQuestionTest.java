@@ -14,7 +14,7 @@ public class BrowseQuestionTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] imageByteArray = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
 				imageByteArray);
 
@@ -35,7 +35,7 @@ public class BrowseQuestionTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] imageByteArray = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
 				imageByteArray);
 
@@ -59,7 +59,7 @@ public class BrowseQuestionTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] imageByteArray = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
 				imageByteArray);
 

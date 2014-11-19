@@ -13,10 +13,10 @@ public class SearchQuestionContentTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question result = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
+				imageByteArray);
 
 		// add the Question to server through Manager
 		QuestionListManager questionListManager = new QuestionListManager();

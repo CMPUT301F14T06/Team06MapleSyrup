@@ -13,10 +13,10 @@ public class QuestionTest extends TestCase {
 		String username = "username";
 		String questionString = "A qustion";
 		String titleString = "A title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Author author = new Author( username);
 		Question question = new Question(questionString, author.getUsername(),
-				titleString, image);
+				titleString, imageByteArray);
 		assertEquals(questionString, question.getContent());
 	}
 
@@ -26,11 +26,11 @@ public class QuestionTest extends TestCase {
 		String questionString = "A qustion";
 		String answerString = "A answer";
 		String titleString = "A title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Author author = new Author(username);
-		Answer answer = new Answer(answerString, author.getUsername(), image);
+		Answer answer = new Answer(answerString, author.getUsername(), imageByteArray);
 		Question question = new Question(questionString, author.getUsername(),
-				titleString, image);
+				titleString, imageByteArray);
 		
 		//add the answer to Question
 		question.addAnswer(answer);
@@ -46,11 +46,11 @@ public class QuestionTest extends TestCase {
 		String questionString = "A qustion";
 		String replyString = "A reply";
 		String titleString = "A title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Author author = new Author(username);
 		Reply reply = new Reply(replyString, author.getUsername());
 		Question question = new Question(questionString, author.getUsername(),
-				titleString, image);
+				titleString, imageByteArray);
 		
 		//add the reply to the Question
 		question.addReply(reply);

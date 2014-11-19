@@ -18,10 +18,10 @@ public class ViewReplysTest extends TestCase {
 		String replyString = "A reply";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
-		Answer answer = new Answer(answerString, userName, image);
+				imageByteArray);
+		Answer answer = new Answer(answerString, userName, imageByteArray);
 		Reply reply_A = new Reply(replyString, userName);
 		Reply reply_B = new Reply(replyString, userName);
 
@@ -33,14 +33,14 @@ public class ViewReplysTest extends TestCase {
 		question.addAnswer(answer);
 		inputsListController.addQuestion(question);
 
-		//get two ReplyList 
+		// get two ReplyList
 		ArrayList<Reply> replyList_Q = inputsListController.getReplys(0);
 		ArrayList<Reply> replyList_A = inputsListController.getReplysOfAnswer(
 				0, 0);
 		Reply result_A = replyList_Q.get(0);
 		Reply result_B = replyList_A.get(0);
 
-		//check the result
+		// check the result
 		assertTrue("User cannot view QuestionReplys", replyList_Q.size() == 1);
 		assertTrue("User cannot view AnswerReplys", replyList_A.size() == 1);
 		assertEquals(reply_A.getContent(), result_A.getContent());
@@ -56,10 +56,10 @@ public class ViewReplysTest extends TestCase {
 		String replyString = "A reply";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
-		Answer answer = new Answer(answerString, userName, image);
+				imageByteArray);
+		Answer answer = new Answer(answerString, userName, imageByteArray);
 		Reply reply_A = new Reply(replyString, userName);
 		Reply reply_B = new Reply(replyString, userName);
 
@@ -71,7 +71,7 @@ public class ViewReplysTest extends TestCase {
 		question.addAnswer(answer);
 		inputsListController.addQuestion(question);
 
-		//get the position from their List
+		// get the position from their List
 		int position_q = inputsListController.getQuestionPosition(question);
 		int position_a = inputsListController.getAnswerPosition(answer,
 				position_q);
@@ -80,7 +80,7 @@ public class ViewReplysTest extends TestCase {
 		int position_a_r = inputsListController.getReplyPositionOfAnswer(
 				position_q, position_a, reply_B);
 
-		//get two ReplyList using the position
+		// get two ReplyList using the position
 		ArrayList<Reply> replyList_Q = inputsListController
 				.getReplys(position_q);
 		ArrayList<Reply> replyList_A = inputsListController.getReplysOfAnswer(
@@ -88,7 +88,7 @@ public class ViewReplysTest extends TestCase {
 		Reply result_A = replyList_Q.get(position_q_r);
 		Reply result_B = replyList_A.get(position_a_r);
 
-		//check the result
+		// check the result
 		assertTrue("User cannot view QuestionReplys", replyList_Q.size() == 1);
 		assertTrue("User cannot view AnswerReplys", replyList_A.size() == 1);
 		assertEquals(reply_A.getContent(), result_A.getContent());
@@ -104,10 +104,10 @@ public class ViewReplysTest extends TestCase {
 		String replyString = "A reply";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
-		Answer answer = new Answer(answerString, userName, image);
+				imageByteArray);
+		Answer answer = new Answer(answerString, userName, imageByteArray);
 		Reply reply_A = new Reply(replyString, userName);
 		Reply reply_B = new Reply(replyString, userName);
 
@@ -121,23 +121,23 @@ public class ViewReplysTest extends TestCase {
 		Question targetQuestion = questionListManager.getQuestion(question
 				.getID());
 
-		//get the ReplyLists of Quesiton
+		// get the ReplyLists of Quesiton
 		ArrayList<Reply> replyList_Q = targetQuestion.getReplys();
 		ArrayList<Answer> answerList = targetQuestion.getAnswers();
 		Answer answerResult = answerList.get(0);
-	
-		//get the position of two Reply
+
+		// get the position of two Reply
 		int position_q_r = targetQuestion.getReplyPosition(reply_A);
 		int position_a_r = answerResult.getReplyPosition(reply_B);
 
-		//get the replyList of Answer
+		// get the replyList of Answer
 		ArrayList<Reply> replyList_A = answerResult.getReplyArrayList();
 
-		//get the two Reply
+		// get the two Reply
 		Reply result_A = replyList_Q.get(position_q_r);
 		Reply result_B = replyList_A.get(position_a_r);
 
-		//check the result
+		// check the result
 		assertTrue("User cannot view QuestionReplys", replyList_Q.size() == 1);
 		assertTrue("User cannot view AnswerReplys", replyList_A.size() == 1);
 		assertEquals(reply_A.getContent(), result_A.getContent());
