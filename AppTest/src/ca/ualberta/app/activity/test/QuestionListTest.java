@@ -25,9 +25,9 @@ public class QuestionListTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "A title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
+				imageByteArray);
 		
 		//add the Question through Controller
 		QuestionListController inputListController = new QuestionListController();
@@ -45,9 +45,9 @@ public class QuestionListTest extends TestCase {
 		String questionString = "A question";
 		String userName = "userName";
 		String titleString = "A title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
+				imageByteArray);
 		
 		//remove the Question from the List through the Controller
 		QuestionListController inputListController = new QuestionListController();
@@ -65,8 +65,8 @@ public class QuestionListTest extends TestCase {
 		String ReplyString = "A Reply";
 		String userName = "userName";
 		String titleString = "A title";
-		byte[] image = null;
-		Question question = new Question(questionString, userName, titleString, image);
+		String imageByteArray = null;
+		Question question = new Question(questionString, userName, titleString, imageByteArray);
 		Reply reply = new Reply(ReplyString, userName);
 
 		QuestionListController inputListController = new QuestionListController();
@@ -84,9 +84,9 @@ public class QuestionListTest extends TestCase {
 		String AnswerString = "A answer";
 		String userName = "userName";
 		String titleString = "A title";
-		byte[] image = null;
-		Question question = new Question(questionString, userName, titleString, image);
-		Answer answer = new Answer(AnswerString, userName, image);
+		String imageByteArray = null;
+		Question question = new Question(questionString, userName, titleString, imageByteArray);
+		Answer answer = new Answer(AnswerString, userName, imageByteArray);
 		
 		QuestionListController inputListController = new QuestionListController();
 		//add the Question to the List
@@ -104,9 +104,9 @@ public class QuestionListTest extends TestCase {
 		String ReplyString = "A Reply";
 		String userName = "userName";
 		String titleString = "A title";
-		byte[] image = null;
-		Question question = new Question(questionString, userName, titleString, image);
-		Answer answer = new Answer(AnswerString, userName, image);
+		String imageByteArray = null;
+		Question question = new Question(questionString, userName, titleString, imageByteArray);
+		Answer answer = new Answer(AnswerString, userName, imageByteArray);
 		Reply reply = new Reply(ReplyString, userName);
 		
 		QuestionListController inputListController = new QuestionListController();

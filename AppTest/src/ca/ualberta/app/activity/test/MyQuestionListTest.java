@@ -18,9 +18,9 @@ public class MyQuestionListTest extends TestCase {
 		//create a Question object
 		String questionString = "A Question";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
+				imageByteArray);
 		
 		//add the QuestionID to the Author
 		author.addAQuestion(question.getID());

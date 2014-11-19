@@ -17,10 +17,10 @@ public class ViewAnswersTest extends TestCase {
 		String answerString = "A Answer";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
-		Answer answer = new Answer(answerString, userName, image);
+				imageByteArray);
+		Answer answer = new Answer(answerString, userName, imageByteArray);
 
 		// add the answer to the Question, and add the Quesiton to the
 		// QuesitonList
@@ -44,10 +44,10 @@ public class ViewAnswersTest extends TestCase {
 		String answerString = "A Answer";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
-		Answer answer = new Answer(answerString, userName, image);
+				imageByteArray);
+		Answer answer = new Answer(answerString, userName, imageByteArray);
 
 		// add the Answer to the Question, and add Question to the List
 		QuestionListController inputsListController = new QuestionListController();
@@ -76,10 +76,10 @@ public class ViewAnswersTest extends TestCase {
 		String answerString = "A Answer";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
-		Answer answer = new Answer(answerString, userName, image);
+				imageByteArray);
+		Answer answer = new Answer(answerString, userName, imageByteArray);
 		
 		//add the answer to the Question, and add the Question to the server
 		QuestionListManager questionListManager = new QuestionListManager();

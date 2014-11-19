@@ -15,9 +15,9 @@ public class QuestionListManagerTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray  = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
+				imageByteArray);
 
 		// add the Question to the server
 		QuestionListManager questionListManager = new QuestionListManager();
@@ -39,9 +39,9 @@ public class QuestionListManagerTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "userName";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray  = null;
 		Question question = new Question(questionString, userName, titleString,
-				image);
+				imageByteArray);
 
 		// get the Question from the server
 		QuestionListManager questionListManager = new QuestionListManager();
@@ -63,12 +63,12 @@ public class QuestionListManagerTest extends TestCase {
 		String questionString = "A Question";
 		String userName = "TestUser";
 		String titleString = "title";
-		byte[] image = null;
+		String imageByteArray  = null;
 		Author author = new Author(userName);
 		Question question1 = new Question(questionString, userName,
-				titleString, image);
+				titleString, imageByteArray);
 		Question question2 = new Question(questionString, userName,
-				titleString, image);
+				titleString, imageByteArray);
 		question2.setID(question1.getID() + 100);
 
 		// inital manager
