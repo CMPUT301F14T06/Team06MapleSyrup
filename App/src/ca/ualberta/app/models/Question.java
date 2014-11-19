@@ -53,8 +53,8 @@ public class Question extends InputsModel {
 	 *            The image belongs to the question.
 	 */
 	public Question(String content, String userName, String title,
-			byte[] imageByteArray) {
-		super(content, userName, title, imageByteArray);
+			String imageString) {
+		super(content, userName, title, imageString);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
 		upvotedPerson = new HashMap<String, Author>();

@@ -20,6 +20,7 @@
 
 package ca.ualberta.app.models;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 /**
@@ -29,7 +30,7 @@ public abstract class InputsModel {
 	public String title;
 	public String content;
 	public String userName;
-	byte[] imageByteArray;
+	String imageString = null;
 	Date timestamp;
 
 	/**
@@ -45,9 +46,9 @@ public abstract class InputsModel {
 	 *            The image in the question.
 	 */
 	public InputsModel(String content, String userName, String title,
-			byte[] imageByteArray) {
+			String imageString) {
 		this.timestamp = new Date();
-		this.imageByteArray = imageByteArray;
+		this.imageString = imageString;
 		this.title = title;
 		this.content = content;
 		this.userName = userName;
@@ -63,9 +64,9 @@ public abstract class InputsModel {
 	 * @param image
 	 *            The image in the question.
 	 */
-	public InputsModel(String content, String userName, byte[] imageByteArray) {
+	public InputsModel(String content, String userName, String imageString) {
 		timestamp = new Date();
-		this.imageByteArray = imageByteArray;
+		this.imageString = imageString;
 		this.content = content;
 		this.userName = userName;
 	}
@@ -91,7 +92,7 @@ public abstract class InputsModel {
 	 *         false.
 	 */
 	public boolean hasImage() {
-		return imageByteArray != null;
+		return imageString != null;
 	}
 
 	/**
@@ -101,7 +102,12 @@ public abstract class InputsModel {
 	 *            The image of the question/answer.
 	 */
 	public void setImage(byte[] imageByteArray) {
-		this.imageByteArray = imageByteArray;
+		try {
+			this.imageString = new String(imageByteArray, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -110,6 +116,12 @@ public abstract class InputsModel {
 	 * @return the image.
 	 */
 	public byte[] getImage() {
+		byte[] imageByteArray = null;
+		try {
+			imageByteArray = imageString.getBytes("UTF8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return imageByteArray;
 	}
 

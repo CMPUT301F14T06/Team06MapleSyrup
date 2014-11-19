@@ -334,18 +334,51 @@ public class FragmentMain extends Fragment {
 
 	private void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+
+			String searchString = searchEditText.getText().toString();
+			Thread thread = new SearchThread(searchString);
+			thread.start();
+
+		}
+	}
+
+	class SearchThread extends Thread {
+		private String search;
+
+		public SearchThread(String s) {
+			search = s;
+
+		}
+
+		@Override
+		public void run() {
+
 			if (User.loginStatus == true) {
 				MYQUESTION = User.author.getUsername() + "my.sav";
 				myQuestionListController.clear();
 				Thread getListThread = new GetListThread();
-				getListThread.start();
+				getListThread.run();
 			}
 			cacheController.clear();
 			Thread getMapThread = new GetMapThread();
-			getMapThread.start();
-			String searchString = searchEditText.getText().toString();
-			Thread thread = new SearchThread(searchString);
-			thread.start();
+			getMapThread.run();
+
+			if (needToLoadMore == 0) {
+				questionListController.clear();
+			}
+			questionListController.addAll(questionListManager.searchQuestions(
+					search, null, from, size));
+			if (needToLoadMore == 0) {
+				size = 10;
+			}
+
+			if (questionListManager.searchQuestions(search, null, from, size)
+					.size() != 0) {
+				haveSearchResult = 1;
+			} else {
+				haveSearchResult = 0;
+			}
+			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}
 
@@ -374,35 +407,6 @@ public class FragmentMain extends Fragment {
 			tempSav = questionListManager.getQuestionMap(cacheController
 					.getLocalCacheId(mcontext));
 			cacheController.addAll(mcontext, tempFav, tempSav);
-		}
-	}
-
-	class SearchThread extends Thread {
-		private String search;
-
-		public SearchThread(String s) {
-			search = s;
-
-		}
-
-		@Override
-		public void run() {
-			if (needToLoadMore == 0) {
-				questionListController.clear();
-			}
-			questionListController.addAll(questionListManager.searchQuestions(
-					search, null, from, size));
-			if (needToLoadMore == 0) {
-				size = 10;
-			}
-
-			if (questionListManager.searchQuestions(search, null, from, size)
-					.size() != 0) {
-				haveSearchResult = 1;
-			} else {
-				haveSearchResult = 0;
-			}
-			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}
 

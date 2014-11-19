@@ -22,6 +22,8 @@ package ca.ualberta.app.activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
@@ -184,8 +186,15 @@ public class CreateQuestionActivity extends Activity {
 		if (title.trim().length() == 0)
 			noTitleEntered();
 		else {
+			String imageString = null;
+			try {
+				imageString = new String(imageByteArray, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+
+				e.printStackTrace();
+			}
 			newQuestion = new Question(content, User.author.getUsername(),
-					title, imageByteArray);
+					title, imageString);
 			User.author.addAQuestion(newQuestion.getID());
 
 			Thread updateAuthorThread = new UpdateAuthorThread(User.author);
