@@ -20,9 +20,6 @@
 
 package ca.ualberta.app.models;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * This is the interface of user.
  */

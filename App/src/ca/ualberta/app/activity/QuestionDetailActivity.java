@@ -73,6 +73,10 @@ public class QuestionDetailActivity extends Activity {
 
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
+			if (!(save_click || upvote_click || fav_click)
+					&& !cacheController.hasSaved(mcontext, question))
+				cacheController.addLocalQuestions(mcontext, question);
+
 			if (cacheController.hasSaved(mcontext, question))
 				save_Rb.setChecked(true);
 			else
@@ -82,6 +86,7 @@ public class QuestionDetailActivity extends Activity {
 				fav_Rb.setChecked(true);
 			else
 				fav_Rb.setChecked(false);
+
 			questionTitleTextView.setText(question.getTitle());
 			questionContentTextView.setText(question.getContent());
 			authorNameTextView.setText(question.getAuthor());
@@ -89,6 +94,7 @@ public class QuestionDetailActivity extends Activity {
 					+ question.getQuestionUpvoteCount());
 			answerCountTextView.setText("Answer: " + question.getAnswerCount());
 			questionTimeTextView.setText(question.getTimestamp().toString());
+
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
 				byte[] imageByteArray = Base64.decode(question.getImage(), 1);
@@ -96,6 +102,7 @@ public class QuestionDetailActivity extends Activity {
 				Bitmap image = BitmapFactory.decodeStream(iStream);
 				questionImageView.setImageBitmap(image);
 			}
+
 			replyAdapter = new ReplyListAdapter(mcontext,
 					R.layout.single_reply, question.getReplys(), question);
 			answerAdapter = new AnswerListAdapter(mcontext,
@@ -124,6 +131,7 @@ public class QuestionDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_detail);
 		mcontext = this;
+
 		questionTitleTextView = (TextView) findViewById(R.id.questionDetailTitleTextView);
 		questionContentTextView = (TextView) findViewById(R.id.questionDetailContentTextView);
 		authorNameTextView = (TextView) findViewById(R.id.authorNameTextView);
@@ -139,19 +147,18 @@ public class QuestionDetailActivity extends Activity {
 		fav_Rb = (RadioButton) findViewById(R.id.fav_detail_button);
 		cacheController = new CacheController(mcontext);
 		questionImageView.setVisibility(View.GONE);
-		if (User.loginStatus == true) {
-			answer_Rb.setVisibility(View.VISIBLE);
-			reply_Rb.setVisibility(View.VISIBLE);
-		} else {
-			answer_Rb.setVisibility(View.GONE);
-			reply_Rb.setVisibility(View.GONE);
-		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		check_login_status();
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-
+		check_login_status();
 		questionManager = new QuestionListManager();
 		Intent intent = getIntent();
 
@@ -166,6 +173,16 @@ public class QuestionDetailActivity extends Activity {
 
 	}
 
+	public void check_login_status() {
+		if (User.loginStatus == true) {
+			answer_Rb.setVisibility(View.VISIBLE);
+			reply_Rb.setVisibility(View.VISIBLE);
+		} else {
+			answer_Rb.setVisibility(View.GONE);
+			reply_Rb.setVisibility(View.GONE);
+		}
+	}
+
 	/**
 	 * Set the boolean of the save statue of the question to True
 	 * 
@@ -174,6 +191,8 @@ public class QuestionDetailActivity extends Activity {
 	 */
 
 	public void save_click(View view) {
+		fav_click = false;
+		upvote_click = false;
 		save_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
@@ -187,6 +206,8 @@ public class QuestionDetailActivity extends Activity {
 	 */
 
 	public void fav_click(View view) {
+		save_click = false;
+		upvote_click = false;
 		fav_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
@@ -200,6 +221,8 @@ public class QuestionDetailActivity extends Activity {
 	 */
 
 	public void upvote_click(View view) {
+		save_click = false;
+		fav_click = false;
 		upvote_click = true;
 		Thread thread = new GetThread(questionId);
 		thread.start();
@@ -255,26 +278,30 @@ public class QuestionDetailActivity extends Activity {
 
 		@Override
 		public void run() {
-			Looper.prepare();
+
 			question = questionManager.getQuestion(id);
-			if (!(save_click || upvote_click || fav_click))
-				cacheController.addLocalQuestions(mcontext, question);
+
 			if (upvote_click == true) {
 				if (User.loginStatus) {
 					if (!question.upvoteQuestion()) {
+						Looper.prepare();
 						Toast.makeText(mcontext,
 								"You have upvoted this question",
 								Toast.LENGTH_SHORT).show();
+						Looper.loop();
+					} else {
+						cacheController.updateFavQuestions(mcontext, question);
+						cacheController
+								.updateLocalQuestions(mcontext, question);
 					}
-					cacheController.updateFavQuestions(mcontext, question);
-					cacheController.updateLocalQuestions(mcontext, question);
 				} else {
+					Looper.prepare();
 					Toast.makeText(mcontext, "Login to upvote",
 							Toast.LENGTH_SHORT).show();
+					Looper.loop();
 					Intent intent = new Intent(mcontext, LoginActivity.class);
 					startActivity(intent);
 				}
-
 			}
 			if (save_click == true) {
 				if (cacheController.hasSaved(mcontext, question))
@@ -288,13 +315,11 @@ public class QuestionDetailActivity extends Activity {
 				else
 					cacheController.addFavQuestions(mcontext, question);
 			}
-			save_click = false;
-			fav_click = false;
-			upvote_click = false;
+
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
 			runOnUiThread(doUpdateGUIDetails);
-			Looper.loop();
+
 		}
 	}
 

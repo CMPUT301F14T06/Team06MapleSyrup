@@ -21,7 +21,6 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
-import android.graphics.Bitmap;
 
 /**
  * This class contains all functionalities an author object should have.
@@ -30,7 +29,7 @@ public class Author extends User {
 	// final static boolean loginState = true;
 
 	String username;
-	Bitmap image;
+	byte[] imageArray;
 	ArrayList<Long> myQuestionId;
 
 	/**

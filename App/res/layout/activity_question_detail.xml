@@ -197,8 +197,8 @@
         android:id="@+id/question_reply_expanableListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:groupIndicator="@null"
-        android:layout_below="@+id/separator1" >
+        android:layout_below="@+id/separator1"
+        android:groupIndicator="@null" >
     </ExpandableListView>
 
     <ImageView

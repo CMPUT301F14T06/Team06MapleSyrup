@@ -54,10 +54,10 @@ public class CacheController {
 	private String LOCALID = "localId.sav";
 
 	/**
-	 * The constructor of the class
-	 * load question map from local file
+	 * The constructor of the class load question map from local file
 	 * 
-	 * @param mcontext the context.
+	 * @param mcontext
+	 *            the context.
 	 */
 	public CacheController(Context mcontext) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
@@ -69,7 +69,8 @@ public class CacheController {
 	/**
 	 * Return the question map of the favorite question from local file
 	 * 
-	 * @param mcontext the context.
+	 * @param mcontext
+	 *            the context.
 	 * 
 	 * @return the question map of the favorite question from the local file.
 	 */
@@ -81,7 +82,8 @@ public class CacheController {
 	/**
 	 * Return the question map of the local question from local file
 	 * 
-	 * @param mcontext the context.
+	 * @param mcontext
+	 *            the context.
 	 * 
 	 * @return the question map of the local question from the local file.
 	 */
@@ -94,7 +96,8 @@ public class CacheController {
 	/**
 	 * Return the question ID of the favorite question from local file
 	 * 
-	 * @param mcontext the context.
+	 * @param mcontext
+	 *            the context.
 	 * 
 	 * @return the question ID of the favorite question from the local file.
 	 */
@@ -107,7 +110,8 @@ public class CacheController {
 	/**
 	 * Return the question ID of the local question from local file
 	 * 
-	 * @param mcontext the context.
+	 * @param mcontext
+	 *            the context.
 	 * 
 	 * @return the question ID of the local question from the local file.
 	 */
@@ -120,10 +124,13 @@ public class CacheController {
 	/**
 	 * Return whether the local file for favorite question contain the question.
 	 * 
-	 * @param mcontext the context.
-	 * @param question the question.
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
 	 * 
-	 * @return true if the local file for favorite question has the question, false if not.
+	 * @return true if the local file for favorite question has the question,
+	 *         false if not.
 	 */
 	public boolean hasFavorited(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
@@ -135,10 +142,13 @@ public class CacheController {
 	/**
 	 * Return whether the local file for local question contain the question.
 	 * 
-	 * @param mcontext the context.
-	 * @param question the question.
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
 	 * 
-	 * @return true if the local file for favorite question has the question, false if not.
+	 * @return true if the local file for favorite question has the question,
+	 *         false if not.
 	 */
 	public boolean hasSaved(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
@@ -150,8 +160,10 @@ public class CacheController {
 	/**
 	 * Save a question into the the local file of the favorite questions.
 	 * 
-	 * @param mcontext the context.
-	 * @param question the question.
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
 	 */
 	public void addFavQuestions(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
@@ -167,8 +179,10 @@ public class CacheController {
 	/**
 	 * Save a question into the the local file of the local questions.
 	 * 
-	 * @param mcontext the context.
-	 * @param question the question.
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
 	 */
 	public void addLocalQuestions(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
@@ -184,8 +198,10 @@ public class CacheController {
 	/**
 	 * Remove a question into the the local file of the favorite questions.
 	 * 
-	 * @param mcontext the context.
-	 * @param question the question.
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
 	 */
 	public void removeFavQuestions(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
@@ -204,8 +220,10 @@ public class CacheController {
 	/**
 	 * Remove a question into the the local file of the local questions.
 	 * 
-	 * @param mcontext the context.
-	 * @param question the question.
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
 	 */
 	public void removeLocalQuestions(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
@@ -224,8 +242,10 @@ public class CacheController {
 	/**
 	 * Update a question in the the local file of the favorite questions.
 	 * 
-	 * @param mcontext the context.
-	 * @param question the question.
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
 	 */
 	public void updateFavQuestions(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
@@ -239,8 +259,10 @@ public class CacheController {
 	/**
 	 * Update a question in the the local file of the local questions.
 	 * 
-	 * @param mcontext the context.
-	 * @param question the question.
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
 	 */
 	public void updateLocalQuestions(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
@@ -252,11 +274,13 @@ public class CacheController {
 	}
 
 	/**
-	 * Load and return the question list in the the local file of the favorite questions.
+	 * Load and return the question list in the the local file of the favorite
+	 * questions.
 	 * 
 	 * @return the favorite question list.
 	 */
-	public QuestionList getFavoriteQuestionList() {
+	public QuestionList getFavoriteQuestionList(Context mcontext) {
+		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		QuestionList questionList = new QuestionList();
 		questionList.getCollection().addAll(this.favoriteMap.values());
 		return questionList;
@@ -273,9 +297,12 @@ public class CacheController {
 	/**
 	 * Save all MAP's into the local files
 	 * 
-	 * @param mcontext The context.
-	 * @param tempFav the buffer of the Map of the favorite question and it's ID.
-	 * @param tempSav the buffer of the Map of the local question and it's ID.
+	 * @param mcontext
+	 *            The context.
+	 * @param tempFav
+	 *            the buffer of the Map of the favorite question and it's ID.
+	 * @param tempSav
+	 *            the buffer of the Map of the local question and it's ID.
 	 */
 	public void addAll(Context mcontext, Map<Long, Question> tempFav,
 			Map<Long, Question> tempSav) {
@@ -287,9 +314,11 @@ public class CacheController {
 
 	/**
 	 * Load and return the local question list
+	 * 
 	 * @return the local question list.
 	 */
-	public QuestionList getLocalQuestionsList() {
+	public QuestionList getLocalQuestionsList(Context mcontext) {
+		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		QuestionList questionList = new QuestionList();
 		questionList.getCollection().addAll(this.localCacheMap.values());
 		return questionList;
@@ -298,8 +327,10 @@ public class CacheController {
 	/**
 	 * Load the question ID's from the file with given name.
 	 * 
-	 * @param context The context.
-	 * @param FILENAME The name of the local file.
+	 * @param context
+	 *            The context.
+	 * @param FILENAME
+	 *            The name of the local file.
 	 * 
 	 * @return the ID of the question(s).
 	 */
@@ -325,8 +356,10 @@ public class CacheController {
 	/**
 	 * Load the question Map's from the file with given name.
 	 * 
-	 * @param context The context.
-	 * @param FILENAME The name of the local file.
+	 * @param context
+	 *            The context.
+	 * @param FILENAME
+	 *            The name of the local file.
 	 * 
 	 * @return the Map of the question(s).
 	 */
@@ -352,16 +385,46 @@ public class CacheController {
 	/**
 	 * save question map to local file
 	 * 
-	 * @param context The context.
-	 * @param object The object.
-	 * @param FILENAME The name of the file.
+	 * @param context
+	 *            The context.
+	 * @param questionMap
+	 *            The question map.
+	 * @param FILENAME
+	 *            The name of the file.
 	 */
-	public void saveInFile(Context context, Object object, String FILENAME) {
+	public void saveInFile(Context context, Map<Long, Question> questionMap,
+			String FILENAME) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
 			Gson gson = new Gson();
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(object, osw);
+			gson.toJson(questionMap, osw);
+			osw.flush();
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * save question id to local file
+	 * 
+	 * @param context
+	 *            The context.
+	 * @param questionMap
+	 *            The question id.
+	 * @param FILENAME
+	 *            The name of the file.
+	 */
+	public void saveInFile(Context context, ArrayList<Long> questionId,
+			String FILENAME) {
+		try {
+			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+			Gson gson = new Gson();
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			gson.toJson(questionId, osw);
 			osw.flush();
 			fos.close();
 		} catch (FileNotFoundException e) {

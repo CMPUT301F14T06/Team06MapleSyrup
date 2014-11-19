@@ -48,7 +48,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-
 public class MyLocalActivity extends Activity {
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
@@ -80,7 +79,6 @@ public class MyLocalActivity extends Activity {
 		}
 	};
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,7 +89,6 @@ public class MyLocalActivity extends Activity {
 		mHandler = new Handler();
 		mcontext = this;
 	}
-
 
 	@Override
 	public void onStart() {
@@ -111,7 +108,7 @@ public class MyLocalActivity extends Activity {
 		updateList();
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
-	
+
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -148,7 +145,6 @@ public class MyLocalActivity extends Activity {
 			}
 		});
 
-
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
 			@Override
@@ -162,7 +158,6 @@ public class MyLocalActivity extends Activity {
 				}, 2000);
 			}
 
-		
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -183,16 +178,6 @@ public class MyLocalActivity extends Activity {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	// /**
-	// * onResume method
-	// */
-	// @Override
-	// public void onResume() {
-	// super.onResume();
-	// updateList();
-	// }
-
-	
 	private class change_category_click implements OnItemSelectedListener {
 
 		public void onItemSelected(AdapterView<?> parent, View view,
@@ -223,7 +208,7 @@ public class MyLocalActivity extends Activity {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-		
+
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -242,7 +227,7 @@ public class MyLocalActivity extends Activity {
 			thread.start();
 		} else {
 			localQuestionListController.clear();
-			localQuestionList = cacheController.getLocalQuestionsList();
+			localQuestionList = cacheController.getLocalQuestionsList(mcontext);
 			localQuestionListController.addAll(localQuestionList);
 			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
@@ -257,7 +242,6 @@ public class MyLocalActivity extends Activity {
 			this.localListId = localListId;
 		}
 
-		
 		@Override
 		public void run() {
 			localQuestionListController.clear();
@@ -276,7 +260,6 @@ public class MyLocalActivity extends Activity {
 			this.questionID = questionID;
 		}
 
-	
 		@Override
 		public void run() {
 			localQuestionListManager.deleteQuestion(questionID);
@@ -291,7 +274,6 @@ public class MyLocalActivity extends Activity {
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
-
 
 	/**
 	 * Handle action bar item clicks here. The action bar will automatically

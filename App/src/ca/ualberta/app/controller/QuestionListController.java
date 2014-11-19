@@ -318,13 +318,13 @@ public class QuestionListController {
 	 * @param FILENAME
 	 *            The name of the file.
 	 */
-	public static void saveInFile(Context context, QuestionList question,
+	public static void saveInFile(Context context, QuestionList questionList,
 			String FILENAME) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
 			Gson gson = new Gson();
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(question, osw);
+			gson.toJson(questionList, osw);
 			osw.flush();
 			fos.close();
 		} catch (FileNotFoundException e) {

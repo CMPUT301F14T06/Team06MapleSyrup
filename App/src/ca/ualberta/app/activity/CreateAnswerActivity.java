@@ -29,7 +29,9 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -37,6 +39,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.CursorLoader;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -139,12 +142,10 @@ public class CreateAnswerActivity extends Activity {
 
 			}
 			if (requestCode == GET_IMAGE_ACTIVITY_REQUEST_CODE) {
-				imageFileUri = data.getData();
-				String imagePath = imageFileUri.getPath();
+				String imagePath = getPath(this, data.getData());
 				Toast.makeText(this, "Picture OK!", Toast.LENGTH_SHORT).show();
 				setImageView(imagePath);
 				saveImageView(imagePath);
-
 			}
 		} else if (resultCode == RESULT_CANCELED) {
 			Toast.makeText(this, "Photo Canceled!", Toast.LENGTH_SHORT).show();
@@ -166,6 +167,26 @@ public class CreateAnswerActivity extends Activity {
 		image.compress(Bitmap.CompressFormat.PNG, 100, stream);
 		byte[] byteArray = stream.toByteArray();
 		imageByteArray = Base64.encode(byteArray, 1);
+	}
+
+	// The following code is from
+	// http://hmkcode.com/android-display-selected-image-and-its-real-path/
+	// 2014-11-18
+	private String getPath(Context context, Uri imageFileUri) {
+		String[] proj = { MediaStore.Images.Media.DATA };
+		String result = null;
+
+		CursorLoader cursorLoader = new CursorLoader(context, imageFileUri,
+				proj, null, null, null);
+		Cursor cursor = cursorLoader.loadInBackground();
+
+		if (cursor != null) {
+			int column_index = cursor
+					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			result = cursor.getString(column_index);
+		}
+		return result;
 	}
 
 	public void noContentEntered() {

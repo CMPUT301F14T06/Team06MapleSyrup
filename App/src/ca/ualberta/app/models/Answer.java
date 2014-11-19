@@ -22,6 +22,7 @@ package ca.ualberta.app.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,7 @@ public class Answer extends InputsModel {
 		this.replyList = new ArrayList<Reply>();
 		this.ID_answer = new Date().getTime() - 100;
 		this.upvoteCount_answer = 0;
+		upvotedPerson = new HashMap<String, Author>();
 	}
 
 	/**

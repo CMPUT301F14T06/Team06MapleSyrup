@@ -343,22 +343,21 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			if (User.loginStatus) {
 				Answer answer = answerList.get(position);
 				if (!answer.upvoteAnswer()) {
-					Toast.makeText(v.getContext(),
-							"You have upvoted this answer", Toast.LENGTH_SHORT)
-							.show();
+					Toast.makeText(context, "You have upvoted this answer",
+							Toast.LENGTH_SHORT).show();
 				}
 				question.calcCurrentTotalScore();
 				Thread thread = new UpdateAnswerThread(question, answer);
 				thread.start();
-				cacheController.updateFavQuestions(v.getContext(), question);
-				cacheController.updateLocalQuestions(v.getContext(), question);
+				cacheController.updateFavQuestions(context, question);
+				cacheController.updateLocalQuestions(context, question);
 
 				notifyDataSetChanged();
 			} else {
 				Toast.makeText(v.getContext(), "Login to upvote",
 						Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(v.getContext(), LoginActivity.class);
-				v.getContext().startActivity(intent);
+				Intent intent = new Intent(context, LoginActivity.class);
+				context.startActivity(intent);
 			}
 
 		}

@@ -33,7 +33,6 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 /**
@@ -48,7 +47,6 @@ public class FragmentProfile extends Fragment {
 	private TextView titleBar;
 	private ImageButton changePhotoButton;
 	private TextView setAuthorName;
-	private RadioGroup profile_menu;
 	private RadioButton local_cache;
 	private RadioButton fav_question;
 	private RadioButton my_question;
@@ -74,7 +72,6 @@ public class FragmentProfile extends Fragment {
 		changePhotoButton = (ImageButton) getView().findViewById(
 				R.id.changePhotoButton);
 		setAuthorName = (TextView) getView().findViewById(R.id.setAuthorName);
-		profile_menu = (RadioGroup) getView().findViewById(R.id.profile_menu);
 		local_cache = (RadioButton) getView().findViewById(R.id.local_cache);
 		fav_question = (RadioButton) getView().findViewById(R.id.fav_question);
 		my_question = (RadioButton) getView().findViewById(R.id.my_question);
@@ -133,7 +130,6 @@ public class FragmentProfile extends Fragment {
 		});
 	}
 
-
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -144,7 +140,6 @@ public class FragmentProfile extends Fragment {
 			titleBar.setText("Profile(Not Connected)");
 		}
 	}
-
 
 	@Override
 	public void onPause() {

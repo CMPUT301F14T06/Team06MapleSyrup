@@ -114,7 +114,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mcontext = getActivity().getApplicationContext();
+		mcontext = getActivity().getBaseContext();
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Main");
 		searchEditText = (EditText) getView().findViewById(
@@ -148,7 +148,7 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		//updateList();
+		// updateList();
 
 		searchButton.setOnClickListener(new OnClickListener() {
 
@@ -161,8 +161,8 @@ public class FragmentMain extends Fragment {
 					updateList();
 				} else {
 					searchButton.setText("Search");
-					searchEditText.clearFocus();
 					searchEditText.setText("");
+					searchEditText.clearFocus();
 					updateList();
 				}
 			}
@@ -280,16 +280,16 @@ public class FragmentMain extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
-			titleBar.setText("Main");
-		} else {
-			titleBar.setText("Main(Not Connected)");
-
-		}
-	}
+	// @Override
+	// public void onResume() {
+	// super.onResume();
+	// if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+	// titleBar.setText("Main");
+	// } else {
+	// titleBar.setText("Main(Not Connected)");
+	//
+	// }
+	// }
 
 	private class change_category_click implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view,
@@ -344,7 +344,6 @@ public class FragmentMain extends Fragment {
 			Thread getMapThread = new GetMapThread();
 			getMapThread.start();
 			String searchString = searchEditText.getText().toString();
-			// searchEditText.setText("");
 			Thread thread = new SearchThread(searchString);
 			thread.start();
 		}

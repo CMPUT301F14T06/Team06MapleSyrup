@@ -22,7 +22,6 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.activity.MyFavoriteActivity.GetListThread;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;

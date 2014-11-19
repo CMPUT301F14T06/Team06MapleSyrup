@@ -25,8 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.graphics.Bitmap;
-
 /**
  * This class defines all functionalities a Question should have.
  */

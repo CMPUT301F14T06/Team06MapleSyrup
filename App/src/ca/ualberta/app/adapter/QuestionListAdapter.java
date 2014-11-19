@@ -273,18 +273,17 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				question.calcCurrentTotalScore();
 				Thread thread = new UpdateQuestionThread(question);
 				thread.start();
-				sortingOption = lastSortingOption;
 				cacheController.updateFavQuestions(getContext(), question);
 				cacheController.updateLocalQuestions(getContext(), question);
-				applySortMethod();
-				notifyDataSetChanged();
 			} else {
 				Toast.makeText(v.getContext(), "Login to upvote",
 						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getContext(), LoginActivity.class);
 				getContext().startActivity(intent);
 			}
-
+			sortingOption = lastSortingOption;
+			applySortMethod();
+			notifyDataSetChanged();
 		}
 	}
 

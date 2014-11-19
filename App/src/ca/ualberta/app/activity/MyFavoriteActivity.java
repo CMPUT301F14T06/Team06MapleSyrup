@@ -28,7 +28,6 @@ import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
@@ -58,7 +57,6 @@ public class MyFavoriteActivity extends Activity {
 	private QuestionListAdapter adapter = null;
 	private QuestionListController favQuestionListController;
 	private QuestionListManager favQuestionListManager;
-	private QuestionList favQuestionList;
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -69,7 +67,6 @@ public class MyFavoriteActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-
 
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -110,7 +107,6 @@ public class MyFavoriteActivity extends Activity {
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
 
-	
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -149,10 +145,8 @@ public class MyFavoriteActivity extends Activity {
 			}
 		});
 
-	
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
-		
 			@Override
 			public void onRefresh() {
 				mHandler.postDelayed(new Runnable() {
@@ -164,7 +158,6 @@ public class MyFavoriteActivity extends Activity {
 				}, 2000);
 			}
 
-		
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -178,7 +171,6 @@ public class MyFavoriteActivity extends Activity {
 		});
 	}
 
-	
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
@@ -195,9 +187,8 @@ public class MyFavoriteActivity extends Activity {
 	// updateList();
 	// }
 
-	
 	private class change_category_click implements OnItemSelectedListener {
-	
+
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			categoryID = position;
@@ -228,7 +219,6 @@ public class MyFavoriteActivity extends Activity {
 			}
 		}
 
-	
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
 		}
@@ -247,12 +237,11 @@ public class MyFavoriteActivity extends Activity {
 		} else {
 			favQuestionListController.clear();
 			favQuestionListController.addAll(cacheController
-					.getFavoriteQuestionList());
+					.getFavoriteQuestionList(mcontext));
 			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
 		}
 	}
-
 
 	class GetListThread extends Thread {
 
@@ -269,12 +258,10 @@ public class MyFavoriteActivity extends Activity {
 	class DeleteThread extends Thread {
 		private long questionID;
 
-	
 		public DeleteThread(long questionID) {
 			this.questionID = questionID;
 		}
 
-	
 		@Override
 		public void run() {
 			favQuestionListManager.deleteQuestion(questionID);
