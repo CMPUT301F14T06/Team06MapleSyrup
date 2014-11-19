@@ -1,6 +1,7 @@
 package ca.ualberta.app.gps;
 
 //http://www.vogella.com/tutorials/AndroidLocationAPI/article.html#locationapi 2014 11/19 16:29
+import ca.ualberta.app.activity.R;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Criteria;
@@ -23,9 +24,9 @@ public class ShowLocationActivity extends Activity implements LocationListener {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    //setContentView(R.layout.testgps);
-    //latituteField = (TextView) findViewById(R.id.Latitude);
-    //longitudeField = (TextView) findViewById(R.id.Longitute:);
+    setContentView(R.layout.testgps);
+    latituteField = (TextView) findViewById(R.id.Latitude);
+    longitudeField = (TextView) findViewById(R.id.Longitute);
 
     // Get the location manager
     locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
