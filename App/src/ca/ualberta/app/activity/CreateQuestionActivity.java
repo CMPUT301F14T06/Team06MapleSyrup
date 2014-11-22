@@ -188,7 +188,8 @@ public class CreateQuestionActivity extends Activity {
 		else {
 			String imageString = null;
 			try {
-				imageString = new String(imageByteArray, "UTF-8");
+				if (imageByteArray != null)
+					imageString = new String(imageByteArray, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 
 				e.printStackTrace();

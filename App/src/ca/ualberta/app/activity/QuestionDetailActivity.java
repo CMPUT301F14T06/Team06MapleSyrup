@@ -298,9 +298,9 @@ public class QuestionDetailActivity extends Activity {
 					Looper.prepare();
 					Toast.makeText(mcontext, "Login to upvote",
 							Toast.LENGTH_SHORT).show();
-					Looper.loop();
 					Intent intent = new Intent(mcontext, LoginActivity.class);
 					startActivity(intent);
+					Looper.loop();
 				}
 			}
 			if (save_click == true) {

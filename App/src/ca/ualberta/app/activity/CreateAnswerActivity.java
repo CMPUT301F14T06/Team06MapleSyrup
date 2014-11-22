@@ -95,7 +95,8 @@ public class CreateAnswerActivity extends Activity {
 					long questionId = extras.getLong(QUESTION_ID);
 					String imageString = null;
 					try {
-						imageString = new String(imageByteArray, "UTF-8");
+						if (imageByteArray != null)
+							imageString = new String(imageByteArray, "UTF-8");
 					} catch (UnsupportedEncodingException e) {
 
 						e.printStackTrace();

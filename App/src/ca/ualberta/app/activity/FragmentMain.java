@@ -280,16 +280,16 @@ public class FragmentMain extends Fragment {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	// @Override
-	// public void onResume() {
-	// super.onResume();
-	// if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
-	// titleBar.setText("Main");
-	// } else {
-	// titleBar.setText("Main(Not Connected)");
-	//
-	// }
-	// }
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+			titleBar.setText("Main");
+		} else {
+			titleBar.setText("Main(Not Connected)");
+
+		}
+	}
 
 	private class change_category_click implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view,
