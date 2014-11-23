@@ -139,24 +139,20 @@ public class CreateAnswerActivity extends Activity {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 				String imagePath = imageFileUri.getPath();
+
 				if (saveImageView(imagePath)) {
 					setImageView();
 				} else {
-					Toast.makeText(
-							this,
-							"The Photo is larger than 64KB, please choose another one.",
-							Toast.LENGTH_LONG).show();
+					refuseUpdatePic();
 				}
 			}
 			if (requestCode == GET_IMAGE_ACTIVITY_REQUEST_CODE) {
+
 				String imagePath = getPath(this, data.getData());
 				if (saveImageView(imagePath)) {
 					setImageView();
 				} else {
-					Toast.makeText(
-							this,
-							"The Photo is larger than 64KB, please choose another one.",
-							Toast.LENGTH_LONG).show();
+					refuseUpdatePic();
 				}
 			}
 		} else if (resultCode == RESULT_CANCELED) {
@@ -166,6 +162,17 @@ public class CreateAnswerActivity extends Activity {
 					Toast.LENGTH_SHORT).show();
 		}
 
+	}
+
+	private void refuseUpdatePic() {
+		image = null;
+		imageThumb = null;
+		imageString = null;
+		imageView.setVisibility(View.GONE);
+		Toast.makeText(
+				this,
+				"The Photo is larger than 64KB after resize, please choose another one.",
+				Toast.LENGTH_LONG).show();
 	}
 
 	// The following code is from
@@ -191,40 +198,57 @@ public class CreateAnswerActivity extends Activity {
 	private Boolean saveImageView(String imagePath) {
 		image = BitmapFactory.decodeFile(imagePath);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] imagebyte = stream.toByteArray();
-		imageString = Base64.encodeToString(imagebyte, Base64.NO_WRAP);
-		if (imagebyte.length > 65536) {
-			image = null;
-			return false;
+		image.compress(Bitmap.CompressFormat.PNG, 1, stream);
+		if (stream.toByteArray().length / 1024 > 1024) {
+			stream.reset();
+			image.compress(Bitmap.CompressFormat.PNG, 50, stream);
 		}
-		scaleImage();
+		scaleImage(800, 800, false);
+		imageString = compressImage();
+		if (imageString == null)
+			return false;
 		return true;
+	}
+
+	private String compressImage() {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		int quality = 100;
+		while (stream.toByteArray().length / 1024 > 64 && quality != 0) {
+			stream.reset();
+			image.compress(Bitmap.CompressFormat.JPEG, quality, stream);
+			quality -= 10;
+		}
+		if (quality == 0)
+			return null;
+		return Base64.encodeToString(stream.toByteArray(), Base64.NO_WRAP);
 	}
 
 	private static final int THUMBIMAGESIZE = 200;
 
-	private void scaleImage() {
+	private void scaleImage(int width, int height, boolean createThumb) {
 		// Scale the pic if it is too large:
 
-		if (image.getWidth() > THUMBIMAGESIZE
-				|| image.getHeight() > THUMBIMAGESIZE) {
-			double scalingFactor = image.getWidth() / THUMBIMAGESIZE;
-			if (image.getHeight() > image.getWidth()) {
-				scalingFactor = image.getHeight() / THUMBIMAGESIZE;
-
-			}
-			int newWidth = (int) Math.round(image.getWidth() / scalingFactor);
-			int newHeight = (int) Math.round(image.getHeight() / scalingFactor);
+		double scaleFactor = 1;
+		if (image.getWidth() > width) {
+			scaleFactor = image.getWidth() / width;
+		} else if (image.getHeight() > height
+				&& image.getHeight() > image.getWidth()) {
+			scaleFactor = image.getHeight() / height;
+		}
+		int newWidth = (int) Math.round(image.getWidth() / scaleFactor);
+		int newHeight = (int) Math.round(image.getHeight() / scaleFactor);
+		if (createThumb)
 			imageThumb = Bitmap.createScaledBitmap(image, newWidth, newHeight,
 					false);
-		} else {
-			imageThumb = image;
-		}
+		else
+			image = Bitmap
+					.createScaledBitmap(image, newWidth, newHeight, false);
 
 	}
 
 	private void setImageView() {
+		scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
 		imageView.setVisibility(View.VISIBLE);
 		imageView.setImageBitmap(imageThumb);
 	}
