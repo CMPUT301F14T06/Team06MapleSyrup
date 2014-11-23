@@ -188,52 +188,50 @@ public class CreateQuestionActivity extends Activity {
 			stream.reset();
 			image.compress(Bitmap.CompressFormat.PNG, 50, stream);
 		}
-		scaleImage(800, 800, false);
-		imageString = compressImage();
+
+		imageString = scaleImage();
 		if (imageString == null)
 			return false;
 		return true;
 	}
 
-	private String compressImage() {
+	private static final int THUMBIMAGESIZE = 200;
+
+	private void createThumbImage() {
+
+		if (image.getWidth() > THUMBIMAGESIZE
+				|| image.getHeight() > THUMBIMAGESIZE) {
+			double scalingFactor = image.getWidth() / THUMBIMAGESIZE;
+			if (image.getHeight() > image.getWidth()) {
+				scalingFactor = image.getHeight() / THUMBIMAGESIZE;
+
+			}
+			int newWidth = (int) Math.round(image.getWidth() / scalingFactor);
+			int newHeight = (int) Math.round(image.getHeight() / scalingFactor);
+			imageThumb = Bitmap.createScaledBitmap(image, newWidth, newHeight,
+					false);
+		} else {
+			imageThumb = image;
+		}
+
+	}
+
+	private String scaleImage() {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-		int quality = 100;
-		while (stream.toByteArray().length / 1024 > 64 && quality != 0) {
+		while (stream.toByteArray().length > 65536) {
 			stream.reset();
-			image.compress(Bitmap.CompressFormat.JPEG, quality, stream);
-			quality -= 10;
+			int newWidth = (int) Math.round(image.getWidth() * 0.9);
+			int newHeight = (int) Math.round(image.getHeight() * 0.9);
+			image = Bitmap
+					.createScaledBitmap(image, newWidth, newHeight, false);
+			image.compress(Bitmap.CompressFormat.JPEG, 80, stream);
 		}
-		if (quality == 0)
-			return null;
 		return Base64.encodeToString(stream.toByteArray(), Base64.NO_WRAP);
 	}
 
-	private static final int THUMBIMAGESIZE = 200;
-
-	private void scaleImage(int width, int height, boolean createThumb) {
-		// Scale the pic if it is too large:
-
-		double scaleFactor = 1;
-		if (image.getWidth() > width) {
-			scaleFactor = image.getWidth() / width;
-		} else if (image.getHeight() > height
-				&& image.getHeight() > image.getWidth()) {
-			scaleFactor = image.getHeight() / height;
-		}
-		int newWidth = (int) Math.round(image.getWidth() / scaleFactor);
-		int newHeight = (int) Math.round(image.getHeight() / scaleFactor);
-		if (createThumb)
-			imageThumb = Bitmap.createScaledBitmap(image, newWidth, newHeight,
-					false);
-		else
-			image = Bitmap
-					.createScaledBitmap(image, newWidth, newHeight, false);
-
-	}
-
 	private void setImageView() {
-		scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
+		createThumbImage();
 		imageView.setVisibility(View.VISIBLE);
 		imageView.setImageBitmap(imageThumb);
 	}

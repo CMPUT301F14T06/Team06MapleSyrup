@@ -142,7 +142,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/desc" />
+            android:contentDescription="@string/desc"
+            android:onClick="viewQuestionImage" />
 
         <LinearLayout
             android:id="@+id/linearLayout4"
