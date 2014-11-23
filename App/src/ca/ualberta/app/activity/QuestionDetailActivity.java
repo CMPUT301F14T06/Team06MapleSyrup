@@ -263,6 +263,9 @@ public class QuestionDetailActivity extends Activity {
 	 */
 
 	public void answer_question(View view) {
+		save_click = false;
+		fav_click = false;
+		upvote_click = false;
 		Intent intent = new Intent(this, CreateAnswerActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
@@ -277,6 +280,9 @@ public class QuestionDetailActivity extends Activity {
 	 */
 
 	public void reply_question(View view) {
+		save_click = false;
+		fav_click = false;
+		upvote_click = false;
 		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
