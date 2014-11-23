@@ -40,14 +40,14 @@ public class PictureComparator implements Comparator<Question> {
 	 */
 	@Override
 	public int compare(Question a, Question b) {
-		if ((a.hasImage() == false) && (b.hasImage() == false)) {
+		if ((a.hasImage() == true) && (b.hasImage() == false)) {
 			return -1;
 		} else if ((a.hasImage() == false) && (b.hasImage() == true)) {
 			return 1;
 		} else if (a.getID() >= b.getID()) {
 			return -1;
 		} else {
-			return 1;
+			return 0;
 		}
 	}
 
