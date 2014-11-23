@@ -56,7 +56,7 @@ public class CreateAnswerActivity extends Activity {
 	private EditText contentText = null;
 	private Answer newAnswer = null;
 	private Bitmap image = null;
-	private byte[] imageByteArray = null;
+	private String imageString = null;
 	private QuestionListManager questionListManager;
 	public static String QUESTION_ID = "QUESTION_ID";
 	private Intent intent;
@@ -93,14 +93,6 @@ public class CreateAnswerActivity extends Activity {
 				Bundle extras = intent.getExtras();
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
-					String imageString = null;
-					try {
-						if (imageByteArray != null)
-							imageString = new String(imageByteArray, "UTF-8");
-					} catch (UnsupportedEncodingException e) {
-
-						e.printStackTrace();
-					}
 					newAnswer = new Answer(content, User.author.getUsername(),
 							imageString);
 					Thread thread = new GetUpdateThread(questionId, newAnswer);
@@ -174,9 +166,9 @@ public class CreateAnswerActivity extends Activity {
 	private void saveImageView(String imagePath) {
 		image = BitmapFactory.decodeFile(imagePath);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] byteArray = stream.toByteArray();
-		imageByteArray = Base64.encode(byteArray, 1);
+		image.compress(Bitmap.CompressFormat.PNG, 80, stream);
+		imageString = Base64.encodeToString(stream.toByteArray(),
+				Base64.NO_WRAP);
 	}
 
 	// The following code is from
