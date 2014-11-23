@@ -44,20 +44,21 @@ public class QuestionListControllerTest extends TestCase {
     	
     	qlc.addQuestion(q1);
     	qlc.removeQuestion(0);
-    	assertTrue("remove first question", qlc.getQuestionList()==new QuestionList());
     	assertTrue("size of question list should not be 0",qlc.getQuestionList().size()==0);
     	
     }
     
     public void testGetQuestionList(){
     	qlc.addQuestion(q1);
-    	assertTrue("size of question list should not be 0",qlc.getQuestionList().size()==0);
+    	assertTrue("size of question list should not be 0",qlc.getQuestionList().size()!=0);
     	
     }
     
     public void testAddReplyToQ(){
     	String ReplyString = "A Reply";
 		Reply r = new Reply(ReplyString, userName);
+		//add Question
+		qlc.addQuestion(q1);
 		//add the Reply to the Question
 		qlc.addReplyToQ(r, 0);
 		assertTrue("no reply add to Question",qlc.getQuestionList().getReplys(0).contains(r));
@@ -69,6 +70,8 @@ public class QuestionListControllerTest extends TestCase {
 		String AnswerString = "A answer";
 		Answer a = new Answer(AnswerString, userName, imageByteArray);
 		Reply r = new Reply(ReplyString, userName);
+		//add Question
+		qlc.addQuestion(q1);
 		//add the Answer to Question
 		qlc.addAnswerToQ(a, 0);
 		//add the Reply to Answer
@@ -79,8 +82,10 @@ public class QuestionListControllerTest extends TestCase {
     public void testAddAnswerToQ(){
 		String AnswerString = "A answer";
 		Answer a = new Answer(AnswerString, userName, imageByteArray);
+		//add Question
+		qlc.addQuestion(q1);
 		//add the Answer to the Question
-		qlc.addAnswerToQ(a, 0);
+		qlc.addAnswerToQ(a,0);
 		//check the result
 		assertTrue("no answer add to Question",qlc.getQuestionList().getAnswers(0).contains(a));
 	 }

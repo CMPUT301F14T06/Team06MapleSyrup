@@ -44,10 +44,12 @@ public class PictureComparator implements Comparator<Question> {
 			return -1;
 		} else if ((a.hasImage() == false) && (b.hasImage() == true)) {
 			return 1;
-		} else if (a.getID() >= b.getID()) {
-			return -1;
-		} else {
+		} else if ((a.hasImage() == false) && (b.hasImage() == false)) {
 			return 0;
+		} else if ((a.hasImage() == true) && (b.hasImage() == true)) {
+			return 0;
+		}else {
+			return -1;
 		}
 	}
 
