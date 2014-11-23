@@ -1,4 +1,4 @@
-package ca.ualberta.app.activity.test;
+package ca.ualberta.app.activity.ModelTest;
 
 import java.util.Map;
 import ca.ualberta.app.models.Author;

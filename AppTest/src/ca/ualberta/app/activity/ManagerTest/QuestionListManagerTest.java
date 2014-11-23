@@ -1,4 +1,4 @@
-package ca.ualberta.app.activity.test;
+package ca.ualberta.app.activity.ManagerTest;
 
 import android.graphics.Bitmap;
 import ca.ualberta.app.ESmanager.AuthorMapManager;

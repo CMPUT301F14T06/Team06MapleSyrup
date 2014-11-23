@@ -1,4 +1,4 @@
-package ca.ualberta.app.activity.test;
+package ca.ualberta.app.activity.ControllerTest;
 
 import android.content.Context;
 import android.graphics.Bitmap;

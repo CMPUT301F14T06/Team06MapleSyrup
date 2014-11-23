@@ -1,4 +1,4 @@
-package ca.ualberta.app.activity.test;
+package ca.ualberta.app.activity.ModelTest;
 
 import android.graphics.Bitmap;
 

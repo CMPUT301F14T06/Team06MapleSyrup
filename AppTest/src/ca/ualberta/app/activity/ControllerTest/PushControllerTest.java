@@ -1,4 +1,4 @@
-package ca.ualberta.app.activity.test;
+package ca.ualberta.app.activity.ControllerTest;
 
 import ca.ualberta.app.controller.PushController;
 import junit.framework.TestCase;
