@@ -39,6 +39,9 @@ import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -58,6 +61,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private String sortingOption = null;
 	private String lastSortingOption = null;
 	ViewHolder holder = null;
+	Bitmap image;
+	Bitmap imageThumb;
 
 	// Thread that close the activity after finishing update
 	/**
@@ -108,6 +113,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				.findViewById(R.id.questionTitleTextView);
 		holder.questionContent = (TextView) convertView
 				.findViewById(R.id.questionContentTextView);
+		holder.questionPic = (ImageView) convertView
+				.findViewById(R.id.questionPic);
 		holder.answerState = (TextView) convertView
 				.findViewById(R.id.answerStateTextView);
 		holder.upvoteState = (TextView) convertView
@@ -130,6 +137,17 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
 			holder.upvoteState.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
+			if (question.hasImage()) {
+				byte[] imageByteArray = Base64.decode(question.getImage(),
+						Base64.NO_WRAP);
+				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+						imageByteArray.length);
+				scaleImage();
+				holder.questionPic.setVisibility(View.VISIBLE);
+				holder.questionPic.setImageBitmap(imageThumb);
+			} else {
+				holder.questionPic.setVisibility(View.GONE);
+			}
 			if (cacheController.hasSaved(getContext(), question))
 				holder.save_Rb.setChecked(true);
 			else
@@ -146,6 +164,28 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		holder.upvote_Rb
 				.setOnClickListener(new upvoteOnClickListener(position));
 		return convertView;
+	}
+
+	private static final int THUMBIMAGESIZE = 200;
+
+	private void scaleImage() {
+		// Scale the pic if it is too large:
+
+		if (image.getWidth() > THUMBIMAGESIZE
+				|| image.getHeight() > THUMBIMAGESIZE) {
+			double scalingFactor = image.getWidth() / THUMBIMAGESIZE;
+			if (image.getHeight() > image.getWidth()) {
+				scalingFactor = image.getHeight() / THUMBIMAGESIZE;
+
+			}
+			int newWidth = (int) Math.round(image.getWidth() / scalingFactor);
+			int newHeight = (int) Math.round(image.getHeight() / scalingFactor);
+			imageThumb = Bitmap.createScaledBitmap(image, newWidth, newHeight,
+					false);
+		} else {
+			imageThumb = image;
+		}
+
 	}
 
 	/**
@@ -334,6 +374,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
  */
 class ViewHolder {
 	ImageView authorPic;
+	ImageView questionPic;
 	TextView authorName;
 	TextView questionTitle;
 	TextView questionContent;

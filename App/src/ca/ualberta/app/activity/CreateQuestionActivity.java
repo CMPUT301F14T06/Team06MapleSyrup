@@ -126,24 +126,20 @@ public class CreateQuestionActivity extends Activity {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 				String imagePath = imageFileUri.getPath();
+
 				if (saveImageView(imagePath)) {
 					setImageView();
 				} else {
-					image = null;
-					imageThumb = null;
-					imageString = null;
-					imageView.setVisibility(View.GONE);
+					refuseUpdatePic();
 				}
 			}
 			if (requestCode == GET_IMAGE_ACTIVITY_REQUEST_CODE) {
+
 				String imagePath = getPath(this, data.getData());
 				if (saveImageView(imagePath)) {
 					setImageView();
 				} else {
-					image = null;
-					imageThumb = null;
-					imageString = null;
-					imageView.setVisibility(View.GONE);
+					refuseUpdatePic();
 				}
 			}
 		} else if (resultCode == RESULT_CANCELED) {
@@ -153,6 +149,17 @@ public class CreateQuestionActivity extends Activity {
 					Toast.LENGTH_SHORT).show();
 		}
 
+	}
+
+	private void refuseUpdatePic() {
+		image = null;
+		imageThumb = null;
+		imageString = null;
+		imageView.setVisibility(View.GONE);
+		Toast.makeText(
+				this,
+				"The Photo is larger than 64KB after resize, please choose another one.",
+				Toast.LENGTH_LONG).show();
 	}
 
 	// The following code is from
@@ -178,24 +185,21 @@ public class CreateQuestionActivity extends Activity {
 	private Boolean saveImageView(String imagePath) {
 		image = BitmapFactory.decodeFile(imagePath);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] imagebyte = stream.toByteArray();
-		imageString = Base64.encodeToString(imagebyte, Base64.NO_WRAP);
-		if (imagebyte.length > 65536) {
-			Toast.makeText(
-					this,
-					"The Photo is larger than 64KB, please choose another one.",
-					Toast.LENGTH_SHORT).show();
-			return false;
+		image.compress(Bitmap.CompressFormat.PNG, 1, stream);
+		if (stream.toByteArray().length / 1024 > 1024) {
+			stream.reset();
+			image.compress(Bitmap.CompressFormat.PNG, 50, stream);
 		}
-		scaleImage();
+
+		imageString = scaleImage();
+		if (imageString == null)
+			return false;
 		return true;
 	}
 
 	private static final int THUMBIMAGESIZE = 200;
 
-	private void scaleImage() {
-		// Scale the pic if it is too large:
+	private void createThumbImage() {
 
 		if (image.getWidth() > THUMBIMAGESIZE
 				|| image.getHeight() > THUMBIMAGESIZE) {
@@ -214,7 +218,22 @@ public class CreateQuestionActivity extends Activity {
 
 	}
 
+	private String scaleImage() {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		while (stream.toByteArray().length > 65536) {
+			stream.reset();
+			int newWidth = (int) Math.round(image.getWidth() * 0.9);
+			int newHeight = (int) Math.round(image.getHeight() * 0.9);
+			image = Bitmap
+					.createScaledBitmap(image, newWidth, newHeight, false);
+			image.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+		}
+		return Base64.encodeToString(stream.toByteArray(), Base64.NO_WRAP);
+	}
+
 	private void setImageView() {
+		createThumbImage();
 		imageView.setVisibility(View.VISIBLE);
 		imageView.setImageBitmap(imageThumb);
 	}

@@ -28,6 +28,7 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -35,6 +36,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -95,12 +97,12 @@ public class QuestionDetailActivity extends Activity {
 			questionTimeTextView.setText(question.getTimestamp().toString());
 
 			if (question.hasImage()) {
-				questionImageView.setVisibility(View.VISIBLE);
 				byte[] imageByteArray = Base64.decode(question.getImage(),
 						Base64.NO_WRAP);
 				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
 						imageByteArray.length);
 				scaleImage();
+				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(imageThumb);
 			}
 
@@ -260,6 +262,9 @@ public class QuestionDetailActivity extends Activity {
 	 */
 
 	public void answer_question(View view) {
+		save_click = false;
+		fav_click = false;
+		upvote_click = false;
 		Intent intent = new Intent(this, CreateAnswerActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
@@ -274,9 +279,29 @@ public class QuestionDetailActivity extends Activity {
 	 */
 
 	public void reply_question(View view) {
+		save_click = false;
+		fav_click = false;
+		upvote_click = false;
 		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
+	}
+
+	public void viewQuestionImage(View view) {
+		save_click = false;
+		fav_click = false;
+		upvote_click = false;
+		LayoutInflater inflater = LayoutInflater.from(mcontext);
+		View imgEntryView = inflater.inflate(R.layout.dialog_photo, null);
+		final AlertDialog dialog = new AlertDialog.Builder(mcontext).create();
+//		ImageView img = (ImageView)imgEntryView.findViewById(R.id.large_image);
+		// imageDownloader.download("图片地址",img); // 这个是加载网络图片的，可以是自己的图片设置方法
+//		dialog.setView(imgEntryView); // 自定义dialog
+//		dialog.show();
+//		// 点击布局文件（也可以理解为点击大图）后关闭dialog，这里的dialog不需要按钮
+//		imgEntryView.setOnClickListener(new OnClickListener() {
+//		public void onClick(View paramView) {
+//		dialog.cancel(); 
 	}
 
 	class GetThread extends Thread {

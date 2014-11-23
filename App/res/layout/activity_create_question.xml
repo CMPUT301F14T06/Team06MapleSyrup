@@ -30,7 +30,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/question_title_textView"
                 android:ems="10"
-                android:maxLength="70"
+                android:maxLength="150"
                 android:singleLine="true" >
 
                 <requestFocus />
