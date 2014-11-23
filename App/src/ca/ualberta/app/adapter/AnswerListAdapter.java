@@ -59,6 +59,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private Question question;
 	private Context context;
 	private CacheController cacheController;
+	private Bitmap image = null;
+	private Bitmap imageThumb = null;
 
 	/**
 	 * Constructs the adapter and initializes its context.
@@ -231,10 +233,11 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			if (answer.hasImage()) {
 				byte[] imageByteArray = Base64.decode(answer.getImage(),
 						Base64.NO_WRAP);
-				Bitmap image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
 						imageByteArray.length);
+				scaleImage();
 				holder.image.setVisibility(View.VISIBLE);
-				holder.image.setImageBitmap(image);
+				holder.image.setImageBitmap(imageThumb);
 			}
 		}
 		holder.upvote_Rb.setOnClickListener(new upvoteOnClickListener(
@@ -249,6 +252,28 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			expandIndicator.setBackgroundResource(R.drawable.br_down_icon);
 		}
 		return convertView;
+	}
+
+	private static final int THUMBIMAGESIZE = 200;
+
+	private void scaleImage() {
+		// Scale the pic if it is too large:
+
+		if (image.getWidth() > THUMBIMAGESIZE
+				|| image.getHeight() > THUMBIMAGESIZE) {
+			double scalingFactor = image.getWidth() / THUMBIMAGESIZE;
+			if (image.getHeight() > image.getWidth()) {
+				scalingFactor = image.getHeight() / THUMBIMAGESIZE;
+
+			}
+			int newWidth = (int) Math.round(image.getWidth() / scalingFactor);
+			int newHeight = (int) Math.round(image.getHeight() / scalingFactor);
+			imageThumb = Bitmap.createScaledBitmap(image, newWidth, newHeight,
+					false);
+		} else {
+			imageThumb = image;
+		}
+
 	}
 
 	/**

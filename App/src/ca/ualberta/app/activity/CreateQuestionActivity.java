@@ -58,6 +58,7 @@ public class CreateQuestionActivity extends Activity {
 	private EditText contentText = null;
 	private Question newQuestion = null;
 	private Bitmap image = null;
+	private Bitmap imageThumb = null;
 	private String imageString = null;
 	private QuestionListManager questionListManager;
 	private AuthorMapManager authorMapManager;
@@ -123,16 +124,25 @@ public class CreateQuestionActivity extends Activity {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 				String imagePath = imageFileUri.getPath();
-				Toast.makeText(this, "Photo OK!", Toast.LENGTH_SHORT).show();
-				setImageView(imagePath);
-				saveImageView(imagePath);
-
+				if (saveImageView(imagePath)) {
+					setImageView();
+				} else {
+					image = null;
+					imageThumb = null;
+					imageString = null;
+					imageView.setVisibility(View.GONE);
+				}
 			}
 			if (requestCode == GET_IMAGE_ACTIVITY_REQUEST_CODE) {
 				String imagePath = getPath(this, data.getData());
-				Toast.makeText(this, "Picture OK!", Toast.LENGTH_SHORT).show();
-				setImageView(imagePath);
-				saveImageView(imagePath);
+				if (saveImageView(imagePath)) {
+					setImageView();
+				} else {
+					image = null;
+					imageThumb = null;
+					imageString = null;
+					imageView.setVisibility(View.GONE);
+				}
 			}
 		} else if (resultCode == RESULT_CANCELED) {
 			Toast.makeText(this, "Photo Canceled!", Toast.LENGTH_SHORT).show();
@@ -163,17 +173,48 @@ public class CreateQuestionActivity extends Activity {
 		return result;
 	}
 
-	private void setImageView(String imagePath) {
-		imageView.setVisibility(View.VISIBLE);
-		imageView.setImageDrawable(Drawable.createFromPath(imagePath));
-	}
-
-	private void saveImageView(String imagePath) {
+	private Boolean saveImageView(String imagePath) {
 		image = BitmapFactory.decodeFile(imagePath);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		image.compress(Bitmap.CompressFormat.PNG, 80, stream);
-		imageString = Base64.encodeToString(stream.toByteArray(),
-				Base64.NO_WRAP);
+		image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] imagebyte = stream.toByteArray();
+		imageString = Base64.encodeToString(imagebyte, Base64.NO_WRAP);
+		if (imagebyte.length > 65536) {
+			Toast.makeText(
+					this,
+					"The Photo is larger than 64KB, please choose another one.",
+					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		scaleImage();
+		return true;
+	}
+
+	private static final int THUMBIMAGESIZE = 200;
+
+	private void scaleImage() {
+		// Scale the pic if it is too large:
+
+		if (image.getWidth() > THUMBIMAGESIZE
+				|| image.getHeight() > THUMBIMAGESIZE) {
+			double scalingFactor = image.getWidth() / THUMBIMAGESIZE;
+			if (image.getHeight() > image.getWidth()) {
+				scalingFactor = image.getHeight() / THUMBIMAGESIZE;
+
+			}
+			int newWidth = (int) Math.round(image.getWidth() / scalingFactor);
+			int newHeight = (int) Math.round(image.getHeight() / scalingFactor);
+			imageThumb = Bitmap.createScaledBitmap(image, newWidth, newHeight,
+					false);
+		} else {
+			imageThumb = image;
+		}
+
+	}
+
+	private void setImageView() {
+		imageView.setVisibility(View.VISIBLE);
+		imageView.setImageBitmap(imageThumb);
 	}
 
 	public void cancel_question(View view) {

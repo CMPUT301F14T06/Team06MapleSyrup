@@ -66,6 +66,8 @@ public class QuestionDetailActivity extends Activity {
 	private CacheController cacheController;
 	private ReplyListAdapter replyAdapter = null;
 	private AnswerListAdapter answerAdapter = null;
+	private Bitmap image = null;
+	private Bitmap imageThumb = null;
 	private Context mcontext;
 	private boolean save_click = false;
 	private boolean fav_click = false;
@@ -99,9 +101,10 @@ public class QuestionDetailActivity extends Activity {
 				questionImageView.setVisibility(View.VISIBLE);
 				byte[] imageByteArray = Base64.decode(question.getImage(),
 						Base64.NO_WRAP);
-				Bitmap image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
 						imageByteArray.length);
-				questionImageView.setImageBitmap(image);
+				scaleImage();
+				questionImageView.setImageBitmap(imageThumb);
 			}
 
 			replyAdapter = new ReplyListAdapter(mcontext,
@@ -115,6 +118,28 @@ public class QuestionDetailActivity extends Activity {
 			answerAdapter.notifyDataSetChanged();
 		}
 	};
+
+	private static final int THUMBIMAGESIZE = 200;
+
+	private void scaleImage() {
+		// Scale the pic if it is too large:
+
+		if (image.getWidth() > THUMBIMAGESIZE
+				|| image.getHeight() > THUMBIMAGESIZE) {
+			double scalingFactor = image.getWidth() / THUMBIMAGESIZE;
+			if (image.getHeight() > image.getWidth()) {
+				scalingFactor = image.getHeight() / THUMBIMAGESIZE;
+
+			}
+			int newWidth = (int) Math.round(image.getWidth() / scalingFactor);
+			int newHeight = (int) Math.round(image.getHeight() / scalingFactor);
+			imageThumb = Bitmap.createScaledBitmap(image, newWidth, newHeight,
+					false);
+		} else {
+			imageThumb = image;
+		}
+
+	}
 
 	/**
 	 * onCreate method Once this activity is created, this method will give each
