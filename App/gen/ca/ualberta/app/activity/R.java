@@ -110,11 +110,11 @@ public final class R {
     public static final class id {
         public static final int ImageView01=0x7f0a0063;
         public static final int ImageView02=0x7f0a0064;
-        public static final int Latitude=0x7f0a0070;
-        public static final int Longitute=0x7f0a0073;
-        public static final int TextView01=0x7f0a006f;
-        public static final int TextView03=0x7f0a0072;
-        public static final int action_settings=0x7f0a0075;
+        public static final int Latitude=0x7f0a0071;
+        public static final int Longitute=0x7f0a0074;
+        public static final int TextView01=0x7f0a0070;
+        public static final int TextView03=0x7f0a0073;
+        public static final int action_settings=0x7f0a0076;
         public static final int add_answer_pic=0x7f0a0007;
         public static final int add_menu_button=0x7f0a0022;
         public static final int add_question_pic=0x7f0a0015;
@@ -145,7 +145,7 @@ public final class R {
         public static final int expandIndicator=0x7f0a0062;
         public static final int favQuestion_ListView=0x7f0a0026;
         public static final int favSort_spinner=0x7f0a0024;
-        public static final int fav_button=0x7f0a0069;
+        public static final int fav_button=0x7f0a006a;
         public static final int fav_detail_button=0x7f0a0037;
         public static final int fav_question=0x7f0a004a;
         public static final int fragement_main=0x7f0a001e;
@@ -153,7 +153,7 @@ public final class R {
         public static final int gridLayout1=0x7f0a0033;
         public static final int imageView1=0x7f0a0060;
         public static final int linearLayout1=0x7f0a0065;
-        public static final int linearLayout2=0x7f0a0071;
+        public static final int linearLayout2=0x7f0a0072;
         public static final int linearLayout3=0x7f0a002d;
         public static final int linearLayout4=0x7f0a003a;
         public static final int localQuestion_ListView=0x7f0a0028;
@@ -178,6 +178,7 @@ public final class R {
         public static final int questionDetailContentTextView=0x7f0a0032;
         public static final int questionDetailTitleTextView=0x7f0a0031;
         public static final int questionImage=0x7f0a0039;
+        public static final int questionPic=0x7f0a0068;
         public static final int questionTimeTextView=0x7f0a003b;
         public static final int questionTitleTextView=0x7f0a0066;
         public static final int question_Button=0x7f0a0044;
@@ -194,11 +195,11 @@ public final class R {
         public static final int question_reply_expanableListView=0x7f0a003f;
         public static final int question_title_editText=0x7f0a000e;
         public static final int question_title_textView=0x7f0a000d;
-        public static final int replyAuthor_textView=0x7f0a006d;
-        public static final int reply_group_expandIndicator=0x7f0a006e;
-        public static final int reply_textView=0x7f0a006b;
-        public static final int reply_time_textView=0x7f0a006c;
-        public static final int save_button=0x7f0a0068;
+        public static final int replyAuthor_textView=0x7f0a006e;
+        public static final int reply_group_expandIndicator=0x7f0a006f;
+        public static final int reply_textView=0x7f0a006c;
+        public static final int reply_time_textView=0x7f0a006d;
+        public static final int save_button=0x7f0a0069;
         public static final int save_detail_button=0x7f0a0036;
         public static final int scrolllistview_footer_content=0x7f0a0050;
         public static final int scrolllistview_footer_hint_textview=0x7f0a0052;
@@ -220,8 +221,8 @@ public final class R {
         public static final int take_question_pic=0x7f0a0014;
         public static final int textView1=0x7f0a0061;
         public static final int textView2=0x7f0a0059;
-        public static final int timeTextView=0x7f0a006a;
-        public static final int titleTv=0x7f0a0074;
+        public static final int timeTextView=0x7f0a006b;
+        public static final int titleTv=0x7f0a0075;
         public static final int upvoteStateTextView=0x7f0a0034;
         public static final int upvote_button=0x7f0a0038;
         public static final int username_editText=0x7f0a001b;

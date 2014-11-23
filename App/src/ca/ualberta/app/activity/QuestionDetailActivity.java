@@ -98,12 +98,12 @@ public class QuestionDetailActivity extends Activity {
 			questionTimeTextView.setText(question.getTimestamp().toString());
 
 			if (question.hasImage()) {
-				questionImageView.setVisibility(View.VISIBLE);
 				byte[] imageByteArray = Base64.decode(question.getImage(),
 						Base64.NO_WRAP);
 				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
 						imageByteArray.length);
 				scaleImage();
+				questionImageView.setVisibility(View.VISIBLE);
 				questionImageView.setImageBitmap(imageThumb);
 			}
 
