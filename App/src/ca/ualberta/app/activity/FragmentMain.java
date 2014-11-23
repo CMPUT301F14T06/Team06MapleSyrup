@@ -45,6 +45,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -89,7 +90,7 @@ public class FragmentMain extends Fragment {
 	private long currentFrom = 0;
 	private long TotalSize = 10;
 	private int needToLoadMore = 0;
-
+	private InputMethodManager imm;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			if (haveSearchResult == 0) {
@@ -121,7 +122,8 @@ public class FragmentMain extends Fragment {
 				R.id.question_EditText);
 		searchButton = (Button) getView().findViewById(R.id.question_Button);
 		sortOptionSpinner = (Spinner) getView().findViewById(R.id.sort_spinner);
-
+		imm = (InputMethodManager) getActivity().getSystemService(
+				Context.INPUT_METHOD_SERVICE);
 		mListView = (ScrollListView) getView().findViewById(
 				R.id.question_ListView);
 		mListView.setPullLoadEnable(true);
@@ -158,11 +160,15 @@ public class FragmentMain extends Fragment {
 						&& !(searchEditText.getText().length() == 0)) {
 					searchButton.setText("Cancel");
 					searchEditText.clearFocus();
+					imm.hideSoftInputFromWindow(
+							searchEditText.getWindowToken(), 0);
 					updateList();
 				} else {
 					searchButton.setText("Search");
 					searchEditText.setText("");
 					searchEditText.clearFocus();
+					imm.hideSoftInputFromWindow(
+							searchEditText.getWindowToken(), 0);
 					updateList();
 				}
 			}

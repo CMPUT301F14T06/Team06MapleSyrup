@@ -58,7 +58,7 @@ public class CreateQuestionActivity extends Activity {
 	private EditText contentText = null;
 	private Question newQuestion = null;
 	private Bitmap image = null;
-	private byte[] imageByteArray = null;
+	private String imageString = null;
 	private QuestionListManager questionListManager;
 	private AuthorMapManager authorMapManager;
 	private String FILENAME = "AUTHORMAP.sav";
@@ -171,9 +171,9 @@ public class CreateQuestionActivity extends Activity {
 	private void saveImageView(String imagePath) {
 		image = BitmapFactory.decodeFile(imagePath);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] byteArray = stream.toByteArray();
-		imageByteArray = Base64.encode(byteArray, 1);
+		image.compress(Bitmap.CompressFormat.PNG, 80, stream);
+		imageString = Base64.encodeToString(stream.toByteArray(),
+				Base64.NO_WRAP);
 	}
 
 	public void cancel_question(View view) {
@@ -186,14 +186,6 @@ public class CreateQuestionActivity extends Activity {
 		if (title.trim().length() == 0)
 			noTitleEntered();
 		else {
-			String imageString = null;
-			try {
-				if (imageByteArray != null)
-					imageString = new String(imageByteArray, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-
-				e.printStackTrace();
-			}
 			newQuestion = new Question(content, User.author.getUsername(),
 					title, imageString);
 			User.author.addAQuestion(newQuestion.getID());

@@ -97,9 +97,10 @@ public class QuestionDetailActivity extends Activity {
 
 			if (question.hasImage()) {
 				questionImageView.setVisibility(View.VISIBLE);
-				byte[] imageByteArray = Base64.decode(question.getImage(), 1);
-				InputStream iStream = new ByteArrayInputStream(imageByteArray);
-				Bitmap image = BitmapFactory.decodeStream(iStream);
+				byte[] imageByteArray = Base64.decode(question.getImage(),
+						Base64.NO_WRAP);
+				Bitmap image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+						imageByteArray.length);
 				questionImageView.setImageBitmap(image);
 			}
 

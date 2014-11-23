@@ -229,9 +229,10 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			holder.upvoteState.setText("Upvote: "
 					+ answer.getAnswerUpvoteCount());
 			if (answer.hasImage()) {
-				byte[] imageByteArray = Base64.decode(answer.getImage(), 1);
-				InputStream iStream = new ByteArrayInputStream(imageByteArray);
-				Bitmap image = BitmapFactory.decodeStream(iStream);
+				byte[] imageByteArray = Base64.decode(answer.getImage(),
+						Base64.NO_WRAP);
+				Bitmap image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+						imageByteArray.length);
 				holder.image.setVisibility(View.VISIBLE);
 				holder.image.setImageBitmap(image);
 			}

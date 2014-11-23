@@ -42,6 +42,8 @@
                 android:id="@+id/answerImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/desc"
                 android:src="@android:drawable/gallery_thumb" />
         </LinearLayout>

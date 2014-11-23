@@ -141,8 +141,8 @@
             android:layout_below="@+id/questionDescription"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/desc"
-            android:src="@android:drawable/gallery_thumb" />
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc" />
 
         <LinearLayout
             android:id="@+id/linearLayout4"
