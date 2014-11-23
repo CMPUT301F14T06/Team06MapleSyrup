@@ -205,6 +205,18 @@ public class QuestionListManager {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Add a questionList to he online server
+	 * 
+	 * @param questionList
+	 *            The questionList.
+	 */
+	public void addQuestionList(QuestionList questionList){
+		for (Question q : questionList.getArrayList()) {
+			addQuestion(q);
+		}
+	}
 
 	/**
 	 * Update a exist question on the online server

@@ -46,12 +46,16 @@ import ca.ualberta.app.models.QuestionList;
 public class CacheController {
 	public Map<Long, Question> favoriteMap;
 	public Map<Long, Question> localCacheMap;
+	public Map<Long, Question> waitingListMap;
 	public ArrayList<Long> favoriteId;
 	public ArrayList<Long> localCacheId;
+	public ArrayList<Long> waitingListId;
 	private String FAVMAP = "favMap.sav";
 	private String LOCALMAP = "localMap.sav";
+	private String WAITMAP = "waitMap.sav";
 	private String FAVID = "favId.sav";
 	private String LOCALID = "localId.sav";
+	private String WAITID = "waitId.sav";
 
 	/**
 	 * The constructor of the class load question map from local file
@@ -62,8 +66,10 @@ public class CacheController {
 	public CacheController(Context mcontext) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
+		waitingListMap = loadMapFromFile(mcontext, WAITMAP);
 		favoriteId = loadIdFromFile(mcontext, FAVID);
 		localCacheId = loadIdFromFile(mcontext, LOCALID);
+		waitingListId = loadIdFromFile(mcontext, WAITID);
 	}
 
 	/**
@@ -90,6 +96,20 @@ public class CacheController {
 	public Map<Long, Question> getLocalCacheMap(Context mcontext) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
 		return localCacheMap;
+
+	}
+
+	/**
+	 * Return the question map of the waitingList question from local file
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * 
+	 * @return the question map of the waitingList question from the local file.
+	 */
+	public Map<Long, Question> getWaitingListMap(Context mcontext) {
+		waitingListMap = loadMapFromFile(mcontext, WAITMAP);
+		return waitingListMap;
 
 	}
 
@@ -121,6 +141,19 @@ public class CacheController {
 
 	}
 
+	/**
+	 * Return the question ID of the waitingList question from local file
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * 
+	 * @return the question ID of the waitingList question from the local file.
+	 */
+	public ArrayList<Long> getWaitingListId(Context mcontext) {
+		waitingListId = loadIdFromFile(mcontext, WAITID);
+		return waitingListId;
+
+	}
 	/**
 	 * Return whether the local file for favorite question contain the question.
 	 * 
@@ -157,6 +190,24 @@ public class CacheController {
 		return true;
 	}
 
+	/**
+	 * Return whether the local file for local question contain the question.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 * 
+	 * @return true if the local file for favorite question has the question,
+	 *         false if not.
+	 */
+	public boolean hasWaited(Context mcontext, Question question) {
+		waitingListMap = loadMapFromFile(mcontext, WAITMAP);
+		if (waitingListMap.get(question.getID()) == null)
+			return false;
+		return true;
+	}
+	
 	/**
 	 * Save a question into the the local file of the favorite questions.
 	 * 
@@ -195,6 +246,25 @@ public class CacheController {
 		}
 	}
 
+	/**
+	 * Save a question into the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void addWaitngListQuestions(Context mcontext, Question question) {
+		waitingListMap = loadMapFromFile(mcontext, WAITMAP);
+		waitingListId = loadIdFromFile(mcontext, WAITID);
+		if (!hasWaited(mcontext, question)) {
+			waitingListMap.put(question.getID(), question);
+			waitingListId.add(question.getID());
+			saveInFile(mcontext, waitingListMap, WAITMAP);
+			saveInFile(mcontext, waitingListId, WAITID);
+		}
+	}
+	
 	/**
 	 * Remove a question into the the local file of the favorite questions.
 	 * 
@@ -240,6 +310,28 @@ public class CacheController {
 	}
 
 	/**
+	 * Remove a question into the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void removeWaitingListQuestions(Context mcontext, Question question) {
+		waitingListMap = loadMapFromFile(mcontext, WAITMAP);
+		waitingListId = loadIdFromFile(mcontext, WAITID);
+		waitingListMap.remove(question.getID());
+		for (int i = 0; i < waitingListId.size(); i++) {
+			if (waitingListId.get(i) == question.getID()) {
+				waitingListId.remove(i);
+				break;
+			}
+		}
+		saveInFile(mcontext, waitingListMap, WAITMAP);
+		saveInFile(mcontext, waitingListId, WAITID);
+	}
+	
+	/**
 	 * Update a question in the the local file of the favorite questions.
 	 * 
 	 * @param mcontext
@@ -255,7 +347,7 @@ public class CacheController {
 			saveInFile(mcontext, favoriteMap, FAVMAP);
 		}
 	}
-
+	
 	/**
 	 * Update a question in the the local file of the local questions.
 	 * 
@@ -274,6 +366,23 @@ public class CacheController {
 	}
 
 	/**
+	 * Update a question in the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void updateWaitingListQuestions(Context mcontext, Question question) {
+		waitingListMap = loadMapFromFile(mcontext, WAITMAP);
+		if (waitingListMap.get(question.getID()) != null) {
+			waitingListMap.remove(question.getID());
+			waitingListMap.put(question.getID(), question);
+			saveInFile(mcontext, waitingListMap, WAITMAP);
+		}
+	}
+	
+	/**
 	 * Load and return the question list in the the local file of the favorite
 	 * questions.
 	 * 
@@ -285,13 +394,38 @@ public class CacheController {
 		questionList.getCollection().addAll(this.favoriteMap.values());
 		return questionList;
 	}
-
+	
+	/**
+	 * Load and return the local question list
+	 * 
+	 * @return the local question list.
+	 */
+	public QuestionList getLocalQuestionsList(Context mcontext) {
+		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
+		QuestionList questionList = new QuestionList();
+		questionList.getCollection().addAll(this.localCacheMap.values());
+		return questionList;
+	}
+	
+	/**
+	 * Load and return the WaitingList question list
+	 * 
+	 * @return the local question list.
+	 */
+	public QuestionList getWaitingQuestionList(Context mcontext) {
+		waitingListMap = loadMapFromFile(mcontext, WAITMAP);
+		QuestionList questionList = new QuestionList();
+		questionList.getCollection().addAll(this.waitingListMap.values());
+		return questionList;
+	}
+	
 	/**
 	 * Clear all MAP's in the local files
 	 */
 	public void clear() {
 		favoriteMap.clear();
 		localCacheMap.clear();
+		waitingListMap.clear();
 	}
 
 	/**
@@ -305,24 +439,16 @@ public class CacheController {
 	 *            the buffer of the Map of the local question and it's ID.
 	 */
 	public void addAll(Context mcontext, Map<Long, Question> tempFav,
-			Map<Long, Question> tempSav) {
+			Map<Long, Question> tempSav, Map<Long,Question> tempWait) {
 		favoriteMap.putAll(tempFav);
 		localCacheMap.putAll(tempSav);
+		waitingListMap.putAll(tempWait);
 		saveInFile(mcontext, favoriteMap, FAVMAP);
 		saveInFile(mcontext, localCacheMap, LOCALMAP);
+		saveInFile(mcontext, waitingListMap, WAITMAP);
 	}
 
-	/**
-	 * Load and return the local question list
-	 * 
-	 * @return the local question list.
-	 */
-	public QuestionList getLocalQuestionsList(Context mcontext) {
-		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
-		QuestionList questionList = new QuestionList();
-		questionList.getCollection().addAll(this.localCacheMap.values());
-		return questionList;
-	}
+
 
 	/**
 	 * Load the question ID's from the file with given name.

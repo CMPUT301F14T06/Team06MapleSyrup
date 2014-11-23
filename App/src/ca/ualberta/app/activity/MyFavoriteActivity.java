@@ -217,6 +217,7 @@ public class MyFavoriteActivity extends Activity {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
+			updateSortedList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -243,6 +244,10 @@ public class MyFavoriteActivity extends Activity {
 		}
 	}
 
+	private void updateSortedList(){
+		runOnUiThread(doUpdateGUIList);
+	}
+	
 	class GetListThread extends Thread {
 
 		@Override

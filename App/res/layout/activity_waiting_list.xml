@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Spinner
+        android:id="@+id/waiting_List_sort_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:entries="@array/list_type"
+        android:prompt="@string/sort_label"
+        tools:listitem="@android:layout/simple_list_item_1" />
+
+    <ca.ualberta.app.view.ScrollListView
+        android:id="@+id/waiting_List_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/waiting_List_sort_spinner"
+        android:cacheColorHint="#00000000" >
+
+    </ca.ualberta.app.view.ScrollListView>
+
+</RelativeLayout>

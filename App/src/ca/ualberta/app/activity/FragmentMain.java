@@ -91,6 +91,7 @@ public class FragmentMain extends Fragment {
 	private long TotalSize = 10;
 	private int needToLoadMore = 0;
 	private InputMethodManager imm;
+
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			if (haveSearchResult == 0) {
@@ -150,7 +151,7 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		// updateList();
+		updateList();
 
 		searchButton.setOnClickListener(new OnClickListener() {
 
@@ -330,7 +331,7 @@ public class FragmentMain extends Fragment {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			updateList();
+			updateSortedList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -346,6 +347,10 @@ public class FragmentMain extends Fragment {
 			thread.start();
 
 		}
+	}
+
+	private void updateSortedList() {
+		getActivity().runOnUiThread(doUpdateGUIList);
 	}
 
 	class SearchThread extends Thread {
@@ -408,11 +413,14 @@ public class FragmentMain extends Fragment {
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
+			Map<Long, Question> tempWait = new HashMap<Long, Question>();
 			tempFav = questionListManager.getQuestionMap(cacheController
 					.getFavoriteId(mcontext));
 			tempSav = questionListManager.getQuestionMap(cacheController
 					.getLocalCacheId(mcontext));
-			cacheController.addAll(mcontext, tempFav, tempSav);
+			tempWait = questionListManager.getQuestionMap(cacheController
+					.getWaitingListId(mcontext));
+			cacheController.addAll(mcontext, tempFav, tempSav, tempWait);
 		}
 	}
 

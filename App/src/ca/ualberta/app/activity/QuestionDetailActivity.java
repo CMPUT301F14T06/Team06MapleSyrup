@@ -20,9 +20,6 @@
 
 package ca.ualberta.app.activity;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.adapter.ReplyListAdapter;
@@ -321,12 +318,9 @@ public class QuestionDetailActivity extends Activity {
 								.updateLocalQuestions(mcontext, question);
 					}
 				} else {
-					Looper.prepare();
-					Toast.makeText(mcontext, "Login to upvote",
-							Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(mcontext, LoginActivity.class);
 					startActivity(intent);
-					Looper.loop();
+
 				}
 			}
 			if (save_click == true) {

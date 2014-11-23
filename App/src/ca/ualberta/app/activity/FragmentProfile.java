@@ -128,6 +128,15 @@ public class FragmentProfile extends Fragment {
 				startActivity(intent);
 			}
 		});
+		
+		waiting_list.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), WaitingListActivity.class);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override

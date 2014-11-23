@@ -155,7 +155,6 @@ public class LoginActivity extends Activity {
 	}
 
 	class GetThread extends Thread {
-		// TODO: Implement search thread
 		private String username;
 
 		public GetThread(String username) {

@@ -193,7 +193,7 @@ public class MyQuestionActivity extends Activity {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
 			}
-			// updateList();
+			updateSortedList();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -220,7 +220,11 @@ public class MyQuestionActivity extends Activity {
 					.loadFromFile(mcontext, MYQUESTION));
 		}
 	}
-
+	
+	private void updateSortedList(){
+		runOnUiThread(doUpdateGUIList);
+	}
+	
 	class GetListThread extends Thread {
 		@Override
 		public void run() {

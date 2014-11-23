@@ -22,15 +22,16 @@ package ca.ualberta.app.activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateAuthorThread;
 import android.app.Activity;
 import android.content.Context;
@@ -38,7 +39,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -60,6 +60,7 @@ public class CreateQuestionActivity extends Activity {
 	private Bitmap image = null;
 	private Bitmap imageThumb = null;
 	private String imageString = null;
+	private CacheController cacheController;
 	private QuestionListManager questionListManager;
 	private AuthorMapManager authorMapManager;
 	private String FILENAME = "AUTHORMAP.sav";
@@ -83,6 +84,7 @@ public class CreateQuestionActivity extends Activity {
 		titleText = (EditText) findViewById(R.id.question_title_editText);
 		contentText = (EditText) findViewById(R.id.question_content_editText);
 		imageView = (ImageView) findViewById(R.id.question_image_imageView);
+		cacheController = new CacheController(this);
 		questionListManager = new QuestionListManager();
 		authorMapManager = new AuthorMapManager();
 		authorMap = new AuthorMap();
@@ -227,21 +229,27 @@ public class CreateQuestionActivity extends Activity {
 		if (title.trim().length() == 0)
 			noTitleEntered();
 		else {
+
 			newQuestion = new Question(content, User.author.getUsername(),
 					title, imageString);
 			User.author.addAQuestion(newQuestion.getID());
 
-			Thread updateAuthorThread = new UpdateAuthorThread(User.author);
-			updateAuthorThread.start();
+			if (InternetConnectionChecker.isNetworkAvailable(this)) {
+				Thread updateAuthorThread = new UpdateAuthorThread(User.author);
+				updateAuthorThread.start();
 
-			Thread searchAuthorThread = new SearchAuthorThread("");
-			searchAuthorThread.start();
+				Thread searchAuthorThread = new SearchAuthorThread("");
+				searchAuthorThread.start();
 
-			Thread addQuestionThread = new AddQuestionThread(newQuestion);
-			addQuestionThread.start();
+				Thread addQuestionThread = new AddQuestionThread(newQuestion);
+				addQuestionThread.start();
 
-			AuthorMapIO.saveInFile(view.getContext(), authorMap, FILENAME);
-
+				AuthorMapIO.saveInFile(view.getContext(), authorMap, FILENAME);
+			} else {
+				cacheController.addWaitngListQuestions(getApplicationContext(),
+						newQuestion);
+				finish();
+			}
 		}
 	}
 
