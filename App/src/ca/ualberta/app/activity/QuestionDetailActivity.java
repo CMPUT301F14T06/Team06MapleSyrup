@@ -289,7 +289,7 @@ public class QuestionDetailActivity extends Activity {
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
-
+	//http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
 	public void viewQuestionImage(View view) {
 		save_click = false;
 		fav_click = false;
@@ -298,7 +298,7 @@ public class QuestionDetailActivity extends Activity {
 		View imgEntryView = inflater.inflate(R.layout.dialog_photo, null);
 		final AlertDialog dialog = new AlertDialog.Builder(mcontext).create();
 //		ImageView img = (ImageView)imgEntryView.findViewById(R.id.large_image);
-		// imageDownloader.download("图片地址",img); // 这个是加载网络图片的，可以是自己的图片设置方法
+		// imageDownloader.download("图片地址",img); 
 //		dialog.setView(imgEntryView); // 自定义dialog
 //		dialog.show();
 //		// 点击布局文件（也可以理解为点击大图）后关闭dialog，这里的dialog不需要按钮
