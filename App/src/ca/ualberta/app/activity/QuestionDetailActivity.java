@@ -38,6 +38,7 @@ import android.os.Looper;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -286,7 +287,8 @@ public class QuestionDetailActivity extends Activity {
 		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
 		startActivity(intent);
 	}
-	//http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
+
+	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
 	public void viewQuestionImage(View view) {
 		save_click = false;
 		fav_click = false;
@@ -294,15 +296,18 @@ public class QuestionDetailActivity extends Activity {
 		LayoutInflater inflater = LayoutInflater.from(mcontext);
 		View imgEntryView = inflater.inflate(R.layout.dialog_photo, null);
 		final AlertDialog dialog = new AlertDialog.Builder(mcontext).create();
-//		ImageView img = (ImageView)imgEntryView.findViewById(R.id.large_image);
-		// imageDownloader.download("图片地址",img); 
-//		dialog.setView(imgEntryView); // 自定义dialog
-//		dialog.show();
-//		// 点击布局文件（也可以理解为点击大图）后关闭dialog，这里的dialog不需要按钮
-//		imgEntryView.setOnClickListener(new OnClickListener() {
-//		public void onClick(View paramView) {
-//		dialog.cancel(); 
+		ImageView img = (ImageView) imgEntryView.findViewById(R.id.large_image);
+		img.setImageBitmap(image);
+		dialog.setView(imgEntryView);
+		dialog.show();
+		imgEntryView.setOnClickListener(new OnClickListener() {
+			public void onClick(View paramView) {
+				dialog.cancel();
+			}
+		});
 	}
+
+
 
 	class GetThread extends Thread {
 		private long id;

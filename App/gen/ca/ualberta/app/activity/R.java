@@ -152,7 +152,7 @@ public final class R {
         public static final int fragement_profile=0x7f0a001f;
         public static final int gridLayout1=0x7f0a0033;
         public static final int imageView1=0x7f0a0063;
-        public static final int large_image =0x7f0a0044;
+        public static final int large_image=0x7f0a0044;
         public static final int linearLayout1=0x7f0a0068;
         public static final int linearLayout2=0x7f0a0075;
         public static final int linearLayout3=0x7f0a002d;

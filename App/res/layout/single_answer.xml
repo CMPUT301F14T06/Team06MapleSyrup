@@ -46,6 +46,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/desc"
                 android:src="@android:drawable/gallery_thumb" />
+
         </LinearLayout>
 
         <TextView

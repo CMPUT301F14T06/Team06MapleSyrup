@@ -35,6 +35,7 @@ import ca.ualberta.app.models.User;
 import ca.ualberta.app.thread.UpdateAnswerThread;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -240,7 +241,9 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				holder.image.setImageBitmap(imageThumb);
 			}
 		}
-		holder.upvote_Rb.setOnClickListener(new upvoteOnClickListener(
+		holder.image.setOnClickListener(new ViewImageOnClickListener(
+				groupPosition));
+		holder.upvote_Rb.setOnClickListener(new UpvoteOnClickListener(
 				groupPosition));
 		holder.reply_Rb.setOnClickListener(new AddReplyOnClickListener(
 				groupPosition));
@@ -343,7 +346,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	 * @author Bicheng
 	 * 
 	 */
-	private class upvoteOnClickListener implements OnClickListener {
+	private class UpvoteOnClickListener implements OnClickListener {
 
 		int position;
 
@@ -353,7 +356,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		 * @param position
 		 *            the position of the answer.
 		 */
-		public upvoteOnClickListener(int position) {
+		public UpvoteOnClickListener(int position) {
 			this.position = position;
 		}
 
@@ -422,6 +425,44 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
 			context.startActivity(intent);
 			notifyDataSetChanged();
+		}
+	}
+
+	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
+	private class ViewImageOnClickListener implements OnClickListener {
+		int position;
+
+		/**
+		 * The constructor of the class
+		 * 
+		 * @param position
+		 *            the position of the answer.
+		 */
+		public ViewImageOnClickListener(int position) {
+			this.position = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			Answer answer = answerList.get(position);
+			byte[] imageByteArray = Base64.decode(answer.getImage(),
+					Base64.NO_WRAP);
+			Bitmap image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+					imageByteArray.length);
+			LayoutInflater inflater = LayoutInflater.from(context);
+			View imgEntryView = inflater.inflate(R.layout.dialog_photo, null);
+			final AlertDialog dialog = new AlertDialog.Builder(context)
+					.create();
+			ImageView img = (ImageView) imgEntryView
+					.findViewById(R.id.large_image);
+			img.setImageBitmap(image);
+			dialog.setView(imgEntryView);
+			dialog.show();
+			imgEntryView.setOnClickListener(new OnClickListener() {
+				public void onClick(View paramView) {
+					dialog.cancel();
+				}
+			});
 		}
 	}
 
