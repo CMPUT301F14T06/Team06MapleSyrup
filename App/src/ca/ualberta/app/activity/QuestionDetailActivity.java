@@ -290,9 +290,6 @@ public class QuestionDetailActivity extends Activity {
 
 	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
 	public void viewQuestionImage(View view) {
-		save_click = false;
-		fav_click = false;
-		upvote_click = false;
 		LayoutInflater inflater = LayoutInflater.from(mcontext);
 		View imgEntryView = inflater.inflate(R.layout.dialog_photo, null);
 		final AlertDialog dialog = new AlertDialog.Builder(mcontext).create();

@@ -8,8 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/create_answer_menu"
-        >
+        android:layout_above="@+id/create_answer_menu" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -46,6 +45,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/desc"
+                android:onClick="viewAnswerImage"
                 android:src="@android:drawable/gallery_thumb" />
         </RelativeLayout>
     </ScrollView>

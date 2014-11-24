@@ -65,6 +65,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/desc"
+                android:onClick="viewQuestionImage"
                 android:src="@android:drawable/gallery_thumb" />
         </RelativeLayout>
     </ScrollView>

@@ -60,7 +60,7 @@ public class MyFavoriteActivity extends Activity {
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
-	private ArrayAdapter<String> spin_adapter;
+	private ArrayAdapter<String> spinAdapter;
 	private ArrayList<Long> favListId;
 	private static long categoryID;
 	public String sortString = "Sort By Date";
@@ -72,7 +72,7 @@ public class MyFavoriteActivity extends Activity {
 		public void run() {
 			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
-			spin_adapter.notifyDataSetChanged();
+			spinAdapter.notifyDataSetChanged();
 		}
 	};
 
@@ -99,10 +99,10 @@ public class MyFavoriteActivity extends Activity {
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
 				favQuestionListController.getQuestionArrayList());
 		adapter.setSortingOption(sortByDate);
-		spin_adapter = new ArrayAdapter<String>(mcontext,
+		spinAdapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
 		mListView.setAdapter(adapter);
-		sortOptionSpinner.setAdapter(spin_adapter);
+		sortOptionSpinner.setAdapter(spinAdapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();

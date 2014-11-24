@@ -34,6 +34,7 @@ import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateAuthorThread;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -45,9 +46,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -117,7 +120,7 @@ public class CreateQuestionActivity extends Activity {
 	}
 
 	public void select_question_pic(View view) {
-		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		Intent intent = new Intent(Intent.ACTION_PICK, null);
 		intent.setType("image/*");
 		startActivityForResult(intent, GET_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
@@ -182,64 +185,84 @@ public class CreateQuestionActivity extends Activity {
 		return result;
 	}
 
+	private static final int THUMBIMAGESIZE = 200;
+	private static final int SCALEIMAGESIZE = 800;
+
 	private Boolean saveImageView(String imagePath) {
 		image = BitmapFactory.decodeFile(imagePath);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		image.compress(Bitmap.CompressFormat.PNG, 1, stream);
+		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 		if (stream.toByteArray().length / 1024 > 1024) {
 			stream.reset();
-			image.compress(Bitmap.CompressFormat.PNG, 50, stream);
+			image.compress(Bitmap.CompressFormat.JPEG, 50, stream);
 		}
-
-		imageString = scaleImage();
+		scaleImage(SCALEIMAGESIZE, SCALEIMAGESIZE, false);
+		imageString = compressImage();
 		if (imageString == null)
 			return false;
 		return true;
 	}
 
-	private static final int THUMBIMAGESIZE = 200;
+	private void scaleImage(int width, int height, boolean createThumb) {
+		// Scale the pic if it is too large:
 
-	private void createThumbImage() {
-
-		if (image.getWidth() > THUMBIMAGESIZE
-				|| image.getHeight() > THUMBIMAGESIZE) {
-			double scalingFactor = image.getWidth() / THUMBIMAGESIZE;
-			if (image.getHeight() > image.getWidth()) {
-				scalingFactor = image.getHeight() / THUMBIMAGESIZE;
-
-			}
-			int newWidth = (int) Math.round(image.getWidth() / scalingFactor);
-			int newHeight = (int) Math.round(image.getHeight() / scalingFactor);
+		double scaleFactor = 1;
+		if (image.getWidth() > width) {
+			scaleFactor = image.getWidth() / width;
+		} else if (image.getHeight() > height
+				&& image.getHeight() > image.getWidth()) {
+			scaleFactor = image.getHeight() / height;
+		}
+		int newWidth = (int) Math.round(image.getWidth() / scaleFactor);
+		int newHeight = (int) Math.round(image.getHeight() / scaleFactor);
+		if (createThumb)
 			imageThumb = Bitmap.createScaledBitmap(image, newWidth, newHeight,
 					false);
-		} else {
-			imageThumb = image;
-		}
+		else
+			image = Bitmap
+					.createScaledBitmap(image, newWidth, newHeight, false);
 
 	}
 
-	private String scaleImage() {
+	private String compressImage() {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-		while (stream.toByteArray().length > 65536) {
+		int quality = 100;
+		while (stream.toByteArray().length > 65536 && quality != 0) {
 			stream.reset();
-			int newWidth = (int) Math.round(image.getWidth() * 0.9);
-			int newHeight = (int) Math.round(image.getHeight() * 0.9);
-			image = Bitmap
-					.createScaledBitmap(image, newWidth, newHeight, false);
-			image.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+			image.compress(Bitmap.CompressFormat.JPEG, quality, stream);
+			quality -= 10;
 		}
+		if (quality == 0)
+			return null;
 		return Base64.encodeToString(stream.toByteArray(), Base64.NO_WRAP);
 	}
 
 	private void setImageView() {
-		createThumbImage();
+		scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
 		imageView.setVisibility(View.VISIBLE);
 		imageView.setImageBitmap(imageThumb);
 	}
 
 	public void cancel_question(View view) {
 		finish();
+	}
+
+	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
+	public void viewQuestionImage(View view) {
+		LayoutInflater inflater = LayoutInflater.from(view.getContext());
+		View imgEntryView = inflater.inflate(R.layout.dialog_photo, null);
+		final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
+				.create();
+		ImageView img = (ImageView) imgEntryView.findViewById(R.id.large_image);
+		img.setImageBitmap(image);
+		dialog.setView(imgEntryView);
+		dialog.show();
+		imgEntryView.setOnClickListener(new OnClickListener() {
+			public void onClick(View paramView) {
+				dialog.cancel();
+			}
+		});
 	}
 
 	public void submit_question(View view) {
