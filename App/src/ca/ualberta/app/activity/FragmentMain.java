@@ -94,7 +94,6 @@ public class FragmentMain extends Fragment {
 	private int needToLoadMore = 0;
 	private InputMethodManager imm;
 	private CustomProgressDialog progressDialog = null;
-	private int i = 0;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			if (haveSearchResult == 0) {
