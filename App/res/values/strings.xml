@@ -57,7 +57,7 @@
     <string name="single_question">Question decription</string>
     <string name="single_answer">Answer Content</string>
 
-    <color name="menu_clicked">#CCCCCC</color>
+    <color name="menu_clicked">#ff0000ff</color>
     <color name="question_selected">#CCCCCC</color>
 
     <string name="hello_world">Hello world!</string>
