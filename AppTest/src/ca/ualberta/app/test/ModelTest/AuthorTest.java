@@ -12,4 +12,13 @@ public class AuthorTest extends TestCase {
 		assertTrue("Author Login Name is not equal",
 				username.equals(author.getUsername()));
 	}
+	public void TestSetUsername(){
+        String username = "username";
+        String newUsername = "Robin";
+	    Author author = new Author(username); 
+        author.setUsername(newUsername);
+
+        assertEquals(author.getUsername(), "Robin");
+        
+   }
 }
