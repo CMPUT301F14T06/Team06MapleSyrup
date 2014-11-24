@@ -24,8 +24,30 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.app.ESmanager.QuestionListManager;
-import ca.ualberta.app.activity.R;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
@@ -35,27 +57,7 @@ import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
+import ca.ualberta.app.widgets.CustomProgressDialog;
 
 public class FragmentMain extends Fragment {
 	static String sortByDate = "Sort By Date";
@@ -81,7 +83,7 @@ public class FragmentMain extends Fragment {
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
 	public String sortString = "date";
-	private int haveSearchResult = 0;
+	private int haveSearchResult = 1;
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
@@ -91,7 +93,8 @@ public class FragmentMain extends Fragment {
 	private long TotalSize = 10;
 	private int needToLoadMore = 0;
 	private InputMethodManager imm;
-
+	private CustomProgressDialog progressDialog = null;
+	private int i = 0;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			if (haveSearchResult == 0) {
@@ -103,6 +106,7 @@ public class FragmentMain extends Fragment {
 			}
 			adapter.notifyDataSetChanged();
 			spin_adapter.notifyDataSetChanged();
+			stopProgressDialog();
 		}
 	};
 
@@ -116,7 +120,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mcontext = getActivity().getBaseContext();
+		mcontext = getActivity().getApplicationContext();
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Main");
 		searchEditText = (EditText) getView().findViewById(
@@ -143,7 +147,6 @@ public class FragmentMain extends Fragment {
 				R.layout.single_question,
 				questionListController.getQuestionArrayList());
 		adapter.setSortingOption(sortByDate);
-
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
 
@@ -151,20 +154,21 @@ public class FragmentMain extends Fragment {
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		updateList();
-
 		searchButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+
 				if (searchButton.getText().equals("Search")
 						&& !(searchEditText.getText().length() == 0)) {
+					startProgressDialog();
 					searchButton.setText("Cancel");
 					searchEditText.clearFocus();
 					imm.hideSoftInputFromWindow(
 							searchEditText.getWindowToken(), 0);
 					updateList();
 				} else {
+					startProgressDialog();
 					searchButton.setText("Search");
 					searchEditText.setText("");
 					searchEditText.clearFocus();
@@ -174,7 +178,7 @@ public class FragmentMain extends Fragment {
 				}
 			}
 		});
-
+		searchButton.performClick();
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
@@ -339,13 +343,26 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
+	public void startProgressDialog() {
+		if (progressDialog == null) {
+			progressDialog = CustomProgressDialog.createDialog(getActivity());
+			progressDialog.setMessage("Loading...");
+		}
+		progressDialog.show();
+	}
+
+	public void stopProgressDialog() {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+			progressDialog = null;
+		}
+	}
+
 	private void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
-
 			String searchString = searchEditText.getText().toString();
 			Thread thread = new SearchThread(searchString);
 			thread.start();
-
 		}
 	}
 

@@ -57,7 +57,7 @@
     <string name="single_question">Question decription</string>
     <string name="single_answer">Answer Content</string>
 
-    <color name="menu_clicked">#ff0000ff</color>
+    <color name="menu_clicked">#00BFFF</color>
     <color name="question_selected">#CCCCCC</color>
 
     <string name="hello_world">Hello world!</string>
@@ -75,5 +75,6 @@
     <string name="footer_hint_ready">release to load more</string>
     <string name="title_activity_my_local">MyLocalActivity</string>
     <string name="title_activity_waiting_list">WaitingListActivity</string>
+
 
 </resources>
