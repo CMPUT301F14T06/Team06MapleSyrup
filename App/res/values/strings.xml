@@ -57,7 +57,7 @@
     <string name="single_question">Question decription</string>
     <string name="single_answer">Answer Content</string>
 
-    <color name="menu_clicked">#00BFFF</color>
+    <color name="menu_clicked">#33b5e5</color>
     <color name="White">#FFFFFF</color>
     <color name="question_selected">#CCCCCC</color>
 
