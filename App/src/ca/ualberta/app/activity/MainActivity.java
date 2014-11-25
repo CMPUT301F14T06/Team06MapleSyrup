@@ -21,7 +21,6 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.models.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,7 +40,6 @@ public class MainActivity extends FragmentActivity {
 	private FragmentTransaction fragmentTransaction;
 	private RadioGroup bottom_Rg;
 	private RadioButton main_Rb, add_Rb;
-	private Boolean loginStatus;
 
 	// private int lastCheckedId = R.id.main_menu_button;
 

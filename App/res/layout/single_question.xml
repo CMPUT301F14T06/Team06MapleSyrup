@@ -27,8 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/author_name"
-            android:textColor="#696969" />
+            android:text="@string/author_name" />
     </LinearLayout>
 
     <LinearLayout
@@ -49,7 +48,6 @@
             android:maxLines="2"
             android:text="@string/question_title"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000000"
             android:textSize="16sp" />
 
         <GridLayout
@@ -66,7 +64,6 @@
                 android:maxLines="3"
                 android:text="@string/single_question"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#696969"
                 android:textSize="13sp" />
 
             <ImageView
@@ -95,8 +92,7 @@
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/save_button_style"
-            android:text="@string/save"
-            android:textColor="#696969" />
+            android:text="@string/save" />
 
         <RadioButton
             android:id="@+id/fav_button"
@@ -104,8 +100,7 @@
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/fav_button_style"
-            android:text="@string/favorite"
-            android:textColor="#696969" />
+            android:text="@string/favorite" />
 
         <RadioButton
             android:id="@+id/upvote_button"
@@ -113,8 +108,7 @@
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/upvote_button_style"
-            android:text="@string/upvote"
-            android:textColor="#696969" />
+            android:text="@string/upvote" />
     </LinearLayout>
 
     <GridLayout
@@ -135,7 +129,6 @@
             android:layout_row="0"
             android:gravity="center_vertical"
             android:text="@string/upvote_state"
-            android:textColor="#696969"
             android:textSize="13sp" />
 
         <TextView
@@ -160,7 +153,6 @@
             android:layout_row="0"
             android:gravity="center_vertical"
             android:text="@string/answer_state"
-            android:textColor="#696969"
             android:textSize="13sp" />
     </GridLayout>
 

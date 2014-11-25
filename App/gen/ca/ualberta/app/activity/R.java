@@ -14,8 +14,9 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int White=0x7f070001;
         public static final int menu_clicked=0x7f070000;
-        public static final int question_selected=0x7f070001;
+        public static final int question_selected=0x7f070002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -360,11 +361,13 @@ public final class R {
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
 
 
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
 
 
 

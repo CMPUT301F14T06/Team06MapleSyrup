@@ -13,7 +13,6 @@
         android:layout_marginTop="5dp"
         android:text="@string/reply_group"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#696969"
         android:textSize="14sp" />
 
     <TextView
@@ -23,7 +22,6 @@
         android:gravity="right"
         android:text="@string/time"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#696969"
         android:textSize="13sp" />
 
     <TextView
@@ -32,7 +30,6 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:text="@string/author_name"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#696969" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </LinearLayout>
