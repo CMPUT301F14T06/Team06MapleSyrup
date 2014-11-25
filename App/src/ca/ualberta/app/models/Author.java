@@ -21,6 +21,8 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class contains all functionalities an author object should have.
@@ -42,6 +44,7 @@ public class Author extends User {
 		super();
 		this.username = username;
 		this.myQuestionId = new ArrayList<Long>();
+
 	}
 
 	/**
@@ -81,4 +84,5 @@ public class Author extends User {
 	public String getUsername() {
 		return this.username;
 	}
+
 }

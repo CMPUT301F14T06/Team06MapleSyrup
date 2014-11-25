@@ -46,7 +46,6 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/desc"
                 android:src="@android:drawable/gallery_thumb" />
-
         </LinearLayout>
 
         <TextView
@@ -82,7 +81,7 @@
                     style="@style/fav_save_upvote_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/hand_pro_icon32"
+                    android:drawableTop="@drawable/upvote_button_style"
                     android:text="@string/upvote"
                     android:textColor="#696969" />
 

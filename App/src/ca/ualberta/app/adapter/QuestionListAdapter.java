@@ -154,6 +154,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				holder.fav_Rb.setChecked(true);
 			else
 				holder.fav_Rb.setChecked(false);
+			if (User.loginStatus)
+				if (question.hasUpvotedBy(User.author.getUsername()))
+					holder.upvote_Rb.setChecked(true);
+				else
+					holder.upvote_Rb.setChecked(false);
+
 			cacheController.updateFavQuestions(getContext(), question);
 			cacheController.updateLocalQuestions(getContext(), question);
 		}
@@ -256,6 +262,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	 * @author Anni
 	 * 
 	 */
+
 	private class upvoteOnClickListener implements OnClickListener {
 
 		int position;
@@ -281,16 +288,17 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		public void onClick(View v) {
 			if (User.loginStatus) {
 				Question question = questionList.get(position);
-				if (!question.upvoteQuestion()) {
-					Toast.makeText(getContext(),
-							"You have upvoted this question",
-							Toast.LENGTH_SHORT).show();
+				if (question.upvoteQuestion()) {
+					holder.upvote_Rb.setChecked(true);
+				} else {
+					holder.upvote_Rb.setChecked(false);
 				}
 				question.calcCurrentTotalScore();
 				Thread thread = new UpdateQuestionThread(question);
 				thread.start();
 				cacheController.updateFavQuestions(getContext(), question);
 				cacheController.updateLocalQuestions(getContext(), question);
+				// User.author.getAuthorQuestionId().
 			} else {
 				Toast.makeText(v.getContext(), "Login to upvote",
 						Toast.LENGTH_SHORT).show();

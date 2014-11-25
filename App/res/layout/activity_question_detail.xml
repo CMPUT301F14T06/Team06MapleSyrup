@@ -122,11 +122,12 @@
                 android:textColor="#696969" />
 
             <RadioButton
-                android:id="@+id/upvote_button"
+                android:id="@+id/upvote_detail_button"
                 style="@style/fav_save_upvote_button"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/hand_pro_icon32"
+                android:checked="false"
+                android:drawableTop="@drawable/upvote_button_style"
                 android:onClick="upvote_click"
                 android:text="@string/upvote"
                 android:textColor="#696969" />

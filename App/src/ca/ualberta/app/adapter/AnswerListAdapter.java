@@ -62,6 +62,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private CacheController cacheController;
 	private Bitmap image = null;
 	private Bitmap imageThumb = null;
+	private ViewHolder_answer answerHolder = null;
+	private ViewHolder_reply replyHolder = null;
 
 	/**
 	 * Constructs the adapter and initializes its context.
@@ -195,57 +197,64 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-		ViewHolder_answer holder = null;
+
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(context);
-			holder = new ViewHolder_answer();
+			answerHolder = new ViewHolder_answer();
 			convertView = inflater.inflate(R.layout.single_answer, null);
 		} else {
-			holder = (ViewHolder_answer) convertView.getTag();
+			answerHolder = (ViewHolder_answer) convertView.getTag();
 		}
-		holder.image = (ImageView) convertView.findViewById(R.id.answerImage);
-		holder.authorName = (TextView) convertView
+		answerHolder.image = (ImageView) convertView
+				.findViewById(R.id.answerImage);
+		answerHolder.authorName = (TextView) convertView
 				.findViewById(R.id.authorNameTextView);
-		holder.answerContent = (TextView) convertView
+		answerHolder.answerContent = (TextView) convertView
 				.findViewById(R.id.answerContentTextView);
-		holder.upvoteState = (TextView) convertView
+		answerHolder.upvoteState = (TextView) convertView
 				.findViewById(R.id.upvoteStateTextView);
-		holder.upvote_Rb = (RadioButton) convertView
+		answerHolder.upvote_Rb = (RadioButton) convertView
 				.findViewById(R.id.upvote_button);
-		holder.timestamp = (TextView) convertView
+		answerHolder.timestamp = (TextView) convertView
 				.findViewById(R.id.answer_time_textView);
-		holder.image.setVisibility(View.GONE);
-		holder.reply_Rb = (RadioButton) convertView
+		answerHolder.image.setVisibility(View.GONE);
+		answerHolder.reply_Rb = (RadioButton) convertView
 				.findViewById(R.id.answer_reply_button);
 		if (User.loginStatus == false) {
-			holder.reply_Rb.setVisibility(View.GONE);
+			answerHolder.reply_Rb.setVisibility(View.GONE);
 		} else {
-			holder.reply_Rb.setVisibility(View.VISIBLE);
+			answerHolder.reply_Rb.setVisibility(View.VISIBLE);
 		}
-		convertView.setTag(holder);
+		convertView.setTag(answerHolder);
 		Answer answer = answerList.get(groupPosition);
 
 		if (answer != null) {
-			holder.answerContent.setText(answer.getContent());
-			holder.authorName.setText(answer.getAuthor());
-			holder.timestamp.setText(answer.getTimestamp().toString());
-			holder.upvoteState.setText("Upvote: "
+			answerHolder.answerContent.setText(answer.getContent());
+			answerHolder.authorName.setText(answer.getAuthor());
+			answerHolder.timestamp.setText(answer.getTimestamp().toString());
+			answerHolder.upvoteState.setText("Upvote: "
 					+ answer.getAnswerUpvoteCount());
+			if (User.loginStatus)
+				if (answer.hasUpvotedBy(User.author.getUsername()))
+					answerHolder.upvote_Rb.setChecked(true);
+				else
+					answerHolder.upvote_Rb.setChecked(false);
+
 			if (answer.hasImage()) {
 				byte[] imageByteArray = Base64.decode(answer.getImage(),
 						Base64.NO_WRAP);
 				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
 						imageByteArray.length);
 				scaleImage();
-				holder.image.setVisibility(View.VISIBLE);
-				holder.image.setImageBitmap(imageThumb);
+				answerHolder.image.setVisibility(View.VISIBLE);
+				answerHolder.image.setImageBitmap(imageThumb);
 			}
 		}
-		holder.image.setOnClickListener(new ViewImageOnClickListener(
+		answerHolder.image.setOnClickListener(new ViewImageOnClickListener(
 				groupPosition));
-		holder.upvote_Rb.setOnClickListener(new UpvoteOnClickListener(
+		answerHolder.upvote_Rb.setOnClickListener(new UpvoteOnClickListener(
 				groupPosition));
-		holder.reply_Rb.setOnClickListener(new AddReplyOnClickListener(
+		answerHolder.reply_Rb.setOnClickListener(new AddReplyOnClickListener(
 				groupPosition));
 		ImageView expandIndicator = (ImageView) convertView
 				.findViewById(R.id.expandIndicator);
@@ -300,27 +309,26 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		ViewHolder_reply holder = null;
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(context);
-			holder = new ViewHolder_reply();
+			replyHolder = new ViewHolder_reply();
 			convertView = inflater.inflate(R.layout.single_reply, null);
 		} else {
-			holder = (ViewHolder_reply) convertView.getTag();
+			replyHolder = (ViewHolder_reply) convertView.getTag();
 		}
-		holder.authorName = (TextView) convertView
+		replyHolder.authorName = (TextView) convertView
 				.findViewById(R.id.replyAuthor_textView);
-		holder.replyContent = (TextView) convertView
+		replyHolder.replyContent = (TextView) convertView
 				.findViewById(R.id.reply_textView);
-		holder.timestamp = (TextView) convertView
+		replyHolder.timestamp = (TextView) convertView
 				.findViewById(R.id.reply_time_textView);
-		convertView.setTag(holder);
+		convertView.setTag(replyHolder);
 		Reply reply = answerList.get(groupPosition).getReplyArrayList()
 				.get(childPosition);
 		if (reply != null) {
-			holder.replyContent.setText(reply.getContent());
-			holder.authorName.setText(reply.getAuthor());
-			holder.timestamp.setText(reply.getTimestamp().toString());
+			replyHolder.replyContent.setText(reply.getContent());
+			replyHolder.authorName.setText(reply.getAuthor());
+			replyHolder.timestamp.setText(reply.getTimestamp().toString());
 		}
 		return convertView;
 	}
@@ -371,9 +379,10 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		public void onClick(View v) {
 			if (User.loginStatus) {
 				Answer answer = answerList.get(position);
-				if (!answer.upvoteAnswer()) {
-					Toast.makeText(context, "You have upvoted this answer",
-							Toast.LENGTH_SHORT).show();
+				if (answer.upvoteAnswer()) {
+					answerHolder.upvote_Rb.setChecked(true);
+				} else {
+					answerHolder.upvote_Rb.setChecked(false);
 				}
 				question.calcCurrentTotalScore();
 				Thread thread = new UpdateAnswerThread(question, answer);
