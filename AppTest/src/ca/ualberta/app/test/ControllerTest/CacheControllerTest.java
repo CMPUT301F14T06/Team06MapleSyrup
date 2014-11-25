@@ -1,7 +1,6 @@
 package ca.ualberta.app.test.ControllerTest;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.test.AndroidTestCase;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Question;

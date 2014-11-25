@@ -1,7 +1,5 @@
 package ca.ualberta.app.test.FunctionalityTest;
 
-import android.graphics.Bitmap;
-
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;

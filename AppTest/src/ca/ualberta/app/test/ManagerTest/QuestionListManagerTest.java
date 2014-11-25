@@ -1,6 +1,6 @@
 package ca.ualberta.app.test.ManagerTest;
 
-import android.graphics.Bitmap;
+
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.models.Author;
