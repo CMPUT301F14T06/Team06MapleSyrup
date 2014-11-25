@@ -177,7 +177,9 @@ public class FragmentMain extends Fragment {
 				}
 			}
 		});
-		searchButton.performClick();
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext))
+			searchButton.performClick();
+
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override

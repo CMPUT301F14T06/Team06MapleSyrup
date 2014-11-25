@@ -45,7 +45,6 @@ public class MainActivity extends FragmentActivity {
 
 	// private int lastCheckedId = R.id.main_menu_button;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +61,6 @@ public class MainActivity extends FragmentActivity {
 		fragmentTransaction = fragmentManager.beginTransaction()
 				.hide(fragments[0]).hide(fragments[1]);
 		fragmentTransaction.show(fragments[0]).commit();
-		checkLoginStatus();
 		setFragmentIndicator();
 	}
 
@@ -82,7 +80,13 @@ public class MainActivity extends FragmentActivity {
 
 				case R.id.add_menu_button:
 					main_Rb.performClick();
-					checkLoginStatus();
+					add_Rb.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							Intent intent = new Intent(MainActivity.this,
+									CreateQuestionActivity.class);
+							startActivity(intent);
+						}
+					});
 					break;
 
 				case R.id.profile_menu_button:
@@ -95,28 +99,6 @@ public class MainActivity extends FragmentActivity {
 
 			}
 		});
-	}
-
-
-	public void checkLoginStatus() {
-		loginStatus = User.loginStatus;
-		if (loginStatus) {
-			add_Rb.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					Intent intent = new Intent(MainActivity.this,
-							CreateQuestionActivity.class);
-					startActivity(intent);
-				}
-			});
-		} else {
-			add_Rb.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					Intent intent = new Intent(MainActivity.this,
-							LoginActivity.class);
-					startActivity(intent);
-				}
-			});
-		}
 	}
 
 }

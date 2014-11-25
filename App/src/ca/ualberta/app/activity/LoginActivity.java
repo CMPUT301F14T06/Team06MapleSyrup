@@ -89,9 +89,6 @@ public class LoginActivity extends Activity {
 			} else {
 				Author newAuthor = new Author(username);
 				notifyAddNewAuthor();
-				// if (InternetConnectionChecker.isNetworkAvailable(context)) {
-				//
-				// }
 				Thread addThread = new AddThread(newAuthor);
 				addThread.start();
 			}
