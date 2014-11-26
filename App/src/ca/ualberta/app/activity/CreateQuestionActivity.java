@@ -89,6 +89,8 @@ public class CreateQuestionActivity extends Activity {
 					LoginActivity.class);
 			startActivity(intent);
 		}
+		if (!User.loginStatus)
+			finish();
 
 		titleText = (EditText) findViewById(R.id.question_title_editText);
 		contentText = (EditText) findViewById(R.id.question_content_editText);
