@@ -115,4 +115,9 @@ public class AuthorMap {
 		authorMap.put(username, author);
 	}
 
+	public void removeAuthor(String username) {
+		// TODO Auto-generated method stub
+		authorMap.remove(username);
+	}
+
 }

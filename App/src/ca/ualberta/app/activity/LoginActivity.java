@@ -46,6 +46,7 @@ public class LoginActivity extends Activity {
 	private long from = 0;
 	private long size = 1000;
 	private String lable = "author";
+	
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();

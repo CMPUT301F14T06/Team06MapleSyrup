@@ -27,6 +27,7 @@
         android:layout_alignTop="@+id/changePhotoButton"
         android:layout_toRightOf="@+id/changePhotoButton"
         android:gravity="center"
+        android:onClick="changeUsername"
         android:text="@string/author_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

@@ -20,7 +20,13 @@
 
 package ca.ualberta.app.activity;
 
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.activity.LoginActivity.SearchThread;
+import ca.ualberta.app.models.Author;
+import ca.ualberta.app.models.AuthorMap;
+import ca.ualberta.app.models.AuthorMapIO;
+import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import android.content.Context;
@@ -34,6 +40,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * This is the fragment activity for the mean question list, once the app is
@@ -53,8 +60,19 @@ public class FragmentProfile extends Fragment {
 	private RadioButton waiting_list;
 	private RadioButton login;
 	private RadioButton logout;
-	private boolean loginStatus;
+	private long from = 0;
+	private long size = 1000;
+	private String lable = "author";
 	private Context mcontext;
+	private AuthorMapManager authorMapManager;
+	private AuthorMap authorMap;
+	private String FILENAME = "AUTHORMAP.sav";
+
+	private Runnable doUpdateGUIList = new Runnable() {
+		public void run() {
+			checkLoginStatus();
+		}
+	};
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +96,7 @@ public class FragmentProfile extends Fragment {
 		waiting_list = (RadioButton) getView().findViewById(R.id.waiting_list);
 		login = (RadioButton) getView().findViewById(R.id.login);
 		logout = (RadioButton) getView().findViewById(R.id.logout);
+
 		checkLoginStatus();
 
 		login.setOnClickListener(new OnClickListener() {
@@ -128,12 +147,13 @@ public class FragmentProfile extends Fragment {
 				startActivity(intent);
 			}
 		});
-		
+
 		waiting_list.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(), WaitingListActivity.class);
+				Intent intent = new Intent(getActivity(),
+						WaitingListActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -155,10 +175,20 @@ public class FragmentProfile extends Fragment {
 		super.onPause();
 		checkLoginStatus();
 	}
+	public void changeUsername(View view){
+		authorMap = new AuthorMap();
+		authorMapManager = new AuthorMapManager();
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+			Thread thread = new SearchThread("");
+			thread.start();
 
+		} else {
+			Toast.makeText(mcontext, "Internet is required to change name", Toast.LENGTH_SHORT).show();
+		}
+		//http://pulse7.net/android/login-dialog-box-android/
+	}
 	public void checkLoginStatus() {
-		loginStatus = User.loginStatus;
-		if (loginStatus) {
+		if (User.loginStatus) {
 			changePhotoButton.setVisibility(View.VISIBLE);
 			setAuthorName.setVisibility(View.VISIBLE);
 			login.setVisibility(View.GONE);
@@ -166,6 +196,8 @@ public class FragmentProfile extends Fragment {
 			logout.setVisibility(View.VISIBLE);
 			my_question.setVisibility(View.VISIBLE);
 			setAuthorName.setText(User.author.getUsername());
+			authorMapManager = new AuthorMapManager();
+			authorMap = new AuthorMap();
 
 		} else {
 			changePhotoButton.setVisibility(View.GONE);
@@ -176,4 +208,72 @@ public class FragmentProfile extends Fragment {
 			my_question.setVisibility(View.GONE);
 		}
 	}
+
+	class SearchThread extends Thread {
+		private String search;
+
+		public SearchThread(String s) {
+			search = s;
+		}
+
+		@Override
+		public void run() {
+			authorMap.clear();
+			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
+					size, lable));
+
+		}
+	}
+
+	class GetThread extends Thread {
+		private String username;
+
+		public GetThread(String username) {
+			this.username = username;
+		}
+
+		@Override
+		public void run() {
+			User.author = authorMapManager.getAuthor(username);
+		}
+	}
+
+	class AddThread extends Thread {
+		private Author theAuthor;
+
+		public AddThread(Author theAuthor) {
+			this.theAuthor = theAuthor;
+		}
+
+		@Override
+		public void run() {
+			User.author = theAuthor;
+			authorMap.addAuthor(theAuthor);
+			AuthorMapIO.saveInFile(mcontext, authorMap, FILENAME);
+			authorMapManager.addAuthor(theAuthor);
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	class DeleteThread extends Thread {
+		private String username;
+
+		public DeleteThread(String username) {
+			this.username = username;
+		}
+
+		@Override
+		public void run() {
+			authorMapManager.deleteAuthor(username);
+			authorMap.removeAuthor(username);
+			AuthorMapIO.saveInFile(mcontext, authorMap, FILENAME);
+			getActivity().runOnUiThread(doUpdateGUIList);
+		}
+	}
+
 }

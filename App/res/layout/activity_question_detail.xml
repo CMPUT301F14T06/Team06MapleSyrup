@@ -33,8 +33,7 @@
                 android:id="@+id/authorNameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="#696969" />
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -51,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000000"
                 android:textSize="16sp" />
 
             <TextView
@@ -59,7 +57,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#696969"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -79,7 +76,6 @@
                 android:gravity="center"
                 android:text="@string/upvote_state"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#696969"
                 android:textSize="12sp" />
 
             <TextView
@@ -89,7 +85,6 @@
                 android:layout_column="0"
                 android:gravity="center"
                 android:text="@string/answer_state"
-                android:textColor="#696969"
                 android:textSize="12sp" />
         </GridLayout>
 
@@ -108,8 +103,7 @@
                 android:layout_height="match_parent"
                 android:drawableTop="@drawable/save_button_style"
                 android:onClick="save_click"
-                android:text="@string/save"
-                android:textColor="#696969" />
+                android:text="@string/save" />
 
             <RadioButton
                 android:id="@+id/fav_detail_button"
@@ -118,8 +112,7 @@
                 android:layout_height="match_parent"
                 android:drawableTop="@drawable/fav_button_style"
                 android:onClick="fav_click"
-                android:text="@string/favorite"
-                android:textColor="#696969" />
+                android:text="@string/favorite"/>
 
             <RadioButton
                 android:id="@+id/upvote_detail_button"
@@ -129,8 +122,7 @@
                 android:checked="false"
                 android:drawableTop="@drawable/upvote_button_style"
                 android:onClick="upvote_click"
-                android:text="@string/upvote"
-                android:textColor="#696969" />
+                android:text="@string/upvote" />
         </LinearLayout>
 
         <ImageView
@@ -161,8 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:onClick="answer_question"
-                android:text="@string/add_answer"
-                android:textColor="#696969" />
+                android:text="@string/add_answer" />
 
             <RadioButton
                 android:id="@+id/question_reply_button"
@@ -171,8 +162,7 @@
                 android:layout_height="match_parent"
                 android:onClick="reply_question"
                 android:text="@string/add_reply"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#696969" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
         <TextView
