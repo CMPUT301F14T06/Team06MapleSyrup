@@ -67,15 +67,11 @@ public class FragmentMain extends Fragment {
 	static String sortByPicture = "Sort By Picture";
 	static String[] sortOption = { sortByDate, sortByScore, sortByPicture,
 			sortByQuestionUpvote, sortByAnswerUpvote };
-
-	private String MYQUESTION;
 	private TextView titleBar;
 	private EditText searchEditText;
 	private CacheController cacheController;
 	private QuestionListController questionListController;
-	private QuestionListController myQuestionListController;
 	private QuestionListManager questionListManager;
-	private QuestionList myQuestionList;
 	private QuestionListAdapter adapter = null;
 	private Button searchButton;
 	private Spinner sortOptionSpinner;
@@ -139,16 +135,13 @@ public class FragmentMain extends Fragment {
 		super.onStart();
 		questionListManager = new QuestionListManager();
 		cacheController = new CacheController(mcontext);
-		myQuestionListController = new QuestionListController();
 		questionListController = new QuestionListController();
-		myQuestionList = new QuestionList();
 		adapter = new QuestionListAdapter(getActivity(),
 				R.layout.single_question,
 				questionListController.getQuestionArrayList());
 		adapter.setSortingOption(sortByDate);
 		spin_adapter = new ArrayAdapter<String>(mcontext,
 				R.layout.spinner_item, sortOption);
-
 		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spin_adapter);
 		sortOptionSpinner
@@ -157,7 +150,6 @@ public class FragmentMain extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-
 				if (searchButton.getText().equals("Search")
 						&& !(searchEditText.getText().length() == 0)) {
 					startProgressDialog();
@@ -177,9 +169,10 @@ public class FragmentMain extends Fragment {
 				}
 			}
 		});
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext))
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			searchButton.performClick();
-
+			checkInternet();
+		}
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
@@ -245,6 +238,7 @@ public class FragmentMain extends Fragment {
 
 			@Override
 			public void onRefresh() {
+				mListView.setEnabled(false);
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
@@ -255,6 +249,7 @@ public class FragmentMain extends Fragment {
 						onLoad();
 					}
 				}, 2000);
+				// mListView.setEnabled(true);
 			}
 
 			@Override
@@ -295,12 +290,20 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		checkInternet();
+	}
+
+	private void checkInternet() {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			titleBar.setText("Main");
+			searchButton.setEnabled(true);
+			searchEditText.setEnabled(true);
 		} else {
 			titleBar.setText("Main(Not Connected)");
-
+			searchButton.setEnabled(false);
+			searchEditText.setEnabled(false);
 		}
+
 	}
 
 	private class change_category_click implements OnItemSelectedListener {
@@ -347,6 +350,7 @@ public class FragmentMain extends Fragment {
 	public void startProgressDialog() {
 		if (progressDialog == null) {
 			progressDialog = CustomProgressDialog.createDialog(getActivity());
+
 			progressDialog.setMessage("Loading...");
 		}
 		progressDialog.show();
@@ -364,6 +368,7 @@ public class FragmentMain extends Fragment {
 			String searchString = searchEditText.getText().toString();
 			Thread thread = new SearchThread(searchString);
 			thread.start();
+			mListView.setEnabled(true);
 		}
 	}
 

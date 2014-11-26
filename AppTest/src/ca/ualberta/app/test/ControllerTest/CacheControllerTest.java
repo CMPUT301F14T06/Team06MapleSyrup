@@ -19,7 +19,7 @@ public class CacheControllerTest extends AndroidTestCase {
 		// add the Question as a Favorite Question
 		Context mcontext = getContext();
 		CacheController cacheController = new CacheController(mcontext);
-		cacheController.addFavQuestions(mcontext, question);
+		cacheController.addFavQuestion(mcontext, question);
 
 		// check the result
 		assertTrue("didnt's add question as fav",
@@ -52,7 +52,7 @@ public class CacheControllerTest extends AndroidTestCase {
 		// add the Question as a Local Cached Question
 		Context mcontext = getContext();
 		CacheController cacheController = new CacheController(mcontext);
-		cacheController.addLocalQuestions(mcontext, question);
+		cacheController.addLocalQuestion(mcontext, question);
 
 		// check the result
 		assertTrue("didnt's add question as Loacl",

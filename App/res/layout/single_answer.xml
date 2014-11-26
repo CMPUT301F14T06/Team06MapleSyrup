@@ -116,11 +116,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/answer_reply_textView"
         android:background="@drawable/separator" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/answer_reply_textView"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
@@ -137,7 +137,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/textView1"
+        android:layout_alignTop="@+id/answer_reply_textView"
         android:background="@drawable/separator" />
 
     <ImageView

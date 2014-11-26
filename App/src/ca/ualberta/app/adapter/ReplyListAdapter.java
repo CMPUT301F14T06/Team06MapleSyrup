@@ -171,6 +171,9 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 		convertView = inflater.inflate(R.layout.single_reply_group, null);
 		ImageView expandIndicator = (ImageView) convertView
 				.findViewById(R.id.reply_group_expandIndicator);
+		TextView replyText = (TextView) convertView
+				.findViewById(R.id.reply_textView);
+		replyText.setText("Reply: " + replyList.size() + " replies");
 		if (isExpanded) {
 			expandIndicator.setBackgroundResource(R.drawable.br_up_icon);
 		} else {

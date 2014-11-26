@@ -32,6 +32,7 @@ import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateAnswerThread;
 
 import android.annotation.SuppressLint;
@@ -197,7 +198,6 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(context);
 			answerHolder = new ViewHolder_answer();
@@ -205,6 +205,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		} else {
 			answerHolder = (ViewHolder_answer) convertView.getTag();
 		}
+
 		answerHolder.image = (ImageView) convertView
 				.findViewById(R.id.answerImage);
 		answerHolder.authorName = (TextView) convertView
@@ -220,6 +221,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		answerHolder.image.setVisibility(View.GONE);
 		answerHolder.reply_Rb = (RadioButton) convertView
 				.findViewById(R.id.answer_reply_button);
+		checkInternet();
 		if (User.loginStatus == false) {
 			answerHolder.reply_Rb.setVisibility(View.GONE);
 		} else {
@@ -258,6 +260,11 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				groupPosition));
 		ImageView expandIndicator = (ImageView) convertView
 				.findViewById(R.id.expandIndicator);
+		TextView replyText = (TextView) convertView
+				.findViewById(R.id.answer_reply_textView);
+		replyText.setText("Reply: "
+				+ answerList.get(groupPosition).getReplyArrayList().size()
+				+ " replies");
 		if (isExpanded) {
 			expandIndicator.setBackgroundResource(R.drawable.br_up_icon);
 		} else {
@@ -286,6 +293,17 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			imageThumb = image;
 		}
 
+	}
+
+	/**
+	 * 
+	 */
+	private void checkInternet() {
+		if (InternetConnectionChecker.isNetworkAvailable(context)) {
+			answerHolder.upvote_Rb.setEnabled(true);
+		} else {
+			answerHolder.upvote_Rb.setEnabled(false);
+		}
 	}
 
 	/**

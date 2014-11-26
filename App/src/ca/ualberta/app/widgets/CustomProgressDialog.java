@@ -24,8 +24,10 @@ package ca.ualberta.app.widgets;
 import ca.ualberta.app.activity.R;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +49,7 @@ public class CustomProgressDialog extends Dialog {
 				R.style.CustomProgressDialog);
 		customProgressDialog.setContentView(R.layout.progress_dialog);
 		customProgressDialog.getWindow().getAttributes().gravity = Gravity.CENTER;
-
+		customProgressDialog.setCanceledOnTouchOutside(false);
 		return customProgressDialog;
 	}
 

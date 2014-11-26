@@ -174,7 +174,6 @@ public class QuestionDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_detail);
 		mcontext = this;
-
 		questionTitleTextView = (TextView) findViewById(R.id.questionDetailTitleTextView);
 		questionContentTextView = (TextView) findViewById(R.id.questionDetailContentTextView);
 		authorNameTextView = (TextView) findViewById(R.id.authorNameTextView);
@@ -196,6 +195,7 @@ public class QuestionDetailActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		checkInternet();
 		check_login_status();
 	}
 
@@ -209,6 +209,7 @@ public class QuestionDetailActivity extends Activity {
 		if (intent != null) {
 			Bundle extras = intent.getExtras();
 			if (extras != null) {
+				checkInternet();
 				questionId = extras.getLong(QUESTION_ID);
 				if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 					Thread thread = new GetThread(questionId);
@@ -236,9 +237,26 @@ public class QuestionDetailActivity extends Activity {
 		if (User.loginStatus == true) {
 			answer_Rb.setVisibility(View.VISIBLE);
 			reply_Rb.setVisibility(View.VISIBLE);
+			upvote_Rb.setEnabled(true);
 		} else {
 			answer_Rb.setVisibility(View.GONE);
 			reply_Rb.setVisibility(View.GONE);
+			upvote_Rb.setEnabled(false);
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void checkInternet() {
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+			upvote_Rb.setEnabled(true);
+			save_Rb.setVisibility(View.VISIBLE);
+			fav_Rb.setVisibility(View.VISIBLE);
+		} else {
+			upvote_Rb.setEnabled(false);
+			//save_Rb.setVisibility(View.INVISIBLE);
+			//fav_Rb.setVisibility(View.INVISIBLE);
 		}
 	}
 

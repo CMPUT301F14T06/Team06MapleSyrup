@@ -268,7 +268,7 @@ public class MyLocalActivity extends Activity {
 		@Override
 		public void run() {
 			localQuestionListManager.deleteQuestion(questionID);
-			// Remove movie from local list
+			// Remove question from local list
 			for (int i = 0; i < localQuestionListController.size(); i++) {
 				Question q = localQuestionListController.getQuestion(i);
 				if (q.getID() == questionID) {

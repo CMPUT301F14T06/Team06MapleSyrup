@@ -33,6 +33,7 @@ import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Question;
 
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 
 import ca.ualberta.app.thread.UpdateQuestionThread;
 
@@ -126,8 +127,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		holder.timestamp = (TextView) convertView
 				.findViewById(R.id.timeTextView);
 		convertView.setTag(holder);
+		checkInternet();
 		Question question = this.getItem(position);
-
 		if (question != null) {
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
@@ -170,6 +171,18 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		return convertView;
 	}
 
+	private void checkInternet() {
+		if (InternetConnectionChecker.isNetworkAvailable(getContext())) {
+			//holder.save_Rb.setVisibility(View.VISIBLE);
+			//holder.fav_Rb.setVisibility(View.VISIBLE);
+			holder.upvote_Rb.setEnabled(true);
+		} else {
+			// holder.save_Rb.setVisibility(View.INVISIBLE);
+			// holder.fav_Rb.setVisibility(View.INVISIBLE);
+			holder.upvote_Rb.setEnabled(false);
+		}
+	}
+
 	/**
 	 * Setup listener for the "Save" button of each question.
 	 * 
@@ -210,6 +223,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 			}
 			notifyDataSetChanged();
+
 		}
 	}
 
