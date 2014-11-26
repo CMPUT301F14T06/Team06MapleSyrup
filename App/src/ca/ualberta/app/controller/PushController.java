@@ -182,7 +182,7 @@ public class PushController {
 	 * @param question
 	 *            the question.
 	 */
-	public void removeWaitingListQuestions(Context mcontext, Question question) {
+	public void removeWaitingListQuestion(Context mcontext, Question question) {
 		waitingListMap_Question = loadMapFromFile(mcontext, WAITMAP_Q);
 		waitingListId_Question = loadIdFromFile(mcontext, WAITID_Q);
 		waitingListMap_Question.remove(question.getID());
@@ -196,6 +196,21 @@ public class PushController {
 		saveInFile(mcontext, waitingListId_Question, WAITID_Q);
 	}
 
+	/**
+	 * Remove a question into the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void removeWaitingListQuestionList(Context mcontext) {
+		waitingListMap_Question.clear();
+		waitingListId_Question.clear();
+		saveInFile(mcontext, waitingListMap_Question, WAITMAP_Q);
+		saveInFile(mcontext, waitingListId_Question, WAITID_Q);
+	}
+	
 	/**
 	 * Update a question in the the local file of the WaitingList questions.
 	 * 

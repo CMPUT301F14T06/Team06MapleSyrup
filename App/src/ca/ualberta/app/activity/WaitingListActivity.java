@@ -52,11 +52,9 @@ public class WaitingListActivity extends Activity {
 	private Handler mHandler;
 	private ArrayList<Answer> answerList;
 	private ArrayList<Reply> replyList;
-
-	private String QuestionType = "Question";
-	private String AnswerType = "Answer";
-	private String ReplyType = "Reply";
-	private String[] typeOption = { QuestionType, AnswerType, ReplyType };
+	private String QuestionType;
+	private String AnswerType;
+	private String ReplyType;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			questionAdapter.notifyDataSetChanged();
@@ -89,9 +87,15 @@ public class WaitingListActivity extends Activity {
 				R.layout.single_waiting_answer, answerList);
 		replyAdapter = new ReplyWaitingListAdapter(mcontext,
 				R.layout.single_waiting_reply, replyList);
+		mListView.setAdapter(questionAdapter);
+
+		QuestionType = "Questions (" + waitingQuestionListController.size()
+				+ ")";
+		AnswerType = "Answers (" + answerList.size() + ")";
+		ReplyType = "Replies (" + replyList.size() + ")";
+		String[] typeOption = { QuestionType, AnswerType, ReplyType };
 		spinAdapter = new ArrayAdapter<String>(mcontext, R.layout.spinner_item,
 				typeOption);
-		mListView.setAdapter(questionAdapter);
 		typeOptionSpinner.setAdapter(spinAdapter);
 		typeOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
@@ -164,9 +168,13 @@ public class WaitingListActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		QuestionType = "Question(" + waitingQuestionListController.size() + ")";
-		AnswerType = "Answer(" + answerList.size() + ")";
-		ReplyType = "Reply(" + replyList.size() + ")";
+		QuestionType = "Questions (" + waitingQuestionListController.size()
+				+ ")";
+		AnswerType = "Answers (" + answerList.size() + ")";
+		ReplyType = "Replies (" + replyList.size() + ")";
+		String[] typeOption = { QuestionType, AnswerType, ReplyType };
+		spinAdapter = new ArrayAdapter<String>(mcontext, R.layout.spinner_item,
+				typeOption);
 		typeOptionSpinner.setAdapter(spinAdapter);
 	}
 
@@ -229,6 +237,7 @@ public class WaitingListActivity extends Activity {
 			waitingQuestionList = pushController
 					.getWaitingQuestionList(mcontext);
 			waitingQuestionListManager.addQuestionList(waitingQuestionList);
+			pushController.removeWaitingListQuestionList(mcontext);
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
