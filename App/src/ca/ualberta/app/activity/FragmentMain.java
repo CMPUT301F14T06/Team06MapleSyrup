@@ -436,8 +436,6 @@ public class FragmentMain extends Fragment {
 					.getFavoriteId(mcontext));
 			tempSav = questionListManager.getQuestionMap(cacheController
 					.getLocalCacheId(mcontext));
-			tempWait = questionListManager.getQuestionMap(cacheController
-					.getWaitingListId(mcontext));
 			cacheController.addAll(mcontext, tempFav, tempSav, tempWait);
 		}
 	}

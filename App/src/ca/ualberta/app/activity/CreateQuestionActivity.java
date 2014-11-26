@@ -26,7 +26,7 @@ import java.io.File;
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.controller.CacheController;
+import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;
 import ca.ualberta.app.models.Question;
@@ -63,7 +63,7 @@ public class CreateQuestionActivity extends Activity {
 	private Bitmap image = null;
 	private Bitmap imageThumb = null;
 	private String imageString = null;
-	private CacheController cacheController;
+	private PushController pushController;
 	private QuestionListManager questionListManager;
 	private AuthorMapManager authorMapManager;
 	private String FILENAME = "AUTHORMAP.sav";
@@ -95,7 +95,7 @@ public class CreateQuestionActivity extends Activity {
 		titleText = (EditText) findViewById(R.id.question_title_editText);
 		contentText = (EditText) findViewById(R.id.question_content_editText);
 		imageView = (ImageView) findViewById(R.id.question_image_imageView);
-		cacheController = new CacheController(this);
+		pushController = new PushController(this);
 		questionListManager = new QuestionListManager();
 		authorMapManager = new AuthorMapManager();
 		authorMap = new AuthorMap();
@@ -296,7 +296,7 @@ public class CreateQuestionActivity extends Activity {
 
 				AuthorMapIO.saveInFile(view.getContext(), authorMap, FILENAME);
 			} else {
-				cacheController.addWaitngListQuestions(getApplicationContext(),
+				pushController.addWaitngListQuestions(getApplicationContext(),
 						newQuestion);
 				finish();
 			}

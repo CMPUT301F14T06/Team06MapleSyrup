@@ -1,11 +1,11 @@
 package ca.ualberta.app.test.ControllerTest;
 
+import android.test.AndroidTestCase;
 import ca.ualberta.app.controller.PushController;
-import junit.framework.TestCase;
 
-public class PushControllerTest extends TestCase {
+public class PushControllerTest extends AndroidTestCase {
 	public void testPush(){
-		PushController pc = new PushController();
+		PushController pc = new PushController(getContext());
 		assertTrue("pc should not be null",pc != null);
 	}
 }
