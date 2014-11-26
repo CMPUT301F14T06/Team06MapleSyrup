@@ -20,10 +20,14 @@
 
 package ca.ualberta.app.activity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
@@ -57,11 +61,12 @@ public class MyQuestionActivity extends Activity {
 	private QuestionListController myQuestionListController;
 	private QuestionListManager myQuestionListManager;
 	private QuestionList myQuestionList;
+	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spinAdapter;
+	private ArrayList<Long> myQuestionId;
 	private static long categoryID;
-	private String MYQUESTION;
 	public String sortString = "Sort By Date";
 	private Date timestamp;
 	private ScrollListView mListView;
@@ -79,24 +84,24 @@ public class MyQuestionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_question);
-		mcontext = this;
 		sortOptionSpinner = (Spinner) findViewById(R.id.my_question_sort_spinner);
 		mListView = (ScrollListView) findViewById(R.id.my_question_ListView);
 		mListView.setPullLoadEnable(false);
 		mHandler = new Handler();
+		mcontext = this;
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		MYQUESTION = User.author.getUsername() + "my.sav";
+		cacheController = new CacheController(mcontext);
 		myQuestionListController = new QuestionListController();
 		myQuestionListManager = new QuestionListManager();
-		adapter = new QuestionListAdapter(this, R.layout.single_question,
+		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
 				myQuestionListController.getQuestionArrayList());
 		adapter.setSortingOption(sortByDate);
-		spinAdapter = new ArrayAdapter<String>(mcontext,
-				R.layout.spinner_item, sortOption);
+		spinAdapter = new ArrayAdapter<String>(mcontext, R.layout.spinner_item,
+				sortOption);
 		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spinAdapter);
 		sortOptionSpinner
@@ -104,6 +109,7 @@ public class MyQuestionActivity extends Activity {
 		updateList();
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -118,6 +124,7 @@ public class MyQuestionActivity extends Activity {
 		});
 
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -139,6 +146,7 @@ public class MyQuestionActivity extends Activity {
 				return true;
 			}
 		});
+
 		mListView.setScrollListViewListener(new IXListViewListener() {
 
 			@Override
@@ -146,7 +154,7 @@ public class MyQuestionActivity extends Activity {
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						updateList();
+						adapter.notifyDataSetChanged();
 						onLoad();
 					}
 				}, 2000);
@@ -165,7 +173,24 @@ public class MyQuestionActivity extends Activity {
 		});
 	}
 
+	private void onLoad() {
+		timestamp = new Date();
+		mListView.stopRefresh();
+		mListView.stopLoadMore();
+		mListView.setRefreshTime(timestamp.toString());
+	}
+
+	// /**
+	// * onResume method
+	// */
+	// @Override
+	// public void onResume() {
+	// super.onResume();
+	// updateList();
+	// }
+
 	private class change_category_click implements OnItemSelectedListener {
+
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			categoryID = position;
@@ -202,39 +227,42 @@ public class MyQuestionActivity extends Activity {
 		}
 	}
 
-	private void onLoad() {
-		timestamp = new Date();
-		mListView.stopRefresh();
-		mListView.stopLoadMore();
-		mListView.setRefreshTime(timestamp.toString());
-	}
-
 	private void updateList() {
-		if (InternetConnectionChecker.isNetworkAvailable(this)) {
-			QuestionListController.saveInFile(mcontext,
-					myQuestionListController.getQuestionList(), MYQUESTION);
-			Thread thread = new GetListThread();
+		myQuestionId = User.author.getAuthorQuestionId();
+		if (myQuestionId.size() == 0)
+			Toast.makeText(mcontext, "No Question Asked Yet.",
+					Toast.LENGTH_LONG).show();
+
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+			Thread thread = new GetMapThread();
 			thread.start();
-		} else {
-			myQuestionListController.clear();
-			myQuestionListController.addAll(QuestionListController
-					.loadFromFile(mcontext, MYQUESTION));
+
 		}
-	}
-	
-	private void updateSortedList(){
+		myQuestionListController.clear();
+		myQuestionList = cacheController.getMyQuestionList(mcontext);
+		myQuestionListController.addAll(myQuestionList);
 		runOnUiThread(doUpdateGUIList);
 	}
-	
-	class GetListThread extends Thread {
+
+	private void updateSortedList() {
+		runOnUiThread(doUpdateGUIList);
+	}
+
+	class GetMapThread extends Thread {
+
 		@Override
 		public void run() {
-			myQuestionListController.clear();
-			myQuestionList = myQuestionListManager.getQuestionList(User.author
+			cacheController.clear();
+			Map<Long, Question> tempFav = new HashMap<Long, Question>();
+			Map<Long, Question> tempSav = new HashMap<Long, Question>();
+			Map<Long, Question> tempMyQuest = new HashMap<Long, Question>();
+			tempFav = myQuestionListManager.getQuestionMap(cacheController
+					.getFavoriteId(mcontext));
+			tempSav = myQuestionListManager.getQuestionMap(cacheController
+					.getLocalCacheId(mcontext));
+			tempMyQuest = myQuestionListManager.getQuestionMap(User.author
 					.getAuthorQuestionId());
-			myQuestionListController.addAll(myQuestionList);
-
-			runOnUiThread(doUpdateGUIList);
+			cacheController.addAll(mcontext, tempFav, tempSav, tempMyQuest);
 		}
 	}
 
@@ -259,4 +287,5 @@ public class MyQuestionActivity extends Activity {
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
+
 }

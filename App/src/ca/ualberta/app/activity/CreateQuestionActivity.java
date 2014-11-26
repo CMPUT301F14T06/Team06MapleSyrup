@@ -26,6 +26,7 @@ import java.io.File;
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;
@@ -71,6 +72,7 @@ public class CreateQuestionActivity extends Activity {
 	private long from = 0;
 	private long size = 1000;
 	private String lable = "author";
+	private CacheController cacheController;
 	Uri imageFileUri;
 	Uri stringFileUri;
 
@@ -100,6 +102,7 @@ public class CreateQuestionActivity extends Activity {
 		authorMapManager = new AuthorMapManager();
 		authorMap = new AuthorMap();
 		imageView.setVisibility(View.GONE);
+		cacheController = new CacheController(this);
 	}
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
@@ -293,7 +296,7 @@ public class CreateQuestionActivity extends Activity {
 
 				Thread addQuestionThread = new AddQuestionThread(newQuestion);
 				addQuestionThread.start();
-
+				cacheController.addMyQuestion(view.getContext(), newQuestion);
 				AuthorMapIO.saveInFile(view.getContext(), authorMap, FILENAME);
 			} else {
 				pushController.addWaitngListQuestions(getApplicationContext(),

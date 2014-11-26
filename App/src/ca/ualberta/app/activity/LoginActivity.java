@@ -46,7 +46,7 @@ public class LoginActivity extends Activity {
 	private long from = 0;
 	private long size = 1000;
 	private String lable = "author";
-	
+
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
@@ -83,7 +83,7 @@ public class LoginActivity extends Activity {
 			notifyNoUsernameEntered();
 		} else {
 			User.loginStatus = true;
-			if (authorMap.getMap().get(username) != null) {
+			if (authorMap.hasAuthor(username)) {
 				User.author = authorMap.getMap().get(username);
 				notifyLogin();
 				finish();
@@ -93,6 +93,7 @@ public class LoginActivity extends Activity {
 				Thread addThread = new AddThread(newAuthor);
 				addThread.start();
 			}
+
 		}
 	}
 
@@ -115,7 +116,6 @@ public class LoginActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 
 	/**
 	 * Handle action bar item clicks here. The action bar will automatically

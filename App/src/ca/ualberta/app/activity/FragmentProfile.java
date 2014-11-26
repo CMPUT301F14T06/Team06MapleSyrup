@@ -110,13 +110,12 @@ public class FragmentProfile extends Fragment {
 				if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 					Thread thread = new SearchThread("");
 					thread.start();
-
+					showDialog();
 				} else {
 					Toast.makeText(mcontext,
 							"Internet is required to change name",
 							Toast.LENGTH_SHORT).show();
 				}
-				showDialog();
 			}
 		});
 		login.setOnClickListener(new OnClickListener() {
@@ -271,7 +270,6 @@ public class FragmentProfile extends Fragment {
 			authorMap.clear();
 			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
 					size, lable));
-
 		}
 	}
 
