@@ -180,9 +180,9 @@ public class CacheController {
 	 */
 	public boolean hasFavorited(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
-		if (favoriteMap.get(question.getID()) == null)
-			return false;
-		return true;
+		if (favoriteMap.containsKey(question.getID()))
+			return true;
+		return false;
 	}
 
 	/**
@@ -198,9 +198,9 @@ public class CacheController {
 	 */
 	public boolean hasSaved(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
-		if (localCacheMap.get(question.getID()) == null)
-			return false;
-		return true;
+		if (localCacheMap.containsKey(question.getID()))
+			return true;
+		return false;
 	}
 
 	/**
@@ -215,9 +215,9 @@ public class CacheController {
 	 */
 	public boolean hasMyQuestion(Context mcontext, Question question) {
 		myQuestionMap = loadMapFromFile(mcontext, MYQUESTMAP);
-		if (myQuestionMap.get(question.getID()) == null)
-			return false;
-		return true;
+		if (myQuestionMap.containsKey(question.getID()))
+			return true;
+		return false;
 	}
 
 	/**

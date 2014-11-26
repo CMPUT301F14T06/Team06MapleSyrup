@@ -27,7 +27,9 @@ import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,10 +37,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * This is the fragment activity for the mean question list, once the app is
@@ -65,7 +70,7 @@ public class FragmentProfile extends Fragment {
 	private AuthorMapManager authorMapManager;
 	private AuthorMap authorMap;
 	private String FILENAME = "AUTHORMAP.sav";
-	
+	private String newUsername;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			checkLoginStatus();
@@ -96,7 +101,24 @@ public class FragmentProfile extends Fragment {
 		logout = (RadioButton) getView().findViewById(R.id.logout);
 
 		checkLoginStatus();
+		setAuthorName.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				authorMap = new AuthorMap();
+				authorMapManager = new AuthorMapManager();
+				if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+					Thread thread = new SearchThread("");
+					thread.start();
+
+				} else {
+					Toast.makeText(mcontext,
+							"Internet is required to change name",
+							Toast.LENGTH_SHORT).show();
+				}
+				showDialog();
+			}
+		});
 		login.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -174,19 +196,45 @@ public class FragmentProfile extends Fragment {
 		checkLoginStatus();
 	}
 
+	private void showDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		alert.setTitle("Change Author Name");
+		alert.setMessage("Enter Your Name Here");
 
-	public void changeUsername(View view) {
-		authorMap = new AuthorMap();
-		authorMapManager = new AuthorMapManager();
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
-			Thread thread = new SearchThread("");
-			thread.start();
+		final EditText input = new EditText(getActivity());
+		alert.setView(input);
 
-		} else {
-			Toast.makeText(mcontext, "Internet is required to change name",
-					Toast.LENGTH_SHORT).show();
-		}
-		// http://pulse7.net/android/login-dialog-box-android/
+		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				newUsername = input.getEditableText().toString();
+				if (!authorMap.hasAuthor(newUsername) && newUsername != null) {
+					String oldUsername = User.author.getUsername();
+					User.author.setUsername(newUsername);
+
+					Thread addThread = new AddThread(User.author);
+					addThread.start();
+					Thread deleteThread = new DeleteThread(oldUsername);
+					deleteThread.start();
+
+				} else {
+					Toast.makeText(
+							getActivity(),
+							"The username is aready exist, please choose another one.",
+							Toast.LENGTH_SHORT).show();
+					showDialog();
+				}
+				setAuthorName.setText(User.author.getUsername());
+			}
+
+		});
+		alert.setNegativeButton("CANCEL",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alertDialog = alert.create();
+		alertDialog.show();
 	}
 
 	public void checkLoginStatus() {
@@ -224,19 +272,6 @@ public class FragmentProfile extends Fragment {
 			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
 					size, lable));
 
-		}
-	}
-
-	class GetThread extends Thread {
-		private String username;
-
-		public GetThread(String username) {
-			this.username = username;
-		}
-
-		@Override
-		public void run() {
-			User.author = authorMapManager.getAuthor(username);
 		}
 	}
 
