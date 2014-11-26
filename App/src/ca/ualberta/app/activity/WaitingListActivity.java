@@ -5,7 +5,6 @@ import java.util.Date;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerWaitingListAdapter;
-import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.adapter.QuestionWaitingListAdapter;
 import ca.ualberta.app.adapter.ReplyWaitingListAdapter;
 import ca.ualberta.app.controller.PushController;
@@ -160,6 +159,15 @@ public class WaitingListActivity extends Activity {
 				}, 2000);
 			}
 		});
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		QuestionType = "Question(" + waitingQuestionListController.size() + ")";
+		AnswerType = "Answer(" + answerList.size() + ")";
+		ReplyType = "Reply(" + replyList.size() + ")";
+		typeOptionSpinner.setAdapter(spinAdapter);
 	}
 
 	private void onLoad() {
