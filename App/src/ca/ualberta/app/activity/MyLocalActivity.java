@@ -70,7 +70,7 @@ public class MyLocalActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-
+	protected final String cacheList = "MYLOCAL";
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.applySortMethod();
@@ -117,6 +117,7 @@ public class MyLocalActivity extends Activity {
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
+				intent.putExtra(QuestionDetailActivity.CACHE_LIST, cacheList);
 				startActivity(intent);
 			}
 		});

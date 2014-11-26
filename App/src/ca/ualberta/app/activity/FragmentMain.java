@@ -381,13 +381,10 @@ public class FragmentMain extends Fragment {
 
 		@Override
 		public void run() {
+			if (User.loginStatus)
+				cacheController.addAllMyQuestId(mcontext,
+						User.author.getAuthorQuestionId());
 
-			if (User.loginStatus == true) {
-				MYQUESTION = User.author.getUsername() + "my.sav";
-				myQuestionListController.clear();
-				Thread getListThread = new GetListThread();
-				getListThread.run();
-			}
 			cacheController.clear();
 			Thread getMapThread = new GetMapThread();
 			getMapThread.run();
@@ -411,19 +408,6 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	class GetListThread extends Thread {
-
-		@Override
-		public void run() {
-			myQuestionListController.clear();
-			myQuestionList = questionListManager.getQuestionList(User.author
-					.getAuthorQuestionId());
-			myQuestionListController.addAll(myQuestionList);
-			QuestionListController.saveInFile(mcontext,
-					myQuestionListController.getQuestionList(), MYQUESTION);
-		}
-	}
-
 	class GetMapThread extends Thread {
 
 		@Override
@@ -431,14 +415,17 @@ public class FragmentMain extends Fragment {
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
-			Map<Long, Question> tempWait = new HashMap<Long, Question>();
+			Map<Long, Question> tempMyQuest = new HashMap<Long, Question>();
 			tempFav = questionListManager.getQuestionMap(cacheController
 					.getFavoriteId(mcontext));
 			tempSav = questionListManager.getQuestionMap(cacheController
 					.getLocalCacheId(mcontext));
-			tempWait = questionListManager.getQuestionMap(cacheController
-					.getWaitingListId(mcontext));
-			cacheController.addAll(mcontext, tempFav, tempSav, tempWait);
+			if (User.loginStatus)
+				tempMyQuest = questionListManager
+						.getQuestionMap(cacheController
+								.getMyQuestionId(mcontext));
+
+			cacheController.addAll(mcontext, tempFav, tempSav, tempMyQuest);
 		}
 	}
 

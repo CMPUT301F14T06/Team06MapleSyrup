@@ -67,7 +67,7 @@ public class MyFavoriteActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-
+	protected final String cacheList = "MYFAVORITE";
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.applySortMethod();
@@ -99,8 +99,8 @@ public class MyFavoriteActivity extends Activity {
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
 				favQuestionListController.getQuestionArrayList());
 		adapter.setSortingOption(sortByDate);
-		spinAdapter = new ArrayAdapter<String>(mcontext,
-				R.layout.spinner_item, sortOption);
+		spinAdapter = new ArrayAdapter<String>(mcontext, R.layout.spinner_item,
+				sortOption);
 		mListView.setAdapter(adapter);
 		sortOptionSpinner.setAdapter(spinAdapter);
 		sortOptionSpinner
@@ -117,6 +117,7 @@ public class MyFavoriteActivity extends Activity {
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
+				intent.putExtra(QuestionDetailActivity.CACHE_LIST, cacheList);
 				startActivity(intent);
 			}
 		});
@@ -244,10 +245,10 @@ public class MyFavoriteActivity extends Activity {
 		}
 	}
 
-	private void updateSortedList(){
+	private void updateSortedList() {
 		runOnUiThread(doUpdateGUIList);
 	}
-	
+
 	class GetListThread extends Thread {
 
 		@Override

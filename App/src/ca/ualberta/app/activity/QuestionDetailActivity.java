@@ -26,6 +26,7 @@ import ca.ualberta.app.adapter.ReplyListAdapter;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -47,6 +48,8 @@ import android.widget.Toast;
 
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
+	public static String CACHE_LIST = "CACHE_LIST";
+
 	private TextView questionTitleTextView;
 	private TextView questionContentTextView;
 	private TextView authorNameTextView;
@@ -61,9 +64,11 @@ public class QuestionDetailActivity extends Activity {
 	private RadioButton fav_Rb;
 	private RadioButton save_Rb;
 	private RadioButton upvote_Rb;
+	private String cacheList;
 	private long questionId;
 	private Question question;
 	private QuestionListManager questionManager;
+
 	private CacheController cacheController;
 	private ReplyListAdapter replyAdapter = null;
 	private AnswerListAdapter answerAdapter = null;
@@ -76,54 +81,60 @@ public class QuestionDetailActivity extends Activity {
 
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
-			if (!(save_click || upvote_click || fav_click)
-					&& !cacheController.hasSaved(mcontext, question))
-				cacheController.addLocalQuestions(mcontext, question);
-
-			if (cacheController.hasSaved(mcontext, question))
-				save_Rb.setChecked(true);
-			else
-				save_Rb.setChecked(false);
-
-			if (cacheController.hasFavorited(mcontext, question))
-				fav_Rb.setChecked(true);
-			else
-				fav_Rb.setChecked(false);
-			if (User.loginStatus)
-				if (question.hasUpvotedBy(User.author.getUsername()))
-					upvote_Rb.setChecked(true);
-				else
-					upvote_Rb.setChecked(false);
-
-			questionTitleTextView.setText(question.getTitle());
-			questionContentTextView.setText(question.getContent());
-			authorNameTextView.setText(question.getAuthor());
-			questionUpvoteTextView.setText("Upvote: "
-					+ question.getQuestionUpvoteCount());
-			answerCountTextView.setText("Answer: " + question.getAnswerCount());
-			questionTimeTextView.setText(question.getTimestamp().toString());
-
-			if (question.hasImage()) {
-				byte[] imageByteArray = Base64.decode(question.getImage(),
-						Base64.NO_WRAP);
-				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
-						imageByteArray.length);
-				scaleImage();
-				questionImageView.setVisibility(View.VISIBLE);
-				questionImageView.setImageBitmap(imageThumb);
-			}
-
-			replyAdapter = new ReplyListAdapter(mcontext,
-					R.layout.single_reply, question.getReplys(), question);
-			answerAdapter = new AnswerListAdapter(mcontext,
-					R.layout.single_answer, R.layout.single_reply,
-					question.getAnswers(), question);
-			question_AnswerListView.setAdapter(answerAdapter);
-			question_ReplyListView.setAdapter(replyAdapter);
-			replyAdapter.notifyDataSetChanged();
-			answerAdapter.notifyDataSetChanged();
+			updateUI();
 		}
 	};
+
+	private void updateUI() {
+		setButtonChecked();
+		questionTitleTextView.setText(question.getTitle());
+		questionContentTextView.setText(question.getContent());
+		authorNameTextView.setText(question.getAuthor());
+		questionUpvoteTextView.setText("Upvote: "
+				+ question.getQuestionUpvoteCount());
+		answerCountTextView.setText("Answer: " + question.getAnswerCount());
+		questionTimeTextView.setText(question.getTimestamp().toString());
+
+		if (question.hasImage()) {
+			byte[] imageByteArray = Base64.decode(question.getImage(),
+					Base64.NO_WRAP);
+			image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+					imageByteArray.length);
+			scaleImage();
+			questionImageView.setVisibility(View.VISIBLE);
+			questionImageView.setImageBitmap(imageThumb);
+		}
+
+		replyAdapter = new ReplyListAdapter(mcontext, R.layout.single_reply,
+				question.getReplys(), question);
+		answerAdapter = new AnswerListAdapter(mcontext, R.layout.single_answer,
+				R.layout.single_reply, question.getAnswers(), question);
+		question_AnswerListView.setAdapter(answerAdapter);
+		question_ReplyListView.setAdapter(replyAdapter);
+		replyAdapter.notifyDataSetChanged();
+		answerAdapter.notifyDataSetChanged();
+	}
+
+	private void setButtonChecked() {
+		if (!(save_click || upvote_click || fav_click)
+				&& !cacheController.hasSaved(mcontext, question))
+			cacheController.addLocalQuestions(mcontext, question);
+
+		if (cacheController.hasSaved(mcontext, question))
+			save_Rb.setChecked(true);
+		else
+			save_Rb.setChecked(false);
+
+		if (cacheController.hasFavorited(mcontext, question))
+			fav_Rb.setChecked(true);
+		else
+			fav_Rb.setChecked(false);
+		if (User.loginStatus)
+			if (question.hasUpvotedBy(User.author.getUsername()))
+				upvote_Rb.setChecked(true);
+			else
+				upvote_Rb.setChecked(false);
+	}
 
 	private static final int THUMBIMAGESIZE = 200;
 
@@ -199,8 +210,23 @@ public class QuestionDetailActivity extends Activity {
 			Bundle extras = intent.getExtras();
 			if (extras != null) {
 				questionId = extras.getLong(QUESTION_ID);
-				Thread thread = new GetThread(questionId);
-				thread.start();
+				if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+					Thread thread = new GetThread(questionId);
+					thread.start();
+				} else {
+					cacheList = extras.getString(CACHE_LIST);
+					if (cacheList.equals("MYQUESTION")) {
+						question = cacheController.getMyQuestionMap(mcontext)
+								.get(questionId);
+					} else if (cacheList.equals("MYFAVORITE")) {
+						question = cacheController.getFavoriteMap(mcontext)
+								.get(questionId);
+					} else if (cacheList.equals("MYLOCAL")) {
+						question = cacheController.getLocalCacheMap(mcontext)
+								.get(questionId);
+					}
+					updateUI();
+				}
 			}
 		}
 
@@ -227,8 +253,13 @@ public class QuestionDetailActivity extends Activity {
 		fav_click = false;
 		upvote_click = false;
 		save_click = true;
-		Thread thread = new GetThread(questionId);
-		thread.start();
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+			Thread thread = new GetThread(questionId);
+			thread.start();
+		} else {
+			checkFavLocalClick();
+			updateUI();
+		}
 	}
 
 	/**
@@ -242,8 +273,13 @@ public class QuestionDetailActivity extends Activity {
 		save_click = false;
 		upvote_click = false;
 		fav_click = true;
-		Thread thread = new GetThread(questionId);
-		thread.start();
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+			Thread thread = new GetThread(questionId);
+			thread.start();
+		} else {
+			checkFavLocalClick();
+			updateUI();
+		}
 	}
 
 	/**
@@ -257,8 +293,13 @@ public class QuestionDetailActivity extends Activity {
 		save_click = false;
 		fav_click = false;
 		upvote_click = true;
-		Thread thread = new GetThread(questionId);
-		thread.start();
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+			view.setClickable(true);
+			Thread thread = new GetThread(questionId);
+			thread.start();
+		} else {
+			view.setClickable(false);
+		}
 	}
 
 	/**
@@ -311,6 +352,21 @@ public class QuestionDetailActivity extends Activity {
 		});
 	}
 
+	private void checkFavLocalClick() {
+		if (save_click == true) {
+			if (cacheController.hasSaved(mcontext, question))
+				cacheController.removeLocalQuestions(mcontext, question);
+			else
+				cacheController.addLocalQuestions(mcontext, question);
+		}
+		if (fav_click == true) {
+			if (cacheController.hasFavorited(mcontext, question))
+				cacheController.removeFavQuestions(mcontext, question);
+			else
+				cacheController.addFavQuestions(mcontext, question);
+		}
+	}
+
 	class GetThread extends Thread {
 		private long id;
 
@@ -325,29 +381,11 @@ public class QuestionDetailActivity extends Activity {
 			this.id = id;
 		}
 
-		/**
-		 * check which list the current question belongs to, and save the
-		 * question in different lists.
-		 * 
-		 */
-
 		@Override
 		public void run() {
 
 			question = questionManager.getQuestion(id);
-
-			if (save_click == true) {
-				if (cacheController.hasSaved(mcontext, question))
-					cacheController.removeLocalQuestions(mcontext, question);
-				else
-					cacheController.addLocalQuestions(mcontext, question);
-			}
-			if (fav_click == true) {
-				if (cacheController.hasFavorited(mcontext, question))
-					cacheController.removeFavQuestions(mcontext, question);
-				else
-					cacheController.addFavQuestions(mcontext, question);
-			}
+			checkFavLocalClick();
 			if (upvote_click == true) {
 				if (User.loginStatus) {
 					question.upvoteQuestion();

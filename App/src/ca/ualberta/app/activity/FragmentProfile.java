@@ -67,7 +67,7 @@ public class FragmentProfile extends Fragment {
 	private AuthorMapManager authorMapManager;
 	private AuthorMap authorMap;
 	private String FILENAME = "AUTHORMAP.sav";
-
+	
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			checkLoginStatus();
