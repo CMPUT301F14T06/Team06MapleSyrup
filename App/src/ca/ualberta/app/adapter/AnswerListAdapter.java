@@ -379,11 +379,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		public void onClick(View v) {
 			if (User.loginStatus) {
 				Answer answer = answerList.get(position);
-				if (answer.upvoteAnswer()) {
-					answerHolder.upvote_Rb.setChecked(true);
-				} else {
-					answerHolder.upvote_Rb.setChecked(false);
-				}
+				answer.upvoteAnswer();
 				question.calcCurrentTotalScore();
 				Thread thread = new UpdateAnswerThread(question, answer);
 				thread.start();

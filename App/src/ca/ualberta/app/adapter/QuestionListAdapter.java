@@ -288,11 +288,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		public void onClick(View v) {
 			if (User.loginStatus) {
 				Question question = questionList.get(position);
-				if (question.upvoteQuestion()) {
-					holder.upvote_Rb.setChecked(true);
-				} else {
-					holder.upvote_Rb.setChecked(false);
-				}
+				question.upvoteQuestion();
 				question.calcCurrentTotalScore();
 				Thread thread = new UpdateQuestionThread(question);
 				thread.start();
