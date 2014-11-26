@@ -118,7 +118,7 @@ public class QuestionDetailActivity extends Activity {
 	private void setButtonChecked() {
 		if (!(save_click || upvote_click || fav_click)
 				&& !cacheController.hasSaved(mcontext, question))
-			cacheController.addLocalQuestions(mcontext, question);
+			cacheController.addLocalQuestion(mcontext, question);
 
 		if (cacheController.hasSaved(mcontext, question))
 			save_Rb.setChecked(true);
@@ -357,13 +357,13 @@ public class QuestionDetailActivity extends Activity {
 			if (cacheController.hasSaved(mcontext, question))
 				cacheController.removeLocalQuestions(mcontext, question);
 			else
-				cacheController.addLocalQuestions(mcontext, question);
+				cacheController.addLocalQuestion(mcontext, question);
 		}
 		if (fav_click == true) {
 			if (cacheController.hasFavorited(mcontext, question))
 				cacheController.removeFavQuestions(mcontext, question);
 			else
-				cacheController.addFavQuestions(mcontext, question);
+				cacheController.addFavQuestion(mcontext, question);
 		}
 	}
 

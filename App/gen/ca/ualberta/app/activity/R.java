@@ -82,11 +82,11 @@ public final class R {
     public static final class id {
         public static final int ImageView01=0x7f0a006a;
         public static final int ImageView02=0x7f0a006b;
-        public static final int Latitude=0x7f0a0078;
-        public static final int Longitute=0x7f0a007b;
-        public static final int TextView01=0x7f0a0077;
-        public static final int TextView03=0x7f0a007a;
-        public static final int action_settings=0x7f0a007d;
+        public static final int Latitude=0x7f0a0084;
+        public static final int Longitute=0x7f0a0087;
+        public static final int TextView01=0x7f0a0083;
+        public static final int TextView03=0x7f0a0086;
+        public static final int action_settings=0x7f0a0089;
         public static final int add_answer_pic=0x7f0a0007;
         public static final int add_menu_button=0x7f0a0022;
         public static final int add_question_pic=0x7f0a0015;
@@ -127,7 +127,7 @@ public final class R {
         public static final int imageView1=0x7f0a0067;
         public static final int large_image=0x7f0a0045;
         public static final int linearLayout1=0x7f0a006c;
-        public static final int linearLayout2=0x7f0a0079;
+        public static final int linearLayout2=0x7f0a0085;
         public static final int linearLayout3=0x7f0a002d;
         public static final int linearLayout4=0x7f0a003a;
         public static final int loadingImageView=0x7f0a0054;
@@ -197,15 +197,27 @@ public final class R {
         public static final int textView1=0x7f0a0068;
         public static final int textView2=0x7f0a005f;
         public static final int timeTextView=0x7f0a0072;
-        public static final int titleTv=0x7f0a007c;
+        public static final int titleTv=0x7f0a0088;
         public static final int txtUsername=0x7f0a0044;
         public static final int upvoteStateTextView=0x7f0a0034;
         public static final int upvote_button=0x7f0a0065;
         public static final int upvote_detail_button=0x7f0a0038;
         public static final int username_editText=0x7f0a001b;
         public static final int waiting_List_ListView=0x7f0a0043;
-        public static final int waiting_List_sort_spinner=0x7f0a0042;
+        public static final int waiting_List_type_spinner=0x7f0a0042;
+        public static final int waiting_answer_content_textView=0x7f0a0079;
+        public static final int waiting_answer_timeStamp_textView=0x7f0a007a;
+        public static final int waiting_answer_title_textView=0x7f0a0078;
+        public static final int waiting_answer_type_textView=0x7f0a0077;
         public static final int waiting_list=0x7f0a0050;
+        public static final int waiting_question_content_textView=0x7f0a007c;
+        public static final int waiting_question_timeStamp_textView=0x7f0a007d;
+        public static final int waiting_question_title_textView=0x7f0a007e;
+        public static final int waiting_question_type_textView=0x7f0a007b;
+        public static final int waiting_reply_content_textView=0x7f0a0081;
+        public static final int waiting_reply_timeStamp_textView=0x7f0a0082;
+        public static final int waiting_reply_title_textView=0x7f0a0080;
+        public static final int waiting_reply_type_textView=0x7f0a007f;
     }
     public static final class layout {
         public static final int activity_create_answer=0x7f030000;
@@ -230,9 +242,12 @@ public final class R {
         public static final int single_question=0x7f030013;
         public static final int single_reply=0x7f030014;
         public static final int single_reply_group=0x7f030015;
-        public static final int spinner_item=0x7f030016;
-        public static final int testgps=0x7f030017;
-        public static final int title_bar=0x7f030018;
+        public static final int single_waiting_answer=0x7f030016;
+        public static final int single_waiting_question=0x7f030017;
+        public static final int single_waiting_reply=0x7f030018;
+        public static final int spinner_item=0x7f030019;
+        public static final int testgps=0x7f03001a;
+        public static final int title_bar=0x7f03001b;
     }
     public static final class menu {
         public static final int answer=0x7f090000;

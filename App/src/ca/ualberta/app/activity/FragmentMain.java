@@ -420,6 +420,7 @@ public class FragmentMain extends Fragment {
 					.getFavoriteId(mcontext));
 			tempSav = questionListManager.getQuestionMap(cacheController
 					.getLocalCacheId(mcontext));
+
 			if (User.loginStatus)
 				tempMyQuest = questionListManager
 						.getQuestionMap(cacheController

@@ -205,7 +205,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				cacheController.removeLocalQuestions(getContext(), question);
 				holder.save_Rb.setChecked(false);
 			} else {
-				cacheController.addLocalQuestions(getContext(), question);
+				cacheController.addLocalQuestion(getContext(), question);
 				holder.save_Rb.setChecked(true);
 
 			}
@@ -249,7 +249,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				holder.fav_Rb.setChecked(false);
 
 			} else {
-				cacheController.addFavQuestions(getContext(), question);
+				cacheController.addFavQuestion(getContext(), question);
 				holder.fav_Rb.setChecked(true);
 			}
 			notifyDataSetChanged();
