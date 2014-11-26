@@ -22,11 +22,9 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.activity.LoginActivity.SearchThread;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;
-import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import android.content.Context;
@@ -175,7 +173,9 @@ public class FragmentProfile extends Fragment {
 		super.onPause();
 		checkLoginStatus();
 	}
-	public void changeUsername(View view){
+
+
+	public void changeUsername(View view) {
 		authorMap = new AuthorMap();
 		authorMapManager = new AuthorMapManager();
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
@@ -183,10 +183,12 @@ public class FragmentProfile extends Fragment {
 			thread.start();
 
 		} else {
-			Toast.makeText(mcontext, "Internet is required to change name", Toast.LENGTH_SHORT).show();
+			Toast.makeText(mcontext, "Internet is required to change name",
+					Toast.LENGTH_SHORT).show();
 		}
-		//http://pulse7.net/android/login-dialog-box-android/
+		// http://pulse7.net/android/login-dialog-box-android/
 	}
+
 	public void checkLoginStatus() {
 		if (User.loginStatus) {
 			changePhotoButton.setVisibility(View.VISIBLE);

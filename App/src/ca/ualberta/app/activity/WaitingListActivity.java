@@ -20,12 +20,14 @@ import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -108,10 +110,26 @@ public class WaitingListActivity extends Activity {
 					long id) {
 				long questionID = waitingQuestionListController.getQuestion(
 						pos - 1).getID();
-				Intent intent = new Intent(mcontext,
-						QuestionDetailActivity.class);
-				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
-				startActivity(intent);
+	            AlertDialog.Builder alert = new AlertDialog.Builder(mcontext);
+	            alert.setTitle("Alert Dialog With EditText"); 
+	            alert.setMessage("Enter Your Name Here"); 
+
+	            final EditText input = new EditText(mcontext);
+	            alert.setView(input);
+	 
+	            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int whichButton) {
+	             String srt = input.getEditableText().toString();
+	             Toast.makeText(mcontext,srt,Toast.LENGTH_LONG).show();                
+	            } 
+	        });
+	            alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+	              public void onClick(DialogInterface dialog, int whichButton) {
+	                  dialog.cancel();
+	              }
+	        }); 
+	            AlertDialog alertDialog = alert.create();
+	            alertDialog.show();
 			}
 		});
 
@@ -257,8 +275,10 @@ public class WaitingListActivity extends Activity {
 				Question q = waitingQuestionListController.getQuestion(i);
 				if (q.getID() == questionID) {
 					waitingQuestionListController.removeQuestion(i);
+					
 					break;
 				}
+				pushController.removeWaitingListQuestion(mcontext, q);
 			}
 			runOnUiThread(doUpdateGUIList);
 		}
