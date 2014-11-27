@@ -26,6 +26,7 @@ import java.io.File;
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.activity.QuestionDetailActivity.GetThread;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.models.AuthorMap;
@@ -73,8 +74,13 @@ public class CreateQuestionActivity extends Activity {
 	private long size = 1000;
 	private String lable = "author";
 	private CacheController cacheController;
+	public static String QUESTION_ID = "QUESTION_ID";
+	public static String QUESTION_TITLE = "QUESTION_TITLE";
+	public static String QUESTION_CONTENT = "QUESTION_CONTENT";
 	Uri imageFileUri;
 	Uri stringFileUri;
+	private boolean edit = false;
+	private long questionID;
 
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -95,6 +101,23 @@ public class CreateQuestionActivity extends Activity {
 		authorMap = new AuthorMap();
 		imageView.setVisibility(View.GONE);
 		cacheController = new CacheController(this);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		Intent intent = getIntent();
+		if (intent != null) {
+			Bundle extras = intent.getExtras();
+			if (extras != null) {
+				questionID = extras.getLong(QUESTION_ID);
+				String questionTitle = extras.getString(QUESTION_TITLE);
+				String questionContent = extras.getString(QUESTION_CONTENT);
+				titleText.setText(questionTitle);
+				contentText.setText(questionContent);
+				edit = true;
+			}
+		}
 	}
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
@@ -156,7 +179,6 @@ public class CreateQuestionActivity extends Activity {
 		}
 
 	}
-
 
 	private void refuseUpdatePic() {
 		image = null;
@@ -275,11 +297,15 @@ public class CreateQuestionActivity extends Activity {
 		if (title.trim().length() == 0)
 			noTitleEntered();
 		else {
-
-			newQuestion = new Question(content, User.author.getUsername(),
-					title, imageString);
-			User.author.addAQuestion(newQuestion.getID());
-
+			if (edit == false) {
+				newQuestion = new Question(content, User.author.getUsername(),
+						title, imageString);
+				User.author.addAQuestion(newQuestion.getID());
+			} else {
+				newQuestion = new Question(content, User.author.getUsername(),
+						title, imageString);
+				newQuestion.setID(questionID);
+			}
 			if (InternetConnectionChecker.isNetworkAvailable(this)) {
 				Thread updateAuthorThread = new UpdateAuthorThread(User.author);
 				updateAuthorThread.start();
@@ -292,8 +318,14 @@ public class CreateQuestionActivity extends Activity {
 				cacheController.addMyQuestion(view.getContext(), newQuestion);
 				AuthorMapIO.saveInFile(view.getContext(), authorMap, FILENAME);
 			} else {
-				pushController.addWaitngListQuestions(getApplicationContext(),
-						newQuestion);
+				if (edit == false) {
+					pushController.addWaitngListQuestions(
+							getApplicationContext(), newQuestion);
+				} else {
+					pushController.updateWaitingListQuestion(
+							getApplicationContext(), newQuestion);
+				}
+
 				finish();
 			}
 		}

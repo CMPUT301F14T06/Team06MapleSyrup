@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -109,33 +110,43 @@ public class WaitingListActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = waitingQuestionListController.getQuestion(
-						pos - 1).getID();
-				AlertDialog.Builder alert = new AlertDialog.Builder(mcontext);
-				alert.setTitle("Alert Dialog With EditText");
-				alert.setMessage("Enter Your Name Here");
-
-				final EditText input = new EditText(mcontext);
-				alert.setView(input);
-
-				alert.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								String srt = input.getEditableText().toString();
-								Toast.makeText(mcontext, srt, Toast.LENGTH_LONG)
-										.show();
-							}
-						});
-				alert.setNegativeButton("CANCEL",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								dialog.cancel();
-							}
-						});
-				AlertDialog alertDialog = alert.create();
-				alertDialog.show();
+				if (categoryID == 0) {
+					Intent intent = new Intent(mcontext,
+							CreateQuestionActivity.class);
+					intent.putExtra(CreateQuestionActivity.QUESTION_ID,
+							waitingQuestionListController.getQuestion(pos-1)
+									.getID());
+					intent.putExtra(CreateQuestionActivity.QUESTION_TITLE,
+							waitingQuestionListController.getQuestion(pos-1)
+									.getTitle());
+					intent.putExtra(CreateQuestionActivity.QUESTION_CONTENT,
+							waitingQuestionListController.getQuestion(pos-1)
+									.getContent());
+					startActivity(intent);
+				} else if (categoryID == 1) {
+					Intent intent = new Intent(mcontext,
+							CreateAnswerActivity.class);
+					intent.putExtra(CreateQuestionActivity.QUESTION_ID,
+							waitingQuestionListController.getQuestion(pos-1)
+									.getID());
+					intent.putExtra(CreateQuestionActivity.QUESTION_TITLE,
+							waitingQuestionListController.getQuestion(pos-1)
+									.getTitle());
+					intent.putExtra(CreateQuestionActivity.QUESTION_CONTENT,
+							waitingQuestionListController.getQuestion(pos-1)
+									.getContent());
+					startActivity(intent);
+				} else if (categoryID == 2) {
+					if (waitingReplyListController.getReply(pos).getAnswerID() == 0) {
+						Intent intent = new Intent(mcontext,
+								CreateQuestionReplyActivity.class);
+						startActivity(intent);
+					} else {
+						Intent intent = new Intent(mcontext,
+								CreateAnswerReplyActivity.class);
+						startActivity(intent);
+					}
+				}
 			}
 		});
 
@@ -209,13 +220,13 @@ public class WaitingListActivity extends Activity {
 
 	private void updateList(long categoryID) {
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
-				Thread thread = new postListThread();
-				thread.start();
+			Thread thread = new postListThread();
+			thread.start();
 		} else {
 			waitingQuestionListController.clear();
 			waitingAnswerListController.clear();
 			waitingReplyListController.clear();
-			
+
 			waitingQuestionList = pushController
 					.getWaitingQuestionList(mcontext);
 			waitingQuestionListController.addAll(waitingQuestionList);
@@ -223,7 +234,7 @@ public class WaitingListActivity extends Activity {
 					.getWaitingAnswerList(mcontext));
 			waitingReplyListController.addAll(pushController
 					.getWaitingReplyList(mcontext));
-			
+
 			questionAdapter.notifyDataSetChanged();
 			answerAdapter.notifyDataSetChanged();
 			replyAdapter.notifyDataSetChanged();
@@ -265,18 +276,20 @@ public class WaitingListActivity extends Activity {
 			waitingQuestionListController.clear();
 			waitingAnswerListController.clear();
 			waitingReplyListController.clear();
-			
-			waitingQuestionListManager.addQuestionList(pushController.getWaitingQuestionList(mcontext));
-			waitingQuestionListManager.addAnswerList(pushController.getWaitingAnswerList(mcontext));
-			waitingQuestionListManager.addReplyList(pushController.getWaitingReplyList(mcontext));
-			
+
+			waitingQuestionListManager.addQuestionList(pushController
+					.getWaitingQuestionList(mcontext));
+			waitingQuestionListManager.addAnswerList(pushController
+					.getWaitingAnswerList(mcontext));
+			waitingQuestionListManager.addReplyList(pushController
+					.getWaitingReplyList(mcontext));
+
 			pushController.removeWaitingListQuestionList(mcontext);
 			pushController.removeWaitingListAnswerList(mcontext);
 			pushController.removeWaitingListReplyList(mcontext);
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
-
 
 	class DeleteThread extends Thread {
 		private long questionID;

@@ -320,12 +320,44 @@ public class PushController {
 	 * @param question
 	 *            the question.
 	 */
-	public void updateWaitingListQuestions(Context mcontext, Question question) {
+	public void updateWaitingListQuestion(Context mcontext, Question question) {
 		waitingListMap_Question = loadMapFromFile(mcontext, WAITMAP_Q);
 		if (waitingListMap_Question.get(question.getID()) != null) {
 			waitingListMap_Question.remove(question.getID());
 			waitingListMap_Question.put(question.getID(), question);
 			saveInFile(mcontext, waitingListMap_Question, WAITMAP_Q);
+		}
+	}
+	/**
+	 * Update a question in the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void updateWaitingListAnswer(Context mcontext, Answer answer) {
+		waitingListMap_Answer= loadMapFromFile_A(mcontext, WAITMAP_A);
+		if (waitingListMap_Answer.get(answer.getID()) != null) {
+			waitingListMap_Answer.remove(answer.getID());
+			waitingListMap_Answer.put(answer.getID(), answer);
+			saveInFile_A(mcontext, waitingListMap_Answer, WAITMAP_A);
+		}
+	}
+	/**
+	 * Update a question in the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void updateWaitingListReply(Context mcontext, Reply reply) {
+		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
+		if (waitingListMap_Reply.get(reply.getID()) != null) {
+			waitingListMap_Reply.remove(reply.getID());
+			waitingListMap_Reply.put(reply.getID(), reply);
+			saveInFile_R(mcontext, waitingListMap_Reply, WAITMAP_R);
 		}
 	}
 
