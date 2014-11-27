@@ -278,6 +278,7 @@ public class WaitingListActivity extends Activity {
 			Thread thread = new postListThread();
 			thread.start();
 			networkObserver.setObserver(this);
+			
 
 		} else {
 			waitingQuestionListController.clear();

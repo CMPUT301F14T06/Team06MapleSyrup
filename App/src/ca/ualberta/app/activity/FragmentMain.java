@@ -59,6 +59,7 @@ import ca.ualberta.app.network.NetworkObserver;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import ca.ualberta.app.widgets.CustomProgressDialog;
+import ca.ualberta.app.activity.WaitingListActivity;
 
 public class FragmentMain extends Fragment {
 	static String sortByDate = "Sort By Date";
