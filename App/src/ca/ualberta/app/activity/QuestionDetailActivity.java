@@ -35,7 +35,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +43,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
@@ -59,8 +57,6 @@ public class QuestionDetailActivity extends Activity {
 	private ImageView questionImageView;
 	private ExpandableListView question_ReplyListView;
 	private ExpandableListView question_AnswerListView;
-	private RadioButton answer_Rb;
-	private RadioButton reply_Rb;
 	private RadioButton fav_Rb;
 	private RadioButton save_Rb;
 	private RadioButton upvote_Rb;
@@ -68,7 +64,6 @@ public class QuestionDetailActivity extends Activity {
 	private long questionId;
 	private Question question;
 	private QuestionListManager questionManager;
-
 	private CacheController cacheController;
 	private ReplyListAdapter replyAdapter = null;
 	private AnswerListAdapter answerAdapter = null;
@@ -78,7 +73,9 @@ public class QuestionDetailActivity extends Activity {
 	private boolean save_click = false;
 	private boolean fav_click = false;
 	private boolean upvote_click = false;
-
+	private String loginCause = "Upvote";
+	private String loginCause1 = "Answer";
+	private String loginCause2 = "Reply";
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
 			updateUI();
@@ -183,8 +180,6 @@ public class QuestionDetailActivity extends Activity {
 		questionImageView = (ImageView) findViewById(R.id.questionImage);
 		question_ReplyListView = (ExpandableListView) findViewById(R.id.question_reply_expanableListView);
 		question_AnswerListView = (ExpandableListView) findViewById(R.id.answer_listView);
-		answer_Rb = (RadioButton) findViewById(R.id.question_answer_button);
-		reply_Rb = (RadioButton) findViewById(R.id.question_reply_button);
 		save_Rb = (RadioButton) findViewById(R.id.save_detail_button);
 		fav_Rb = (RadioButton) findViewById(R.id.fav_detail_button);
 		upvote_Rb = (RadioButton) findViewById(R.id.upvote_detail_button);
@@ -196,13 +191,11 @@ public class QuestionDetailActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		checkInternet();
-		check_login_status();
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		check_login_status();
 		questionManager = new QuestionListManager();
 		Intent intent = getIntent();
 
@@ -233,30 +226,14 @@ public class QuestionDetailActivity extends Activity {
 
 	}
 
-	public void check_login_status() {
-		if (User.loginStatus == true) {
-			answer_Rb.setVisibility(View.VISIBLE);
-			reply_Rb.setVisibility(View.VISIBLE);
-			upvote_Rb.setEnabled(true);
-		} else {
-			answer_Rb.setVisibility(View.GONE);
-			reply_Rb.setVisibility(View.GONE);
-			upvote_Rb.setEnabled(false);
-		}
-	}
-
 	/**
 	 * 
 	 */
 	private void checkInternet() {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			upvote_Rb.setEnabled(true);
-			save_Rb.setVisibility(View.VISIBLE);
-			fav_Rb.setVisibility(View.VISIBLE);
 		} else {
 			upvote_Rb.setEnabled(false);
-			//save_Rb.setVisibility(View.INVISIBLE);
-			//fav_Rb.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -332,9 +309,15 @@ public class QuestionDetailActivity extends Activity {
 		save_click = false;
 		fav_click = false;
 		upvote_click = false;
-		Intent intent = new Intent(this, CreateAnswerActivity.class);
-		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
-		startActivity(intent);
+		if (User.loginStatus) {
+			Intent intent = new Intent(this, CreateAnswerActivity.class);
+			intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
+			startActivity(intent);
+		} else {
+			Intent intent = new Intent(mcontext, LoginActivity.class);
+			intent.putExtra(LoginActivity.LOGINCAUSE, loginCause1);
+			startActivity(intent);
+		}
 	}
 
 	/**
@@ -349,9 +332,15 @@ public class QuestionDetailActivity extends Activity {
 		save_click = false;
 		fav_click = false;
 		upvote_click = false;
-		Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
-		intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
-		startActivity(intent);
+		if (User.loginStatus) {
+			Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
+			intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
+			startActivity(intent);
+		} else {
+			Intent intent = new Intent(mcontext, LoginActivity.class);
+			intent.putExtra(LoginActivity.LOGINCAUSE, loginCause2);
+			startActivity(intent);
+		}
 	}
 
 	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
@@ -413,6 +402,7 @@ public class QuestionDetailActivity extends Activity {
 					cacheController.updateLocalQuestions(mcontext, question);
 				} else {
 					Intent intent = new Intent(mcontext, LoginActivity.class);
+					intent.putExtra(LoginActivity.LOGINCAUSE, loginCause);
 					startActivity(intent);
 
 				}

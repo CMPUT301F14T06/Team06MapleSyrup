@@ -71,6 +71,7 @@ public class FragmentProfile extends Fragment {
 	private AuthorMap authorMap;
 	private String FILENAME = "AUTHORMAP.sav";
 	private String newUsername;
+	private String loginCause = "Login";
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			checkLoginStatus();
@@ -122,6 +123,7 @@ public class FragmentProfile extends Fragment {
 
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), LoginActivity.class);
+				intent.putExtra(LoginActivity.LOGINCAUSE, loginCause);
 				startActivity(intent);
 
 			}

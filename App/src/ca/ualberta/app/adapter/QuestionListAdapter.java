@@ -66,6 +66,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	Bitmap image;
 	private String TAG = "Adapter";
 	private String status = "Need NotifyDataChange";
+	private String loginCause = "Upvote";
 
 	// Thread that close the activity after finishing update
 	/**
@@ -313,11 +314,9 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				thread.start();
 				cacheController.updateFavQuestions(getContext(), question);
 				cacheController.updateLocalQuestions(getContext(), question);
-				// User.author.getAuthorQuestionId().
 			} else {
-				Toast.makeText(v.getContext(), "Login to upvote",
-						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getContext(), LoginActivity.class);
+				intent.putExtra(LoginActivity.LOGINCAUSE, loginCause);
 				getContext().startActivity(intent);
 			}
 			sortingOption = lastSortingOption;

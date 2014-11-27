@@ -103,6 +103,7 @@ public class FragmentMain extends Fragment {
 			spin_adapter.notifyDataSetChanged();
 			stopProgressDialog();
 		}
+		
 	};
 
 	@Override

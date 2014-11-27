@@ -86,14 +86,6 @@ public class CreateQuestionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_question);
-		if (!User.loginStatus) {
-			Intent intent = new Intent(CreateQuestionActivity.this,
-					LoginActivity.class);
-			startActivity(intent);
-		}
-		if (!User.loginStatus)
-			finish();
-
 		titleText = (EditText) findViewById(R.id.question_title_editText);
 		contentText = (EditText) findViewById(R.id.question_content_editText);
 		imageView = (ImageView) findViewById(R.id.question_image_imageView);
@@ -164,6 +156,7 @@ public class CreateQuestionActivity extends Activity {
 		}
 
 	}
+
 
 	private void refuseUpdatePic() {
 		image = null;

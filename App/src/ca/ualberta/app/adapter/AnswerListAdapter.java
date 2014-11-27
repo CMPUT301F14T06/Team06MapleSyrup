@@ -20,10 +20,7 @@
 
 package ca.ualberta.app.adapter;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
-
 import ca.ualberta.app.activity.CreateAnswerReplyActivity;
 import ca.ualberta.app.activity.LoginActivity;
 import ca.ualberta.app.activity.R;
@@ -65,6 +62,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private Bitmap imageThumb = null;
 	private ViewHolder_answer answerHolder = null;
 	private ViewHolder_reply replyHolder = null;
+	private String loginCause = "Upvote";
+	private String loginCause1 = "Reply";
 
 	/**
 	 * Constructs the adapter and initializes its context.
@@ -222,11 +221,6 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		answerHolder.reply_Rb = (RadioButton) convertView
 				.findViewById(R.id.answer_reply_button);
 		checkInternet();
-		if (User.loginStatus == false) {
-			answerHolder.reply_Rb.setVisibility(View.GONE);
-		} else {
-			answerHolder.reply_Rb.setVisibility(View.VISIBLE);
-		}
 		convertView.setTag(answerHolder);
 		Answer answer = answerList.get(groupPosition);
 
@@ -409,6 +403,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				Toast.makeText(v.getContext(), "Login to upvote",
 						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(context, LoginActivity.class);
+				intent.putExtra(LoginActivity.LOGINCAUSE, loginCause);
 				context.startActivity(intent);
 			}
 
@@ -442,12 +437,19 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		 */
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(context, CreateAnswerReplyActivity.class);
-			intent.putExtra(CreateAnswerReplyActivity.QUESTION_ID,
-					question.getID());
-			intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
-			context.startActivity(intent);
-			notifyDataSetChanged();
+			if (User.loginStatus) {
+				Intent intent = new Intent(context,
+						CreateAnswerReplyActivity.class);
+				intent.putExtra(CreateAnswerReplyActivity.QUESTION_ID,
+						question.getID());
+				intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
+				context.startActivity(intent);
+				notifyDataSetChanged();
+			} else {
+				Intent intent = new Intent(context, LoginActivity.class);
+				intent.putExtra(LoginActivity.LOGINCAUSE, loginCause1);
+				context.startActivity(intent);
+			}
 		}
 	}
 
