@@ -115,13 +115,20 @@ public class MyLocalActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = localQuestionListController.getQuestion(
-						pos - 1).getID();
-				Intent intent = new Intent(mcontext,
-						QuestionDetailActivity.class);
-				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
-				intent.putExtra(QuestionDetailActivity.CACHE_LIST, cacheList);
-				startActivity(intent);
+				Question question = localQuestionListController
+						.getQuestion(pos - 1);
+				long questionID = question.getID();
+				if (!cacheController.hasSaved(mcontext, question)) {
+					cacheController.addLocalQuestion(mcontext, question);
+				}
+					Intent intent = new Intent(mcontext,
+							QuestionDetailActivity.class);
+					intent.putExtra(QuestionDetailActivity.QUESTION_ID,
+							questionID);
+					intent.putExtra(QuestionDetailActivity.CACHE_LIST,
+							cacheList);
+					startActivity(intent);
+			
 			}
 		});
 

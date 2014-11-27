@@ -77,7 +77,7 @@ public class MyFavoriteActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-	protected final String cacheList = "MYFAVORITE";
+	protected String cacheList = "MYFAVORITE";
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.applySortMethod();
@@ -85,27 +85,6 @@ public class MyFavoriteActivity extends Activity {
 			spinAdapter.notifyDataSetChanged();
 		}
 	};
-	
-	//http://blog.163.com/carldhu_/blog/static/20526805220123123428714/
-	class MyGestureListener extends SimpleOnGestureListener {
-
-		private Context mContext = null;
-		private SeekBar seek = null;
-
-		public MyGestureListener(Context context) {
-
-			// TODO Auto-generated constructor stub
-			mContext = context;
-		}
-
-		@Override
-		public boolean onDown(MotionEvent e) {
-			// TODO Auto-generated method stub
-			Toast.makeText(mContext, "DOWN " + e.getAction(),
-					Toast.LENGTH_SHORT).show();
-			return false;
-		}
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +121,14 @@ public class MyFavoriteActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = favQuestionListController
-						.getQuestion(pos - 1).getID();
+				Question question = favQuestionListController
+						.getQuestion(pos - 1);
+				long questionID = question.getID();
+				if (!cacheController.hasSaved(mcontext, question)) {
+					cacheController.addLocalQuestion(mcontext, question);
+					cacheList = "MYLOCAL";
+				} else
+					cacheList = "MYFAVORITE";
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
