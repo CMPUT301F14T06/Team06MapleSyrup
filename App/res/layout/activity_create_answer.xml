@@ -74,18 +74,27 @@
             android:text="@string/cancel" />
 
         <RadioButton
+            android:id="@+id/add_answer_position"
+            style="@style/create_menu_bottom"
+            android:layout_width="24dp"
+            android:layout_height="fill_parent"
+            android:drawableLeft="@drawable/pin_map_icon"
+            android:gravity="center" />
+
+        <RadioButton
             android:id="@+id/take_answer_pic"
             style="@style/create_menu_bottom"
+            android:layout_width="24dp"
             android:layout_height="fill_parent"
-            android:layout_weight="0.3"
             android:drawableLeft="@drawable/photo_icon32"
+            android:gravity="center"
             android:onClick="take_answer_pic" />
 
         <RadioButton
             android:id="@+id/add_answer_pic"
             style="@style/create_menu_bottom"
+            android:layout_width="24dp"
             android:layout_height="fill_parent"
-            android:layout_weight="0.3"
             android:drawableLeft="@drawable/picture_icon32"
             android:onClick="select_answer_pic" />
     </RadioGroup>

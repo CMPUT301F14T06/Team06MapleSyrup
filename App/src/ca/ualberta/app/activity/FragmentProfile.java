@@ -70,7 +70,7 @@ public class FragmentProfile extends Fragment {
 	private AuthorMapManager authorMapManager;
 	private AuthorMap authorMap;
 	private String FILENAME = "AUTHORMAP.sav";
-	private String newUsername;
+	private String newUsername = null;
 	private String loginCause = "Login";
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -208,7 +208,8 @@ public class FragmentProfile extends Fragment {
 		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				newUsername = input.getEditableText().toString();
-				if (!authorMap.hasAuthor(newUsername) && newUsername != null) {
+				if(newUsername != null){
+				if (!authorMap.hasAuthor(newUsername)) {
 					String oldUsername = User.author.getUsername();
 					User.author.setUsername(newUsername);
 
@@ -225,6 +226,8 @@ public class FragmentProfile extends Fragment {
 					showDialog();
 				}
 				setAuthorName.setText(User.author.getUsername());
+			}else 
+				Toast.makeText(mcontext, "Please fill in name", Toast.LENGTH_SHORT).show();
 			}
 
 		});
