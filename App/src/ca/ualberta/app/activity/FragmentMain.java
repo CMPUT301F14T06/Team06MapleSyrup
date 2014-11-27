@@ -386,7 +386,8 @@ public class FragmentMain extends Fragment {
 	}
 
 	private void updateSortedList() {
-		getActivity().runOnUiThread(doUpdateGUIList);
+		adapter.applySortMethod();
+		adapter.notifyDataSetChanged();
 	}
 
 	class SearchThread extends Thread {
