@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Answer;
 
@@ -41,15 +42,11 @@ public class AnswerWaitingListAdapter extends ArrayAdapter<Answer>{
 		Answer answer = this.getItem(position);
 
 		if (answer != null) {
-			holder.questionTitle.setText(questionTitle);
+			holder.questionTitle.setText(answer.getQuestionTitle());
 			holder.answerContent.setText(answer.getContent());
 			holder.timestamp.setText(answer.getTimestamp().toString());
 		}
 		return convertView;
-	}
-	
-	public void setQuestionTitle(String questionTitle){
-		this.questionTitle = questionTitle;
 	}
 	
 	class ViewHolder {

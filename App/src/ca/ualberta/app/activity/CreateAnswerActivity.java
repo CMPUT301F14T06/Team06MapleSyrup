@@ -25,9 +25,12 @@ import java.io.File;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.controller.CacheController;
+import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -60,7 +63,9 @@ public class CreateAnswerActivity extends Activity {
 	private Bitmap imageThumb = null;
 	private String imageString = null;
 	private QuestionListManager questionListManager;
+	private PushController pushController;
 	public static String QUESTION_ID = "QUESTION_ID";
+	public static String QUESTION_TITLE = "QUESTION_TITLE";
 	private Intent intent;
 	Uri imageFileUri;
 	Uri stringFileUri;
@@ -80,6 +85,7 @@ public class CreateAnswerActivity extends Activity {
 		questionListManager = new QuestionListManager();
 		imageView.setVisibility(View.GONE);
 		intent = getIntent();
+		pushController = new PushController(this);
 	}
 
 	public void cancel_answer(View view) {
@@ -112,10 +118,22 @@ public class CreateAnswerActivity extends Activity {
 				Bundle extras = intent.getExtras();
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
+					String questionTitle = extras.getString(QUESTION_TITLE);
 					newAnswer = new Answer(content, User.author.getUsername(),
 							imageString);
-					Thread thread = new GetUpdateThread(questionId, newAnswer);
-					thread.start();
+					newAnswer.setQuestionID(questionId);
+					newAnswer.setQuestionTitle(questionTitle);
+					
+					if (InternetConnectionChecker.isNetworkAvailable(this)) {
+						Thread thread = new GetUpdateThread(questionId,
+								newAnswer);
+						thread.start();
+					} else {	
+						pushController.addWaitngListAnswers(
+								getApplicationContext(), newAnswer,
+								questionTitle);
+						finish();
+					}
 				}
 			}
 

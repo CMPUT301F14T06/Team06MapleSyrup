@@ -21,9 +21,11 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
+import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
 import android.content.Intent;
@@ -38,7 +40,9 @@ public class CreateQuestionReplyActivity extends Activity {
 	private EditText contentText = null;
 	private Reply newReply = null;
 	private QuestionListManager questionListManager;
+	private PushController pushController;
 	public static String QUESTION_ID = "QUESTION_ID";
+	public static String QUESTION_TITLE = "QUESTION_TITLE";
 	private Intent intent;
 
 	private Runnable doFinishAdd = new Runnable() {
@@ -54,6 +58,7 @@ public class CreateQuestionReplyActivity extends Activity {
 		contentText = (EditText) findViewById(R.id.question_reply_content_editText);
 		questionListManager = new QuestionListManager();
 		intent = getIntent();
+		pushController = new PushController(this);
 	}
 
 	public void cancel_reply(View view) {
@@ -69,9 +74,21 @@ public class CreateQuestionReplyActivity extends Activity {
 				Bundle extras = intent.getExtras();
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
+					String questionTitle = extras.getString(QUESTION_TITLE);
+
 					newReply = new Reply(content, User.author.getUsername());
-					Thread thread = new GetUpdateThread(questionId, newReply);
-					thread.start();
+					newReply.setQuestionID(questionId);
+					newReply.setQuestionTitle(questionTitle);
+					if (InternetConnectionChecker.isNetworkAvailable(this)) {
+						Thread thread = new GetUpdateThread(questionId,
+								newReply);
+						thread.start();
+					} else {
+						pushController.addWaitngListReplies(
+								getApplicationContext(), newReply,
+								questionTitle);
+						finish();
+					}
 				}
 			}
 
@@ -83,7 +100,6 @@ public class CreateQuestionReplyActivity extends Activity {
 				.show();
 	}
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.new_input, menu);

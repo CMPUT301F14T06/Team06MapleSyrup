@@ -114,9 +114,13 @@ public class MyFavoriteActivity extends Activity {
 					long id) {
 				long questionID = favQuestionListController
 						.getQuestion(pos - 1).getID();
+				String questionTitle = favQuestionListController.getQuestion(
+						pos - 1).getTitle();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
+				intent.putExtra(QuestionDetailActivity.QUESTION_TITLE,
+						questionTitle);
 				intent.putExtra(QuestionDetailActivity.CACHE_LIST, cacheList);
 				startActivity(intent);
 			}

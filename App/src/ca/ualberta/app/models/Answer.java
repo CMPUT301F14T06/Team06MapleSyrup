@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.widget.Toast;
+
 /**
  * This class contains all functionalities an answer object should have.
  */
@@ -32,6 +34,8 @@ public class Answer extends InputsModel {
 	ArrayList<Reply> replyList;
 	long upvoteCount_answer;
 	long ID_answer;
+	long questionID_Answer;
+	String questionTitle_Answer;
 	Map<String, Author> upvotedPerson;
 
 	/**
@@ -50,6 +54,8 @@ public class Answer extends InputsModel {
 		this.ID_answer = new Date().getTime() - 100;
 		this.upvoteCount_answer = 0;
 		upvotedPerson = new HashMap<String, Author>();
+		this.questionID_Answer = 0;
+		this.questionTitle_Answer = null;
 	}
 
 	/**
@@ -142,5 +148,21 @@ public class Answer extends InputsModel {
 	 */
 	public long getAnswerUpvoteCount() {
 		return this.upvoteCount_answer;
+	}
+		
+	public void setQuestionID(long questionID){
+		this.questionID_Answer = questionID;
+	}
+	
+	public long getQuestionID(){
+		return this.questionID_Answer;
+	}
+	
+	public void setQuestionTitle(String questionTitle){
+		this.questionTitle_Answer = questionTitle;
+	}
+	
+	public String getQuestionTitle(){
+		return this.questionTitle_Answer;
 	}
 }

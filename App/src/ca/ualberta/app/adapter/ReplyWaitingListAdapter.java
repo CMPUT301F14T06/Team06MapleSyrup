@@ -41,17 +41,13 @@ public class ReplyWaitingListAdapter extends ArrayAdapter<Reply>{
 		Reply reply = this.getItem(position);
 
 		if (reply != null) {
-			holder.questionTitle.setText(questionTitle);
+			holder.questionTitle.setText(reply.getQuestionTitle());
 			holder.replyContent.setText(reply.getContent());
 			holder.timestamp.setText(reply.getTimestamp().toString());
 		}
 		return convertView;
 	}
-	
-	public void setQuestionTitle(String questionTitle){
-		this.questionTitle = questionTitle;
-	}
-	
+
 	class ViewHolder {
 		TextView questionTitle;
 		TextView replyContent;

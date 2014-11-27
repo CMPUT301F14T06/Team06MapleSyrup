@@ -40,8 +40,10 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
+import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
+import ca.ualberta.app.models.Reply;
 import ca.ualberta.app.network.data.Hits;
 import ca.ualberta.app.network.data.SearchCommand;
 import ca.ualberta.app.network.data.SearchHit;
@@ -205,16 +207,54 @@ public class QuestionListManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Add a questionList to he online server
 	 * 
 	 * @param questionList
 	 *            The questionList.
 	 */
-	public void addQuestionList(QuestionList questionList){
+	public void addQuestionList(QuestionList questionList) {
 		for (Question q : questionList.getArrayList()) {
 			addQuestion(q);
+		}
+	}
+
+	/**
+	 * Add a questionList to he online server
+	 * 
+	 * @param questionList
+	 *            The questionList.
+	 */
+	public void addAnswerList(ArrayList<Answer> answerList) {
+		for (Answer answer : answerList) {
+			Question question = getQuestion(answer.getQuestionID());
+			question.addAnswer(answer);
+			updateQuestion(question);
+		}
+	}
+
+	/**
+	 * Add a questionList to he online server
+	 * 
+	 * @param questionList
+	 *            The questionList.
+	 */
+	public void addReplyList(ArrayList<Reply> replyList) {
+		for (Reply reply : replyList) {
+			Question question = getQuestion(reply.getQuestionID());
+			// Question Reply
+			if (reply.getAnswerID() == 0) {
+				question.addReply(reply);
+				updateQuestion(question);
+			}
+			// Answer Reply
+			else {
+				Answer answer = question.getAnswer(reply.getAnswerID());
+				answer.addReply(reply);
+				question.updateAnswer(answer);
+				updateQuestion(question);
+			}
 		}
 	}
 
