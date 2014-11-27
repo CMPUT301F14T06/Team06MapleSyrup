@@ -66,6 +66,9 @@ public class CreateAnswerActivity extends Activity {
 	private PushController pushController;
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
+	public static String ANSWER_ID = "ANSWER_ID";
+	public static String ANSWER_CONTENT = "ANSWER_CONTENT";
+	public static String EDIT_MODE = "EDIT_MODE";
 	private Intent intent;
 	Uri imageFileUri;
 	Uri stringFileUri;
@@ -109,6 +112,21 @@ public class CreateAnswerActivity extends Activity {
 		});
 	}
 
+	@Override
+	public void onStart() {
+		super.onStart();
+		Intent intent = getIntent();
+		if (intent != null) {
+			Bundle extras = intent.getExtras();
+			if (extras != null) {
+				if (extras.getBoolean(EDIT_MODE)) {
+					String answerContent = extras.getString(ANSWER_CONTENT);
+					contentText.setText(answerContent);
+				}
+			}
+		}
+	}
+
 	public void submit_answer(View view) {
 		String content = contentText.getText().toString();
 		if (content.trim().length() == 0)
@@ -123,15 +141,24 @@ public class CreateAnswerActivity extends Activity {
 							imageString);
 					newAnswer.setQuestionID(questionId);
 					newAnswer.setQuestionTitle(questionTitle);
-					
+
+					if (extras.getBoolean(EDIT_MODE)) {
+						long answerID = extras.getLong(ANSWER_ID);
+						newAnswer.setID(answerID);
+					}
 					if (InternetConnectionChecker.isNetworkAvailable(this)) {
 						Thread thread = new GetUpdateThread(questionId,
 								newAnswer);
 						thread.start();
-					} else {	
-						pushController.addWaitngListAnswers(
-								getApplicationContext(), newAnswer,
-								questionTitle);
+					} else {
+						if (extras.getBoolean(EDIT_MODE)) {
+							pushController.updateWaitingListAnswer(
+									getApplicationContext(), newAnswer);
+						} else {
+							pushController.addWaitngListAnswers(
+									getApplicationContext(), newAnswer,
+									questionTitle);
+						}
 						finish();
 					}
 				}

@@ -51,7 +51,7 @@ public class Answer extends InputsModel {
 	public Answer(String content, String userName, String imageString) {
 		super(content, userName, imageString);
 		this.replyList = new ArrayList<Reply>();
-		this.ID_answer = new Date().getTime() - 100;
+		this.ID_answer = new Date().getTime() / 10;
 		this.upvoteCount_answer = 0;
 		upvotedPerson = new HashMap<String, Author>();
 		this.questionID_Answer = 0;
@@ -164,5 +164,9 @@ public class Answer extends InputsModel {
 	
 	public String getQuestionTitle(){
 		return this.questionTitle_Answer;
+	}
+	
+	public void setID(long answerID){
+		this.ID_answer = answerID;
 	}
 }

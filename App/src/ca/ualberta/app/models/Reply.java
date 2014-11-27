@@ -44,7 +44,7 @@ public class Reply extends InputsModel {
 		this.questionID_Reply = 0;
 		this.answerID_Reply = 0;
 		this.questionTitle_Reply = null;
-		this.ID_Reply = new Date().getTime() - 130;
+		this.ID_Reply = new Date().getTime() / 100;
 	}
 
 	public long getID(){
