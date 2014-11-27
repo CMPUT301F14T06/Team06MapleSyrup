@@ -74,6 +74,10 @@ public class Reply extends InputsModel {
 	public long getAnswerID(){
 		return this.answerID_Reply;
 	}
+
+	public void setID(long replyID) {
+		this.ID_Reply = replyID;
+	}
 	
 
 }

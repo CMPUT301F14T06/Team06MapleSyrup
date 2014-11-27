@@ -45,6 +45,9 @@ public class CreateAnswerReplyActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String ANSWER_ID = "ANSWER_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
+	public static String REPLY_ID = "REPLY_ID";
+	public static String REPLY_CONTENT = "REPLY_CONTENT";
+	public static String EDIT_MODE = "EDIT_MODE";
 	public static String ANSWER_POS = "ANSWER_POS";
 	private Intent intent;
 
@@ -64,8 +67,19 @@ public class CreateAnswerReplyActivity extends Activity {
 		pushController = new PushController(this);
 	}
 
-	public void cancel_answer_reply(View view) {
-		finish();
+	@Override
+	public void onStart() {
+		super.onStart();
+		Intent intent = getIntent();
+		if (intent != null) {
+			Bundle extras = intent.getExtras();
+			if (extras != null) {
+				if (extras.getBoolean(EDIT_MODE)) {
+					String replyContent = extras.getString(REPLY_CONTENT);
+					contentText.setText(replyContent);
+				}
+			}
+		}
 	}
 
 	public void submit_answer_reply(View view) {
@@ -79,20 +93,32 @@ public class CreateAnswerReplyActivity extends Activity {
 					long questionId = extras.getLong(QUESTION_ID);
 					long answerID = extras.getLong(ANSWER_ID);
 					String questionTitle = extras.getString(QUESTION_TITLE);
-					int answerPos = extras.getInt(ANSWER_POS);
+					int answerPos = 0;
+					if (!extras.getBoolean(EDIT_MODE)) {
+						answerPos = extras.getInt(ANSWER_POS);
+					}
 					newReply = new Reply(content, User.author.getUsername());
 					newReply.setQuestionID(questionId);
 					newReply.setAnswerID(answerID);
 					newReply.setQuestionTitle(questionTitle);
-					if (InternetConnectionChecker.isNetworkAvailable(this)) {
-						Thread thread = new GetUpdateThread(questionId, answerPos,
-								newReply);
-						thread.start();
+
+					if (extras.getBoolean(EDIT_MODE)) {
+						long replyID = extras.getLong(REPLY_ID);
+						newReply.setID(replyID);
 					}
-					else{
-						pushController.addWaitngListReplies(
-								getApplicationContext(), newReply,
-								questionTitle);
+					if (InternetConnectionChecker.isNetworkAvailable(this)) {
+						Thread thread = new GetUpdateThread(questionId,
+								answerPos, newReply);
+						thread.start();
+					} else {
+						if (extras.getBoolean(EDIT_MODE)) {
+							pushController.updateWaitingListReply(
+									getApplicationContext(), newReply);
+						} else {
+							pushController.addWaitngListReplies(
+									getApplicationContext(), newReply,
+									questionTitle);
+						}
 						finish();
 					}
 				}
@@ -100,6 +126,10 @@ public class CreateAnswerReplyActivity extends Activity {
 
 		}
 
+	}
+
+	public void cancel_answer_reply(View view) {
+		finish();
 	}
 
 	public void noContentEntered() {

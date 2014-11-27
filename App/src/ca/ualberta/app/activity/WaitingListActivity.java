@@ -141,13 +141,49 @@ public class WaitingListActivity extends Activity {
 					intent.putExtra(CreateAnswerActivity.EDIT_MODE, true);
 					startActivity(intent);
 				} else if (categoryID == 2) {
-					if (waitingReplyListController.getReply(pos).getAnswerID() == 0) {
+					if (waitingReplyListController.getReply(pos - 1)
+							.getAnswerID() == 0) {
 						Intent intent = new Intent(mcontext,
 								CreateQuestionReplyActivity.class);
+						intent.putExtra(
+								CreateQuestionReplyActivity.QUESTION_ID,
+								waitingReplyListController.getReply(pos - 1)
+										.getQuestionID());
+						intent.putExtra(
+								CreateQuestionReplyActivity.QUESTION_TITLE,
+								waitingReplyListController.getReply(pos - 1)
+										.getQuestionTitle());
+						intent.putExtra(CreateQuestionReplyActivity.REPLY_ID,
+								waitingReplyListController.getReply(pos - 1)
+										.getID());
+						intent.putExtra(
+								CreateQuestionReplyActivity.REPLY_CONTENT,
+								waitingReplyListController.getReply(pos - 1)
+										.getContent());
+						intent.putExtra(CreateAnswerActivity.EDIT_MODE, true);
 						startActivity(intent);
 					} else {
 						Intent intent = new Intent(mcontext,
 								CreateAnswerReplyActivity.class);
+						intent.putExtra(CreateAnswerReplyActivity.QUESTION_ID,
+								waitingReplyListController.getReply(pos - 1)
+										.getQuestionID());
+						intent.putExtra(
+								CreateAnswerReplyActivity.QUESTION_TITLE,
+								waitingReplyListController.getReply(pos - 1)
+										.getQuestionTitle());
+						intent.putExtra(CreateAnswerReplyActivity.ANSWER_ID,
+								waitingReplyListController.getReply(pos - 1)
+										.getAnswerID());
+						intent.putExtra(CreateAnswerReplyActivity.REPLY_ID,
+								waitingReplyListController.getReply(pos - 1)
+										.getID());
+						intent.putExtra(
+								CreateAnswerReplyActivity.REPLY_CONTENT,
+								waitingReplyListController.getReply(pos - 1)
+										.getContent());
+						intent.putExtra(CreateAnswerReplyActivity.EDIT_MODE,
+								true);
 						startActivity(intent);
 					}
 				}
