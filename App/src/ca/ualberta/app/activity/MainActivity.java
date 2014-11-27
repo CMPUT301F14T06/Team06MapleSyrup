@@ -21,6 +21,7 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.models.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,7 @@ public class MainActivity extends FragmentActivity {
 	private FragmentTransaction fragmentTransaction;
 	private RadioGroup bottom_Rg;
 	private RadioButton main_Rb, add_Rb;
+	private String loginCause = "Question";
 
 	// private InputMethodManager imm;
 	// private IBinder windowToken;
@@ -52,11 +54,12 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		//imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		// imm = (InputMethodManager)
+		// getSystemService(Context.INPUT_METHOD_SERVICE);
 		bottom_Rg = (RadioGroup) findViewById(R.id.main_menu);
 		main_Rb = (RadioButton) findViewById(R.id.main_menu_button);
 		add_Rb = (RadioButton) findViewById(R.id.add_menu_button);
-		//windowToken = getCurrentFocus().getWindowToken();
+		// windowToken = getCurrentFocus().getWindowToken();
 		fragments = new Fragment[2];
 		fragmentManager = getSupportFragmentManager();
 		fragments[0] = fragmentManager.findFragmentById(R.id.fragement_main);
@@ -80,24 +83,32 @@ public class MainActivity extends FragmentActivity {
 				switch (checkedId) {
 				case R.id.main_menu_button:
 
-					//imm.hideSoftInputFromWindow(windowToken, 0);
+					// imm.hideSoftInputFromWindow(windowToken, 0);
 					fragmentTransaction.show(fragments[0]).commit();
 					break;
 
 				case R.id.add_menu_button:
-					//imm.hideSoftInputFromWindow(windowToken, 0);
+					// imm.hideSoftInputFromWindow(windowToken, 0);
 					main_Rb.performClick();
 					add_Rb.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
-							Intent intent = new Intent(MainActivity.this,
-									CreateQuestionActivity.class);
-							startActivity(intent);
+							if (!User.loginStatus) {
+								Intent intent = new Intent(MainActivity.this,
+										LoginActivity.class);
+								intent.putExtra(LoginActivity.LOGINCAUSE,
+										loginCause);
+								startActivity(intent);
+							} else {
+								Intent intent = new Intent(MainActivity.this,
+										CreateQuestionActivity.class);
+								startActivity(intent);
+							}
 						}
 					});
 					break;
 
 				case R.id.profile_menu_button:
-					//imm.hideSoftInputFromWindow(windowToken, 0);
+					// imm.hideSoftInputFromWindow(windowToken, 0);
 					fragmentTransaction.show(fragments[1]).commit();
 					break;
 
@@ -108,5 +119,4 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
 	}
-
 }

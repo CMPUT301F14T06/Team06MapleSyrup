@@ -43,6 +43,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -63,6 +64,9 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private String lastSortingOption = null;
 	ViewHolder holder = null;
 	Bitmap image;
+	private String TAG = "Adapter";
+	private String status = "Need NotifyDataChange";
+	private String loginCause = "Upvote";
 
 	// Thread that close the activity after finishing update
 	/**
@@ -173,8 +177,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 	private void checkInternet() {
 		if (InternetConnectionChecker.isNetworkAvailable(getContext())) {
-			//holder.save_Rb.setVisibility(View.VISIBLE);
-			//holder.fav_Rb.setVisibility(View.VISIBLE);
+			// holder.save_Rb.setVisibility(View.VISIBLE);
+			// holder.fav_Rb.setVisibility(View.VISIBLE);
 			holder.upvote_Rb.setEnabled(true);
 		} else {
 			// holder.save_Rb.setVisibility(View.INVISIBLE);
@@ -213,6 +217,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		 */
 		@Override
 		public void onClick(View v) {
+			Log.i(TAG, status);
 			Question question = questionList.get(position);
 			if (cacheController.hasSaved(getContext(), question)) {
 				cacheController.removeLocalQuestions(getContext(), question);
@@ -257,6 +262,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		 */
 		@Override
 		public void onClick(View v) {
+			Log.i(TAG, status);
 			Question question = questionList.get(position);
 			if (cacheController.hasFavorited(getContext(), question)) {
 				cacheController.removeFavQuestions(getContext(), question);
@@ -308,11 +314,9 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				thread.start();
 				cacheController.updateFavQuestions(getContext(), question);
 				cacheController.updateLocalQuestions(getContext(), question);
-				// User.author.getAuthorQuestionId().
 			} else {
-				Toast.makeText(v.getContext(), "Login to upvote",
-						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getContext(), LoginActivity.class);
+				intent.putExtra(LoginActivity.LOGINCAUSE, loginCause);
 				getContext().startActivity(intent);
 			}
 			sortingOption = lastSortingOption;

@@ -22,12 +22,15 @@ package ca.ualberta.app.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
+import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
@@ -57,6 +60,7 @@ public class MyFavoriteActivity extends Activity {
 	private QuestionListAdapter adapter = null;
 	private QuestionListController favQuestionListController;
 	private QuestionListManager favQuestionListManager;
+	private QuestionList favQuestionList;
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -67,7 +71,7 @@ public class MyFavoriteActivity extends Activity {
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-	protected final String cacheList = "MYFAVORITE";
+	protected String cacheList = "MYFAVORITE";
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.applySortMethod();
@@ -92,7 +96,6 @@ public class MyFavoriteActivity extends Activity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		// FAVQUESTION = User.author.getUsername() + "FAV.sav";
 		cacheController = new CacheController(mcontext);
 		favQuestionListController = new QuestionListController();
 		favQuestionListManager = new QuestionListManager();
@@ -112,10 +115,16 @@ public class MyFavoriteActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = favQuestionListController
-						.getQuestion(pos - 1).getID();
+				Question question = favQuestionListController
+						.getQuestion(pos - 1);
+				long questionID = question.getID();
 				String questionTitle = favQuestionListController.getQuestion(
 						pos - 1).getTitle();
+				if (!cacheController.hasSaved(mcontext, question)) {
+					cacheController.addLocalQuestion(mcontext, question);
+					cacheList = "MYLOCAL";
+				} else
+					cacheList = "MYFAVORITE";
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
@@ -237,31 +246,39 @@ public class MyFavoriteActivity extends Activity {
 					Toast.LENGTH_LONG).show();
 
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
-			Thread thread = new GetListThread();
+			Thread thread = new GetMapThread();
 			thread.start();
 
-		} else {
-			favQuestionListController.clear();
-			favQuestionListController.addAll(cacheController
-					.getFavoriteQuestionList(mcontext));
-			adapter.applySortMethod();
-			adapter.notifyDataSetChanged();
 		}
+		favQuestionListController.clear();
+		favQuestionList = cacheController.getFavoriteQuestionList(mcontext);
+		favQuestionListController.addAll(favQuestionList);
+		updateSortedList();
+
 	}
 
 	private void updateSortedList() {
 		runOnUiThread(doUpdateGUIList);
 	}
 
-	class GetListThread extends Thread {
+	class GetMapThread extends Thread {
 
 		@Override
 		public void run() {
-			favQuestionListController.clear();
-			favQuestionListController.addAll(favQuestionListManager
-					.getQuestionList(favListId));
+			cacheController.clear();
+			Map<Long, Question> tempFav = new HashMap<Long, Question>();
+			Map<Long, Question> tempSav = new HashMap<Long, Question>();
+			Map<Long, Question> tempMyQuest = new HashMap<Long, Question>();
+			tempFav = favQuestionListManager.getQuestionMap(cacheController
+					.getFavoriteId(mcontext));
+			tempSav = favQuestionListManager.getQuestionMap(cacheController
+					.getLocalCacheId(mcontext));
 
-			runOnUiThread(doUpdateGUIList);
+			if (User.loginStatus)
+				tempMyQuest = favQuestionListManager.getQuestionMap(User.author
+						.getAuthorQuestionId());
+
+			cacheController.addAll(mcontext, tempFav, tempSav, tempMyQuest);
 		}
 	}
 

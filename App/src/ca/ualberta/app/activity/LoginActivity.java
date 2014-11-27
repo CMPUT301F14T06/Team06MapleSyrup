@@ -29,6 +29,7 @@ import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,9 +47,15 @@ public class LoginActivity extends Activity {
 	private long from = 0;
 	private long size = 1000;
 	private String lable = "author";
-	
+	public static String LOGINCAUSE;
+	private String loginCause;
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
+			if (loginCause.equals("Question")) {
+				Intent intent = new Intent(LoginActivity.this,
+						CreateQuestionActivity.class);
+				startActivity(intent);
+			}
 			finish();
 		}
 	};
@@ -61,6 +68,22 @@ public class LoginActivity extends Activity {
 		usernameEdit = (EditText) findViewById(R.id.username_editText);
 		authorMap = new AuthorMap();
 		authorMapManager = new AuthorMapManager();
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		loginCause = extras.getString(LOGINCAUSE);
+		if (loginCause.equals("Upvote"))
+			Toast.makeText(context, "Please Login to upvote",
+					Toast.LENGTH_SHORT).show();
+		else if (loginCause.equals("Question"))
+			Toast.makeText(context, "Please Login to ask questions",
+					Toast.LENGTH_SHORT).show();
+		else if (loginCause.equals("Answer"))
+			Toast.makeText(context, "Please Login to answer questions",
+					Toast.LENGTH_SHORT).show();
+		else if (loginCause.equals("Reply"))
+			Toast.makeText(context, "Please Login to reply", Toast.LENGTH_SHORT)
+					.show();
+
 		if (InternetConnectionChecker.isNetworkAvailable(context)) {
 			Thread thread = new SearchThread("");
 			thread.start();
@@ -83,16 +106,17 @@ public class LoginActivity extends Activity {
 			notifyNoUsernameEntered();
 		} else {
 			User.loginStatus = true;
-			if (authorMap.getMap().get(username) != null) {
+			if (authorMap.hasAuthor(username)) {
 				User.author = authorMap.getMap().get(username);
 				notifyLogin();
-				finish();
+				runOnUiThread(doFinishAdd);
 			} else {
 				Author newAuthor = new Author(username);
 				notifyAddNewAuthor();
 				Thread addThread = new AddThread(newAuthor);
 				addThread.start();
 			}
+
 		}
 	}
 
@@ -115,7 +139,6 @@ public class LoginActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 
 	/**
 	 * Handle action bar item clicks here. The action bar will automatically

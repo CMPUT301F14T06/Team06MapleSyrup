@@ -22,7 +22,8 @@ package ca.ualberta.app.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.HashMap;
+import java.util.Map;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.CacheController;
@@ -112,14 +113,20 @@ public class MyLocalActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
-				long questionID = localQuestionListController.getQuestion(
-						pos - 1).getID();
+
+				Question question = localQuestionListController
+						.getQuestion(pos - 1);
+				long questionID = question.getID();
 				String questionTitle = localQuestionListController.getQuestion(
 						pos - 1).getTitle();
+				if (!cacheController.hasSaved(mcontext, question)) {
+					cacheController.addLocalQuestion(mcontext, question);
+				}
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
-				intent.putExtra(QuestionDetailActivity.QUESTION_TITLE, questionTitle);
+				intent.putExtra(QuestionDetailActivity.QUESTION_TITLE,
+						questionTitle);
 				intent.putExtra(QuestionDetailActivity.CACHE_LIST, cacheList);
 				startActivity(intent);
 			}
@@ -227,37 +234,37 @@ public class MyLocalActivity extends Activity {
 					Toast.LENGTH_LONG).show();
 
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
-			Thread thread = new GetListThread(localListId);
+			Thread thread = new GetMapThread();
 			thread.start();
-		} else {
-			localQuestionListController.clear();
-			localQuestionList = cacheController.getLocalQuestionsList(mcontext);
-			localQuestionListController.addAll(localQuestionList);
-			adapter.applySortMethod();
-			adapter.notifyDataSetChanged();
+
 		}
+		localQuestionListController.clear();
+		localQuestionList = cacheController.getLocalQuestionsList(mcontext);
+		localQuestionListController.addAll(localQuestionList);
+		updateSortedList();
 
 	}
 
-	private void updateSortedList(){
+	private void updateSortedList() {
 		runOnUiThread(doUpdateGUIList);
 	}
-	
-	class GetListThread extends Thread {
-		private ArrayList<Long> localListId;
 
-		public GetListThread(ArrayList<Long> localListId) {
-			this.localListId = localListId;
-		}
+	class GetMapThread extends Thread {
 
 		@Override
 		public void run() {
-			localQuestionListController.clear();
-			localQuestionList = localQuestionListManager
-					.getQuestionList(localListId);
-			localQuestionListController.addAll(localQuestionList);
-
-			runOnUiThread(doUpdateGUIList);
+			cacheController.clear();
+			Map<Long, Question> tempFav = new HashMap<Long, Question>();
+			Map<Long, Question> tempSav = new HashMap<Long, Question>();
+			Map<Long, Question> tempMyQuest = new HashMap<Long, Question>();
+			tempFav = localQuestionListManager.getQuestionMap(cacheController
+					.getFavoriteId(mcontext));
+			tempSav = localQuestionListManager.getQuestionMap(cacheController
+					.getLocalCacheId(mcontext));
+			if (User.loginStatus)
+				tempMyQuest = localQuestionListManager
+						.getQuestionMap(User.author.getAuthorQuestionId());
+			cacheController.addAll(mcontext, tempFav, tempSav, tempMyQuest);
 		}
 	}
 

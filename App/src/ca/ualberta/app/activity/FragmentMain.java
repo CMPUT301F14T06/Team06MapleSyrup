@@ -103,6 +103,7 @@ public class FragmentMain extends Fragment {
 			spin_adapter.notifyDataSetChanged();
 			stopProgressDialog();
 		}
+		
 	};
 
 	@Override
@@ -390,10 +391,6 @@ public class FragmentMain extends Fragment {
 
 		@Override
 		public void run() {
-			if (User.loginStatus)
-				cacheController.addAllMyQuestId(mcontext,
-						User.author.getAuthorQuestionId());
-
 			cacheController.clear();
 			Thread getMapThread = new GetMapThread();
 			getMapThread.run();
@@ -431,9 +428,8 @@ public class FragmentMain extends Fragment {
 					.getLocalCacheId(mcontext));
 
 			if (User.loginStatus)
-				tempMyQuest = questionListManager
-						.getQuestionMap(cacheController
-								.getMyQuestionId(mcontext));
+				tempMyQuest = questionListManager.getQuestionMap(User.author
+						.getAuthorQuestionId());
 
 			cacheController.addAll(mcontext, tempFav, tempSav, tempMyQuest);
 		}

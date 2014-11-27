@@ -26,6 +26,7 @@ import java.io.File;
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.AuthorMapIO;
@@ -71,6 +72,7 @@ public class CreateQuestionActivity extends Activity {
 	private long from = 0;
 	private long size = 1000;
 	private String lable = "author";
+	private CacheController cacheController;
 	Uri imageFileUri;
 	Uri stringFileUri;
 
@@ -84,14 +86,6 @@ public class CreateQuestionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_question);
-		if (!User.loginStatus) {
-			Intent intent = new Intent(CreateQuestionActivity.this,
-					LoginActivity.class);
-			startActivity(intent);
-		}
-		if (!User.loginStatus)
-			finish();
-
 		titleText = (EditText) findViewById(R.id.question_title_editText);
 		contentText = (EditText) findViewById(R.id.question_content_editText);
 		imageView = (ImageView) findViewById(R.id.question_image_imageView);
@@ -100,6 +94,7 @@ public class CreateQuestionActivity extends Activity {
 		authorMapManager = new AuthorMapManager();
 		authorMap = new AuthorMap();
 		imageView.setVisibility(View.GONE);
+		cacheController = new CacheController(this);
 	}
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
@@ -161,6 +156,7 @@ public class CreateQuestionActivity extends Activity {
 		}
 
 	}
+
 
 	private void refuseUpdatePic() {
 		image = null;
@@ -293,7 +289,7 @@ public class CreateQuestionActivity extends Activity {
 
 				Thread addQuestionThread = new AddQuestionThread(newQuestion);
 				addQuestionThread.start();
-
+				cacheController.addMyQuestion(view.getContext(), newQuestion);
 				AuthorMapIO.saveInFile(view.getContext(), authorMap, FILENAME);
 			} else {
 				pushController.addWaitngListQuestions(getApplicationContext(),

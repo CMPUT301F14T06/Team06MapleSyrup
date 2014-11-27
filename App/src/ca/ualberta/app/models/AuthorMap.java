@@ -45,24 +45,10 @@ public class AuthorMap {
 		return authorMap;
 	}
 
-	/**
-	 * Based on different conditions, update the current user name
-	 * 
-	 * @param username
-	 *            the current user name.
-	 * @param newUsername
-	 *            the new user name.
-	 * 
-	 * @return false is the new user name has already existed in the author map,
-	 *         return true if not.
-	 */
-	public boolean setUsername(String username, String newUsername) {
-		if (authorMap.get(newUsername) != null) {
-			return false;
-		} else {
-			authorMap.get(username).setUsername(newUsername);
+	public Boolean hasAuthor(String username) {
+		if (authorMap.containsKey(username))
 			return true;
-		}
+		return false;
 	}
 
 	/**
