@@ -26,7 +26,8 @@ public class NetworkObserver {
 					@Override
 					public void run() {
 						if (InternetConnectionChecker
-								.isNetworkAvailable(activity.getActivity())) {
+								.isNetworkAvailable(activity.getActivity()
+										.getApplicationContext())) {
 							timer.cancel();
 							timer.purge();
 							Runnable action = new Runnable() {
@@ -63,18 +64,25 @@ public class NetworkObserver {
 				timer.schedule(new TimerTask() {
 					@Override
 					public void run() {
-						if (InternetConnectionChecker
-								.isNetworkAvailable(activity.getActivity()) == false) {
+						try {
+							if (InternetConnectionChecker
+									.isNetworkAvailable(activity.getActivity()
+											.getApplicationContext()) == false) {
+								timer.cancel();
+								timer.purge();
+								Runnable action = new Runnable() {
+									@Override
+									public void run() {
+										activity.updateList();
+									}
+								};
+								activity.getActivity().runOnUiThread(action);
+							}
+						} catch (NullPointerException e) {
 							timer.cancel();
 							timer.purge();
-							Runnable action = new Runnable() {
-								@Override
-								public void run() {
-									activity.updateList();
-								}
-							};
-							activity.getActivity().runOnUiThread(action);
 						}
+
 					}
 				}, 5000, 5000);
 			}
@@ -84,7 +92,7 @@ public class NetworkObserver {
 			observationStarted = false;
 		}
 	}
-	
+
 	/**
 	 * Will be called when the Internet is not connected, start check if the
 	 * Internet connects each 5 seconds, if the Internet is connected, then stop
