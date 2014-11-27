@@ -55,6 +55,7 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
+import ca.ualberta.app.network.NetworkObserver;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import ca.ualberta.app.widgets.CustomProgressDialog;
@@ -89,6 +90,7 @@ public class FragmentMain extends Fragment {
 	private long TotalSize = 10;
 	private int needToLoadMore = 0;
 	private InputMethodManager imm;
+	private NetworkObserver networkObserver;
 	private CustomProgressDialog progressDialog = null;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -129,6 +131,7 @@ public class FragmentMain extends Fragment {
 				R.id.question_ListView);
 		mListView.setPullLoadEnable(true);
 		mHandler = new Handler();
+		networkObserver = new NetworkObserver();
 	}
 
 	@Override
@@ -368,12 +371,16 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	private void updateList() {
+	public void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			String searchString = searchEditText.getText().toString();
 			Thread thread = new SearchThread(searchString);
 			thread.start();
 			mListView.setEnabled(true);
+			networkObserver.setObserver(this);
+		}
+		else{
+			networkObserver.startObservation(this);
 		}
 	}
 
