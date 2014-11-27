@@ -37,12 +37,18 @@ import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -79,6 +85,27 @@ public class MyFavoriteActivity extends Activity {
 			spinAdapter.notifyDataSetChanged();
 		}
 	};
+	
+	//http://blog.163.com/carldhu_/blog/static/20526805220123123428714/
+	class MyGestureListener extends SimpleOnGestureListener {
+
+		private Context mContext = null;
+		private SeekBar seek = null;
+
+		public MyGestureListener(Context context) {
+
+			// TODO Auto-generated constructor stub
+			mContext = context;
+		}
+
+		@Override
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			Toast.makeText(mContext, "DOWN " + e.getAction(),
+					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
