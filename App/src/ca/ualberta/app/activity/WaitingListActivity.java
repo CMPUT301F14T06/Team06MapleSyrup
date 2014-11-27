@@ -114,27 +114,31 @@ public class WaitingListActivity extends Activity {
 					Intent intent = new Intent(mcontext,
 							CreateQuestionActivity.class);
 					intent.putExtra(CreateQuestionActivity.QUESTION_ID,
-							waitingQuestionListController.getQuestion(pos-1)
+							waitingQuestionListController.getQuestion(pos - 1)
 									.getID());
 					intent.putExtra(CreateQuestionActivity.QUESTION_TITLE,
-							waitingQuestionListController.getQuestion(pos-1)
+							waitingQuestionListController.getQuestion(pos - 1)
 									.getTitle());
 					intent.putExtra(CreateQuestionActivity.QUESTION_CONTENT,
-							waitingQuestionListController.getQuestion(pos-1)
+							waitingQuestionListController.getQuestion(pos - 1)
 									.getContent());
 					startActivity(intent);
 				} else if (categoryID == 1) {
 					Intent intent = new Intent(mcontext,
 							CreateAnswerActivity.class);
-					intent.putExtra(CreateQuestionActivity.QUESTION_ID,
-							waitingQuestionListController.getQuestion(pos-1)
+					intent.putExtra(CreateAnswerActivity.QUESTION_ID,
+							waitingAnswerListController.getAnswer(pos - 1)
+									.getQuestionID());
+					intent.putExtra(CreateAnswerActivity.QUESTION_TITLE,
+							waitingAnswerListController.getAnswer(pos - 1)
+									.getQuestionTitle());
+					intent.putExtra(CreateAnswerActivity.ANSWER_ID,
+							waitingAnswerListController.getAnswer(pos - 1)
 									.getID());
-					intent.putExtra(CreateQuestionActivity.QUESTION_TITLE,
-							waitingQuestionListController.getQuestion(pos-1)
-									.getTitle());
-					intent.putExtra(CreateQuestionActivity.QUESTION_CONTENT,
-							waitingQuestionListController.getQuestion(pos-1)
+					intent.putExtra(CreateAnswerActivity.ANSWER_CONTENT,
+							waitingAnswerListController.getAnswer(pos - 1)
 									.getContent());
+					intent.putExtra(CreateAnswerActivity.EDIT_MODE, true);
 					startActivity(intent);
 				} else if (categoryID == 2) {
 					if (waitingReplyListController.getReply(pos).getAnswerID() == 0) {

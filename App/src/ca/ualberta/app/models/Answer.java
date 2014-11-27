@@ -165,4 +165,8 @@ public class Answer extends InputsModel {
 	public String getQuestionTitle(){
 		return this.questionTitle_Answer;
 	}
+	
+	public void setID(long answerID){
+		this.ID_answer = answerID;
+	}
 }
