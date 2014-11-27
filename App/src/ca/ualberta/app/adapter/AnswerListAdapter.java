@@ -251,7 +251,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		answerHolder.upvote_Rb.setOnClickListener(new UpvoteOnClickListener(
 				groupPosition));
 		answerHolder.reply_Rb.setOnClickListener(new AddReplyOnClickListener(
-				groupPosition));
+				groupPosition, answer.getID()));
 		ImageView expandIndicator = (ImageView) convertView
 				.findViewById(R.id.expandIndicator);
 		TextView replyText = (TextView) convertView
@@ -418,6 +418,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private class AddReplyOnClickListener implements OnClickListener {
 
 		int position;
+		long answerID;
 
 		/**
 		 * The constructor of the class.
@@ -425,8 +426,9 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		 * @param position
 		 *            the position of the answer.
 		 */
-		public AddReplyOnClickListener(int position) {
+		public AddReplyOnClickListener(int position, long answerID) {
 			this.position = position;
+			this.answerID = answerID;
 		}
 
 		/**
@@ -445,6 +447,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 						question.getID());
 				intent.putExtra(CreateAnswerReplyActivity.QUESTION_TITLE,
 						question.getTitle());
+				intent.putExtra(CreateAnswerReplyActivity.ANSWER_ID, answerID);
 				intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
 				context.startActivity(intent);
 				notifyDataSetChanged();

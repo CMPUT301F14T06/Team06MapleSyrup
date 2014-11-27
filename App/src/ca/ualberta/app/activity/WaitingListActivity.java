@@ -110,6 +110,7 @@ public class WaitingListActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
+				// Question
 				if (categoryID == 0) {
 					Intent intent = new Intent(mcontext,
 							CreateQuestionActivity.class);
@@ -122,7 +123,11 @@ public class WaitingListActivity extends Activity {
 					intent.putExtra(CreateQuestionActivity.QUESTION_CONTENT,
 							waitingQuestionListController.getQuestion(pos - 1)
 									.getContent());
+					intent.putExtra(CreateQuestionActivity.IMAGE,
+							waitingQuestionListController.getQuestion(pos - 1)
+									.getImage());
 					startActivity(intent);
+					// Answer
 				} else if (categoryID == 1) {
 					Intent intent = new Intent(mcontext,
 							CreateAnswerActivity.class);
@@ -138,8 +143,12 @@ public class WaitingListActivity extends Activity {
 					intent.putExtra(CreateAnswerActivity.ANSWER_CONTENT,
 							waitingAnswerListController.getAnswer(pos - 1)
 									.getContent());
+					intent.putExtra(CreateAnswerActivity.IMAGE,
+							waitingAnswerListController.getAnswer(pos - 1)
+									.getImage());
 					intent.putExtra(CreateAnswerActivity.EDIT_MODE, true);
 					startActivity(intent);
+					// Reply
 				} else if (categoryID == 2) {
 					if (waitingReplyListController.getReply(pos - 1)
 							.getAnswerID() == 0) {
@@ -260,9 +269,16 @@ public class WaitingListActivity extends Activity {
 
 	public void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
+			long total = waitingQuestionListController.size()
+					+ waitingAnswerListController.size()
+					+ waitingReplyListController.size();
+			Toast.makeText(mcontext,
+					total + " item(s) posted from Waiting List",
+					Toast.LENGTH_LONG).show();
 			Thread thread = new postListThread();
 			thread.start();
 			networkObserver.setObserver(this);
+
 		} else {
 			waitingQuestionListController.clear();
 			waitingAnswerListController.clear();
@@ -329,6 +345,7 @@ public class WaitingListActivity extends Activity {
 			pushController.removeWaitingListQuestionList(mcontext);
 			pushController.removeWaitingListAnswerList(mcontext);
 			pushController.removeWaitingListReplyList(mcontext);
+
 			runOnUiThread(doUpdateGUIList);
 		}
 	}

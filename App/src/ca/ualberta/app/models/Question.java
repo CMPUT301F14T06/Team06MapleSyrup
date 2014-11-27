@@ -283,4 +283,8 @@ public class Question extends InputsModel {
 		}
 		return null;
 	}
+	
+	public String getImageString(){
+		return this.imageString;
+	}
 }
