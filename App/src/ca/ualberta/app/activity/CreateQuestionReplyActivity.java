@@ -43,6 +43,9 @@ public class CreateQuestionReplyActivity extends Activity {
 	private PushController pushController;
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
+	public static String REPLY_ID = "REPLY_ID";
+	public static String REPLY_CONTENT = "REPLY_CONTENT";
+	public static String EDIT_MODE = "EDIT_MODE";
 	private Intent intent;
 
 	private Runnable doFinishAdd = new Runnable() {
@@ -61,8 +64,19 @@ public class CreateQuestionReplyActivity extends Activity {
 		pushController = new PushController(this);
 	}
 
-	public void cancel_reply(View view) {
-		finish();
+	@Override
+	public void onStart() {
+		super.onStart();
+		Intent intent = getIntent();
+		if (intent != null) {
+			Bundle extras = intent.getExtras();
+			if (extras != null) {
+				if (extras.getBoolean(EDIT_MODE)) {
+					String replyContent = extras.getString(REPLY_CONTENT);
+					contentText.setText(replyContent);
+				}
+			}
+		}
 	}
 
 	public void submit_reply(View view) {
@@ -75,24 +89,38 @@ public class CreateQuestionReplyActivity extends Activity {
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
 					String questionTitle = extras.getString(QUESTION_TITLE);
-
 					newReply = new Reply(content, User.author.getUsername());
 					newReply.setQuestionID(questionId);
 					newReply.setQuestionTitle(questionTitle);
+
+					if (extras.getBoolean(EDIT_MODE)) {
+						long replyID = extras.getLong(REPLY_ID);
+						newReply.setID(replyID);
+					}
+
 					if (InternetConnectionChecker.isNetworkAvailable(this)) {
 						Thread thread = new GetUpdateThread(questionId,
 								newReply);
 						thread.start();
 					} else {
-						pushController.addWaitngListReplies(
-								getApplicationContext(), newReply,
-								questionTitle);
+						if (extras.getBoolean(EDIT_MODE)) {
+							pushController.updateWaitingListReply(
+									getApplicationContext(), newReply);
+						} else {
+							pushController.addWaitngListReplies(
+									getApplicationContext(), newReply,
+									questionTitle);
+						}
 						finish();
 					}
 				}
 			}
 
 		}
+	}
+
+	public void cancel_reply(View view) {
+		finish();
 	}
 
 	public void noContentEntered() {
