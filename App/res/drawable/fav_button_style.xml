@@ -2,6 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@drawable/star_fav_icon32" android:state_checked="true"/>
-    <item android:drawable="@drawable/star_fav_empty_icon32" android:state_checked="false"/>
+    <item android:drawable="@drawable/star_unfav_icon" android:state_checked="false"/>
 
 </selector>

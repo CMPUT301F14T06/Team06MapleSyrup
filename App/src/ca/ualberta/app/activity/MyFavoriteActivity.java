@@ -37,18 +37,12 @@ import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.RadioButton;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -124,6 +118,8 @@ public class MyFavoriteActivity extends Activity {
 				Question question = favQuestionListController
 						.getQuestion(pos - 1);
 				long questionID = question.getID();
+				String questionTitle = favQuestionListController.getQuestion(
+						pos - 1).getTitle();
 				if (!cacheController.hasSaved(mcontext, question)) {
 					cacheController.addLocalQuestion(mcontext, question);
 					cacheList = "MYLOCAL";
@@ -132,6 +128,8 @@ public class MyFavoriteActivity extends Activity {
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
+				intent.putExtra(QuestionDetailActivity.QUESTION_TITLE,
+						questionTitle);
 				intent.putExtra(QuestionDetailActivity.CACHE_LIST, cacheList);
 				startActivity(intent);
 			}

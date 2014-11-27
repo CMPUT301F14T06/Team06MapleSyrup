@@ -2,17 +2,16 @@ package ca.ualberta.app.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerWaitingListAdapter;
 import ca.ualberta.app.adapter.QuestionWaitingListAdapter;
 import ca.ualberta.app.adapter.ReplyWaitingListAdapter;
+import ca.ualberta.app.controller.AnswerListController;
 import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.controller.QuestionListController;
-import ca.ualberta.app.models.Answer;
+import ca.ualberta.app.controller.ReplyListController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
-import ca.ualberta.app.models.Reply;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
@@ -40,26 +39,28 @@ public class WaitingListActivity extends Activity {
 	private AnswerWaitingListAdapter answerAdapter;
 	private ReplyWaitingListAdapter replyAdapter;
 	private QuestionListController waitingQuestionListController;
+	private AnswerListController waitingAnswerListController;
+	private ReplyListController waitingReplyListController;
 	private QuestionListManager waitingQuestionListManager;
 	private QuestionList waitingQuestionList;
 	private PushController pushController;
 	private Spinner typeOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spinAdapter;
-	private ArrayList<Long> waitingListId;
 	private static long categoryID;
 	public String sortString = "Sort By Date";
 	private Date timestamp;
 	private ScrollListView mListView;
 	private Handler mHandler;
-	private ArrayList<Answer> answerList;
-	private ArrayList<Reply> replyList;
 	private String QuestionType;
 	private String AnswerType;
 	private String ReplyType;
+	private ArrayList<String> typeOption;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			questionAdapter.notifyDataSetChanged();
+			answerAdapter.notifyDataSetChanged();
+			replyAdapter.notifyDataSetChanged();
 		}
 	};
 
@@ -77,31 +78,31 @@ public class WaitingListActivity extends Activity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		answerList = new ArrayList<Answer>();
-		replyList = new ArrayList<Reply>();
+		typeOption = new ArrayList<String>();
 		pushController = new PushController(mcontext);
 		waitingQuestionListController = new QuestionListController();
+		waitingAnswerListController = new AnswerListController();
+		waitingReplyListController = new ReplyListController();
 		waitingQuestionListManager = new QuestionListManager();
 		questionAdapter = new QuestionWaitingListAdapter(mcontext,
 				R.layout.single_waiting_question,
 				waitingQuestionListController.getQuestionArrayList());
 		answerAdapter = new AnswerWaitingListAdapter(mcontext,
-				R.layout.single_waiting_answer, answerList);
+				R.layout.single_waiting_answer,
+				waitingAnswerListController.getAnswerList());
 		replyAdapter = new ReplyWaitingListAdapter(mcontext,
-				R.layout.single_waiting_reply, replyList);
+				R.layout.single_waiting_reply,
+				waitingReplyListController.getReplyList());
+
 		mListView.setAdapter(questionAdapter);
 
-		QuestionType = "Questions (" + waitingQuestionListController.size()
-				+ ")";
-		AnswerType = "Answers (" + answerList.size() + ")";
-		ReplyType = "Replies (" + replyList.size() + ")";
-		String[] typeOption = { QuestionType, AnswerType, ReplyType };
+		updateCounter();
 		spinAdapter = new ArrayAdapter<String>(mcontext, R.layout.spinner_item,
 				typeOption);
+
 		typeOptionSpinner.setAdapter(spinAdapter);
 		typeOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
-		updateList();
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -110,26 +111,31 @@ public class WaitingListActivity extends Activity {
 					long id) {
 				long questionID = waitingQuestionListController.getQuestion(
 						pos - 1).getID();
-	            AlertDialog.Builder alert = new AlertDialog.Builder(mcontext);
-	            alert.setTitle("Alert Dialog With EditText"); 
-	            alert.setMessage("Enter Your Name Here"); 
+				AlertDialog.Builder alert = new AlertDialog.Builder(mcontext);
+				alert.setTitle("Alert Dialog With EditText");
+				alert.setMessage("Enter Your Name Here");
 
-	            final EditText input = new EditText(mcontext);
-	            alert.setView(input);
-	 
-	            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	            public void onClick(DialogInterface dialog, int whichButton) {
-	             String srt = input.getEditableText().toString();
-	             Toast.makeText(mcontext,srt,Toast.LENGTH_LONG).show();                
-	            } 
-	        });
-	            alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-	              public void onClick(DialogInterface dialog, int whichButton) {
-	                  dialog.cancel();
-	              }
-	        }); 
-	            AlertDialog alertDialog = alert.create();
-	            alertDialog.show();
+				final EditText input = new EditText(mcontext);
+				alert.setView(input);
+
+				alert.setPositiveButton("OK",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								String srt = input.getEditableText().toString();
+								Toast.makeText(mcontext, srt, Toast.LENGTH_LONG)
+										.show();
+							}
+						});
+				alert.setNegativeButton("CANCEL",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.cancel();
+							}
+						});
+				AlertDialog alertDialog = alert.create();
+				alertDialog.show();
 			}
 		});
 
@@ -183,19 +189,6 @@ public class WaitingListActivity extends Activity {
 		});
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		QuestionType = "Questions (" + waitingQuestionListController.size()
-				+ ")";
-		AnswerType = "Answers (" + answerList.size() + ")";
-		ReplyType = "Replies (" + replyList.size() + ")";
-		String[] typeOption = { QuestionType, AnswerType, ReplyType };
-		spinAdapter = new ArrayAdapter<String>(mcontext, R.layout.spinner_item,
-				typeOption);
-		typeOptionSpinner.setAdapter(spinAdapter);
-	}
-
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
@@ -203,23 +196,38 @@ public class WaitingListActivity extends Activity {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	private void updateList() {
-		waitingListId = pushController.getWaitingListId(mcontext);
-		if (waitingListId.size() == 0)
-			Toast.makeText(mcontext, "No Question are Waiting.",
-					Toast.LENGTH_LONG).show();
+	private void updateCounter() {
+		typeOption.clear();
+		QuestionType = "Questions (" + waitingQuestionListController.size()
+				+ ")";
+		AnswerType = "Answers (" + waitingAnswerListController.size() + ")";
+		ReplyType = "Replies (" + waitingReplyListController.size() + ")";
+		typeOption.add(QuestionType);
+		typeOption.add(AnswerType);
+		typeOption.add(ReplyType);
+	}
 
+	private void updateList(long categoryID) {
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
-			Thread thread = new postListThread();
-			thread.start();
+				Thread thread = new postListThread();
+				thread.start();
 		} else {
 			waitingQuestionListController.clear();
+			waitingAnswerListController.clear();
+			waitingReplyListController.clear();
+			
 			waitingQuestionList = pushController
 					.getWaitingQuestionList(mcontext);
 			waitingQuestionListController.addAll(waitingQuestionList);
+			waitingAnswerListController.addAll(pushController
+					.getWaitingAnswerList(mcontext));
+			waitingReplyListController.addAll(pushController
+					.getWaitingReplyList(mcontext));
+			
 			questionAdapter.notifyDataSetChanged();
+			answerAdapter.notifyDataSetChanged();
+			replyAdapter.notifyDataSetChanged();
 		}
-
 	}
 
 	private class change_category_click implements OnItemSelectedListener {
@@ -240,6 +248,9 @@ public class WaitingListActivity extends Activity {
 			if (categoryID == 2) {
 				mListView.setAdapter(replyAdapter);
 			}
+			updateList(categoryID);
+			updateCounter();
+			spinAdapter.notifyDataSetChanged();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -252,13 +263,20 @@ public class WaitingListActivity extends Activity {
 		@Override
 		public void run() {
 			waitingQuestionListController.clear();
-			waitingQuestionList = pushController
-					.getWaitingQuestionList(mcontext);
-			waitingQuestionListManager.addQuestionList(waitingQuestionList);
+			waitingAnswerListController.clear();
+			waitingReplyListController.clear();
+			
+			waitingQuestionListManager.addQuestionList(pushController.getWaitingQuestionList(mcontext));
+			waitingQuestionListManager.addAnswerList(pushController.getWaitingAnswerList(mcontext));
+			waitingQuestionListManager.addReplyList(pushController.getWaitingReplyList(mcontext));
+			
 			pushController.removeWaitingListQuestionList(mcontext);
+			pushController.removeWaitingListAnswerList(mcontext);
+			pushController.removeWaitingListReplyList(mcontext);
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
+
 
 	class DeleteThread extends Thread {
 		private long questionID;
@@ -275,10 +293,8 @@ public class WaitingListActivity extends Activity {
 				Question q = waitingQuestionListController.getQuestion(i);
 				if (q.getID() == questionID) {
 					waitingQuestionListController.removeQuestion(i);
-					
 					break;
 				}
-				pushController.removeWaitingListQuestion(mcontext, q);
 			}
 			runOnUiThread(doUpdateGUIList);
 		}

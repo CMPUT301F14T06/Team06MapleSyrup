@@ -437,11 +437,14 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		 */
 		@Override
 		public void onClick(View v) {
+
 			if (User.loginStatus) {
 				Intent intent = new Intent(context,
 						CreateAnswerReplyActivity.class);
 				intent.putExtra(CreateAnswerReplyActivity.QUESTION_ID,
 						question.getID());
+				intent.putExtra(CreateAnswerReplyActivity.QUESTION_TITLE,
+						question.getTitle());
 				intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
 				context.startActivity(intent);
 				notifyDataSetChanged();
@@ -489,6 +492,10 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				}
 			});
 		}
+	}
+
+	public Answer getAnswer(int position) {
+		return answerList.get(position);
 	}
 
 	/**

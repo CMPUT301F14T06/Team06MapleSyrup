@@ -46,6 +46,7 @@ import android.widget.TextView;
 
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
+	public static String QUESTION_TITLE = "QUESTION_TITLE";
 	public static String CACHE_LIST = "CACHE_LIST";
 
 	private TextView questionTitleTextView;
@@ -62,6 +63,7 @@ public class QuestionDetailActivity extends Activity {
 	private RadioButton upvote_Rb;
 	private String cacheList;
 	private long questionId;
+	private String questionTitle;
 	private Question question;
 	private QuestionListManager questionManager;
 	private CacheController cacheController;
@@ -204,6 +206,7 @@ public class QuestionDetailActivity extends Activity {
 			if (extras != null) {
 				checkInternet();
 				questionId = extras.getLong(QUESTION_ID);
+				questionTitle = extras.getString(QUESTION_TITLE);
 				if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 					Thread thread = new GetThread(questionId);
 					thread.start();
@@ -309,9 +312,11 @@ public class QuestionDetailActivity extends Activity {
 		save_click = false;
 		fav_click = false;
 		upvote_click = false;
+
 		if (User.loginStatus) {
 			Intent intent = new Intent(this, CreateAnswerActivity.class);
 			intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
+			intent.putExtra(CreateAnswerActivity.QUESTION_TITLE, questionTitle);
 			startActivity(intent);
 		} else {
 			Intent intent = new Intent(mcontext, LoginActivity.class);
@@ -334,7 +339,8 @@ public class QuestionDetailActivity extends Activity {
 		upvote_click = false;
 		if (User.loginStatus) {
 			Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
-			intent.putExtra(CreateAnswerActivity.QUESTION_ID, questionId);
+			intent.putExtra(CreateQuestionReplyActivity.QUESTION_ID, questionId);
+			intent.putExtra(CreateQuestionReplyActivity.QUESTION_TITLE, questionTitle);
 			startActivity(intent);
 		} else {
 			Intent intent = new Intent(mcontext, LoginActivity.class);

@@ -34,7 +34,6 @@
 
                 <requestFocus />
             </EditText>
-
         </RelativeLayout>
     </ScrollView>
 
@@ -52,7 +51,6 @@
             style="@style/create_menu_bottom"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.32"
             android:onClick="submit_answer_reply"
             android:text="@string/submit" />
 
@@ -61,10 +59,17 @@
             style="@style/create_menu_bottom"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.32"
             android:onClick="cancel_answer_reply"
             android:text="@string/cancel" />
 
+        <RadioButton
+            android:id="@+id/add_answer_reply_position"
+            style="@style/create_menu_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.16"
+            android:drawableLeft="@drawable/pin_map_icon"
+            android:gravity="center" />
     </RadioGroup>
 
 </RelativeLayout>

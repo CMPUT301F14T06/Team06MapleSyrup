@@ -200,9 +200,13 @@ public class FragmentMain extends Fragment {
 					long id) {
 				long questionId = questionListController.getQuestion(pos - 1)
 						.getID();
+				String questionTitle = questionListController.getQuestion(
+						pos - 1).getTitle();
 				Intent intent = new Intent(mcontext,
 						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionId);
+				intent.putExtra(QuestionDetailActivity.QUESTION_TITLE,
+						questionTitle);
 				startActivity(intent);
 			}
 

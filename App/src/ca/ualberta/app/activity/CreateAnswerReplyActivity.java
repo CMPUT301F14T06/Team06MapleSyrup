@@ -21,10 +21,12 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
+import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
 import android.content.Intent;
@@ -39,7 +41,10 @@ public class CreateAnswerReplyActivity extends Activity {
 	private EditText contentText = null;
 	private Reply newReply = null;
 	private QuestionListManager questionListManager;
+	private PushController pushController;
 	public static String QUESTION_ID = "QUESTION_ID";
+	public static String ANSWER_ID = "ANSWER_ID";
+	public static String QUESTION_TITLE = "QUESTION_TITLE";
 	public static String ANSWER_POS = "ANSWER_POS";
 	private Intent intent;
 
@@ -56,6 +61,7 @@ public class CreateAnswerReplyActivity extends Activity {
 		contentText = (EditText) findViewById(R.id.answer_reply_editText);
 		questionListManager = new QuestionListManager();
 		intent = getIntent();
+		pushController = new PushController(this);
 	}
 
 	public void cancel_answer_reply(View view) {
@@ -71,11 +77,24 @@ public class CreateAnswerReplyActivity extends Activity {
 				Bundle extras = intent.getExtras();
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
+					long answerID = extras.getLong(ANSWER_ID);
+					String questionTitle = extras.getString(QUESTION_TITLE);
 					int answerPos = extras.getInt(ANSWER_POS);
 					newReply = new Reply(content, User.author.getUsername());
-					Thread thread = new GetUpdateThread(questionId, answerPos,
-							newReply);
-					thread.start();
+					newReply.setQuestionID(questionId);
+					newReply.setAnswerID(answerID);
+					newReply.setQuestionTitle(questionTitle);
+					if (InternetConnectionChecker.isNetworkAvailable(this)) {
+						Thread thread = new GetUpdateThread(questionId, answerPos,
+								newReply);
+						thread.start();
+					}
+					else{
+						pushController.addWaitngListReplies(
+								getApplicationContext(), newReply,
+								questionTitle);
+						finish();
+					}
 				}
 			}
 

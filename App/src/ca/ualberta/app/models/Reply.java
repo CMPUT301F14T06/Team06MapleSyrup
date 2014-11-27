@@ -20,11 +20,17 @@
 
 package ca.ualberta.app.models;
 
+import java.util.Date;
+
 /**
  * This is the interface of reply
  */
 public class Reply extends InputsModel {
 
+	private long questionID_Reply;
+	private String questionTitle_Reply;
+	private long ID_Reply;
+	private long answerID_Reply;
 	/**
 	 * The constructor of the class
 	 * 
@@ -35,5 +41,39 @@ public class Reply extends InputsModel {
 	 */
 	public Reply(String content, String userName) {
 		super(content, userName);
+		this.questionID_Reply = 0;
+		this.answerID_Reply = 0;
+		this.questionTitle_Reply = null;
+		this.ID_Reply = new Date().getTime() - 130;
 	}
+
+	public long getID(){
+		return this.ID_Reply;
+	}
+	
+	public void setQuestionID(long questionId) {
+		this.questionID_Reply = questionId;
+	}
+
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle_Reply = questionTitle;		
+	}
+	
+	public void setAnswerID(long answerID){
+		this.answerID_Reply = answerID;
+	}
+	
+	public long getQuestionID(){
+		return this.questionID_Reply;
+	}
+	
+	public String getQuestionTitle(){
+		return this.questionTitle_Reply;
+	}
+	
+	public long getAnswerID(){
+		return this.answerID_Reply;
+	}
+	
+
 }

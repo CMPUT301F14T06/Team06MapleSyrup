@@ -24,9 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import ca.ualberta.app.ESmanager.QuestionListManager;
-import ca.ualberta.app.activity.MyFavoriteActivity.GetMapThread;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
@@ -115,20 +113,22 @@ public class MyLocalActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
+
 				Question question = localQuestionListController
 						.getQuestion(pos - 1);
 				long questionID = question.getID();
+				String questionTitle = localQuestionListController.getQuestion(
+						pos - 1).getTitle();
 				if (!cacheController.hasSaved(mcontext, question)) {
 					cacheController.addLocalQuestion(mcontext, question);
 				}
-					Intent intent = new Intent(mcontext,
-							QuestionDetailActivity.class);
-					intent.putExtra(QuestionDetailActivity.QUESTION_ID,
-							questionID);
-					intent.putExtra(QuestionDetailActivity.CACHE_LIST,
-							cacheList);
-					startActivity(intent);
-			
+				Intent intent = new Intent(mcontext,
+						QuestionDetailActivity.class);
+				intent.putExtra(QuestionDetailActivity.QUESTION_ID, questionID);
+				intent.putExtra(QuestionDetailActivity.QUESTION_TITLE,
+						questionTitle);
+				intent.putExtra(QuestionDetailActivity.CACHE_LIST, cacheList);
+				startActivity(intent);
 			}
 		});
 

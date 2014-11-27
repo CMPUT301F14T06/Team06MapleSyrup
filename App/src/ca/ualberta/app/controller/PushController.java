@@ -59,6 +59,8 @@ public class PushController {
 	private String WAITMAP_R = "waitMap_Reply.sav";
 	private String WAITID_R = "waitId_Reply.sav";
 
+	private String questionTitle;
+
 	/**
 	 * The constructor of the class load question map from local file
 	 * 
@@ -68,6 +70,10 @@ public class PushController {
 	public PushController(Context mcontext) {
 		waitingListMap_Question = loadMapFromFile(mcontext, WAITMAP_Q);
 		waitingListId_Question = loadIdFromFile(mcontext, WAITID_Q);
+		waitingListMap_Answer = loadMapFromFile_A(mcontext, WAITMAP_A);
+		waitingListId_Answer = loadIdFromFile(mcontext, WAITID_A);
+		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
+		waitingListId_Reply = loadIdFromFile(mcontext, WAITID_R);
 	}
 
 	/**
@@ -81,6 +87,34 @@ public class PushController {
 	public Map<Long, Question> getWaitingListMap(Context mcontext) {
 		waitingListMap_Question = loadMapFromFile(mcontext, WAITMAP_Q);
 		return waitingListMap_Question;
+
+	}
+
+	/**
+	 * Return the question ID of the waitingList question from local file
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * 
+	 * @return the question ID of the waitingList question from the local file.
+	 */
+	public ArrayList<Long> getWaitingAnswerListId(Context mcontext) {
+		waitingListId_Answer = loadIdFromFile(mcontext, WAITID_A);
+		return waitingListId_Answer;
+
+	}
+
+	/**
+	 * Return the question ID of the waitingList question from local file
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * 
+	 * @return the question ID of the waitingList question from the local file.
+	 */
+	public ArrayList<Long> getWaitingReplyListId(Context mcontext) {
+		waitingListId_Reply = loadIdFromFile(mcontext, WAITID_R);
+		return waitingListId_Reply;
 
 	}
 
@@ -115,7 +149,7 @@ public class PushController {
 			return false;
 		return true;
 	}
-	
+
 	/**
 	 * Return whether the local file for local question contain the question.
 	 * 
@@ -133,7 +167,24 @@ public class PushController {
 			return false;
 		return true;
 	}
-	
+
+	/**
+	 * Return whether the local file for local question contain the question.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 * 
+	 * @return true if the local file for favorite question has the question,
+	 *         false if not.
+	 */
+	public boolean hasWaited_R(Context mcontext, Reply reply) {
+		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
+		if (waitingListMap_Reply.get(reply.getID()) == null)
+			return false;
+		return true;
+	}
 
 	/**
 	 * Save a question into the the local file of the WaitingList questions.
@@ -175,6 +226,26 @@ public class PushController {
 	}
 
 	/**
+	 * Save a question into the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void addWaitngListReplies(Context mcontext, Reply reply,
+			String questionTitle) {
+		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
+		waitingListId_Reply = loadIdFromFile(mcontext, WAITID_R);
+		if (!hasWaited_R(mcontext, reply)) {
+			waitingListMap_Reply.put(reply.getID(), reply);
+			waitingListId_Reply.add(reply.getID());
+			saveInFile_R(mcontext, waitingListMap_Reply, WAITMAP_R);
+			saveInFile(mcontext, waitingListId_Reply, WAITID_R);
+		}
+	}
+
+	/**
 	 * Remove a question into the the local file of the WaitingList questions.
 	 * 
 	 * @param mcontext
@@ -210,7 +281,37 @@ public class PushController {
 		saveInFile(mcontext, waitingListMap_Question, WAITMAP_Q);
 		saveInFile(mcontext, waitingListId_Question, WAITID_Q);
 	}
-	
+
+	/**
+	 * Remove a question into the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void removeWaitingListAnswerList(Context mcontext) {
+		waitingListMap_Answer.clear();
+		waitingListId_Answer.clear();
+		saveInFile_A(mcontext, waitingListMap_Answer, WAITMAP_A);
+		saveInFile(mcontext, waitingListId_Answer, WAITID_A);
+	}
+
+	/**
+	 * Remove a question into the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void removeWaitingListReplyList(Context mcontext) {
+		waitingListMap_Reply.clear();
+		waitingListId_Reply.clear();
+		saveInFile_R(mcontext, waitingListMap_Reply, WAITMAP_R);
+		saveInFile(mcontext, waitingListId_Reply, WAITID_R);
+	}
+
 	/**
 	 * Update a question in the the local file of the WaitingList questions.
 	 * 
@@ -239,6 +340,30 @@ public class PushController {
 		questionList.getCollection().addAll(
 				this.waitingListMap_Question.values());
 		return questionList;
+	}
+
+	/**
+	 * Load and return the WaitingList answer list
+	 * 
+	 * @return the local answer list.
+	 */
+	public ArrayList<Answer> getWaitingAnswerList(Context mcontext) {
+		waitingListMap_Answer = loadMapFromFile_A(mcontext, WAITMAP_A);
+		ArrayList<Answer> answerList = new ArrayList<Answer>();
+		answerList.addAll(this.waitingListMap_Answer.values());
+		return answerList;
+	}
+
+	/**
+	 * Load and return the WaitingList answer list
+	 * 
+	 * @return the local answer list.
+	 */
+	public ArrayList<Reply> getWaitingReplyList(Context mcontext) {
+		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
+		ArrayList<Reply> replyList = new ArrayList<Reply>();
+		replyList.addAll(this.waitingListMap_Reply.values());
+		return replyList;
 	}
 
 	/**
@@ -305,16 +430,16 @@ public class PushController {
 			return questionMap = new HashMap<Long, Question>();
 		return questionMap;
 	}
-	
+
 	/**
-	 * Load the question Map's from the file with given name.
+	 * Load the answer Map's from the file with given name.
 	 * 
 	 * @param context
 	 *            The context.
 	 * @param FILENAME
 	 *            The name of the local file.
 	 * 
-	 * @return the Map of the question(s).
+	 * @return the Map of the answer(s).
 	 */
 	public Map<Long, Answer> loadMapFromFile_A(Context context, String FILENAME) {
 		Map<Long, Answer> answerMap = null;
@@ -324,7 +449,7 @@ public class PushController {
 			Gson gson = new Gson();
 			// Following line from
 			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
-			Type listType = new TypeToken<Map<Long, Question>>() {
+			Type listType = new TypeToken<Map<Long, Answer>>() {
 			}.getType();
 			answerMap = gson.fromJson(in, listType);
 		} catch (FileNotFoundException e) {
@@ -334,7 +459,35 @@ public class PushController {
 			return answerMap = new HashMap<Long, Answer>();
 		return answerMap;
 	}
-	
+
+	/**
+	 * Load the reply Map's from the file with given name.
+	 * 
+	 * @param context
+	 *            The context.
+	 * @param FILENAME
+	 *            The name of the local file.
+	 * 
+	 * @return the Map of the reply(s).
+	 */
+	public Map<Long, Reply> loadMapFromFile_R(Context context, String FILENAME) {
+		Map<Long, Reply> replyMap = null;
+		try {
+			FileInputStream fis = context.openFileInput(FILENAME);
+			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+			Gson gson = new Gson();
+			// Following line from
+			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
+			Type listType = new TypeToken<Map<Long, Reply>>() {
+			}.getType();
+			replyMap = gson.fromJson(in, listType);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		if (replyMap == null)
+			return replyMap = new HashMap<Long, Reply>();
+		return replyMap;
+	}
 
 	/**
 	 * save question map to local file
@@ -361,7 +514,7 @@ public class PushController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * save question map to local file
 	 * 
@@ -379,6 +532,32 @@ public class PushController {
 			Gson gson = new Gson();
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
 			gson.toJson(answerMap, osw);
+			osw.flush();
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * save question map to local file
+	 * 
+	 * @param context
+	 *            The context.
+	 * @param questionMap
+	 *            The question map.
+	 * @param FILENAME
+	 *            The name of the file.
+	 */
+	public void saveInFile_R(Context context, Map<Long, Reply> replyMap,
+			String FILENAME) {
+		try {
+			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+			Gson gson = new Gson();
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			gson.toJson(replyMap, osw);
 			osw.flush();
 			fos.close();
 		} catch (FileNotFoundException e) {
@@ -412,5 +591,13 @@ public class PushController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
+	}
+
+	public String getQuestionTitle() {
+		return this.questionTitle;
 	}
 }
