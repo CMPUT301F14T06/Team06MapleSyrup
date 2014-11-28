@@ -33,7 +33,9 @@
             <TextView
                 android:id="@+id/answerContentTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:fadeScrollbars="false"
+                android:scrollHorizontally="true"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="15sp" />
 
@@ -80,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableTop="@drawable/upvote_button_style"
-                    android:text="@string/upvote"/>
+                    android:text="@string/upvote" />
 
                 <TextView
                     android:id="@+id/upvoteStateTextView"
@@ -109,7 +111,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/answer_layout"
         android:text="@string/add_reply"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
         android:id="@+id/imageView1"

@@ -29,6 +29,7 @@ public class AuthorMapController {
 
 	public AuthorMapController(Context context) {
 		this.context = context;
+		authorMapManager = new AuthorMapManager();
 		authorMap = loadFromFile(context, FILENAME);
 	}
 
@@ -75,6 +76,7 @@ public class AuthorMapController {
 	public void updateAuthor(Context context, Author author) {
 		Thread updateAuthor = new UpdateAuthorThread(author);
 		updateAuthor.start();
+		authorMap = loadFromFile(context, FILENAME);
 		Thread searchThread = new SearchThread("");
 		searchThread.start();
 		saveInFile(context, authorMap, FILENAME);

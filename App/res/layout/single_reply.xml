@@ -8,9 +8,11 @@
     <TextView
         android:id="@+id/reply_textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="13dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="5dp"
+        android:fadeScrollbars="false"
+        android:scrollHorizontally="true"
         android:text="@string/reply_group"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="14sp" />
