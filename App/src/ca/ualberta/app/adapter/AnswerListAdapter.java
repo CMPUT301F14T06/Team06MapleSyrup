@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import ca.ualberta.app.activity.CreateAnswerReplyActivity;
 import ca.ualberta.app.activity.LoginActivity;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
@@ -64,6 +65,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private ViewHolder_reply replyHolder = null;
 	private String loginCause = "Upvote";
 	private String loginCause1 = "Reply";
+	private AuthorMapController authorMapController;
 
 	/**
 	 * Constructs the adapter and initializes its context.
@@ -85,6 +87,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		this.answerList = answers;
 		this.question = question;
 		cacheController = new CacheController(context);
+		authorMapController = new AuthorMapController(context);
 	}
 
 	/**
@@ -226,7 +229,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 
 		if (answer != null) {
 			answerHolder.answerContent.setText(answer.getContent());
-			answerHolder.authorName.setText(answer.getAuthor());
+			answerHolder.authorName.setText(authorMapController.getAuthorName(
+					answer.getUserId()));
 			answerHolder.timestamp.setText(answer.getTimestamp().toString());
 			answerHolder.upvoteState.setText("Upvote: "
 					+ answer.getAnswerUpvoteCount());
@@ -339,7 +343,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				.get(childPosition);
 		if (reply != null) {
 			replyHolder.replyContent.setText(reply.getContent());
-			replyHolder.authorName.setText(reply.getAuthor());
+			replyHolder.authorName.setText(authorMapController.getAuthorName(
+					reply.getUserId()));
 			replyHolder.timestamp.setText(reply.getTimestamp().toString());
 		}
 		return convertView;

@@ -21,6 +21,7 @@
 package ca.ualberta.app.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ public class Author extends User {
 	// final static boolean loginState = true;
 
 	String username;
+	Long userId;
 	byte[] imageArray;
 	ArrayList<Long> myQuestionId;
 
@@ -44,7 +46,7 @@ public class Author extends User {
 		super();
 		this.username = username;
 		this.myQuestionId = new ArrayList<Long>();
-
+		this.userId = new Date().getTime() / 1000;
 	}
 
 	/**
@@ -83,6 +85,15 @@ public class Author extends User {
 	 */
 	public String getUsername() {
 		return this.username;
+	}
+
+	/**
+	 * Return the user id of the user
+	 * 
+	 * @return the user id of the user.
+	 */
+	public Long getUserId() {
+		return this.userId;
 	}
 
 }

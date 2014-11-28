@@ -23,6 +23,7 @@ package ca.ualberta.app.activity;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.adapter.ReplyListAdapter;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
@@ -67,6 +68,7 @@ public class QuestionDetailActivity extends Activity {
 	private Question question;
 	private QuestionListManager questionManager;
 	private CacheController cacheController;
+	private AuthorMapController authorMapController;
 	private ReplyListAdapter replyAdapter = null;
 	private AnswerListAdapter answerAdapter = null;
 	private Bitmap image = null;
@@ -88,7 +90,8 @@ public class QuestionDetailActivity extends Activity {
 		setButtonChecked();
 		questionTitleTextView.setText(question.getTitle());
 		questionContentTextView.setText(question.getContent());
-		authorNameTextView.setText(question.getAuthor());
+		authorNameTextView.setText(authorMapController.getAuthorName(question
+				.getUserId()));
 		questionUpvoteTextView.setText("Upvote: "
 				+ question.getQuestionUpvoteCount());
 		answerCountTextView.setText("Answer: " + question.getAnswerCount());
@@ -186,6 +189,7 @@ public class QuestionDetailActivity extends Activity {
 		fav_Rb = (RadioButton) findViewById(R.id.fav_detail_button);
 		upvote_Rb = (RadioButton) findViewById(R.id.upvote_detail_button);
 		cacheController = new CacheController(mcontext);
+		authorMapController = new AuthorMapController(mcontext);
 		questionImageView.setVisibility(View.GONE);
 	}
 
@@ -340,7 +344,8 @@ public class QuestionDetailActivity extends Activity {
 		if (User.loginStatus) {
 			Intent intent = new Intent(this, CreateQuestionReplyActivity.class);
 			intent.putExtra(CreateQuestionReplyActivity.QUESTION_ID, questionId);
-			intent.putExtra(CreateQuestionReplyActivity.QUESTION_TITLE, questionTitle);
+			intent.putExtra(CreateQuestionReplyActivity.QUESTION_TITLE,
+					questionTitle);
 			startActivity(intent);
 		} else {
 			Intent intent = new Intent(mcontext, LoginActivity.class);
@@ -396,7 +401,7 @@ public class QuestionDetailActivity extends Activity {
 
 		@Override
 		public void run() {
-
+			authorMapController.renewAuthorMap(mcontext);
 			question = questionManager.getQuestion(id);
 			checkFavLocalClick();
 			if (upvote_click == true) {

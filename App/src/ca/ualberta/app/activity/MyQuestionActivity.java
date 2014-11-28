@@ -27,14 +27,15 @@ import java.util.Map;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
+import ca.ualberta.app.widgets.CustomProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -60,13 +61,14 @@ public class MyQuestionActivity extends Activity {
 	private QuestionListAdapter adapter = null;
 	private QuestionListController myQuestionListController;
 	private QuestionListManager myQuestionListManager;
-	private QuestionList myQuestionList;
+	private AuthorMapController authorMapController;
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spinAdapter;
 	private ArrayList<Long> myQuestionId;
 	private static long categoryID;
+	private CustomProgressDialog progressDialog = null;
 	public String sortString = "Sort By Date";
 	private Date timestamp;
 	private ScrollListView mListView;
@@ -77,6 +79,7 @@ public class MyQuestionActivity extends Activity {
 			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
 			spinAdapter.notifyDataSetChanged();
+			stopProgressDialog();
 		}
 	};
 
@@ -95,6 +98,7 @@ public class MyQuestionActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		cacheController = new CacheController(mcontext);
+		authorMapController = new AuthorMapController(mcontext);
 		myQuestionListController = new QuestionListController();
 		myQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -131,8 +135,7 @@ public class MyQuestionActivity extends Activity {
 				Question question = myQuestionListController
 						.getQuestion(position - 1);
 				if (User.author != null
-						&& User.author.getUsername().equals(
-								question.getAuthor())) {
+						&& User.author.getUserId() == question.getUserId()) {
 					Toast.makeText(mcontext,
 							"Deleting the Question: " + question.getTitle(),
 							Toast.LENGTH_LONG).show();
@@ -180,15 +183,6 @@ public class MyQuestionActivity extends Activity {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
-	// /**
-	// * onResume method
-	// */
-	// @Override
-	// public void onResume() {
-	// super.onResume();
-	// updateList();
-	// }
-
 	private class change_category_click implements OnItemSelectedListener {
 
 		public void onItemSelected(AdapterView<?> parent, View view,
@@ -228,6 +222,7 @@ public class MyQuestionActivity extends Activity {
 	}
 
 	private void updateList() {
+		startProgressDialog();
 		myQuestionId = User.author.getAuthorQuestionId();
 		if (myQuestionId.size() == 0)
 			Toast.makeText(mcontext, "No Question Asked Yet.",
@@ -239,8 +234,8 @@ public class MyQuestionActivity extends Activity {
 
 		}
 		myQuestionListController.clear();
-		myQuestionList = cacheController.getMyQuestionList(mcontext);
-		myQuestionListController.addAll(myQuestionList);
+		myQuestionListController.addAll(cacheController
+				.getMyQuestionList(mcontext));
 		runOnUiThread(doUpdateGUIList);
 	}
 
@@ -252,6 +247,7 @@ public class MyQuestionActivity extends Activity {
 
 		@Override
 		public void run() {
+			authorMapController.renewAuthorMap(mcontext);
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
@@ -288,4 +284,19 @@ public class MyQuestionActivity extends Activity {
 		}
 	}
 
+	public void startProgressDialog() {
+		if (progressDialog == null) {
+			progressDialog = CustomProgressDialog.createDialog(this);
+
+			progressDialog.setMessage("Loading...");
+		}
+		progressDialog.show();
+	}
+
+	public void stopProgressDialog() {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+			progressDialog = null;
+		}
+	}
 }

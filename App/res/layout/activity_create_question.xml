@@ -98,7 +98,7 @@
             style="@style/create_menu_bottom"
             android:layout_width="24dp"
             android:layout_height="fill_parent"
-            android:drawableLeft="@drawable/pin_map_icon"
+            android:drawableLeft="@drawable/pin_map_button_style"
             android:gravity="center" />
 
         <RadioButton

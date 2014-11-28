@@ -20,11 +20,8 @@
 
 package ca.ualberta.app.activity;
 
-import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.models.Author;
-import ca.ualberta.app.models.AuthorMap;
-import ca.ualberta.app.models.AuthorMapIO;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import android.app.AlertDialog;
@@ -37,13 +34,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * This is the fragment activity for the mean question list, once the app is
@@ -63,20 +58,10 @@ public class FragmentProfile extends Fragment {
 	private RadioButton waiting_list;
 	private RadioButton login;
 	private RadioButton logout;
-	private long from = 0;
-	private long size = 1000;
-	private String lable = "author";
 	private Context mcontext;
-	private AuthorMapManager authorMapManager;
-	private AuthorMap authorMap;
-	private String FILENAME = "AUTHORMAP.sav";
 	private String newUsername = null;
 	private String loginCause = "Login";
-	private Runnable doUpdateGUIList = new Runnable() {
-		public void run() {
-			checkLoginStatus();
-		}
-	};
+	private AuthorMapController authorMapController;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,11 +91,8 @@ public class FragmentProfile extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				authorMap = new AuthorMap();
-				authorMapManager = new AuthorMapManager();
 				if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
-					Thread thread = new SearchThread("");
-					thread.start();
+					authorMapController = new AuthorMapController(mcontext);
 					showDialog();
 				} else {
 					Toast.makeText(mcontext,
@@ -208,26 +190,23 @@ public class FragmentProfile extends Fragment {
 		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				newUsername = input.getEditableText().toString();
-				if(newUsername != null){
-				if (!authorMap.hasAuthor(newUsername)) {
-					String oldUsername = User.author.getUsername();
-					User.author.setUsername(newUsername);
+				if (newUsername != null) {
+					if (!authorMapController.hasAuthor(newUsername)) {
 
-					Thread addThread = new AddThread(User.author);
-					addThread.start();
-					Thread deleteThread = new DeleteThread(oldUsername);
-					deleteThread.start();
+						User.author.setUsername(newUsername);
+						authorMapController.updateAuthor(mcontext, User.author);
 
-				} else {
-					Toast.makeText(
-							getActivity(),
-							"The username is aready exist, please choose another one.",
+					} else {
+						Toast.makeText(
+								getActivity(),
+								"The username is aready exist, please choose another one.",
+								Toast.LENGTH_SHORT).show();
+						showDialog();
+					}
+					setAuthorName.setText(User.author.getUsername());
+				} else
+					Toast.makeText(mcontext, "Please fill in name",
 							Toast.LENGTH_SHORT).show();
-					showDialog();
-				}
-				setAuthorName.setText(User.author.getUsername());
-			}else 
-				Toast.makeText(mcontext, "Please fill in name", Toast.LENGTH_SHORT).show();
 			}
 
 		});
@@ -250,8 +229,6 @@ public class FragmentProfile extends Fragment {
 			logout.setVisibility(View.VISIBLE);
 			my_question.setVisibility(View.VISIBLE);
 			setAuthorName.setText(User.author.getUsername());
-			authorMapManager = new AuthorMapManager();
-			authorMap = new AuthorMap();
 
 		} else {
 			changePhotoButton.setVisibility(View.GONE);
@@ -260,59 +237,6 @@ public class FragmentProfile extends Fragment {
 			login.setVisibility(View.VISIBLE);
 			logout.setVisibility(View.GONE);
 			my_question.setVisibility(View.GONE);
-		}
-	}
-
-	class SearchThread extends Thread {
-		private String search;
-
-		public SearchThread(String s) {
-			search = s;
-		}
-
-		@Override
-		public void run() {
-			authorMap.clear();
-			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
-					size, lable));
-		}
-	}
-
-	class AddThread extends Thread {
-		private Author theAuthor;
-
-		public AddThread(Author theAuthor) {
-			this.theAuthor = theAuthor;
-		}
-
-		@Override
-		public void run() {
-			User.author = theAuthor;
-			authorMap.addAuthor(theAuthor);
-			AuthorMapIO.saveInFile(mcontext, authorMap, FILENAME);
-			authorMapManager.addAuthor(theAuthor);
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	class DeleteThread extends Thread {
-		private String username;
-
-		public DeleteThread(String username) {
-			this.username = username;
-		}
-
-		@Override
-		public void run() {
-			authorMapManager.deleteAuthor(username);
-			authorMap.removeAuthor(username);
-			AuthorMapIO.saveInFile(mcontext, authorMap, FILENAME);
-			getActivity().runOnUiThread(doUpdateGUIList);
 		}
 	}
 

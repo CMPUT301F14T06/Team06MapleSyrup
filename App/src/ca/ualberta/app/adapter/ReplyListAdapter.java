@@ -23,6 +23,7 @@ package ca.ualberta.app.adapter;
 import java.util.ArrayList;
 
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 
@@ -41,6 +42,7 @@ import android.widget.TextView;
 public class ReplyListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Reply> replyList = null;
 	private Context context;
+	private AuthorMapController authorMapController;
 
 	/**
 	 * Constructs the adapter and initializes its context.
@@ -58,6 +60,7 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 			ArrayList<Reply> objects, Question question) {
 		this.context = context;
 		this.replyList = objects;
+		this.authorMapController = new AuthorMapController(context);
 	}
 
 	/**
@@ -221,7 +224,8 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 		Reply reply = replyList.get(childPosition);
 		if (reply != null) {
 			holder.replyContent.setText(reply.getContent());
-			holder.authorName.setText(reply.getAuthor());
+			holder.authorName.setText(authorMapController.getAuthorName(reply
+					.getUserId()));
 			holder.timestamp.setText(reply.getTimestamp().toString());
 		}
 		return convertView;

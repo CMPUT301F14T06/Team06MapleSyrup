@@ -51,8 +51,8 @@ import com.google.gson.reflect.TypeToken;
  * This manager manages all operations on authors and authors' ID's.
  */
 public class AuthorMapManager {
-	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author/_search";
-	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author/";
+	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author1/_search";
+	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author1/";
 	private static final String TAG = "AuthorLogin";
 
 	private Gson gson;
@@ -67,15 +67,15 @@ public class AuthorMapManager {
 	/**
 	 * Get a author with the specified ID
 	 * 
-	 * @param username
+	 * @param userId
 	 *            The user's specified ID.
 	 * 
 	 * @return null.
 	 */
-	public Author getAuthor(String username) {
+	public Author getAuthor(Long userId) {
 
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(RESOURCE_URL + username);
+		HttpGet httpGet = new HttpGet(RESOURCE_URL + userId);
 
 		HttpResponse response;
 
@@ -128,7 +128,7 @@ public class AuthorMapManager {
 
 			SearchResponse<Author> esResponse = parseSearchResponse(response);
 			Hits<Author> hits = esResponse.getHits();
-
+			hits.getTotal();
 			if (hits != null) {
 				if (hits.getHits() != null) {
 					for (SearchHit<Author> sesr : hits.getHits()) {
@@ -157,7 +157,7 @@ public class AuthorMapManager {
 
 		try {
 			HttpPost addRequest = new HttpPost(RESOURCE_URL
-					+ author.getUsername());
+					+ author.getUserId());
 
 			StringEntity stringEntity = new StringEntity(gson.toJson(author));
 			addRequest.setEntity(stringEntity);
@@ -183,7 +183,7 @@ public class AuthorMapManager {
 
 		try {
 			HttpPut updateRequest = new HttpPut(RESOURCE_URL
-					+ author.getUsername());
+					+ author.getUserId());
 
 			StringEntity stringEntity = new StringEntity(gson.toJson(author));
 			updateRequest.setEntity(stringEntity);
@@ -199,16 +199,16 @@ public class AuthorMapManager {
 	}
 
 	/**
-	 * Deletes the Author with the specified userName
+	 * Deletes the Author with the specified userId
 	 * 
-	 * @param userName
-	 *            the given userName.
+	 * @param userId
+	 *            the given userId.
 	 */
-	public void deleteAuthor(String userName) {
+	public void deleteAuthor(Long userId) {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + userName);
+			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + userId);
 			deleteRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(deleteRequest);
@@ -329,4 +329,6 @@ public class AuthorMapManager {
 
 		return result.toString();
 	}
+
+
 }

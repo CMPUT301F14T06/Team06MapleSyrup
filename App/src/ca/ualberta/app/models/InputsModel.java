@@ -29,7 +29,7 @@ import java.util.Date;
 public abstract class InputsModel {
 	public String title;
 	public String content;
-	public String userName;
+	public Long userId;
 	String imageString = null;
 	Date timestamp;
 
@@ -45,13 +45,13 @@ public abstract class InputsModel {
 	 * @param image
 	 *            The image in the question.
 	 */
-	public InputsModel(String content, String userName, String title,
+	public InputsModel(String content, Long userId, String title,
 			String imageString) {
 		this.timestamp = new Date();
 		this.imageString = imageString;
 		this.title = title;
 		this.content = content;
-		this.userName = userName;
+		this.userId = userId;
 	}
 
 	/**
@@ -64,11 +64,11 @@ public abstract class InputsModel {
 	 * @param image
 	 *            The image in the question.
 	 */
-	public InputsModel(String content, String userName, String imageString) {
+	public InputsModel(String content, Long userId, String imageString) {
 		timestamp = new Date();
 		this.imageString = imageString;
 		this.content = content;
-		this.userName = userName;
+		this.userId = userId;
 	}
 
 	/**
@@ -79,10 +79,10 @@ public abstract class InputsModel {
 	 * @param userName
 	 *            The ID of the user.
 	 */
-	public InputsModel(String content, String userName) {
+	public InputsModel(String content, Long userId) {
 		timestamp = new Date();
 		this.content = content;
-		this.userName = userName;
+		this.userId = userId;
 	}
 
 	/**
@@ -168,7 +168,7 @@ public abstract class InputsModel {
 	 * 
 	 * @return userName The user name of the author.
 	 */
-	public String getAuthor() {
-		return userName;
+	public Long getUserId() {
+		return userId;
 	}
 }

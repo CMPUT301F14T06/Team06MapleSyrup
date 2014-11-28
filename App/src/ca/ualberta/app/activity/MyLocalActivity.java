@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
@@ -34,6 +35,7 @@ import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
+import ca.ualberta.app.widgets.CustomProgressDialog;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +63,7 @@ public class MyLocalActivity extends Activity {
 	private QuestionListController localQuestionListController;
 	private QuestionListManager localQuestionListManager;
 	private QuestionList localQuestionList;
+	private AuthorMapController authorMapController;
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -95,6 +98,7 @@ public class MyLocalActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		cacheController = new CacheController(mcontext);
+		authorMapController = new AuthorMapController(mcontext);
 		localQuestionListController = new QuestionListController();
 		localQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -140,8 +144,7 @@ public class MyLocalActivity extends Activity {
 				Question question = localQuestionListController
 						.getQuestion(position - 1);
 				if (User.author != null
-						&& User.author.getUsername().equals(
-								question.getAuthor())) {
+						&& User.author.getUserId() == question.getUserId()) {
 					Toast.makeText(mcontext,
 							"Deleting the Question: " + question.getTitle(),
 							Toast.LENGTH_LONG).show();
@@ -253,6 +256,7 @@ public class MyLocalActivity extends Activity {
 
 		@Override
 		public void run() {
+			authorMapController.renewAuthorMap(mcontext);
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
@@ -309,4 +313,6 @@ public class MyLocalActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	
 }

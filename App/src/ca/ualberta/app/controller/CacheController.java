@@ -109,6 +109,7 @@ public class CacheController {
 	 * @return the question map of the my question from the local file.
 	 */
 	public Map<Long, Question> getMyQuestionMap(Context mcontext) {
+		MYQUESTMAP = User.author.getUsername() + "myMap.sav";
 		myQuestionMap = loadMapFromFile(mcontext, MYQUESTMAP);
 		return myQuestionMap;
 
@@ -187,6 +188,7 @@ public class CacheController {
 	 * @return true if the author has asked the question false if not.
 	 */
 	public boolean hasMyQuestion(Context mcontext, Question question) {
+		MYQUESTMAP = User.author.getUsername() + "myMap.sav";
 		myQuestionMap = loadMapFromFile(mcontext, MYQUESTMAP);
 		if (myQuestionMap.containsKey(question.getID()))
 			return true;
@@ -240,6 +242,7 @@ public class CacheController {
 	 *            the question.
 	 */
 	public void addMyQuestion(Context mcontext, Question question) {
+		MYQUESTMAP = User.author.getUsername() + "myMap.sav";
 		myQuestionMap = loadMapFromFile(mcontext, MYQUESTMAP);
 		if (!hasMyQuestion(mcontext, question)) {
 			myQuestionMap.put(question.getID(), question);
@@ -300,6 +303,7 @@ public class CacheController {
 	 *            the question.
 	 */
 	public void removeMyQuestions(Context mcontext, Question question) {
+		MYQUESTMAP = User.author.getUsername() + "myMap.sav";
 		myQuestionMap = loadMapFromFile(mcontext, MYQUESTMAP);
 		myQuestionMap.remove(question.getID());
 		saveInFile(mcontext, myQuestionMap, MYQUESTMAP);
@@ -348,6 +352,7 @@ public class CacheController {
 	 *            the question.
 	 */
 	public void updateMyQuestions(Context mcontext, Question question) {
+		MYQUESTMAP = User.author.getUsername() + "myMap.sav";
 		myQuestionMap = loadMapFromFile(mcontext, MYQUESTMAP);
 		if (myQuestionMap.get(question.getID()) != null) {
 			myQuestionMap.remove(question.getID());
@@ -387,6 +392,7 @@ public class CacheController {
 	 * @return the local question list.
 	 */
 	public QuestionList getMyQuestionList(Context mcontext) {
+		MYQUESTMAP = User.author.getUsername() + "myMap.sav";
 		myQuestionMap = loadMapFromFile(mcontext, MYQUESTMAP);
 		QuestionList questionList = new QuestionList();
 		questionList.getCollection().addAll(this.myQuestionMap.values());
@@ -423,6 +429,7 @@ public class CacheController {
 		saveInFile(mcontext, favoriteMap, FAVMAP);
 		saveInFile(mcontext, localCacheMap, LOCALMAP);
 		if (User.loginStatus) {
+			MYQUESTMAP = User.author.getUsername() + "myMap.sav";
 			myQuestionMap.putAll(tempMyQuest);
 			saveInFile(mcontext, myQuestionMap, MYQUESTMAP);
 		}

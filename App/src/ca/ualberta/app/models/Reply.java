@@ -31,6 +31,7 @@ public class Reply extends InputsModel {
 	private String questionTitle_Reply;
 	private long ID_Reply;
 	private long answerID_Reply;
+
 	/**
 	 * The constructor of the class
 	 * 
@@ -39,45 +40,44 @@ public class Reply extends InputsModel {
 	 * @param userName
 	 *            The user name of the author of the reply.
 	 */
-	public Reply(String content, String userName) {
-		super(content, userName);
+	public Reply(String content, Long userId) {
+		super(content, userId);
 		this.questionID_Reply = 0;
 		this.answerID_Reply = 0;
 		this.questionTitle_Reply = null;
 		this.ID_Reply = new Date().getTime() / 100;
 	}
 
-	public long getID(){
+	public long getID() {
 		return this.ID_Reply;
 	}
-	
+
 	public void setQuestionID(long questionId) {
 		this.questionID_Reply = questionId;
 	}
 
 	public void setQuestionTitle(String questionTitle) {
-		this.questionTitle_Reply = questionTitle;		
+		this.questionTitle_Reply = questionTitle;
 	}
-	
-	public void setAnswerID(long answerID){
+
+	public void setAnswerID(long answerID) {
 		this.answerID_Reply = answerID;
 	}
-	
-	public long getQuestionID(){
+
+	public long getQuestionID() {
 		return this.questionID_Reply;
 	}
-	
-	public String getQuestionTitle(){
+
+	public String getQuestionTitle() {
 		return this.questionTitle_Reply;
 	}
-	
-	public long getAnswerID(){
+
+	public long getAnswerID() {
 		return this.answerID_Reply;
 	}
 
 	public void setID(long replyID) {
 		this.ID_Reply = replyID;
 	}
-	
 
 }

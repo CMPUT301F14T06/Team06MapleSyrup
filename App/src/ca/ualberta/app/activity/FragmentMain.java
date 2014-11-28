@@ -31,8 +31,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
@@ -49,10 +47,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
+import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.Question;
-import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
@@ -73,6 +72,7 @@ public class FragmentMain extends Fragment {
 	private QuestionListController questionListController;
 	private QuestionListManager questionListManager;
 	private QuestionListAdapter adapter = null;
+	private AuthorMapController authorMapController;
 	private Button searchButton;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -103,7 +103,7 @@ public class FragmentMain extends Fragment {
 			spin_adapter.notifyDataSetChanged();
 			stopProgressDialog();
 		}
-		
+
 	};
 
 	@Override
@@ -119,6 +119,7 @@ public class FragmentMain extends Fragment {
 		mcontext = getActivity().getApplicationContext();
 		titleBar = (TextView) getView().findViewById(R.id.titleTv);
 		titleBar.setText("Main");
+
 		searchEditText = (EditText) getView().findViewById(
 				R.id.question_EditText);
 		searchButton = (Button) getView().findViewById(R.id.question_Button);
@@ -136,6 +137,7 @@ public class FragmentMain extends Fragment {
 		super.onStart();
 		questionListManager = new QuestionListManager();
 		cacheController = new CacheController(mcontext);
+		authorMapController = new AuthorMapController(mcontext);
 		questionListController = new QuestionListController();
 		adapter = new QuestionListAdapter(getActivity(),
 				R.layout.single_question,
@@ -170,10 +172,7 @@ public class FragmentMain extends Fragment {
 				}
 			}
 		});
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
-			searchButton.performClick();
-			checkInternet();
-		}
+
 		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
@@ -222,8 +221,7 @@ public class FragmentMain extends Fragment {
 						.getQuestion(position - 1);
 
 				if (User.author != null
-						&& User.author.getUsername().equals(
-								question.getAuthor())) {
+						&& User.author.getUserId() == question.getUserId()) {
 					Toast.makeText(mcontext,
 							"Deleting the Question: " + question.getTitle(),
 							Toast.LENGTH_LONG).show();
@@ -283,6 +281,9 @@ public class FragmentMain extends Fragment {
 				}, 2000);
 			}
 		});
+		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+			searchButton.performClick();
+		}
 	}
 
 	private void onLoad() {
@@ -352,22 +353,6 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	public void startProgressDialog() {
-		if (progressDialog == null) {
-			progressDialog = CustomProgressDialog.createDialog(getActivity());
-
-			progressDialog.setMessage("Loading...");
-		}
-		progressDialog.show();
-	}
-
-	public void stopProgressDialog() {
-		if (progressDialog != null) {
-			progressDialog.dismiss();
-			progressDialog = null;
-		}
-	}
-
 	private void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			String searchString = searchEditText.getText().toString();
@@ -391,6 +376,7 @@ public class FragmentMain extends Fragment {
 
 		@Override
 		public void run() {
+			authorMapController.renewAuthorMap(mcontext);
 			cacheController.clear();
 			Thread getMapThread = new GetMapThread();
 			getMapThread.run();
@@ -457,6 +443,22 @@ public class FragmentMain extends Fragment {
 			}
 
 			getActivity().runOnUiThread(doUpdateGUIList);
+		}
+	}
+
+	public void startProgressDialog() {
+		if (progressDialog == null) {
+			progressDialog = CustomProgressDialog.createDialog(getActivity());
+
+			progressDialog.setMessage("Loading...");
+		}
+		progressDialog.show();
+	}
+
+	public void stopProgressDialog() {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+			progressDialog = null;
 		}
 	}
 }

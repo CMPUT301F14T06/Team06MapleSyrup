@@ -29,6 +29,7 @@ import ca.ualberta.app.comparator.DateComparator;
 import ca.ualberta.app.comparator.PictureComparator;
 import ca.ualberta.app.comparator.QuestionUpvoteComparator;
 import ca.ualberta.app.comparator.ScoreComparator;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Question;
 
@@ -52,7 +53,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Adapter for the question list, used to display a question.
@@ -67,6 +67,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private String TAG = "Adapter";
 	private String status = "Need NotifyDataChange";
 	private String loginCause = "Upvote";
+	private AuthorMapController authorMapController;
 
 	// Thread that close the activity after finishing update
 	/**
@@ -85,6 +86,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		super(context, textViewResourceId, objects);
 		this.questionList = objects;
 		cacheController = new CacheController(context);
+		authorMapController = new AuthorMapController(context);
 	}
 
 	/**
@@ -136,7 +138,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		if (question != null) {
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
-			holder.authorName.setText(question.getAuthor());
+			holder.authorName.setText(authorMapController
+					.getAuthorName(question.getUserId()));
 			holder.timestamp.setText(question.getTimestamp().toString());
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
 			holder.upvoteState.setText("Upvote: "

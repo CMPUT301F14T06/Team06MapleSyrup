@@ -27,6 +27,7 @@ import java.util.Map;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.models.Question;
@@ -35,6 +36,7 @@ import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
+import ca.ualberta.app.widgets.CustomProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -61,6 +63,7 @@ public class MyFavoriteActivity extends Activity {
 	private QuestionListController favQuestionListController;
 	private QuestionListManager favQuestionListManager;
 	private QuestionList favQuestionList;
+	private AuthorMapController authorMapController;
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -97,6 +100,7 @@ public class MyFavoriteActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		cacheController = new CacheController(mcontext);
+		authorMapController = new AuthorMapController(mcontext);
 		favQuestionListController = new QuestionListController();
 		favQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -143,8 +147,7 @@ public class MyFavoriteActivity extends Activity {
 				Question question = favQuestionListController
 						.getQuestion(position - 1);
 				if (User.author != null
-						&& User.author.getUsername().equals(
-								question.getAuthor())) {
+						&& User.author.getUserId() == question.getUserId()) {
 					Toast.makeText(mcontext,
 							"Deleting the Question: " + question.getTitle(),
 							Toast.LENGTH_LONG).show();
@@ -265,6 +268,7 @@ public class MyFavoriteActivity extends Activity {
 
 		@Override
 		public void run() {
+			authorMapController.renewAuthorMap(mcontext);
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();

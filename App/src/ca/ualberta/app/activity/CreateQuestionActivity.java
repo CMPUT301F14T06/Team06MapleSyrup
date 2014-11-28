@@ -26,15 +26,13 @@ import java.io.File;
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.activity.QuestionDetailActivity.GetThread;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.models.AuthorMap;
-import ca.ualberta.app.models.AuthorMapIO;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
-import ca.ualberta.app.thread.UpdateAuthorThread;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -67,12 +65,8 @@ public class CreateQuestionActivity extends Activity {
 	private String imageString = null;
 	private PushController pushController;
 	private QuestionListManager questionListManager;
-	private AuthorMapManager authorMapManager;
-	private String FILENAME = "AUTHORMAP.sav";
-	private AuthorMap authorMap;
-	private long from = 0;
-	private long size = 1000;
-	private String lable = "author";
+	private AuthorMapController authorMapController;
+
 	private CacheController cacheController;
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
@@ -97,8 +91,7 @@ public class CreateQuestionActivity extends Activity {
 		imageView = (ImageView) findViewById(R.id.question_image_imageView);
 		pushController = new PushController(this);
 		questionListManager = new QuestionListManager();
-		authorMapManager = new AuthorMapManager();
-		authorMap = new AuthorMap();
+		authorMapController = new AuthorMapController(this);
 		imageView.setVisibility(View.GONE);
 		cacheController = new CacheController(this);
 	}
@@ -298,25 +291,19 @@ public class CreateQuestionActivity extends Activity {
 			noTitleEntered();
 		else {
 			if (edit == false) {
-				newQuestion = new Question(content, User.author.getUsername(),
+				newQuestion = new Question(content, User.author.getUserId(),
 						title, imageString);
 				User.author.addAQuestion(newQuestion.getID());
 			} else {
-				newQuestion = new Question(content, User.author.getUsername(),
+				newQuestion = new Question(content, User.author.getUserId(),
 						title, imageString);
 				newQuestion.setID(questionID);
 			}
 			if (InternetConnectionChecker.isNetworkAvailable(this)) {
-				Thread updateAuthorThread = new UpdateAuthorThread(User.author);
-				updateAuthorThread.start();
-
-				Thread searchAuthorThread = new SearchAuthorThread("");
-				searchAuthorThread.start();
-
+				authorMapController.updateAuthor(this, User.author);
 				Thread addQuestionThread = new AddQuestionThread(newQuestion);
 				addQuestionThread.start();
 				cacheController.addMyQuestion(view.getContext(), newQuestion);
-				AuthorMapIO.saveInFile(view.getContext(), authorMap, FILENAME);
 			} else {
 				if (edit == false) {
 					pushController.addWaitngListQuestions(
@@ -378,21 +365,6 @@ public class CreateQuestionActivity extends Activity {
 				e.printStackTrace();
 			}
 			runOnUiThread(doFinishAdd);
-		}
-	}
-
-	class SearchAuthorThread extends Thread {
-		private String search;
-
-		public SearchAuthorThread(String s) {
-			search = s;
-		}
-
-		@Override
-		public void run() {
-			authorMap.clear();
-			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
-					size, lable));
 		}
 	}
 

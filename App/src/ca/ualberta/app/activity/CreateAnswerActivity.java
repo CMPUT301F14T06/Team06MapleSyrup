@@ -137,7 +137,7 @@ public class CreateAnswerActivity extends Activity {
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
 					String questionTitle = extras.getString(QUESTION_TITLE);
-					newAnswer = new Answer(content, User.author.getUsername(),
+					newAnswer = new Answer(content, User.author.getUserId(),
 							imageString);
 					newAnswer.setQuestionID(questionId);
 					newAnswer.setQuestionTitle(questionTitle);

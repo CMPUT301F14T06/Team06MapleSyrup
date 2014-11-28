@@ -97,7 +97,7 @@ public class CreateAnswerReplyActivity extends Activity {
 					if (!extras.getBoolean(EDIT_MODE)) {
 						answerPos = extras.getInt(ANSWER_POS);
 					}
-					newReply = new Reply(content, User.author.getUsername());
+					newReply = new Reply(content, User.author.getUserId());
 					newReply.setQuestionID(questionId);
 					newReply.setAnswerID(answerID);
 					newReply.setQuestionTitle(questionTitle);

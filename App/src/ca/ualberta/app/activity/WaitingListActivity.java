@@ -198,8 +198,7 @@ public class WaitingListActivity extends Activity {
 				Question question = waitingQuestionListController
 						.getQuestion(position - 1);
 				if (User.author != null
-						&& User.author.getUsername().equals(
-								question.getAuthor())) {
+						&& User.author.getUserId() == question.getUserId()) {
 					Toast.makeText(mcontext,
 							"Deleting the Question: " + question.getTitle(),
 							Toast.LENGTH_LONG).show();

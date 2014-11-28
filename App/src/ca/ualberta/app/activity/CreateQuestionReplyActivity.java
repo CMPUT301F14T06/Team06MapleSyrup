@@ -89,7 +89,7 @@ public class CreateQuestionReplyActivity extends Activity {
 				if (extras != null) {
 					long questionId = extras.getLong(QUESTION_ID);
 					String questionTitle = extras.getString(QUESTION_TITLE);
-					newReply = new Reply(content, User.author.getUsername());
+					newReply = new Reply(content, User.author.getUserId());
 					newReply.setQuestionID(questionId);
 					newReply.setQuestionTitle(questionTitle);
 

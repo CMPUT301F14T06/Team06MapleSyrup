@@ -22,9 +22,9 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
-import ca.ualberta.app.models.AuthorMapIO;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import android.app.Activity;
@@ -40,13 +40,9 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
 	private EditText usernameEdit;
 	private String username;
-	private AuthorMap authorMap;
-	private String FILENAME = "AUTHORMAP.sav";
 	private Context context;
-	private AuthorMapManager authorMapManager;
-	private long from = 0;
-	private long size = 1000;
-	private String lable = "author";
+	private AuthorMapController authorMapController;
+
 	public static String LOGINCAUSE;
 	private String loginCause;
 	private Runnable doFinishAdd = new Runnable() {
@@ -66,8 +62,6 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 		context = this;
 		usernameEdit = (EditText) findViewById(R.id.username_editText);
-		authorMap = new AuthorMap();
-		authorMapManager = new AuthorMapManager();
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		loginCause = extras.getString(LOGINCAUSE);
@@ -83,15 +77,6 @@ public class LoginActivity extends Activity {
 		else if (loginCause.equals("Reply"))
 			Toast.makeText(context, "Please Login to reply", Toast.LENGTH_SHORT)
 					.show();
-
-		if (InternetConnectionChecker.isNetworkAvailable(context)) {
-			Thread thread = new SearchThread("");
-			thread.start();
-
-		} else {
-			authorMap = AuthorMapIO.loadFromFile(context, FILENAME);
-		}
-
 	}
 
 	public void cancel_login(View view) {
@@ -100,23 +85,21 @@ public class LoginActivity extends Activity {
 	}
 
 	public void login(View view) {
-		AuthorMapIO.saveInFile(context, authorMap, FILENAME);
+		authorMapController = new AuthorMapController(context);
 		username = usernameEdit.getText().toString().trim();
 		if (username.length() == 0) {
 			notifyNoUsernameEntered();
 		} else {
 			User.loginStatus = true;
-			if (authorMap.hasAuthor(username)) {
-				User.author = authorMap.getMap().get(username);
+			if (authorMapController.hasAuthor(username)) {
+				User.author = authorMapController.getAuthor(username);
 				notifyLogin();
-				runOnUiThread(doFinishAdd);
 			} else {
 				Author newAuthor = new Author(username);
+				authorMapController.addAuthor(newAuthor);
 				notifyAddNewAuthor();
-				Thread addThread = new AddThread(newAuthor);
-				addThread.start();
 			}
-
+			runOnUiThread(doFinishAdd);
 		}
 	}
 
@@ -159,55 +142,4 @@ public class LoginActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	class SearchThread extends Thread {
-		private String search;
-
-		public SearchThread(String s) {
-			search = s;
-		}
-
-		@Override
-		public void run() {
-			authorMap.clear();
-			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
-					size, lable));
-
-		}
-	}
-
-	class GetThread extends Thread {
-		private String username;
-
-		public GetThread(String username) {
-			this.username = username;
-		}
-
-		@Override
-		public void run() {
-			User.author = authorMapManager.getAuthor(username);
-		}
-	}
-
-	class AddThread extends Thread {
-		private Author newAuthor;
-
-		public AddThread(Author newAuthor) {
-			this.newAuthor = newAuthor;
-		}
-
-		@Override
-		public void run() {
-			User.author = newAuthor;
-			authorMap.addAuthor(newAuthor);
-			AuthorMapIO.saveInFile(context, authorMap, FILENAME);
-			authorMapManager.addAuthor(newAuthor);
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			runOnUiThread(doFinishAdd);
-		}
-	}
 }

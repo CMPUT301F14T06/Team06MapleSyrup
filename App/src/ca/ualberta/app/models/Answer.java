@@ -48,8 +48,8 @@ public class Answer extends InputsModel {
 	 * @param image
 	 *            The image inside the answer.
 	 */
-	public Answer(String content, String userName, String imageString) {
-		super(content, userName, imageString);
+	public Answer(String content, Long userId, String imageString) {
+		super(content, userId, imageString);
 		this.replyList = new ArrayList<Reply>();
 		this.ID_answer = new Date().getTime() / 10;
 		this.upvoteCount_answer = 0;
