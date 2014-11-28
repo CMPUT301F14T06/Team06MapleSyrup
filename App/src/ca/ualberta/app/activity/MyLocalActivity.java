@@ -24,7 +24,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
+import ca.ualberta.app.activity.QuestionDetailActivity.SearchAuthorMapThread;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
@@ -64,6 +67,7 @@ public class MyLocalActivity extends Activity {
 	private QuestionListManager localQuestionListManager;
 	private QuestionList localQuestionList;
 	private AuthorMapController authorMapController;
+	private AuthorMapManager authorMapManager;
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -99,6 +103,7 @@ public class MyLocalActivity extends Activity {
 		super.onStart();
 		cacheController = new CacheController(mcontext);
 		authorMapController = new AuthorMapController(mcontext);
+		authorMapManager = new AuthorMapManager();
 		localQuestionListController = new QuestionListController();
 		localQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -256,7 +261,8 @@ public class MyLocalActivity extends Activity {
 
 		@Override
 		public void run() {
-			authorMapController.renewAuthorMap(mcontext);
+			Thread searchAuthorThread = new SearchAuthorMapThread("");
+			searchAuthorThread.run();
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
@@ -294,6 +300,21 @@ public class MyLocalActivity extends Activity {
 		}
 	}
 
+	class SearchAuthorMapThread extends Thread {
+		private String search;
+
+		public SearchAuthorMapThread(String s) {
+			search = s;
+		}
+
+		@Override
+		public void run() {
+			authorMapController.clear();
+			authorMapController.putAll(authorMapManager.searchAuthors(search,
+					null, 0, 1000, "author"));
+		}
+	}
+
 	/**
 	 * Handle action bar item clicks here. The action bar will automatically
 	 * handle clicks on the Home/Up button, so long as you specify a parent
@@ -314,5 +335,4 @@ public class MyLocalActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	
 }

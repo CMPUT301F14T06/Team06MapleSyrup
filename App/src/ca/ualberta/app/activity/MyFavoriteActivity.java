@@ -25,7 +25,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
+import ca.ualberta.app.activity.QuestionDetailActivity.SearchAuthorMapThread;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
@@ -64,6 +66,7 @@ public class MyFavoriteActivity extends Activity {
 	private QuestionListManager favQuestionListManager;
 	private QuestionList favQuestionList;
 	private AuthorMapController authorMapController;
+	private AuthorMapManager authorMapManager;
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -87,8 +90,6 @@ public class MyFavoriteActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_favorite);
-		// favQuestionListView = (ListView) getActivity().findViewById(
-		// R.id.favQuestion_ListView);
 		sortOptionSpinner = (Spinner) findViewById(R.id.favSort_spinner);
 		mListView = (ScrollListView) findViewById(R.id.favQuestion_ListView);
 		mListView.setPullLoadEnable(false);
@@ -101,6 +102,7 @@ public class MyFavoriteActivity extends Activity {
 		super.onStart();
 		cacheController = new CacheController(mcontext);
 		authorMapController = new AuthorMapController(mcontext);
+		authorMapManager = new AuthorMapManager();
 		favQuestionListController = new QuestionListController();
 		favQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -124,7 +126,8 @@ public class MyFavoriteActivity extends Activity {
 				long questionID = question.getID();
 				String questionTitle = favQuestionListController.getQuestion(
 						pos - 1).getTitle();
-				if (!cacheController.hasSaved(mcontext, question)) {
+				if (!cacheController.hasFavorited(mcontext, question)
+						&& !cacheController.hasSaved(mcontext, question)) {
 					cacheController.addLocalQuestion(mcontext, question);
 					cacheList = "MYLOCAL";
 				} else
@@ -268,7 +271,8 @@ public class MyFavoriteActivity extends Activity {
 
 		@Override
 		public void run() {
-			authorMapController.renewAuthorMap(mcontext);
+			Thread searchAuthorThread = new SearchAuthorMapThread("");
+			searchAuthorThread.run();
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
@@ -283,6 +287,21 @@ public class MyFavoriteActivity extends Activity {
 						.getAuthorQuestionId());
 
 			cacheController.addAll(mcontext, tempFav, tempSav, tempMyQuest);
+		}
+	}
+
+	class SearchAuthorMapThread extends Thread {
+		private String search;
+
+		public SearchAuthorMapThread(String s) {
+			search = s;
+		}
+
+		@Override
+		public void run() {
+			authorMapController.clear();
+			authorMapController.putAll(authorMapManager.searchAuthors(search,
+					null, 0, 1000, "author"));
 		}
 	}
 

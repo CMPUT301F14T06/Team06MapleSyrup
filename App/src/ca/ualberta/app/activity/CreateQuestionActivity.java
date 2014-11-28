@@ -71,6 +71,7 @@ public class CreateQuestionActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
 	public static String QUESTION_CONTENT = "QUESTION_CONTENT";
+	public static String IMAGE = "IMAGE";
 	Uri imageFileUri;
 	Uri stringFileUri;
 	private boolean edit = false;
@@ -106,6 +107,13 @@ public class CreateQuestionActivity extends Activity {
 				questionID = extras.getLong(QUESTION_ID);
 				String questionTitle = extras.getString(QUESTION_TITLE);
 				String questionContent = extras.getString(QUESTION_CONTENT);
+				byte[] imageByteArray = Base64.decode(
+						extras.getByteArray(IMAGE), Base64.NO_WRAP);
+				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+						imageByteArray.length);
+				scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
+				imageView.setVisibility(View.VISIBLE);
+				imageView.setImageBitmap(imageThumb);
 				titleText.setText(questionTitle);
 				contentText.setText(questionContent);
 				edit = true;
@@ -306,9 +314,14 @@ public class CreateQuestionActivity extends Activity {
 				cacheController.addMyQuestion(view.getContext(), newQuestion);
 			} else {
 				if (edit == false) {
+					Toast.makeText(
+							this,
+							"Question added to Waiting List, it will be post when Internet is connected.",
+							Toast.LENGTH_LONG).show();
 					pushController.addWaitngListQuestions(
 							getApplicationContext(), newQuestion);
 				} else {
+
 					pushController.updateWaitingListQuestion(
 							getApplicationContext(), newQuestion);
 				}

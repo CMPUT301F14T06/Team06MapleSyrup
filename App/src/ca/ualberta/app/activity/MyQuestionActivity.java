@@ -25,7 +25,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
+import ca.ualberta.app.activity.QuestionDetailActivity.SearchAuthorMapThread;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
@@ -62,13 +64,13 @@ public class MyQuestionActivity extends Activity {
 	private QuestionListController myQuestionListController;
 	private QuestionListManager myQuestionListManager;
 	private AuthorMapController authorMapController;
+	private AuthorMapManager authorMapManager;
 	private CacheController cacheController;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
 	private ArrayAdapter<String> spinAdapter;
 	private ArrayList<Long> myQuestionId;
 	private static long categoryID;
-	private CustomProgressDialog progressDialog = null;
 	public String sortString = "Sort By Date";
 	private Date timestamp;
 	private ScrollListView mListView;
@@ -79,7 +81,6 @@ public class MyQuestionActivity extends Activity {
 			adapter.applySortMethod();
 			adapter.notifyDataSetChanged();
 			spinAdapter.notifyDataSetChanged();
-			stopProgressDialog();
 		}
 	};
 
@@ -99,6 +100,7 @@ public class MyQuestionActivity extends Activity {
 		super.onStart();
 		cacheController = new CacheController(mcontext);
 		authorMapController = new AuthorMapController(mcontext);
+		authorMapManager = new AuthorMapManager();
 		myQuestionListController = new QuestionListController();
 		myQuestionListManager = new QuestionListManager();
 		adapter = new QuestionListAdapter(mcontext, R.layout.single_question,
@@ -222,7 +224,6 @@ public class MyQuestionActivity extends Activity {
 	}
 
 	private void updateList() {
-		startProgressDialog();
 		myQuestionId = User.author.getAuthorQuestionId();
 		if (myQuestionId.size() == 0)
 			Toast.makeText(mcontext, "No Question Asked Yet.",
@@ -247,7 +248,8 @@ public class MyQuestionActivity extends Activity {
 
 		@Override
 		public void run() {
-			authorMapController.renewAuthorMap(mcontext);
+			Thread searchAuthorThread = new SearchAuthorMapThread("");
+			searchAuthorThread.run();
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();
@@ -260,6 +262,22 @@ public class MyQuestionActivity extends Activity {
 					.getAuthorQuestionId());
 			cacheController.addAll(mcontext, tempFav, tempSav, tempMyQuest);
 		}
+	}
+
+	class SearchAuthorMapThread extends Thread {
+		private String search;
+
+		public SearchAuthorMapThread(String s) {
+			search = s;
+		}
+
+		@Override
+		public void run() {
+			authorMapController.clear();
+			authorMapController.putAll(authorMapManager.searchAuthors(search,
+					null, 0, 1000, "author"));
+		}
+
 	}
 
 	class DeleteThread extends Thread {
@@ -281,22 +299,6 @@ public class MyQuestionActivity extends Activity {
 				}
 			}
 			runOnUiThread(doUpdateGUIList);
-		}
-	}
-
-	public void startProgressDialog() {
-		if (progressDialog == null) {
-			progressDialog = CustomProgressDialog.createDialog(this);
-
-			progressDialog.setMessage("Loading...");
-		}
-		progressDialog.show();
-	}
-
-	public void stopProgressDialog() {
-		if (progressDialog != null) {
-			progressDialog.dismiss();
-			progressDialog = null;
 		}
 	}
 }

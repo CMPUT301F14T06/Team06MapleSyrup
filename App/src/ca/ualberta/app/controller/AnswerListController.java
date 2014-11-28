@@ -2,7 +2,6 @@ package ca.ualberta.app.controller;
 
 import java.util.ArrayList;
 import ca.ualberta.app.models.Answer;
-import ca.ualberta.app.models.QuestionList;
 
 public class AnswerListController {
 

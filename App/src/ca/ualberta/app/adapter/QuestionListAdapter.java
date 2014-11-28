@@ -21,7 +21,6 @@
 package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
-
 import ca.ualberta.app.activity.LoginActivity;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.comparator.AnswerUpvoteComparator;
@@ -31,13 +30,11 @@ import ca.ualberta.app.comparator.QuestionUpvoteComparator;
 import ca.ualberta.app.comparator.ScoreComparator;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
+import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.Question;
-
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
-
 import ca.ualberta.app.thread.UpdateQuestionThread;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -60,6 +57,7 @@ import android.widget.TextView;
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private ArrayList<Question> questionList = null;
 	private CacheController cacheController;
+	private AuthorMapController authorMapController;
 	private String sortingOption = null;
 	private String lastSortingOption = null;
 	ViewHolder holder = null;
@@ -67,7 +65,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private String TAG = "Adapter";
 	private String status = "Need NotifyDataChange";
 	private String loginCause = "Upvote";
-	private AuthorMapController authorMapController;
 
 	// Thread that close the activity after finishing update
 	/**
@@ -136,10 +133,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		checkInternet();
 		Question question = this.getItem(position);
 		if (question != null) {
+			Long userId = question.getUserId();
+			AuthorMap authorMap = authorMapController
+					.getAuthorMap(getContext());
+			holder.authorName.setText(authorMap.getUsername(userId));
 			holder.questionTitle.setText(question.getTitle());
 			holder.questionContent.setText(question.getContent());
-			holder.authorName.setText(authorMapController
-					.getAuthorName(question.getUserId()));
 			holder.timestamp.setText(question.getTimestamp().toString());
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
 			holder.upvoteState.setText("Upvote: "
@@ -163,7 +162,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			else
 				holder.fav_Rb.setChecked(false);
 			if (User.loginStatus)
-				if (question.hasUpvotedBy(User.author.getUsername()))
+				if (question.hasUpvotedBy(User.author.getUserId()))
 					holder.upvote_Rb.setChecked(true);
 				else
 					holder.upvote_Rb.setChecked(false);
@@ -180,12 +179,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 	private void checkInternet() {
 		if (InternetConnectionChecker.isNetworkAvailable(getContext())) {
-			// holder.save_Rb.setVisibility(View.VISIBLE);
-			// holder.fav_Rb.setVisibility(View.VISIBLE);
 			holder.upvote_Rb.setEnabled(true);
 		} else {
-			// holder.save_Rb.setVisibility(View.INVISIBLE);
-			// holder.fav_Rb.setVisibility(View.INVISIBLE);
 			holder.upvote_Rb.setEnabled(false);
 		}
 	}

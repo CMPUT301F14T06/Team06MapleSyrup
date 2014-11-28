@@ -47,7 +47,9 @@ public class Reply extends InputsModel {
 		this.questionTitle_Reply = null;
 		this.ID_Reply = new Date().getTime() / 100;
 	}
-
+	public void setAuthor(){
+		
+	}
 	public long getID() {
 		return this.ID_Reply;
 	}

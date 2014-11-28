@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -35,7 +34,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.util.Log;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
@@ -145,6 +143,8 @@ public class AuthorMapManager {
 		}
 		return result;
 	}
+
+
 
 	/**
 	 * Adds a new author
@@ -329,6 +329,5 @@ public class AuthorMapManager {
 
 		return result.toString();
 	}
-
 
 }

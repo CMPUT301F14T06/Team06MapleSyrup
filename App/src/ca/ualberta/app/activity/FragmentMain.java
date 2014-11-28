@@ -23,7 +23,6 @@ package ca.ualberta.app.activity;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,15 +44,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
-import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
+import ca.ualberta.app.network.NetworkObserver;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import ca.ualberta.app.widgets.CustomProgressDialog;
@@ -73,6 +73,7 @@ public class FragmentMain extends Fragment {
 	private QuestionListManager questionListManager;
 	private QuestionListAdapter adapter = null;
 	private AuthorMapController authorMapController;
+	private AuthorMapManager authorMapManager;
 	private Button searchButton;
 	private Spinner sortOptionSpinner;
 	private Context mcontext;
@@ -89,6 +90,7 @@ public class FragmentMain extends Fragment {
 	private long TotalSize = 10;
 	private int needToLoadMore = 0;
 	private InputMethodManager imm;
+	private NetworkObserver networkObserver;
 	private CustomProgressDialog progressDialog = null;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
@@ -130,6 +132,7 @@ public class FragmentMain extends Fragment {
 				R.id.question_ListView);
 		mListView.setPullLoadEnable(true);
 		mHandler = new Handler();
+		networkObserver = new NetworkObserver();
 	}
 
 	@Override
@@ -138,6 +141,7 @@ public class FragmentMain extends Fragment {
 		questionListManager = new QuestionListManager();
 		cacheController = new CacheController(mcontext);
 		authorMapController = new AuthorMapController(mcontext);
+		authorMapManager = new AuthorMapManager();
 		questionListController = new QuestionListController();
 		adapter = new QuestionListAdapter(getActivity(),
 				R.layout.single_question,
@@ -353,17 +357,21 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
-	private void updateList() {
+	public void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
 			String searchString = searchEditText.getText().toString();
 			Thread thread = new SearchThread(searchString);
 			thread.start();
 			mListView.setEnabled(true);
+			networkObserver.setObserver(this);
+		} else {
+			networkObserver.startObservation(this);
 		}
 	}
 
 	private void updateSortedList() {
-		getActivity().runOnUiThread(doUpdateGUIList);
+		adapter.applySortMethod();
+		adapter.notifyDataSetChanged();
 	}
 
 	class SearchThread extends Thread {
@@ -376,10 +384,12 @@ public class FragmentMain extends Fragment {
 
 		@Override
 		public void run() {
-			authorMapController.renewAuthorMap(mcontext);
 			cacheController.clear();
 			Thread getMapThread = new GetMapThread();
 			getMapThread.run();
+			authorMapController.clear();
+			Thread searchAuthorThread = new SearchAuthorMapThread("");
+			searchAuthorThread.run();
 
 			if (needToLoadMore == 0) {
 				questionListController.clear();
@@ -400,10 +410,26 @@ public class FragmentMain extends Fragment {
 		}
 	}
 
+	class SearchAuthorMapThread extends Thread {
+		private String search;
+
+		public SearchAuthorMapThread(String s) {
+			search = s;
+		}
+
+		@Override
+		public void run() {
+			authorMapController.clear();
+			authorMapController.putAll(authorMapManager.searchAuthors(search,
+					null, 0, 1000, "author"));
+		}
+	}
+
 	class GetMapThread extends Thread {
 
 		@Override
 		public void run() {
+
 			cacheController.clear();
 			Map<Long, Question> tempFav = new HashMap<Long, Question>();
 			Map<Long, Question> tempSav = new HashMap<Long, Question>();

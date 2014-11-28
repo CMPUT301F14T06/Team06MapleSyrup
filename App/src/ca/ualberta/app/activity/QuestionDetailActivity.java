@@ -20,11 +20,14 @@
 
 package ca.ualberta.app.activity;
 
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.adapter.ReplyListAdapter;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
+import ca.ualberta.app.models.Author;
+import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
@@ -69,6 +72,7 @@ public class QuestionDetailActivity extends Activity {
 	private QuestionListManager questionManager;
 	private CacheController cacheController;
 	private AuthorMapController authorMapController;
+	private AuthorMapManager authorMapManager;
 	private ReplyListAdapter replyAdapter = null;
 	private AnswerListAdapter answerAdapter = null;
 	private Bitmap image = null;
@@ -80,6 +84,7 @@ public class QuestionDetailActivity extends Activity {
 	private String loginCause = "Upvote";
 	private String loginCause1 = "Answer";
 	private String loginCause2 = "Reply";
+
 	private Runnable doUpdateGUIDetails = new Runnable() {
 		public void run() {
 			updateUI();
@@ -88,10 +93,11 @@ public class QuestionDetailActivity extends Activity {
 
 	private void updateUI() {
 		setButtonChecked();
+		Long userId = question.getUserId();
+		AuthorMap authorMap = authorMapController.getAuthorMap(mcontext);
 		questionTitleTextView.setText(question.getTitle());
 		questionContentTextView.setText(question.getContent());
-		authorNameTextView.setText(authorMapController.getAuthorName(question
-				.getUserId()));
+		authorNameTextView.setText(authorMap.getUsername(userId));
 		questionUpvoteTextView.setText("Upvote: "
 				+ question.getQuestionUpvoteCount());
 		answerCountTextView.setText("Answer: " + question.getAnswerCount());
@@ -132,7 +138,7 @@ public class QuestionDetailActivity extends Activity {
 		else
 			fav_Rb.setChecked(false);
 		if (User.loginStatus)
-			if (question.hasUpvotedBy(User.author.getUsername()))
+			if (question.hasUpvotedBy(User.author.getUserId()))
 				upvote_Rb.setChecked(true);
 			else
 				upvote_Rb.setChecked(false);
@@ -188,8 +194,6 @@ public class QuestionDetailActivity extends Activity {
 		save_Rb = (RadioButton) findViewById(R.id.save_detail_button);
 		fav_Rb = (RadioButton) findViewById(R.id.fav_detail_button);
 		upvote_Rb = (RadioButton) findViewById(R.id.upvote_detail_button);
-		cacheController = new CacheController(mcontext);
-		authorMapController = new AuthorMapController(mcontext);
 		questionImageView.setVisibility(View.GONE);
 	}
 
@@ -202,7 +206,10 @@ public class QuestionDetailActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		cacheController = new CacheController(mcontext);
 		questionManager = new QuestionListManager();
+		authorMapController = new AuthorMapController(mcontext);
+		authorMapManager = new AuthorMapManager();
 		Intent intent = getIntent();
 
 		if (intent != null) {
@@ -401,8 +408,10 @@ public class QuestionDetailActivity extends Activity {
 
 		@Override
 		public void run() {
-			authorMapController.renewAuthorMap(mcontext);
 			question = questionManager.getQuestion(id);
+			authorMapController.clear();
+			Thread searchAuthorThread = new SearchAuthorMapThread("");
+			searchAuthorThread.run();
 			checkFavLocalClick();
 			if (upvote_click == true) {
 				if (User.loginStatus) {
@@ -424,4 +433,18 @@ public class QuestionDetailActivity extends Activity {
 		}
 	}
 
+	class SearchAuthorMapThread extends Thread {
+		private String search;
+
+		public SearchAuthorMapThread(String s) {
+			search = s;
+		}
+
+		@Override
+		public void run() {
+			authorMapController.clear();
+			authorMapController.putAll(authorMapManager.searchAuthors(search,
+					null, 0, 1000, "author"));
+		}
+	}
 }

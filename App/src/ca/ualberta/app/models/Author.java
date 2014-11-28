@@ -22,8 +22,6 @@ package ca.ualberta.app.models;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class contains all functionalities an author object should have.

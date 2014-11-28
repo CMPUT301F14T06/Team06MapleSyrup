@@ -69,6 +69,7 @@ public class CreateAnswerActivity extends Activity {
 	public static String ANSWER_ID = "ANSWER_ID";
 	public static String ANSWER_CONTENT = "ANSWER_CONTENT";
 	public static String EDIT_MODE = "EDIT_MODE";
+	public static String IMAGE = "IMAGE";
 	private Intent intent;
 	Uri imageFileUri;
 	Uri stringFileUri;
@@ -122,6 +123,13 @@ public class CreateAnswerActivity extends Activity {
 				if (extras.getBoolean(EDIT_MODE)) {
 					String answerContent = extras.getString(ANSWER_CONTENT);
 					contentText.setText(answerContent);
+					byte[] imageByteArray = Base64.decode(
+							extras.getByteArray(IMAGE), Base64.NO_WRAP);
+					image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+							imageByteArray.length);
+					scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
+					imageView.setVisibility(View.VISIBLE);
+					imageView.setImageBitmap(imageThumb);
 				}
 			}
 		}
@@ -155,6 +163,10 @@ public class CreateAnswerActivity extends Activity {
 							pushController.updateWaitingListAnswer(
 									getApplicationContext(), newAnswer);
 						} else {
+							Toast.makeText(
+									this,
+									"Answer added to Waiting List, it will be post when Internet is connected.",
+									Toast.LENGTH_LONG).show();
 							pushController.addWaitngListAnswers(
 									getApplicationContext(), newAnswer,
 									questionTitle);

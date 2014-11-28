@@ -91,12 +91,12 @@ public class LoginActivity extends Activity {
 			notifyNoUsernameEntered();
 		} else {
 			User.loginStatus = true;
-			if (authorMapController.hasAuthor(username)) {
+			if (authorMapController.hasAuthor(context, username)) {
 				User.author = authorMapController.getAuthor(username);
 				notifyLogin();
 			} else {
 				Author newAuthor = new Author(username);
-				authorMapController.addAuthor(newAuthor);
+				authorMapController.addAuthor(context, newAuthor);
 				notifyAddNewAuthor();
 			}
 			runOnUiThread(doFinishAdd);

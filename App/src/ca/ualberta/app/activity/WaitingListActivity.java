@@ -14,20 +14,18 @@ import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
+import ca.ualberta.app.network.NetworkObserver;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -57,6 +55,7 @@ public class WaitingListActivity extends Activity {
 	private String AnswerType;
 	private String ReplyType;
 	private ArrayList<String> typeOption;
+	private NetworkObserver networkObserver;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			questionAdapter.notifyDataSetChanged();
@@ -80,6 +79,7 @@ public class WaitingListActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		typeOption = new ArrayList<String>();
+		networkObserver = new NetworkObserver();
 		pushController = new PushController(mcontext);
 		waitingQuestionListController = new QuestionListController();
 		waitingAnswerListController = new AnswerListController();
@@ -110,6 +110,7 @@ public class WaitingListActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
+				// Question
 				if (categoryID == 0) {
 					Intent intent = new Intent(mcontext,
 							CreateQuestionActivity.class);
@@ -122,7 +123,11 @@ public class WaitingListActivity extends Activity {
 					intent.putExtra(CreateQuestionActivity.QUESTION_CONTENT,
 							waitingQuestionListController.getQuestion(pos - 1)
 									.getContent());
+					intent.putExtra(CreateQuestionActivity.IMAGE,
+							waitingQuestionListController.getQuestion(pos - 1)
+									.getImage());
 					startActivity(intent);
+					// Answer
 				} else if (categoryID == 1) {
 					Intent intent = new Intent(mcontext,
 							CreateAnswerActivity.class);
@@ -138,8 +143,12 @@ public class WaitingListActivity extends Activity {
 					intent.putExtra(CreateAnswerActivity.ANSWER_CONTENT,
 							waitingAnswerListController.getAnswer(pos - 1)
 									.getContent());
+					intent.putExtra(CreateAnswerActivity.IMAGE,
+							waitingAnswerListController.getAnswer(pos - 1)
+									.getImage());
 					intent.putExtra(CreateAnswerActivity.EDIT_MODE, true);
 					startActivity(intent);
+					// Reply
 				} else if (categoryID == 2) {
 					if (waitingReplyListController.getReply(pos - 1)
 							.getAnswerID() == 0) {
@@ -257,10 +266,19 @@ public class WaitingListActivity extends Activity {
 		typeOption.add(ReplyType);
 	}
 
-	private void updateList(long categoryID) {
+	public void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable(this)) {
+			long total = waitingQuestionListController.size()
+					+ waitingAnswerListController.size()
+					+ waitingReplyListController.size();
+			Toast.makeText(mcontext,
+					total + " item(s) posted from Waiting List",
+					Toast.LENGTH_LONG).show();
 			Thread thread = new postListThread();
 			thread.start();
+			networkObserver.setObserver(this);
+			
+
 		} else {
 			waitingQuestionListController.clear();
 			waitingAnswerListController.clear();
@@ -277,6 +295,7 @@ public class WaitingListActivity extends Activity {
 			questionAdapter.notifyDataSetChanged();
 			answerAdapter.notifyDataSetChanged();
 			replyAdapter.notifyDataSetChanged();
+			networkObserver.startObservation(this);
 		}
 	}
 
@@ -298,7 +317,7 @@ public class WaitingListActivity extends Activity {
 			if (categoryID == 2) {
 				mListView.setAdapter(replyAdapter);
 			}
-			updateList(categoryID);
+			updateList();
 			updateCounter();
 			spinAdapter.notifyDataSetChanged();
 		}
@@ -326,6 +345,7 @@ public class WaitingListActivity extends Activity {
 			pushController.removeWaitingListQuestionList(mcontext);
 			pushController.removeWaitingListAnswerList(mcontext);
 			pushController.removeWaitingListReplyList(mcontext);
+
 			runOnUiThread(doUpdateGUIList);
 		}
 	}

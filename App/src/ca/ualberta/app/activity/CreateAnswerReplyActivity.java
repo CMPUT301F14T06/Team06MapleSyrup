@@ -115,6 +115,10 @@ public class CreateAnswerReplyActivity extends Activity {
 							pushController.updateWaitingListReply(
 									getApplicationContext(), newReply);
 						} else {
+							Toast.makeText(
+									this,
+									"Reply added to Waiting List, it will be post when Internet is connected.",
+									Toast.LENGTH_LONG).show();
 							pushController.addWaitngListReplies(
 									getApplicationContext(), newReply,
 									questionTitle);

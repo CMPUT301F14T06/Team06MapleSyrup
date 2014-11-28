@@ -8,24 +8,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
-import java.util.Map;
-
 import android.content.Context;
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.User;
-import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateAuthorThread;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class AuthorMapController {
-	/**
-	 * 
-	 */
-
 	private AuthorMap authorMap;
 	private String FILENAME = "AUTHORMAP.sav";
 	private AuthorMapManager authorMapManager;
@@ -35,49 +28,56 @@ public class AuthorMapController {
 	private String lable = "author";
 
 	public AuthorMapController(Context context) {
-		authorMap = loadFromFile(context, FILENAME);
-		renewAuthorMap(context);
-	}
-
-	public void renewAuthorMap(Context context) {
 		this.context = context;
-		if (InternetConnectionChecker.isNetworkAvailable(context)) {
-			authorMapManager = new AuthorMapManager();
-			Thread searchThread = new SearchThread("");
-			searchThread.start();
-		} else
-			authorMap = loadFromFile(context, FILENAME);
+		authorMap = loadFromFile(context, FILENAME);
 	}
 
-	public boolean hasAuthor(String username) {
+	public void clear() {
+		authorMap.clear();
+	}
+
+	public void putAll(AuthorMap searchAuthors) {
+		authorMap.putAll(searchAuthors);
+		saveInFile(context, authorMap, FILENAME);
+
+	}
+
+	public AuthorMap getAuthorMap(Context context) {
+		authorMap = loadFromFile(context, FILENAME);
+		return loadFromFile(context, FILENAME);
+	}
+
+	public boolean hasAuthor(Context context, String username) {
 		authorMap = loadFromFile(context, FILENAME);
 		return authorMap.hasAuthor(username);
 	}
 
-	public void addAuthor(Author newAuthor) {
+	public void addAuthor(Context context, Author newAuthor) {
 		Thread addThread = new AddThread(newAuthor);
 		addThread.start();
+		Thread searchThread = new SearchThread("");
+		searchThread.start();
+		saveInFile(context, authorMap, FILENAME);
 	}
 
 	public Author getAuthor(String username) {
-		authorMap = loadFromFile(context, FILENAME);
 		return authorMap.getAuthor(username);
 	}
 
 	public Author getAuthor(Long userId) {
-		authorMap = loadFromFile(context, FILENAME);
 		return authorMap.getAuthor(userId);
 	}
 
 	public String getAuthorName(Long userId) {
-		authorMap = loadFromFile(context, FILENAME);
 		return authorMap.getUsername(userId);
 	}
 
 	public void updateAuthor(Context context, Author author) {
 		Thread updateAuthor = new UpdateAuthorThread(author);
 		updateAuthor.start();
-		renewAuthorMap(context);
+		Thread searchThread = new SearchThread("");
+		searchThread.start();
+		saveInFile(context, authorMap, FILENAME);
 	}
 
 	class SearchThread extends Thread {
@@ -93,6 +93,11 @@ public class AuthorMapController {
 			authorMap.putAll(authorMapManager.searchAuthors(search, null, from,
 					size, lable));
 			saveInFile(context, authorMap, FILENAME);
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -129,7 +134,7 @@ public class AuthorMapController {
 	 * 
 	 * @return authorMap, the author map.
 	 */
-	private AuthorMap loadFromFile(Context context, String FILENAME) {
+	public static AuthorMap loadFromFile(Context context, String FILENAME) {
 		AuthorMap authorMap = null;
 		try {
 			FileInputStream fis = context.openFileInput(FILENAME);
@@ -140,7 +145,7 @@ public class AuthorMapController {
 			Type listType = new TypeToken<AuthorMap>() {
 			}.getType();
 			authorMap = gson.fromJson(in, listType);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (authorMap == null)
@@ -158,7 +163,7 @@ public class AuthorMapController {
 	 * @param FILENAME
 	 *            the name of the local file.
 	 */
-	private void saveInFile(Context context, AuthorMap authorMap,
+	public static void saveInFile(Context context, AuthorMap authorMap,
 			String FILENAME) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME, 0);

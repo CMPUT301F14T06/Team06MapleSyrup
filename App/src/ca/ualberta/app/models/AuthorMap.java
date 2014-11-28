@@ -27,15 +27,15 @@ import java.util.Map;
  * This class contains some operations on author map
  */
 public class AuthorMap {
-	Map<Long, Author> authorIdMap;
-	Map<String, Long> authorNameMap;
+	Map<String, Author> authorMap;
+	Map<Long, String> idNameMap;
 
 	/**
 	 * the constructor of the class
 	 */
 	public AuthorMap() {
-		authorIdMap = new HashMap<Long, Author>();
-		authorNameMap = new HashMap<String, Long>();
+		authorMap = new HashMap<String, Author>();
+		idNameMap = new HashMap<Long, String>();
 	}
 
 	/**
@@ -43,35 +43,35 @@ public class AuthorMap {
 	 * 
 	 * @return authorMap A map that maps author Id and the Author object.
 	 */
-	public Map<Long, Author> getIdMap() {
-		return authorIdMap;
+	public Map<String, Author> getAuthorMap() {
+		return authorMap;
 	}
 
 	/**
 	 * Return the author map
 	 * 
-	 * @return authorMap A map that maps user name and the Author's ID.
+	 * @return authorMap A map that maps user ID and the Author's name.
 	 */
-	public Map<String, Long> getNameMap() {
-		return authorNameMap;
+	public Map<Long, String> getIdNameMap() {
+		return idNameMap;
 	}
 
 	public Boolean hasAuthor(String username) {
-		if (authorNameMap.containsKey(username))
+		if (authorMap.containsKey(username))
 			return true;
 		return false;
 	}
 
 	public Author getAuthor(String username) {
-		return authorIdMap.get(authorNameMap.get(username));
+		return authorMap.get(username);
 	}
 
 	public Author getAuthor(Long userId) {
-		return authorIdMap.get(userId);
+		return authorMap.get(idNameMap.get(userId));
 	}
 
 	public String getUsername(Long userId) {
-		return authorIdMap.get(userId).getUsername();
+		return idNameMap.get(userId);
 	}
 
 	/**
@@ -83,8 +83,8 @@ public class AuthorMap {
 	public void addAuthor(Author newAuthor) {
 		String newUsername = newAuthor.getUsername();
 		Long newUserId = newAuthor.getUserId();
-		authorNameMap.put(newUsername, newUserId);
-		authorIdMap.put(newUserId, newAuthor);
+		idNameMap.put(newUserId, newUsername);
+		authorMap.put(newUsername, newAuthor);
 	}
 
 	/**
@@ -93,15 +93,15 @@ public class AuthorMap {
 	 * @return the total number of authors.
 	 */
 	public int size() {
-		return authorNameMap.size();
+		return authorMap.size();
 	}
 
 	/**
 	 * clear the author map
 	 */
 	public void clear() {
-		authorNameMap.clear();
-		authorIdMap.clear();
+		idNameMap.clear();
+		authorMap.clear();
 	}
 
 	/**
@@ -111,14 +111,14 @@ public class AuthorMap {
 	 *            the searching result.
 	 */
 	public void putAll(AuthorMap searchAuthors) {
-		authorNameMap.putAll(searchAuthors.getNameMap());
-		authorIdMap.putAll(searchAuthors.getIdMap());
+		idNameMap.putAll(searchAuthors.getIdNameMap());
+		authorMap.putAll(searchAuthors.getAuthorMap());
 	}
 
 	public void removeAuthor(Long userId) {
-		String username = authorIdMap.get(userId).getUsername();
-		authorNameMap.remove(username);
-		authorIdMap.remove(userId);
+		String username = authorMap.get(userId).getUsername();
+		idNameMap.remove(userId);
+		authorMap.remove(username);
 	}
 
 }

@@ -21,12 +21,15 @@
 package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
+
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.activity.CreateAnswerReplyActivity;
 import ca.ualberta.app.activity.LoginActivity;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Answer;
+import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
 import ca.ualberta.app.models.User;
@@ -58,6 +61,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Answer> answerList = null;
 	private Question question;
 	private Context context;
+	private AuthorMapController authorMapController;
 	private CacheController cacheController;
 	private Bitmap image = null;
 	private Bitmap imageThumb = null;
@@ -65,7 +69,6 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private ViewHolder_reply replyHolder = null;
 	private String loginCause = "Upvote";
 	private String loginCause1 = "Reply";
-	private AuthorMapController authorMapController;
 
 	/**
 	 * Constructs the adapter and initializes its context.
@@ -228,14 +231,15 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		Answer answer = answerList.get(groupPosition);
 
 		if (answer != null) {
+			Long userId = question.getUserId();
+			AuthorMap authorMap = authorMapController.getAuthorMap(context);
 			answerHolder.answerContent.setText(answer.getContent());
-			answerHolder.authorName.setText(authorMapController.getAuthorName(
-					answer.getUserId()));
+			answerHolder.authorName.setText(authorMap.getUsername(userId));
 			answerHolder.timestamp.setText(answer.getTimestamp().toString());
 			answerHolder.upvoteState.setText("Upvote: "
 					+ answer.getAnswerUpvoteCount());
 			if (User.loginStatus)
-				if (answer.hasUpvotedBy(User.author.getUsername()))
+				if (answer.hasUpvotedBy(User.author.getUserId()))
 					answerHolder.upvote_Rb.setChecked(true);
 				else
 					answerHolder.upvote_Rb.setChecked(false);
@@ -255,7 +259,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		answerHolder.upvote_Rb.setOnClickListener(new UpvoteOnClickListener(
 				groupPosition));
 		answerHolder.reply_Rb.setOnClickListener(new AddReplyOnClickListener(
-				groupPosition));
+				groupPosition, answer.getID()));
 		ImageView expandIndicator = (ImageView) convertView
 				.findViewById(R.id.expandIndicator);
 		TextView replyText = (TextView) convertView
@@ -342,9 +346,10 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		Reply reply = answerList.get(groupPosition).getReplyArrayList()
 				.get(childPosition);
 		if (reply != null) {
+			Long userId = question.getUserId();
+			AuthorMap authorMap = authorMapController.getAuthorMap(context);
 			replyHolder.replyContent.setText(reply.getContent());
-			replyHolder.authorName.setText(authorMapController.getAuthorName(
-					reply.getUserId()));
+			replyHolder.authorName.setText(authorMap.getUsername(userId));
 			replyHolder.timestamp.setText(reply.getTimestamp().toString());
 		}
 		return convertView;
@@ -423,6 +428,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private class AddReplyOnClickListener implements OnClickListener {
 
 		int position;
+		long answerID;
 
 		/**
 		 * The constructor of the class.
@@ -430,8 +436,9 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		 * @param position
 		 *            the position of the answer.
 		 */
-		public AddReplyOnClickListener(int position) {
+		public AddReplyOnClickListener(int position, long answerID) {
 			this.position = position;
+			this.answerID = answerID;
 		}
 
 		/**
@@ -450,6 +457,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 						question.getID());
 				intent.putExtra(CreateAnswerReplyActivity.QUESTION_TITLE,
 						question.getTitle());
+				intent.putExtra(CreateAnswerReplyActivity.ANSWER_ID, answerID);
 				intent.putExtra(CreateAnswerReplyActivity.ANSWER_POS, position);
 				context.startActivity(intent);
 				notifyDataSetChanged();

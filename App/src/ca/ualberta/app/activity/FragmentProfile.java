@@ -191,7 +191,7 @@ public class FragmentProfile extends Fragment {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				newUsername = input.getEditableText().toString();
 				if (newUsername != null) {
-					if (!authorMapController.hasAuthor(newUsername)) {
+					if (!authorMapController.hasAuthor(mcontext, newUsername)) {
 
 						User.author.setUsername(newUsername);
 						authorMapController.updateAuthor(mcontext, User.author);

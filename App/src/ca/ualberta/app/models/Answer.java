@@ -36,7 +36,7 @@ public class Answer extends InputsModel {
 	long ID_answer;
 	long questionID_Answer;
 	String questionTitle_Answer;
-	Map<String, Author> upvotedPerson;
+	Map<Long, Author> upvotedPerson;
 
 	/**
 	 * The constructor of the class
@@ -53,7 +53,7 @@ public class Answer extends InputsModel {
 		this.replyList = new ArrayList<Reply>();
 		this.ID_answer = new Date().getTime() / 10;
 		this.upvoteCount_answer = 0;
-		upvotedPerson = new HashMap<String, Author>();
+		upvotedPerson = new HashMap<Long, Author>();
 		this.questionID_Answer = 0;
 		this.questionTitle_Answer = null;
 	}
@@ -111,20 +111,20 @@ public class Answer extends InputsModel {
 	 * increase the counter counts the up vote number
 	 */
 	public boolean upvoteAnswer() {
-		String username = User.author.getUsername();
-		if (upvotedPerson.get(username) == null) {
-			upvotedPerson.put(username, User.author);
+		Long userId = User.author.getUserId();
+		if (upvotedPerson.get(userId) == null) {
+			upvotedPerson.put(userId, User.author);
 			upvoteCount_answer++;
 			return true;
 		} else {
-			upvotedPerson.remove(username);
+			upvotedPerson.remove(userId);
 			upvoteCount_answer--;
 			return false;
 		}
 	}
 
-	public boolean hasUpvotedBy(String username) {
-		if (upvotedPerson.get(username) == null) {
+	public boolean hasUpvotedBy(Long userId) {
+		if (upvotedPerson.get(userId) == null) {
 			return false;
 		} else {
 			return true;
@@ -149,24 +149,24 @@ public class Answer extends InputsModel {
 	public long getAnswerUpvoteCount() {
 		return this.upvoteCount_answer;
 	}
-		
-	public void setQuestionID(long questionID){
+
+	public void setQuestionID(long questionID) {
 		this.questionID_Answer = questionID;
 	}
-	
-	public long getQuestionID(){
+
+	public long getQuestionID() {
 		return this.questionID_Answer;
 	}
-	
-	public void setQuestionTitle(String questionTitle){
+
+	public void setQuestionTitle(String questionTitle) {
 		this.questionTitle_Answer = questionTitle;
 	}
-	
-	public String getQuestionTitle(){
+
+	public String getQuestionTitle() {
 		return this.questionTitle_Answer;
 	}
-	
-	public void setID(long answerID){
+
+	public void setID(long answerID) {
 		this.ID_answer = answerID;
 	}
 }

@@ -154,7 +154,7 @@ public class CacheController {
 	 */
 	public boolean hasFavorited(Context mcontext, Question question) {
 		favoriteMap = loadMapFromFile(mcontext, FAVMAP);
-		if (favoriteMap.containsKey(question.getID()))
+		if (favoriteMap.get(question.getID()) != null)
 			return true;
 		return false;
 	}
@@ -172,7 +172,7 @@ public class CacheController {
 	 */
 	public boolean hasSaved(Context mcontext, Question question) {
 		localCacheMap = loadMapFromFile(mcontext, LOCALMAP);
-		if (localCacheMap.containsKey(question.getID()))
+		if (localCacheMap.get(question.getID()) != null)
 			return true;
 		return false;
 	}
@@ -190,7 +190,7 @@ public class CacheController {
 	public boolean hasMyQuestion(Context mcontext, Question question) {
 		MYQUESTMAP = User.author.getUsername() + "myMap.sav";
 		myQuestionMap = loadMapFromFile(mcontext, MYQUESTMAP);
-		if (myQuestionMap.containsKey(question.getID()))
+		if (myQuestionMap.get(question.getID()) != null)
 			return true;
 		return false;
 	}
@@ -456,7 +456,7 @@ public class CacheController {
 			Type listType = new TypeToken<ArrayList<Long>>() {
 			}.getType();
 			questionId = gson.fromJson(in, listType);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (questionId == null)
@@ -485,7 +485,7 @@ public class CacheController {
 			Type listType = new TypeToken<Map<Long, Question>>() {
 			}.getType();
 			questionMap = gson.fromJson(in, listType);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (questionMap == null)

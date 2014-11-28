@@ -30,7 +30,7 @@ import java.util.Map;
 public class Question extends InputsModel {
 	ArrayList<Reply> replyList;
 	ArrayList<Answer> answerList;
-	Map<String, Author> upvotedPerson;
+	Map<Long, Author> upvotedPerson;
 	Boolean selected = false;
 	long upvoteCount_question;
 	long answerCount;
@@ -55,7 +55,7 @@ public class Question extends InputsModel {
 		super(content, userId, title, imageString);
 		replyList = new ArrayList<Reply>();
 		answerList = new ArrayList<Answer>();
-		upvotedPerson = new HashMap<String, Author>();
+		upvotedPerson = new HashMap<Long, Author>();
 		this.ID_question = new Date().getTime();
 		answerCount = 0;
 		upvoteCount_question = 0;
@@ -198,21 +198,21 @@ public class Question extends InputsModel {
 	 * Increase the upvote counter
 	 */
 	public boolean upvoteQuestion() {
-		String username = User.author.getUsername();
-		if (upvotedPerson.get(username) == null) {
-			upvotedPerson.put(username, User.author);
+		Long userId = User.author.getUserId();
+		if (upvotedPerson.get(userId) == null) {
+			upvotedPerson.put(userId, User.author);
 			upvoteCount_question++;
 			return true;
 		} else {
-			upvotedPerson.remove(username);
+			upvotedPerson.remove(userId);
 			upvoteCount_question--;
 			return false;
 		}
 
 	}
 
-	public boolean hasUpvotedBy(String username) {
-		if (upvotedPerson.get(username) == null) {
+	public boolean hasUpvotedBy(Long userId) {
+		if (upvotedPerson.get(userId) == null) {
 			return false;
 		} else {
 			return true;
@@ -282,5 +282,9 @@ public class Question extends InputsModel {
 			}
 		}
 		return null;
+	}
+	
+	public String getImageString(){
+		return this.imageString;
 	}
 }
