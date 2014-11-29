@@ -24,6 +24,7 @@ import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -90,14 +91,24 @@ public class LoginActivity extends Activity {
 			User.loginStatus = true;
 			if (authorMapController.hasAuthor(context, username)) {
 				User.author = authorMapController.getAuthor(username);
-				notifyLogin();
+				if (InternetConnectionChecker.isNetworkAvailable())
+					notifyLogin();
+				else
+					notifyLoginOffLine();
 			} else {
 				Author newAuthor = new Author(username);
 				authorMapController.addAuthor(context, newAuthor);
-				notifyAddNewAuthor();
+				if (InternetConnectionChecker.isNetworkAvailable())
+					notifyAddNewAuthor();
+				else
+					notifyLoginOffLine();
 			}
 			runOnUiThread(doFinishAdd);
 		}
+	}
+
+	private void notifyLoginOffLine() {
+		Toast.makeText(this, "Login Off-Line", Toast.LENGTH_SHORT).show();
 	}
 
 	private void notifyLogin() {

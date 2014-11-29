@@ -38,9 +38,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import ca.ualberta.app.models.Answer;
+import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.Reply;
+import ca.ualberta.app.models.User;
 
 /**
  * Will be completed in the next part of the project
@@ -48,17 +50,18 @@ import ca.ualberta.app.models.Reply;
 public class PushController {
 	public Map<Long, Question> waitingListMap_Question;
 	public ArrayList<Long> waitingListId_Question;
-	private String WAITMAP_Q = "waitMap_Question.sav";
-	private String WAITID_Q = "waitId_Question.sav";
 	public Map<Long, Answer> waitingListMap_Answer;
 	public ArrayList<Long> waitingListId_Answer;
-	private String WAITMAP_A = "waitMap_Answer.sav";
-	private String WAITID_A = "waitId_Answer.sav";
 	public Map<Long, Reply> waitingListMap_Reply;
 	public ArrayList<Long> waitingListId_Reply;
+	public Map<Long, Author> waitingList_Author;
+	private String WAITMAP_Q = "waitMap_Question.sav";
+	private String WAITID_Q = "waitId_Question.sav";
+	private String WAITMAP_A = "waitMap_Answer.sav";
+	private String WAITID_A = "waitId_Answer.sav";
 	private String WAITMAP_R = "waitMap_Reply.sav";
 	private String WAITID_R = "waitId_Reply.sav";
-
+	private String WAIT_AUTHOR = "wait_Author.sav";
 	private String questionTitle;
 
 	/**
@@ -74,6 +77,7 @@ public class PushController {
 		waitingListId_Answer = loadIdFromFile(mcontext, WAITID_A);
 		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
 		waitingListId_Reply = loadIdFromFile(mcontext, WAITID_R);
+		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
 	}
 
 	/**
@@ -133,6 +137,19 @@ public class PushController {
 	}
 
 	/**
+	 * Return the author list of the waitingList from local file
+	 * 
+	 * @param mcontext
+	 *            the context
+	 * @return the author that need to be updated/add while Internet connected
+	 */
+	public Map<Long, Author> getWaitingAuthorMap(Context mcontext) {
+		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
+		return waitingList_Author;
+
+	}
+
+	/**
 	 * Return whether the local file for local question contain the question.
 	 * 
 	 * @param mcontext
@@ -187,6 +204,24 @@ public class PushController {
 	}
 
 	/**
+	 * Return whether the local file for local question contain the question.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 * 
+	 * @return true if the local file for favorite question has the question,
+	 *         false if not.
+	 */
+	public boolean hasWaited_Author(Context mcontext, Long userId) {
+		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
+		if (waitingList_Author.get(userId) == null)
+			return false;
+		return true;
+	}
+
+	/**
 	 * Save a question into the the local file of the WaitingList questions.
 	 * 
 	 * @param mcontext
@@ -196,13 +231,33 @@ public class PushController {
 	 */
 	public void addWaitngListQuestions(Context mcontext, Question question) {
 		waitingListMap_Question = loadMapFromFile(mcontext, WAITMAP_Q);
+		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
 		waitingListId_Question = loadIdFromFile(mcontext, WAITID_Q);
 		if (!hasWaited(mcontext, question)) {
 			waitingListMap_Question.put(question.getID(), question);
 			waitingListId_Question.add(question.getID());
+			if (!hasWaited_Author(mcontext, User.author.getUserId()))
+				waitingList_Author.put(User.author.getUserId(), User.author);
+			else {
+				waitingList_Author.remove(User.author.getUserId());
+				waitingList_Author.put(User.author.getUserId(), User.author);
+			}
 			saveInFile(mcontext, waitingListMap_Question, WAITMAP_Q);
 			saveInFile(mcontext, waitingListId_Question, WAITID_Q);
 		}
+	}
+
+	/**
+	 * Save a question into the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 * @param question
+	 *            the question.
+	 */
+	public void addWaitngListAuthors(Context mcontext, Author author) {
+		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
+		waitingList_Author.put(author.getUserId(), author);
 	}
 
 	/**
@@ -220,7 +275,7 @@ public class PushController {
 		if (!hasWaited_A(mcontext, answer)) {
 			waitingListMap_Answer.put(answer.getID(), answer);
 			waitingListId_Answer.add(answer.getID());
-			saveInFile_A(mcontext, waitingListMap_Answer, WAITMAP_A);
+			saveInFile(mcontext, waitingListMap_Answer, WAITMAP_A);
 			saveInFile(mcontext, waitingListId_Answer, WAITID_A);
 		}
 	}
@@ -240,7 +295,7 @@ public class PushController {
 		if (!hasWaited_R(mcontext, reply)) {
 			waitingListMap_Reply.put(reply.getID(), reply);
 			waitingListId_Reply.add(reply.getID());
-			saveInFile_R(mcontext, waitingListMap_Reply, WAITMAP_R);
+			saveInFile(mcontext, waitingListMap_Reply, WAITMAP_R);
 			saveInFile(mcontext, waitingListId_Reply, WAITID_R);
 		}
 	}
@@ -272,8 +327,6 @@ public class PushController {
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
 	 */
 	public void removeWaitingListQuestionList(Context mcontext) {
 		waitingListMap_Question.clear();
@@ -287,13 +340,11 @@ public class PushController {
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
 	 */
 	public void removeWaitingListAnswerList(Context mcontext) {
 		waitingListMap_Answer.clear();
 		waitingListId_Answer.clear();
-		saveInFile_A(mcontext, waitingListMap_Answer, WAITMAP_A);
+		saveInFile(mcontext, waitingListMap_Answer, WAITMAP_A);
 		saveInFile(mcontext, waitingListId_Answer, WAITID_A);
 	}
 
@@ -302,14 +353,23 @@ public class PushController {
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
 	 */
 	public void removeWaitingListReplyList(Context mcontext) {
 		waitingListMap_Reply.clear();
 		waitingListId_Reply.clear();
-		saveInFile_R(mcontext, waitingListMap_Reply, WAITMAP_R);
+		saveInFile(mcontext, waitingListMap_Reply, WAITMAP_R);
 		saveInFile(mcontext, waitingListId_Reply, WAITID_R);
+	}
+
+	/**
+	 * Remove a question into the the local file of the WaitingList questions.
+	 * 
+	 * @param mcontext
+	 *            the context.
+	 */
+	public void removeWaitingListAuthorMap(Context mcontext) {
+		waitingList_Author.clear();
+		saveInFile(mcontext, waitingList_Author, WAIT_AUTHOR);
 	}
 
 	/**
@@ -328,6 +388,7 @@ public class PushController {
 			saveInFile(mcontext, waitingListMap_Question, WAITMAP_Q);
 		}
 	}
+
 	/**
 	 * Update a question in the the local file of the WaitingList questions.
 	 * 
@@ -337,13 +398,14 @@ public class PushController {
 	 *            the question.
 	 */
 	public void updateWaitingListAnswer(Context mcontext, Answer answer) {
-		waitingListMap_Answer= loadMapFromFile_A(mcontext, WAITMAP_A);
+		waitingListMap_Answer = loadMapFromFile_A(mcontext, WAITMAP_A);
 		if (waitingListMap_Answer.get(answer.getID()) != null) {
 			waitingListMap_Answer.remove(answer.getID());
 			waitingListMap_Answer.put(answer.getID(), answer);
-			saveInFile_A(mcontext, waitingListMap_Answer, WAITMAP_A);
+			saveInFile(mcontext, waitingListMap_Answer, WAITMAP_A);
 		}
 	}
+
 	/**
 	 * Update a question in the the local file of the WaitingList questions.
 	 * 
@@ -357,7 +419,7 @@ public class PushController {
 		if (waitingListMap_Reply.get(reply.getID()) != null) {
 			waitingListMap_Reply.remove(reply.getID());
 			waitingListMap_Reply.put(reply.getID(), reply);
-			saveInFile_R(mcontext, waitingListMap_Reply, WAITMAP_R);
+			saveInFile(mcontext, waitingListMap_Reply, WAITMAP_R);
 		}
 	}
 
@@ -399,10 +461,15 @@ public class PushController {
 	}
 
 	/**
-	 * Clear all MAP's in the local files
+	 * Load and return the WaitingList author list
+	 * 
+	 * @return the local author list.
 	 */
-	public void clear() {
-		waitingListMap_Question.clear();
+	public ArrayList<Author> getWaitingAuthorList(Context mcontext) {
+		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
+		ArrayList<Author> authorList = new ArrayList<Author>();
+		authorList.addAll(this.waitingList_Author.values());
+		return authorList;
 	}
 
 	/**
@@ -522,29 +589,33 @@ public class PushController {
 	}
 
 	/**
-	 * save question map to local file
+	 * Load the author from the file
 	 * 
 	 * @param context
 	 *            The context.
-	 * @param questionMap
-	 *            The question map.
 	 * @param FILENAME
-	 *            The name of the file.
+	 *            The name of from the file
+	 * 
+	 * @return the Map of the reply(s).
 	 */
-	public void saveInFile(Context context, Map<Long, Question> questionMap,
+	public Map<Long, Author> loadMapFromFile_Author(Context context,
 			String FILENAME) {
+		Map<Long, Author> authorMap = null;
 		try {
-			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+			FileInputStream fis = context.openFileInput(FILENAME);
+			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 			Gson gson = new Gson();
-			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(questionMap, osw);
-			osw.flush();
-			fos.close();
+			// Following line from
+			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
+			Type listType = new TypeToken<ArrayList<Author>>() {
+			}.getType();
+			authorMap = gson.fromJson(in, listType);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		if (authorMap == null)
+			return authorMap = new HashMap<Long, Author>();
+		return authorMap;
 	}
 
 	/**
@@ -557,65 +628,12 @@ public class PushController {
 	 * @param FILENAME
 	 *            The name of the file.
 	 */
-	public void saveInFile_A(Context context, Map<Long, Answer> answerMap,
-			String FILENAME) {
+	public void saveInFile(Context context, Object object, String FILENAME) {
 		try {
 			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
 			Gson gson = new Gson();
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(answerMap, osw);
-			osw.flush();
-			fos.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * save question map to local file
-	 * 
-	 * @param context
-	 *            The context.
-	 * @param questionMap
-	 *            The question map.
-	 * @param FILENAME
-	 *            The name of the file.
-	 */
-	public void saveInFile_R(Context context, Map<Long, Reply> replyMap,
-			String FILENAME) {
-		try {
-			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
-			Gson gson = new Gson();
-			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(replyMap, osw);
-			osw.flush();
-			fos.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * save question id to local file
-	 * 
-	 * @param context
-	 *            The context.
-	 * @param questionMap
-	 *            The question id.
-	 * @param FILENAME
-	 *            The name of the file.
-	 */
-	public void saveInFile(Context context, ArrayList<Long> questionId,
-			String FILENAME) {
-		try {
-			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
-			Gson gson = new Gson();
-			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(questionId, osw);
+			gson.toJson(object, osw);
 			osw.flush();
 			fos.close();
 		} catch (FileNotFoundException e) {

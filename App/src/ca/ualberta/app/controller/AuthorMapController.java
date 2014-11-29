@@ -13,6 +13,7 @@ import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateAuthorThread;
 
 import com.google.gson.Gson;
@@ -26,9 +27,11 @@ public class AuthorMapController {
 	private long from = 0;
 	private long size = 1000;
 	private String lable = "author";
+	private PushController pushController;
 
 	public AuthorMapController(Context context) {
 		this.context = context;
+		pushController = new PushController(context);
 		authorMapManager = new AuthorMapManager();
 		authorMap = loadFromFile(context, FILENAME);
 	}
@@ -54,11 +57,16 @@ public class AuthorMapController {
 	}
 
 	public void addAuthor(Context context, Author newAuthor) {
-		Thread addThread = new AddThread(newAuthor);
-		addThread.start();
-		Thread searchThread = new SearchThread("");
-		searchThread.start();
-		saveInFile(context, authorMap, FILENAME);
+		if (InternetConnectionChecker.isNetworkAvailable()) {
+			Thread addThread = new AddThread(newAuthor);
+			addThread.start();
+			Thread searchThread = new SearchThread("");
+			searchThread.start();
+		} else {
+			User.author = newAuthor;
+			authorMap = loadFromFile(context, FILENAME);
+			pushController.addWaitngListAuthors(context, newAuthor);
+		}
 	}
 
 	public Author getAuthor(String username) {

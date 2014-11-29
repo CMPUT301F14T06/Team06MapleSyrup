@@ -2,14 +2,19 @@ package ca.ualberta.app.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
+
+import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.adapter.AnswerWaitingListAdapter;
 import ca.ualberta.app.adapter.QuestionWaitingListAdapter;
 import ca.ualberta.app.adapter.ReplyWaitingListAdapter;
 import ca.ualberta.app.controller.AnswerListController;
+import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.PushController;
 import ca.ualberta.app.controller.QuestionListController;
 import ca.ualberta.app.controller.ReplyListController;
+import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
@@ -56,6 +61,7 @@ public class WaitingListActivity extends Activity {
 	private String ReplyType;
 	private ArrayList<String> typeOption;
 	private NetworkObserver networkObserver;
+	private AuthorMapController authorMapController;
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			questionAdapter.notifyDataSetChanged();
@@ -124,9 +130,10 @@ public class WaitingListActivity extends Activity {
 							waitingQuestionListController.getQuestion(pos - 1)
 									.getContent());
 					try {
-						intent.putExtra(CreateQuestionActivity.IMAGE,
-								waitingQuestionListController.getQuestion(pos - 1)
-										.getImage());
+						intent.putExtra(
+								CreateQuestionActivity.IMAGE,
+								waitingQuestionListController.getQuestion(
+										pos - 1).getImage());
 					} catch (Exception e) {
 					}
 
@@ -282,10 +289,10 @@ public class WaitingListActivity extends Activity {
 			Toast.makeText(mcontext,
 					total + " item(s) posted from Waiting List",
 					Toast.LENGTH_LONG).show();
+			authorMapController = new AuthorMapController(mcontext);
 			Thread thread = new postListThread();
 			thread.start();
 			networkObserver.setObserver(this);
-			
 
 		} else {
 			waitingQuestionListController.clear();
@@ -339,6 +346,15 @@ public class WaitingListActivity extends Activity {
 
 		@Override
 		public void run() {
+			ArrayList<Author> authorList = pushController
+					.getWaitingAuthorList(mcontext);
+			for (Author author : authorList) {
+				if (authorMapController.hasAuthor(mcontext,
+						author.getUsername()))
+					authorMapController.updateAuthor(mcontext, author);
+				else
+					authorMapController.addAuthor(mcontext, author);
+			}
 			waitingQuestionListController.clear();
 			waitingAnswerListController.clear();
 			waitingReplyListController.clear();
@@ -354,6 +370,11 @@ public class WaitingListActivity extends Activity {
 			pushController.removeWaitingListAnswerList(mcontext);
 			pushController.removeWaitingListReplyList(mcontext);
 
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
