@@ -154,7 +154,7 @@ public class CreateAnswerActivity extends Activity {
 						long answerID = extras.getLong(ANSWER_ID);
 						newAnswer.setID(answerID);
 					}
-					if (InternetConnectionChecker.isNetworkAvailable(this)) {
+					if (InternetConnectionChecker.isNetworkAvailable()) {
 						Thread thread = new GetUpdateThread(questionId,
 								newAnswer);
 						thread.start();

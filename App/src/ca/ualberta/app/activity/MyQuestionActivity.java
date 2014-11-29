@@ -229,7 +229,7 @@ public class MyQuestionActivity extends Activity {
 			Toast.makeText(mcontext, "No Question Asked Yet.",
 					Toast.LENGTH_LONG).show();
 
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			Thread thread = new GetMapThread();
 			thread.start();
 

@@ -307,7 +307,7 @@ public class CreateQuestionActivity extends Activity {
 						title, imageString);
 				newQuestion.setID(questionID);
 			}
-			if (InternetConnectionChecker.isNetworkAvailable(this)) {
+			if (InternetConnectionChecker.isNetworkAvailable()) {
 				authorMapController.updateAuthor(this, User.author);
 				Thread addQuestionThread = new AddQuestionThread(newQuestion);
 				addQuestionThread.start();

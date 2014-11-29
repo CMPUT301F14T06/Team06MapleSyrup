@@ -49,8 +49,8 @@ import com.google.gson.reflect.TypeToken;
  * This manager manages all operations on authors and authors' ID's.
  */
 public class AuthorMapManager {
-	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author1/_search";
-	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author1/";
+	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author/_search";
+	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/author/";
 	private static final String TAG = "AuthorLogin";
 
 	private Gson gson;

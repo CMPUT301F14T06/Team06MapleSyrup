@@ -178,7 +178,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	}
 
 	private void checkInternet() {
-		if (InternetConnectionChecker.isNetworkAvailable(getContext())) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			holder.upvote_Rb.setEnabled(true);
 		} else {
 			holder.upvote_Rb.setEnabled(false);

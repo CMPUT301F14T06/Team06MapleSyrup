@@ -267,7 +267,7 @@ public class WaitingListActivity extends Activity {
 	}
 
 	public void updateList() {
-		if (InternetConnectionChecker.isNetworkAvailable(this)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			long total = waitingQuestionListController.size()
 					+ waitingAnswerListController.size()
 					+ waitingReplyListController.size();
