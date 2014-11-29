@@ -144,7 +144,7 @@ public class QuestionDetailActivity extends Activity {
 				upvote_Rb.setChecked(false);
 	}
 
-	private static final int THUMBIMAGESIZE = 200;
+	private static final int THUMBIMAGESIZE = 100;
 
 	private void scaleImage() {
 		// Scale the pic if it is too large:
