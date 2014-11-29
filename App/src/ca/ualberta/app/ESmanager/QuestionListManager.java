@@ -56,8 +56,8 @@ import com.google.gson.reflect.TypeToken;
  * This manager manages all operations on questions and question IDs.
  */
 public class QuestionListManager {
-	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question1/_search";
-	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question1/";
+	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question/_search";
+	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t06/question/";
 	private static final String TAG = "QuestionSearch";
 
 	private Gson gson;

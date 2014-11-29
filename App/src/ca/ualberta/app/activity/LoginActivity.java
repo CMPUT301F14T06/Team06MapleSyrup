@@ -20,13 +20,10 @@
 
 package ca.ualberta.app.activity;
 
-import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.models.Author;
-import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.User;
-import ca.ualberta.app.network.InternetConnectionChecker;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

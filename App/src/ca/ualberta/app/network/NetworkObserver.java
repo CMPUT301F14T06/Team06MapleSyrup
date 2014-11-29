@@ -25,9 +25,7 @@ public class NetworkObserver {
 				timer.schedule(new TimerTask() {
 					@Override
 					public void run() {
-						if (InternetConnectionChecker
-								.isNetworkAvailable(activity.getActivity()
-										.getApplicationContext())) {
+						if (InternetConnectionChecker.isNetworkAvailable()) {
 							timer.cancel();
 							timer.purge();
 							Runnable action = new Runnable() {
@@ -66,8 +64,7 @@ public class NetworkObserver {
 					public void run() {
 						try {
 							if (InternetConnectionChecker
-									.isNetworkAvailable(activity.getActivity()
-											.getApplicationContext()) == false) {
+									.isNetworkAvailable() == false) {
 								timer.cancel();
 								timer.purge();
 								Runnable action = new Runnable() {
@@ -110,7 +107,7 @@ public class NetworkObserver {
 					@Override
 					public void run() {
 						if (InternetConnectionChecker
-								.isNetworkAvailable(activity)) {
+								.isNetworkAvailable()) {
 							timer.cancel();
 							timer.purge();
 							Runnable action = new Runnable() {
@@ -148,7 +145,7 @@ public class NetworkObserver {
 					@Override
 					public void run() {
 						if (InternetConnectionChecker
-								.isNetworkAvailable(activity) == false) {
+								.isNetworkAvailable() == false) {
 							timer.cancel();
 							timer.purge();
 							Runnable action = new Runnable() {

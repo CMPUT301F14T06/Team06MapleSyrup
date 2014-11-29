@@ -339,7 +339,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	 * 
 	 */
 	private void checkInternet() {
-		if (InternetConnectionChecker.isNetworkAvailable(context)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			answerHolder.upvote_Rb.setEnabled(true);
 		} else {
 			answerHolder.upvote_Rb.setEnabled(false);

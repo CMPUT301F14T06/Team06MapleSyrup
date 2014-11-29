@@ -93,7 +93,7 @@ public class FragmentProfile extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+				if (InternetConnectionChecker.isNetworkAvailable()) {
 					authorMapController = new AuthorMapController(mcontext);
 					showDialog();
 				} else {
@@ -168,7 +168,7 @@ public class FragmentProfile extends Fragment {
 	public void onResume() {
 		super.onResume();
 		checkLoginStatus();
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			titleBar.setText("Profile");
 		} else {
 			titleBar.setText("Profile(Not Connected)");

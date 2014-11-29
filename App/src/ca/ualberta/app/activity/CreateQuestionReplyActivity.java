@@ -98,7 +98,7 @@ public class CreateQuestionReplyActivity extends Activity {
 						newReply.setID(replyID);
 					}
 
-					if (InternetConnectionChecker.isNetworkAvailable(this)) {
+					if (InternetConnectionChecker.isNetworkAvailable()) {
 						Thread thread = new GetUpdateThread(questionId,
 								newReply);
 						thread.start();

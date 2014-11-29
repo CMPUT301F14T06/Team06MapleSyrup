@@ -238,7 +238,7 @@ public class QuestionDetailActivity extends Activity {
 				checkInternet();
 				questionId = extras.getLong(QUESTION_ID);
 				questionTitle = extras.getString(QUESTION_TITLE);
-				if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+				if (InternetConnectionChecker.isNetworkAvailable()) {
 					Thread thread = new GetThread(questionId);
 					thread.start();
 				} else {
@@ -264,7 +264,7 @@ public class QuestionDetailActivity extends Activity {
 	 * 
 	 */
 	private void checkInternet() {
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			upvote_Rb.setEnabled(true);
 		} else {
 			upvote_Rb.setEnabled(false);
@@ -316,7 +316,7 @@ public class QuestionDetailActivity extends Activity {
 		fav_click = false;
 		upvote_click = false;
 		save_click = true;
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			Thread thread = new GetThread(questionId);
 			thread.start();
 		} else {
@@ -336,7 +336,7 @@ public class QuestionDetailActivity extends Activity {
 		save_click = false;
 		upvote_click = false;
 		fav_click = true;
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			Thread thread = new GetThread(questionId);
 			thread.start();
 		} else {
@@ -356,7 +356,7 @@ public class QuestionDetailActivity extends Activity {
 		save_click = false;
 		fav_click = false;
 		upvote_click = true;
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			view.setClickable(true);
 			Thread thread = new GetThread(questionId);
 			thread.start();

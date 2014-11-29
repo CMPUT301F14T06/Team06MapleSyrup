@@ -20,6 +20,7 @@
 
 package ca.ualberta.app.network;
 
+import ca.ualberta.app.models.ContextProvider;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -37,8 +38,8 @@ public class InternetConnectionChecker {
 	 * 
 	 * @return true if the Internet is connected; else return false.
 	 */
-	public static boolean isNetworkAvailable(Context context) {
-		ConnectivityManager connectivityManager = (ConnectivityManager) context
+	public final static boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager = (ConnectivityManager) ContextProvider.get()
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager
 				.getActiveNetworkInfo();

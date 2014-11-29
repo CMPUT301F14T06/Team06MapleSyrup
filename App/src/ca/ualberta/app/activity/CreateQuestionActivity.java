@@ -107,13 +107,16 @@ public class CreateQuestionActivity extends Activity {
 				questionID = extras.getLong(QUESTION_ID);
 				String questionTitle = extras.getString(QUESTION_TITLE);
 				String questionContent = extras.getString(QUESTION_CONTENT);
-				byte[] imageByteArray = Base64.decode(
-						extras.getByteArray(IMAGE), Base64.NO_WRAP);
-				image = BitmapFactory.decodeByteArray(imageByteArray, 0,
-						imageByteArray.length);
-				scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
-				imageView.setVisibility(View.VISIBLE);
-				imageView.setImageBitmap(imageThumb);
+				try {
+					byte[] imageByteArray = Base64.decode(
+							extras.getByteArray(IMAGE), Base64.NO_WRAP);
+					image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+							imageByteArray.length);
+					scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
+					imageView.setVisibility(View.VISIBLE);
+					imageView.setImageBitmap(imageThumb);
+				} catch (Exception e) {
+				}
 				titleText.setText(questionTitle);
 				contentText.setText(questionContent);
 				edit = true;
@@ -307,7 +310,7 @@ public class CreateQuestionActivity extends Activity {
 						title, imageString);
 				newQuestion.setID(questionID);
 			}
-			if (InternetConnectionChecker.isNetworkAvailable(this)) {
+			if (InternetConnectionChecker.isNetworkAvailable()) {
 				authorMapController.updateAuthor(this, User.author);
 				Thread addQuestionThread = new AddQuestionThread(newQuestion);
 				addQuestionThread.start();

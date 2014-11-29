@@ -106,7 +106,7 @@ public class CreateAnswerReplyActivity extends Activity {
 						long replyID = extras.getLong(REPLY_ID);
 						newReply.setID(replyID);
 					}
-					if (InternetConnectionChecker.isNetworkAvailable(this)) {
+					if (InternetConnectionChecker.isNetworkAvailable()) {
 						Thread thread = new GetUpdateThread(questionId,
 								answerPos, newReply);
 						thread.start();

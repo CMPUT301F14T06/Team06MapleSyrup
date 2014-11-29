@@ -241,7 +241,7 @@ public class MyLocalActivity extends Activity {
 			Toast.makeText(mcontext, "No Question Cached Yet.",
 					Toast.LENGTH_LONG).show();
 
-		if (InternetConnectionChecker.isNetworkAvailable(this)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			Thread thread = new GetMapThread();
 			thread.start();
 

@@ -37,9 +37,11 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import ca.ualberta.app.models.ContextProvider;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.QuestionList;
 import ca.ualberta.app.models.User;
+import ca.ualberta.app.gps.GeoCoder;
 
 /**
  * load question map from local file
@@ -55,6 +57,8 @@ public class CacheController {
 	private String MYQUESTMAP;
 	private String FAVID = "favId.sav";
 	private String LOCALID = "localId.sav";
+	private String USERLOCATION = "userLocation.sav";
+	private String USERCOORD = "userCoordinates.sav";
 
 	/**
 	 * The constructor of the class load question map from local file
@@ -545,4 +549,78 @@ public class CacheController {
 		}
 	}
 
+	/**
+	 * Load the question Map's from the file with given name.
+	 * 
+	 * @param context
+	 *            The context.
+	 * @param FILENAME
+	 *            The name of the local file.
+	 * 
+	 * @return the Map of the question(s).
+	 */
+	public String loadStringFromFile(Context context, String FILENAME) {
+		String location = null;
+		try {
+			FileInputStream fis = context.openFileInput(FILENAME);
+			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+			Gson gson = new Gson();
+			// Following line from
+			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
+			Type listType = new TypeToken<String>() {
+			}.getType();
+			location = gson.fromJson(in, listType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (location == null)
+			return location = new String();
+		return location;
+	}
+
+	/**
+	 * save question id to local file
+	 * 
+	 * @param context
+	 *            The context.
+	 * @param questionMap
+	 *            The question id.
+	 * @param FILENAME
+	 *            The name of the file.
+	 */
+	public void saveStringInFile(Context context, String location,
+			String FILENAME) {
+		try {
+			FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+			Gson gson = new Gson();
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			gson.toJson(location, osw);
+			osw.flush();
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String getUserLocation() {
+		String location = loadStringFromFile(ContextProvider.get(),
+				USERLOCATION);
+		return location;
+	}
+	
+	public void saveUserLocation(String address) {
+		saveStringInFile(ContextProvider.get(), address, USERLOCATION);
+	}
+	
+	public double[] getUserCoordinates(){
+		String coordinates = loadStringFromFile(ContextProvider.get(), USERCOORD);
+		return GeoCoder.coordinatesFromString(coordinates);
+	}
+	
+	public void saveUserCoordinates(double[] coord) {
+		String coordinates = GeoCoder.coordinatesToString(coord);
+		saveStringInFile(ContextProvider.get(), coordinates, USERCOORD);
+	}
 }

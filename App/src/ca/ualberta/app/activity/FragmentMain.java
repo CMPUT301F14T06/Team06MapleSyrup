@@ -285,7 +285,7 @@ public class FragmentMain extends Fragment {
 				}, 2000);
 			}
 		});
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			searchButton.performClick();
 		}
 	}
@@ -304,7 +304,7 @@ public class FragmentMain extends Fragment {
 	}
 
 	private void checkInternet() {
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			titleBar.setText("Main");
 			searchButton.setEnabled(true);
 			searchEditText.setEnabled(true);
@@ -358,7 +358,7 @@ public class FragmentMain extends Fragment {
 	}
 
 	public void updateList() {
-		if (InternetConnectionChecker.isNetworkAvailable(mcontext)) {
+		if (InternetConnectionChecker.isNetworkAvailable()) {
 			String searchString = searchEditText.getText().toString();
 			Thread thread = new SearchThread(searchString);
 			thread.start();
