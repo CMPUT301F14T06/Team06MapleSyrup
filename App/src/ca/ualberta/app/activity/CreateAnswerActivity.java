@@ -123,13 +123,17 @@ public class CreateAnswerActivity extends Activity {
 				if (extras.getBoolean(EDIT_MODE)) {
 					String answerContent = extras.getString(ANSWER_CONTENT);
 					contentText.setText(answerContent);
-					byte[] imageByteArray = Base64.decode(
-							extras.getByteArray(IMAGE), Base64.NO_WRAP);
-					image = BitmapFactory.decodeByteArray(imageByteArray, 0,
-							imageByteArray.length);
-					scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
-					imageView.setVisibility(View.VISIBLE);
-					imageView.setImageBitmap(imageThumb);
+					try {
+						byte[] imageByteArray = Base64.decode(
+								extras.getByteArray(IMAGE), Base64.NO_WRAP);
+						image = BitmapFactory.decodeByteArray(imageByteArray, 0,
+								imageByteArray.length);
+						scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
+						imageView.setVisibility(View.VISIBLE);
+						imageView.setImageBitmap(imageThumb);
+					} catch (Exception e) {
+					}
+
 				}
 			}
 		}

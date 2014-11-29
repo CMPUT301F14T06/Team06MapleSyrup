@@ -123,9 +123,13 @@ public class WaitingListActivity extends Activity {
 					intent.putExtra(CreateQuestionActivity.QUESTION_CONTENT,
 							waitingQuestionListController.getQuestion(pos - 1)
 									.getContent());
-					intent.putExtra(CreateQuestionActivity.IMAGE,
-							waitingQuestionListController.getQuestion(pos - 1)
-									.getImage());
+					try {
+						intent.putExtra(CreateQuestionActivity.IMAGE,
+								waitingQuestionListController.getQuestion(pos - 1)
+										.getImage());
+					} catch (Exception e) {
+					}
+
 					startActivity(intent);
 					// Answer
 				} else if (categoryID == 1) {
@@ -143,9 +147,13 @@ public class WaitingListActivity extends Activity {
 					intent.putExtra(CreateAnswerActivity.ANSWER_CONTENT,
 							waitingAnswerListController.getAnswer(pos - 1)
 									.getContent());
-					intent.putExtra(CreateAnswerActivity.IMAGE,
-							waitingAnswerListController.getAnswer(pos - 1)
-									.getImage());
+					try {
+						intent.putExtra(CreateAnswerActivity.IMAGE,
+								waitingAnswerListController.getAnswer(pos - 1)
+										.getImage());
+					} catch (Exception e) {
+					}
+
 					intent.putExtra(CreateAnswerActivity.EDIT_MODE, true);
 					startActivity(intent);
 					// Reply
