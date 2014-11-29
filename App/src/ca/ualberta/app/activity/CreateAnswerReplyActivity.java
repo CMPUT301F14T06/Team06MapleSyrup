@@ -36,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class CreateAnswerReplyActivity extends Activity {
 	private String locationName;
 	private double[] locationCoordinates;
 	private TextView locationText;
+	private RadioButton GPSButton;
 
 
 	private Runnable doFinishAdd = new Runnable() {
@@ -70,6 +72,7 @@ public class CreateAnswerReplyActivity extends Activity {
 		setContentView(R.layout.activity_create_answer_reply);
 		contentText = (EditText) findViewById(R.id.answer_reply_editText);
 		locationText = (TextView) findViewById(R.id.answerReplyLocationTextView);
+		GPSButton = (RadioButton) findViewById(R.id.add_answer_reply_position);
 		questionListManager = new QuestionListManager();
 		intent = getIntent();
 		pushController = new PushController(this);
@@ -91,10 +94,20 @@ public class CreateAnswerReplyActivity extends Activity {
 	}
 	
 	public void addAnswerReplyLocation(View view){
-		addLocation = true;
-		locationName = Location.getLocationName();
-		locationCoordinates = Location.getLocationCoordinates();
-		locationText.setText(locationName);
+		if(locationName == null){
+			GPSButton.setChecked(true);
+			addLocation = true;
+			locationName = Location.getLocationName();
+			locationCoordinates = Location.getLocationCoordinates();
+			locationText.setText(locationName);
+		}
+		else{
+			GPSButton.setChecked(false);
+			addLocation = false;
+			locationName = null;
+			locationCoordinates = null;
+			locationText.setText("");
+		}
 	}
 	
 	public void submit_answer_reply(View view) {

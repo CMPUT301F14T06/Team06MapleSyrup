@@ -51,6 +51,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class CreateQuestionActivity extends Activity {
 	private Bitmap image = null;
 	private Bitmap imageThumb = null;
 	private String imageString = null;
+	private RadioButton GPSButton = null;
 	private PushController pushController;
 	private QuestionListManager questionListManager;
 	private AuthorMapController authorMapController;
@@ -77,7 +79,7 @@ public class CreateQuestionActivity extends Activity {
 	private boolean edit = false;
 	private long questionID;
 	private boolean addLocation = false;
-	private String locationName;
+	private String locationName = null;
 	private double[] locationCoordinates;
 
 	private Runnable doFinishAdd = new Runnable() {
@@ -94,6 +96,7 @@ public class CreateQuestionActivity extends Activity {
 		contentText = (EditText) findViewById(R.id.question_content_editText);
 		imageView = (ImageView) findViewById(R.id.question_image_imageView);
 		locationText = (TextView) findViewById(R.id.questionLocationTextView);
+		GPSButton = (RadioButton) findViewById(R.id.add_question_position);
 		pushController = new PushController(this);
 		questionListManager = new QuestionListManager();
 		authorMapController = new AuthorMapController(this);
@@ -342,10 +345,20 @@ public class CreateQuestionActivity extends Activity {
 	}
 
 	public void addQuestionLocation(View view){
-		addLocation = true;
-		locationName = Location.getLocationName();
-		locationCoordinates = Location.getLocationCoordinates();
-		locationText.setText(locationName);
+		if(locationName == null){
+			GPSButton.setChecked(true);
+			addLocation = true;
+			locationName = Location.getLocationName();
+			locationCoordinates = Location.getLocationCoordinates();
+			locationText.setText(locationName);
+		}
+		else{
+			GPSButton.setChecked(false);
+			addLocation = false;
+			locationName = null;
+			locationCoordinates = null;
+			locationText.setText("");
+		}
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

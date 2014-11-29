@@ -53,6 +53,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import android.widget.Toast;
@@ -65,6 +66,7 @@ public class CreateAnswerActivity extends Activity {
 	private Bitmap image = null;
 	private Bitmap imageThumb = null;
 	private String imageString = null;
+	private RadioButton GPSButton;
 	private QuestionListManager questionListManager;
 	private PushController pushController;
 	public static String QUESTION_ID = "QUESTION_ID";
@@ -94,6 +96,7 @@ public class CreateAnswerActivity extends Activity {
 		contentText = (EditText) findViewById(R.id.answer_content_editText);
 		imageView = (ImageView) findViewById(R.id.answer_image_imageView);
 		locationText = (TextView) findViewById(R.id.answerLocationTextView);
+		GPSButton = (RadioButton) findViewById(R.id.add_answer_position);
 		questionListManager = new QuestionListManager();
 		imageView.setVisibility(View.GONE);
 		intent = getIntent();
@@ -105,10 +108,20 @@ public class CreateAnswerActivity extends Activity {
 	}
 
 	public void addAnswerLocation(View view){
-		addLocation = true;
-		locationName = Location.getLocationName();
-		locationCoordinates = Location.getLocationCoordinates();
-		locationText.setText(locationName);
+		if(locationName == null){
+			GPSButton.setChecked(true);
+			addLocation = true;
+			locationName = Location.getLocationName();
+			locationCoordinates = Location.getLocationCoordinates();
+			locationText.setText(locationName);
+		}
+		else{
+			GPSButton.setChecked(false);
+			addLocation = false;
+			locationName = null;
+			locationCoordinates = null;
+			locationText.setText("");
+		}
 	}
 	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
 	public void viewAnswerImage(View view) {
