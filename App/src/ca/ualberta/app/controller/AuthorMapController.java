@@ -63,6 +63,7 @@ public class AuthorMapController {
 			Thread searchThread = new SearchThread("");
 			searchThread.start();
 		} else {
+
 			User.author = newAuthor;
 			authorMap = loadFromFile(context, FILENAME);
 			pushController.addWaitngListAuthors(context, newAuthor);

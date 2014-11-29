@@ -47,6 +47,8 @@ public class WaitingListActivity extends Activity {
 	private ReplyListController waitingReplyListController;
 	private QuestionListManager waitingQuestionListManager;
 	private QuestionList waitingQuestionList;
+	private AuthorMapController authorMapController;
+	private AuthorMapManager authorMapManager;
 	private PushController pushController;
 	private Spinner typeOptionSpinner;
 	private Context mcontext;
@@ -61,7 +63,7 @@ public class WaitingListActivity extends Activity {
 	private String ReplyType;
 	private ArrayList<String> typeOption;
 	private NetworkObserver networkObserver;
-	private AuthorMapController authorMapController;
+
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			questionAdapter.notifyDataSetChanged();
@@ -87,10 +89,12 @@ public class WaitingListActivity extends Activity {
 		typeOption = new ArrayList<String>();
 		networkObserver = new NetworkObserver();
 		pushController = new PushController(mcontext);
+		authorMapController = new AuthorMapController(mcontext);
 		waitingQuestionListController = new QuestionListController();
 		waitingAnswerListController = new AnswerListController();
 		waitingReplyListController = new ReplyListController();
 		waitingQuestionListManager = new QuestionListManager();
+		authorMapManager = new AuthorMapManager();
 		questionAdapter = new QuestionWaitingListAdapter(mcontext,
 				R.layout.single_waiting_question,
 				waitingQuestionListController.getQuestionArrayList());
@@ -282,15 +286,16 @@ public class WaitingListActivity extends Activity {
 	}
 
 	public void updateList() {
-		if (InternetConnectionChecker.isNetworkAvailable()) {
+		if (InternetConnectionChecker.isNetworkAvailable() && User.loginStatus) {
 			long total = waitingQuestionListController.size()
 					+ waitingAnswerListController.size()
 					+ waitingReplyListController.size();
 			Toast.makeText(mcontext,
 					total + " item(s) posted from Waiting List",
 					Toast.LENGTH_LONG).show();
-			authorMapController = new AuthorMapController(mcontext);
-			Thread thread = new postListThread();
+			Thread updateAuthor = new UpdateAuthorThread();
+			updateAuthor.start();
+			Thread thread = new PostListThread();
 			thread.start();
 			networkObserver.setObserver(this);
 
@@ -342,19 +347,45 @@ public class WaitingListActivity extends Activity {
 		}
 	}
 
-	class postListThread extends Thread {
+	class UpdateAuthorThread extends Thread {
 
 		@Override
 		public void run() {
 			ArrayList<Author> authorList = pushController
 					.getWaitingAuthorList(mcontext);
 			for (Author author : authorList) {
+				String username = author.getUsername();
 				if (authorMapController.hasAuthor(mcontext,
-						author.getUsername()))
-					authorMapController.updateAuthor(mcontext, author);
-				else
-					authorMapController.addAuthor(mcontext, author);
+						author.getUsername())) {
+					Author oldAuthor = authorMapController.getAuthor(username);
+					Author newAuthor = updateTheAuthor(oldAuthor, author);
+					authorMapManager.updateAuthor(newAuthor);
+				} else
+					authorMapManager.addAuthor(author);
 			}
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			runOnUiThread(doUpdateGUIList);
+		}
+
+		private Author updateTheAuthor(Author oldAuthor, Author author) {
+			ArrayList<Long> oldQuestionId = oldAuthor.getAuthorQuestionId();
+			ArrayList<Long> newQuestionId = author.getAuthorQuestionId();
+			for (Long questionId : newQuestionId) {
+				if (!oldQuestionId.contains(questionId))
+					oldAuthor.addAQuestion(questionId);
+			}
+			return oldAuthor;
+		}
+	}
+
+	class PostListThread extends Thread {
+
+		@Override
+		public void run() {
 			waitingQuestionListController.clear();
 			waitingAnswerListController.clear();
 			waitingReplyListController.clear();

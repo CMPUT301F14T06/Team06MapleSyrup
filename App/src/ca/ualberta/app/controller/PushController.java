@@ -146,7 +146,6 @@ public class PushController {
 	public Map<Long, Author> getWaitingAuthorMap(Context mcontext) {
 		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
 		return waitingList_Author;
-
 	}
 
 	/**
@@ -242,6 +241,7 @@ public class PushController {
 				waitingList_Author.remove(User.author.getUserId());
 				waitingList_Author.put(User.author.getUserId(), User.author);
 			}
+			saveInFile(mcontext, waitingList_Author, WAIT_AUTHOR);
 			saveInFile(mcontext, waitingListMap_Question, WAITMAP_Q);
 			saveInFile(mcontext, waitingListId_Question, WAITID_Q);
 		}
@@ -258,6 +258,7 @@ public class PushController {
 	public void addWaitngListAuthors(Context mcontext, Author author) {
 		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
 		waitingList_Author.put(author.getUserId(), author);
+		saveInFile(mcontext, waitingList_Author, WAIT_AUTHOR);
 	}
 
 	/**
@@ -607,10 +608,12 @@ public class PushController {
 			Gson gson = new Gson();
 			// Following line from
 			// https://sites.google.com/site/gson/gson-user-guide 2014-09-23
-			Type listType = new TypeToken<ArrayList<Author>>() {
+			Type listType = new TypeToken<Map<Long, Author>>() {
 			}.getType();
 			authorMap = gson.fromJson(in, listType);
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (authorMap == null)
