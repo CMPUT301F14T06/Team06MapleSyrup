@@ -32,6 +32,7 @@ import ca.ualberta.app.comparator.ReplyDateComparator;
 import ca.ualberta.app.comparator.ReplyLocationComparator;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
+import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.Question;
@@ -90,6 +91,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			Collections.sort(answerList, new AnswerListUpvoteComparator());
 		}
 		if (sortingOption.equals("Sort Answer and Reply By Geolocation")) {
+			Location.getLocationCoordinates();
 			Collections.sort(answerList, new AnswerLocationComparator());
 		}
 		this.lastSortingOption = sortingOption;

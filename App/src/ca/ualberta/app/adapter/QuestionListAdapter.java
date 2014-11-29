@@ -25,6 +25,7 @@ import ca.ualberta.app.activity.LoginActivity;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.comparator.AnswerUpvoteComparator;
 import ca.ualberta.app.comparator.DateComparator;
+import ca.ualberta.app.comparator.DistanceComparator;
 import ca.ualberta.app.comparator.PictureComparator;
 import ca.ualberta.app.comparator.QuestionUpvoteComparator;
 import ca.ualberta.app.comparator.ScoreComparator;
@@ -342,6 +343,9 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		}
 		if (sortingOption.equals("Sort By Answer Upvote")) {
 			this.sort(new AnswerUpvoteComparator());
+		}
+		if (sortingOption.equals("Sort By Distance")){
+			this.sort(new DistanceComparator());
 		}
 		this.lastSortingOption = sortingOption;
 		sortingOption = null;

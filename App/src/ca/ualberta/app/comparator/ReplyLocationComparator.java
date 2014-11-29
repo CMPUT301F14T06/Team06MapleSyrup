@@ -21,6 +21,10 @@
 package ca.ualberta.app.comparator;
 
 import java.util.Comparator;
+
+import ca.ualberta.app.controller.CacheController;
+import ca.ualberta.app.gps.GeoCoder;
+import ca.ualberta.app.models.ContextProvider;
 import ca.ualberta.app.models.Reply;
 
 /**
@@ -28,6 +32,9 @@ import ca.ualberta.app.models.Reply;
  * Question Upvote.
  */
 public class ReplyLocationComparator implements Comparator<Reply> {
+	private CacheController cacheController = new CacheController(
+			ContextProvider.get());
+	private double[] UserCoordinates = cacheController.getUserCoordinates();
 	/**
 	 * @param a
 	 *            : left hand side Reply
@@ -38,10 +45,13 @@ public class ReplyLocationComparator implements Comparator<Reply> {
 	 */
 	@Override
 	public int compare(Reply a, Reply b) {
-		if (a.getTimestamp().getTime() >= b.getTimestamp().getTime()) {
-			return -1;
-		} else {
+		if (GeoCoder
+				.toFindDistance(UserCoordinates, a.getLocationCoordinates()) >= GeoCoder
+				.toFindDistance(UserCoordinates, b.getLocationCoordinates())) {
 			return 1;
+		}
+		else{
+			return -1;
 		}
 	}
 

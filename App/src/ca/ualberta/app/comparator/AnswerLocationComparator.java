@@ -22,13 +22,19 @@ package ca.ualberta.app.comparator;
 
 import java.util.Comparator;
 
+import ca.ualberta.app.controller.CacheController;
+import ca.ualberta.app.gps.GeoCoder;
 import ca.ualberta.app.models.Answer;
+import ca.ualberta.app.models.ContextProvider;
 
 /**
  * A comparator class which compute 2 Comment object's score and sort them by
  * Question Upvote.
  */
 public class AnswerLocationComparator implements Comparator<Answer> {
+	private CacheController cacheController = new CacheController(
+			ContextProvider.get());
+	private double[] UserCoordinates = cacheController.getUserCoordinates();
 	/**
 	 * @param a
 	 *            : left hand side Question
@@ -39,14 +45,13 @@ public class AnswerLocationComparator implements Comparator<Answer> {
 	 */
 	@Override
 	public int compare(Answer a, Answer b) {
-		if (a.getAnswerUpvoteCount() > b.getAnswerUpvoteCount()) {
-			return -1;
-		} else if (a.getAnswerUpvoteCount() < b.getAnswerUpvoteCount()) {
+		if (GeoCoder
+				.toFindDistance(UserCoordinates, a.getLocationCoordinates()) >= GeoCoder
+				.toFindDistance(UserCoordinates, b.getLocationCoordinates())) {
 			return 1;
-		} else if (a.getTimestamp().getTime() >= b.getTimestamp().getTime()) {
+		}
+		else{
 			return -1;
-		} else {
-			return 1;
 		}
 	}
 

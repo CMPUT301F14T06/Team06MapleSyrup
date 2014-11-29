@@ -50,6 +50,7 @@ import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.QuestionListController;
+import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
@@ -64,8 +65,9 @@ public class FragmentMain extends Fragment {
 	static String sortByQuestionUpvote = "Sort By Question Upvote";
 	static String sortByAnswerUpvote = "Sort By Answer Upvote";
 	static String sortByPicture = "Sort By Picture";
+	static String sortByDistance = "Sort By Distance";
 	static String[] sortOption = { sortByDate, sortByScore, sortByPicture,
-			sortByQuestionUpvote, sortByAnswerUpvote };
+			sortByQuestionUpvote, sortByAnswerUpvote, sortByDistance};
 	private Spinner sortOptionSpinner;
 	private ArrayAdapter<String> spin_adapter;
 	private static long categoryID;
@@ -348,6 +350,12 @@ public class FragmentMain extends Fragment {
 			if (categoryID == 4) {
 				sortString = "a_upvote";
 				adapter.setSortingOption(sortByAnswerUpvote);
+			}
+			
+			//sort by distance
+			if (categoryID == 5){
+				Location.getLocationCoordinates();
+				adapter.setSortingOption(sortByDistance);
 			}
 			updateSortedList();
 		}
