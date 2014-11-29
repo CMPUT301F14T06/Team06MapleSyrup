@@ -38,9 +38,9 @@ public class InternetConnectionChecker {
 	 * 
 	 * @return true if the Internet is connected; else return false.
 	 */
-	public static boolean isNetworkAvailable() {
-		ConnectivityManager connectivityManager = (ConnectivityManager) ContextProvider
-				.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+	public final static boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager = (ConnectivityManager) ContextProvider.get()
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager
 				.getActiveNetworkInfo();
 		if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {

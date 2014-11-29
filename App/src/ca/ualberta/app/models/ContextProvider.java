@@ -4,15 +4,15 @@ import android.app.Application;
 import android.content.Context;
 
 public class ContextProvider extends Application {
-	    private static Context ctx;
-	 
-	    @Override
-	    public void onCreate() {
-	        super.onCreate(); 
-	        ctx = getApplicationContext(); 
-	    }
-	 
-	    public static Context get() {
-	        return ctx;
-	    }	 
+	private static Context context;
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		context = getApplicationContext();
+	}
+
+	public static Context get() {
+		return context;
+	}
 }
