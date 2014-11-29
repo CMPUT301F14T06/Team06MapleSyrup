@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
@@ -60,6 +61,13 @@
                 android:scrollHorizontally="true"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <GridLayout
@@ -204,11 +212,20 @@
         android:layout_below="@+id/question_reply_expanableListView"
         android:background="@drawable/separator" />
 
+    <Spinner
+        android:id="@+id/AnswerSortSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/separator2"
+        tools:listitem="@android:layout/simple_spinner_item" />
+
     <ExpandableListView
         android:id="@+id/answer_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/separator2"
+        android:layout_below="@+id/AnswerSortSpinner"
         android:groupIndicator="@null" >
     </ExpandableListView>
 

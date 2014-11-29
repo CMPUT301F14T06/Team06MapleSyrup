@@ -25,8 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.widget.Toast;
-
 /**
  * This class contains all functionalities an answer object should have.
  */

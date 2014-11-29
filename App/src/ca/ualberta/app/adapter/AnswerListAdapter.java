@@ -21,11 +21,15 @@
 package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
-
-import ca.ualberta.app.ESmanager.AuthorMapManager;
+import java.util.Collections;
 import ca.ualberta.app.activity.CreateAnswerReplyActivity;
 import ca.ualberta.app.activity.LoginActivity;
 import ca.ualberta.app.activity.R;
+import ca.ualberta.app.comparator.AnswerDateComparator;
+import ca.ualberta.app.comparator.AnswerListUpvoteComparator;
+import ca.ualberta.app.comparator.AnswerLocationComparator;
+import ca.ualberta.app.comparator.ReplyDateComparator;
+import ca.ualberta.app.comparator.ReplyLocationComparator;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.Answer;
@@ -69,6 +73,40 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	private ViewHolder_reply replyHolder = null;
 	private String loginCause = "Upvote";
 	private String loginCause1 = "Reply";
+	private String sortingOption = "Sort Answer and Reply By Date";
+	private String lastSortingOption = null;
+
+	/**
+	 * Based on the user's choice, call different sorting methods.
+	 */
+	public void applySortMethod() {
+		if (sortingOption == null) {
+			sortingOption = lastSortingOption;
+		}
+		if (sortingOption.equals("Sort Answer and Reply By Date")) {
+			Collections.sort(answerList, new AnswerDateComparator());
+		}
+		if (sortingOption.equals("Sort Answer By Upvote")) {
+			Collections.sort(answerList, new AnswerListUpvoteComparator());
+		}
+		if (sortingOption.equals("Sort Answer and Reply By Geolocation")) {
+			Collections.sort(answerList, new AnswerLocationComparator());
+		}
+		this.lastSortingOption = sortingOption;
+		sortingOption = null;
+		notifyDataSetChanged();
+	}
+
+	/**
+	 * Set the current sorting option.
+	 * 
+	 * @param option
+	 *            : a String which is one of the sorting options.
+	 */
+	public void setSortingOption(String option) {
+
+		this.sortingOption = option;
+	}
 
 	/**
 	 * Constructs the adapter and initializes its context.
@@ -343,8 +381,16 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		replyHolder.timestamp = (TextView) convertView
 				.findViewById(R.id.reply_time_textView);
 		convertView.setTag(replyHolder);
-		Reply reply = answerList.get(groupPosition).getReplyArrayList()
-				.get(childPosition);
+		ArrayList<Reply> replyList = answerList.get(groupPosition)
+				.getReplyArrayList();
+		if (sortingOption == null
+				|| sortingOption.equals("Sort Answer and Reply By Date"))
+			Collections.sort(replyList, new ReplyDateComparator());
+		else if (sortingOption.equals("Sort Answer and Reply By Geolocation"))
+			Collections.sort(replyList, new ReplyLocationComparator());
+		else
+			Collections.sort(replyList, new ReplyDateComparator());
+		Reply reply = replyList.get(childPosition);
 		if (reply != null) {
 			Long userId = question.getUserId();
 			AuthorMap authorMap = authorMapController.getAuthorMap(context);
@@ -416,7 +462,9 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				intent.putExtra(LoginActivity.LOGINCAUSE, loginCause);
 				context.startActivity(intent);
 			}
-
+			sortingOption = lastSortingOption;
+			applySortMethod();
+			notifyDataSetChanged();
 		}
 	}
 

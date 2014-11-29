@@ -41,7 +41,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,8 +61,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private String lastSortingOption = null;
 	ViewHolder holder = null;
 	Bitmap image;
-	private String TAG = "Adapter";
-	private String status = "Need NotifyDataChange";
 	private String loginCause = "Upvote";
 
 	// Thread that close the activity after finishing update
@@ -215,7 +212,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		 */
 		@Override
 		public void onClick(View v) {
-			Log.i(TAG, status);
 			Question question = questionList.get(position);
 			if (cacheController.hasSaved(getContext(), question)) {
 				cacheController.removeLocalQuestions(getContext(), question);
@@ -260,7 +256,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		 */
 		@Override
 		public void onClick(View v) {
-			Log.i(TAG, status);
 			Question question = questionList.get(position);
 			if (cacheController.hasFavorited(getContext(), question)) {
 				cacheController.removeFavQuestions(getContext(), question);

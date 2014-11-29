@@ -33,7 +33,7 @@
             <TextView
                 android:id="@+id/answerContentTextView"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:fadeScrollbars="false"
                 android:scrollHorizontally="true"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -47,16 +47,22 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/desc"
                 android:src="@android:drawable/gallery_thumb" />
+
+            <TextView
+                android:id="@+id/answerLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/answer_time_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/answerContent"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/answerContent"
-            android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:gravity="center|right"
             android:textAppearance="?android:attr/textAppearanceSmall"

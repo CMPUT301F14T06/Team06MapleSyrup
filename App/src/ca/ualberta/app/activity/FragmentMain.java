@@ -66,6 +66,10 @@ public class FragmentMain extends Fragment {
 	static String sortByPicture = "Sort By Picture";
 	static String[] sortOption = { sortByDate, sortByScore, sortByPicture,
 			sortByQuestionUpvote, sortByAnswerUpvote };
+	private Spinner sortOptionSpinner;
+	private ArrayAdapter<String> spin_adapter;
+	private static long categoryID;
+	public String sortString = "date";
 	private TextView titleBar;
 	private EditText searchEditText;
 	private CacheController cacheController;
@@ -75,11 +79,7 @@ public class FragmentMain extends Fragment {
 	private AuthorMapController authorMapController;
 	private AuthorMapManager authorMapManager;
 	private Button searchButton;
-	private Spinner sortOptionSpinner;
 	private Context mcontext;
-	private ArrayAdapter<String> spin_adapter;
-	private static long categoryID;
-	public String sortString = "date";
 	private int haveSearchResult = 1;
 	private Date timestamp;
 	private ScrollListView mListView;

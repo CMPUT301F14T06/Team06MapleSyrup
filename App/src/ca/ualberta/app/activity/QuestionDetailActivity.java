@@ -26,7 +26,6 @@ import ca.ualberta.app.adapter.AnswerListAdapter;
 import ca.ualberta.app.adapter.ReplyListAdapter;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
-import ca.ualberta.app.models.Author;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
@@ -43,16 +42,28 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
 	public static String CACHE_LIST = "CACHE_LIST";
-
+	static String sortAnswerByDate = "Sort Answer and Reply By Date";
+	static String sortAnswerByUpvote = "Sort Answer By Upvote";
+	static String sortAnswerReplyByGeo = "Sort Answer and Reply By Geolocation";
+	static String[] sortOption = { sortAnswerByDate, sortAnswerByUpvote,
+			sortAnswerReplyByGeo };
+	private Spinner sortOptionSpinner;
+	private ArrayAdapter<String> spinAdapter;
+	private static long categoryID;
+	public String sortString = "date";
 	private TextView questionTitleTextView;
 	private TextView questionContentTextView;
 	private TextView authorNameTextView;
@@ -117,10 +128,13 @@ public class QuestionDetailActivity extends Activity {
 				question.getReplys(), question);
 		answerAdapter = new AnswerListAdapter(mcontext, R.layout.single_answer,
 				R.layout.single_reply, question.getAnswers(), question);
+
 		question_AnswerListView.setAdapter(answerAdapter);
 		question_ReplyListView.setAdapter(replyAdapter);
 		replyAdapter.notifyDataSetChanged();
 		answerAdapter.notifyDataSetChanged();
+		answerAdapter.setSortingOption(sortAnswerByDate);
+		updateSortedList();
 	}
 
 	private void setButtonChecked() {
@@ -182,6 +196,7 @@ public class QuestionDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_detail);
 		mcontext = this;
+		sortOptionSpinner = (Spinner) findViewById(R.id.AnswerSortSpinner);
 		questionTitleTextView = (TextView) findViewById(R.id.questionDetailTitleTextView);
 		questionContentTextView = (TextView) findViewById(R.id.questionDetailContentTextView);
 		authorNameTextView = (TextView) findViewById(R.id.authorNameTextView);
@@ -210,6 +225,11 @@ public class QuestionDetailActivity extends Activity {
 		questionManager = new QuestionListManager();
 		authorMapController = new AuthorMapController(mcontext);
 		authorMapManager = new AuthorMapManager();
+		spinAdapter = new ArrayAdapter<String>(mcontext,
+				R.layout.answer_spinner_item, sortOption);
+		sortOptionSpinner.setAdapter(spinAdapter);
+		sortOptionSpinner
+				.setOnItemSelectedListener(new change_category_click());
 		Intent intent = getIntent();
 
 		if (intent != null) {
@@ -249,6 +269,40 @@ public class QuestionDetailActivity extends Activity {
 		} else {
 			upvote_Rb.setEnabled(false);
 		}
+	}
+
+	private class change_category_click implements OnItemSelectedListener {
+		public void onItemSelected(AdapterView<?> parent, View view,
+				int position, long id) {
+			categoryID = position;
+
+			// sort by Date
+			if (categoryID == 0) {
+				if (answerAdapter != null)
+					answerAdapter.setSortingOption(sortAnswerByDate);
+			}
+			// sort by Answer upvote
+			if (categoryID == 1) {
+				if (answerAdapter != null)
+					answerAdapter.setSortingOption(sortAnswerByUpvote);
+			}
+			// sort by Answer geo
+			if (categoryID == 2) {
+				if (answerAdapter != null)
+					answerAdapter.setSortingOption(sortAnswerReplyByGeo);
+			}
+			if (answerAdapter != null)
+				updateSortedList();
+		}
+
+		public void onNothingSelected(AdapterView<?> parent) {
+			sortOptionSpinner.setSelection(0);
+		}
+	}
+
+	private void updateSortedList() {
+		answerAdapter.applySortMethod();
+		answerAdapter.notifyDataSetChanged();
 	}
 
 	/**

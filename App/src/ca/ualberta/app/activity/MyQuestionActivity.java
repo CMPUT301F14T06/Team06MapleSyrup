@@ -27,7 +27,6 @@ import java.util.Map;
 
 import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
-import ca.ualberta.app.activity.QuestionDetailActivity.SearchAuthorMapThread;
 import ca.ualberta.app.adapter.QuestionListAdapter;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
@@ -37,7 +36,6 @@ import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.view.ScrollListView;
 import ca.ualberta.app.view.ScrollListView.IXListViewListener;
-import ca.ualberta.app.widgets.CustomProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;

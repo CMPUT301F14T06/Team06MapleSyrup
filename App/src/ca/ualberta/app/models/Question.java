@@ -277,14 +277,14 @@ public class Question extends InputsModel {
 
 	public Answer getAnswer(long answerID) {
 		for (Answer answer : getAnswers()) {
-			if (answer.getID() == answerID){
+			if (answer.getID() == answerID) {
 				return answer;
 			}
 		}
 		return null;
 	}
-	
-	public String getImageString(){
+
+	public String getImageString() {
 		return this.imageString;
 	}
 }
