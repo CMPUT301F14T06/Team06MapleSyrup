@@ -126,6 +126,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				.findViewById(R.id.upvote_button);
 		holder.timestamp = (TextView) convertView
 				.findViewById(R.id.timeTextView);
+		holder.location = (TextView) convertView
+				.findViewById(R.id.questionLocation);
 		convertView.setTag(holder);
 		checkInternet();
 		Question question = this.getItem(position);
@@ -140,6 +142,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder.answerState.setText("Answer: " + question.getAnswerCount());
 			holder.upvoteState.setText("Upvote: "
 					+ question.getQuestionUpvoteCount());
+			holder.location.setText(question.getLocationName());
 			if (question.hasImage()) {
 				byte[] imageByteArray = Base64.decode(question.getImage(),
 						Base64.NO_WRAP);
@@ -375,4 +378,5 @@ class ViewHolder {
 	TextView timestamp;
 	TextView upvoteState;
 	TextView answerState;
+	TextView location;
 }

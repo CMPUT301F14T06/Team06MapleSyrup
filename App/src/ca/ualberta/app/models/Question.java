@@ -37,6 +37,8 @@ public class Question extends InputsModel {
 	long ID_question;
 	long total_score = 0;
 	long TheHighestAnswerUpvote = 0;
+	String locationName;
+	double[] locationCoordinates;
 
 	/**
 	 * The constructor of the class
@@ -286,5 +288,21 @@ public class Question extends InputsModel {
 
 	public String getImageString() {
 		return this.imageString;
+	}
+	
+	public void setLocationName(String locationName){
+		this.locationName = locationName;
+	}
+	
+	public String getLocationName(){
+		return this.locationName;
+	}
+	
+	public void setLocationCoordinates(double[] locationCoordinates){
+		this.locationCoordinates = locationCoordinates;
+	}
+	
+	public double[] getLocationCoordinates(){
+		return this.locationCoordinates;
 	}
 }

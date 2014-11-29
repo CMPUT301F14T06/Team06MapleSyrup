@@ -217,6 +217,9 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.reply_textView);
 		holder.timestamp = (TextView) convertView
 				.findViewById(R.id.reply_time_textView);
+		holder.replyLocation = (TextView) convertView
+				.findViewById(R.id.replyLocation);
+
 		convertView.setTag(holder);
 		Reply reply = replyList.get(childPosition);
 		if (reply != null) {
@@ -226,6 +229,7 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 			holder.replyContent.setText(reply.getContent());
 			holder.authorName.setText(authorMap.getUsername(userId));
 			holder.timestamp.setText(reply.getTimestamp().toString());
+			holder.replyLocation.setText(reply.getLocationName());
 		}
 		return convertView;
 	}
@@ -252,6 +256,7 @@ public class ReplyListAdapter extends BaseExpandableListAdapter {
 		TextView authorName;
 		TextView replyContent;
 		TextView timestamp;
+		TextView replyLocation;
 	}
 
 }

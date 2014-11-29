@@ -63,7 +63,7 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/questionDetailLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"

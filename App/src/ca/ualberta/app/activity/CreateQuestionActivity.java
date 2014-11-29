@@ -22,14 +22,12 @@ package ca.ualberta.app.activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-
-import ca.ualberta.app.ESmanager.AuthorMapManager;
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
-import ca.ualberta.app.models.AuthorMap;
+import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
@@ -53,12 +51,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateQuestionActivity extends Activity {
 	private ImageView imageView;
 	private EditText titleText = null;
 	private EditText contentText = null;
+	private TextView locationText = null;
 	private Question newQuestion = null;
 	private Bitmap image = null;
 	private Bitmap imageThumb = null;
@@ -76,6 +76,9 @@ public class CreateQuestionActivity extends Activity {
 	Uri stringFileUri;
 	private boolean edit = false;
 	private long questionID;
+	private boolean addLocation = false;
+	private String locationName;
+	private double[] locationCoordinates;
 
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -90,6 +93,7 @@ public class CreateQuestionActivity extends Activity {
 		titleText = (EditText) findViewById(R.id.question_title_editText);
 		contentText = (EditText) findViewById(R.id.question_content_editText);
 		imageView = (ImageView) findViewById(R.id.question_image_imageView);
+		locationText = (TextView) findViewById(R.id.questionLocationTextView);
 		pushController = new PushController(this);
 		questionListManager = new QuestionListManager();
 		authorMapController = new AuthorMapController(this);
@@ -304,6 +308,10 @@ public class CreateQuestionActivity extends Activity {
 			if (edit == false) {
 				newQuestion = new Question(content, User.author.getUserId(),
 						title, imageString);
+				if (addLocation == true){
+					newQuestion.setLocationName(locationName);
+					newQuestion.setLocationCoordinates(locationCoordinates);
+				}
 				User.author.addAQuestion(newQuestion.getID());
 			} else {
 				newQuestion = new Question(content, User.author.getUserId(),
@@ -328,12 +336,17 @@ public class CreateQuestionActivity extends Activity {
 					pushController.updateWaitingListQuestion(
 							getApplicationContext(), newQuestion);
 				}
-
 				finish();
 			}
 		}
 	}
 
+	public void addQuestionLocation(View view){
+		addLocation = true;
+		locationName = Location.getLocationName();
+		locationCoordinates = Location.getLocationCoordinates();
+		locationText.setText(locationName);
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.new_input, menu);

@@ -31,6 +31,8 @@ public class Reply extends InputsModel {
 	private String questionTitle_Reply;
 	private long ID_Reply;
 	private long answerID_Reply;
+	String locationName;
+	double[] locationCoordinates;
 
 	/**
 	 * The constructor of the class
@@ -82,4 +84,19 @@ public class Reply extends InputsModel {
 		this.ID_Reply = replyID;
 	}
 
+	public void setLocationName(String locationName){
+		this.locationName = locationName;
+	}
+	
+	public String getLocationName(){
+		return this.locationName;
+	}
+	
+	public void setLocationCoordinates(double[] locationCoordinates){
+		this.locationCoordinates = locationCoordinates;
+	}
+	
+	public double[] getLocationCoordinates(){
+		return this.locationCoordinates;
+	}
 }

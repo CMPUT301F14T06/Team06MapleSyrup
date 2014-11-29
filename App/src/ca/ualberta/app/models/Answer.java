@@ -35,7 +35,9 @@ public class Answer extends InputsModel {
 	long questionID_Answer;
 	String questionTitle_Answer;
 	Map<Long, Author> upvotedPerson;
-
+	String locationName;
+	double[] locationCoordinates;
+	
 	/**
 	 * The constructor of the class
 	 * 
@@ -166,5 +168,21 @@ public class Answer extends InputsModel {
 
 	public void setID(long answerID) {
 		this.ID_answer = answerID;
+	}
+	
+	public void setLocationName(String locationName){
+		this.locationName = locationName;
+	}
+	
+	public String getLocationName(){
+		return this.locationName;
+	}
+	
+	public void setLocationCoordinates(double[] locationCoordinates){
+		this.locationCoordinates = locationCoordinates;
+	}
+	
+	public double[] getLocationCoordinates(){
+		return this.locationCoordinates;
 	}
 }

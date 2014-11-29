@@ -8,7 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/create_answer_menu" >
+        android:layout_above="@+id/answerLocationTextView" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -49,7 +49,18 @@
                 android:src="@android:drawable/gallery_thumb" />
         </RelativeLayout>
     </ScrollView>
-
+    
+    <TextView
+        android:id="@+id/answerLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/create_answer_menu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:gravity="right|center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
     <RadioGroup
         android:id="@+id/create_answer_menu"
         android:layout_width="fill_parent"
@@ -79,7 +90,8 @@
             android:layout_width="24dp"
             android:layout_height="fill_parent"
             android:drawableLeft="@drawable/pin_map_button_style"
-            android:gravity="center" />
+            android:gravity="center"
+            android:onClick="addAnswerLocation" />
 
         <RadioButton
             android:id="@+id/take_answer_pic"

@@ -70,6 +70,7 @@ public class QuestionDetailActivity extends Activity {
 	private TextView questionUpvoteTextView;
 	private TextView answerCountTextView;
 	private TextView questionTimeTextView;
+	private TextView questionLocationTextView;
 	private ImageView questionImageView;
 	private ExpandableListView question_ReplyListView;
 	private ExpandableListView question_AnswerListView;
@@ -113,6 +114,7 @@ public class QuestionDetailActivity extends Activity {
 				+ question.getQuestionUpvoteCount());
 		answerCountTextView.setText("Answer: " + question.getAnswerCount());
 		questionTimeTextView.setText(question.getTimestamp().toString());
+		questionLocationTextView.setText(question.getLocationName());
 
 		if (question.hasImage()) {
 			byte[] imageByteArray = Base64.decode(question.getImage(),
@@ -209,6 +211,8 @@ public class QuestionDetailActivity extends Activity {
 		save_Rb = (RadioButton) findViewById(R.id.save_detail_button);
 		fav_Rb = (RadioButton) findViewById(R.id.fav_detail_button);
 		upvote_Rb = (RadioButton) findViewById(R.id.upvote_detail_button);
+		questionLocationTextView = (TextView) findViewById(R.id.questionDetailLocation);
+		
 		questionImageView.setVisibility(View.GONE);
 	}
 

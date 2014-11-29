@@ -264,6 +264,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		answerHolder.image.setVisibility(View.GONE);
 		answerHolder.reply_Rb = (RadioButton) convertView
 				.findViewById(R.id.answer_reply_button);
+		answerHolder.answerLocation = (TextView) convertView
+				.findViewById(R.id.answerLocation);
 		checkInternet();
 		convertView.setTag(answerHolder);
 		Answer answer = answerList.get(groupPosition);
@@ -276,6 +278,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			answerHolder.timestamp.setText(answer.getTimestamp().toString());
 			answerHolder.upvoteState.setText("Upvote: "
 					+ answer.getAnswerUpvoteCount());
+			answerHolder.answerLocation.setText(answer.getLocationName());
 			if (User.loginStatus)
 				if (answer.hasUpvotedBy(User.author.getUserId()))
 					answerHolder.upvote_Rb.setChecked(true);
@@ -380,6 +383,8 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.reply_textView);
 		replyHolder.timestamp = (TextView) convertView
 				.findViewById(R.id.reply_time_textView);
+		replyHolder.replyLocation = (TextView) convertView
+				.findViewById(R.id.replyLocation);
 		convertView.setTag(replyHolder);
 		ArrayList<Reply> replyList = answerList.get(groupPosition)
 				.getReplyArrayList();
@@ -397,6 +402,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			replyHolder.replyContent.setText(reply.getContent());
 			replyHolder.authorName.setText(authorMap.getUsername(userId));
 			replyHolder.timestamp.setText(reply.getTimestamp().toString());
+			replyHolder.replyLocation.setText(reply.getLocationName());
 		}
 		return convertView;
 	}
@@ -569,6 +575,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		TextView authorName;
 		TextView replyContent;
 		TextView timestamp;
+		TextView replyLocation;
 	}
 
 	/**
@@ -586,6 +593,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		ImageView image;
 		ExpandableListView replyList;
 		RadioButton reply_Rb;
+		TextView answerLocation;
 	}
 
 }

@@ -27,6 +27,7 @@ import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
+import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
@@ -52,12 +53,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import android.widget.Toast;
 
 public class CreateAnswerActivity extends Activity {
 	private ImageView imageView;
 	private EditText contentText = null;
+	private TextView locationText = null;
 	private Answer newAnswer = null;
 	private Bitmap image = null;
 	private Bitmap imageThumb = null;
@@ -73,6 +76,10 @@ public class CreateAnswerActivity extends Activity {
 	private Intent intent;
 	Uri imageFileUri;
 	Uri stringFileUri;
+	private boolean addLocation = false;
+	private String locationName;
+	private double[] locationCoordinates;
+
 
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -86,6 +93,7 @@ public class CreateAnswerActivity extends Activity {
 		setContentView(R.layout.activity_create_answer);
 		contentText = (EditText) findViewById(R.id.answer_content_editText);
 		imageView = (ImageView) findViewById(R.id.answer_image_imageView);
+		locationText = (TextView) findViewById(R.id.answerLocationTextView);
 		questionListManager = new QuestionListManager();
 		imageView.setVisibility(View.GONE);
 		intent = getIntent();
@@ -96,6 +104,12 @@ public class CreateAnswerActivity extends Activity {
 		finish();
 	}
 
+	public void addAnswerLocation(View view){
+		addLocation = true;
+		locationName = Location.getLocationName();
+		locationCoordinates = Location.getLocationCoordinates();
+		locationText.setText(locationName);
+	}
 	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
 	public void viewAnswerImage(View view) {
 		LayoutInflater inflater = LayoutInflater.from(view.getContext());
@@ -151,6 +165,10 @@ public class CreateAnswerActivity extends Activity {
 					String questionTitle = extras.getString(QUESTION_TITLE);
 					newAnswer = new Answer(content, User.author.getUserId(),
 							imageString);
+					if(addLocation == true){
+						newAnswer.setLocationName(locationName);
+						newAnswer.setLocationCoordinates(locationCoordinates);
+					}
 					newAnswer.setQuestionID(questionId);
 					newAnswer.setQuestionTitle(questionTitle);
 

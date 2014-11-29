@@ -22,6 +22,7 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.controller.PushController;
+import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
@@ -35,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateAnswerReplyActivity extends Activity {
@@ -50,6 +52,11 @@ public class CreateAnswerReplyActivity extends Activity {
 	public static String EDIT_MODE = "EDIT_MODE";
 	public static String ANSWER_POS = "ANSWER_POS";
 	private Intent intent;
+	private boolean addLocation = false;
+	private String locationName;
+	private double[] locationCoordinates;
+	private TextView locationText;
+
 
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -62,6 +69,7 @@ public class CreateAnswerReplyActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_answer_reply);
 		contentText = (EditText) findViewById(R.id.answer_reply_editText);
+		locationText = (TextView) findViewById(R.id.answerReplyLocationTextView);
 		questionListManager = new QuestionListManager();
 		intent = getIntent();
 		pushController = new PushController(this);
@@ -81,7 +89,14 @@ public class CreateAnswerReplyActivity extends Activity {
 			}
 		}
 	}
-
+	
+	public void addAnswerReplyLocation(View view){
+		addLocation = true;
+		locationName = Location.getLocationName();
+		locationCoordinates = Location.getLocationCoordinates();
+		locationText.setText(locationName);
+	}
+	
 	public void submit_answer_reply(View view) {
 		String content = contentText.getText().toString();
 		if (content.trim().length() == 0)
@@ -101,7 +116,10 @@ public class CreateAnswerReplyActivity extends Activity {
 					newReply.setQuestionID(questionId);
 					newReply.setAnswerID(answerID);
 					newReply.setQuestionTitle(questionTitle);
-
+					if(addLocation == true){
+						newReply.setLocationName(locationName);
+						newReply.setLocationCoordinates(locationCoordinates);
+					}
 					if (extras.getBoolean(EDIT_MODE)) {
 						long replyID = extras.getLong(REPLY_ID);
 						newReply.setID(replyID);
