@@ -22,7 +22,6 @@ package ca.ualberta.app.activity;
 
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.AuthorMapController;
-import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import android.app.AlertDialog;
@@ -63,7 +62,6 @@ public class FragmentProfile extends Fragment {
 	private String newUsername = null;
 	private String loginCause = "Login";
 	private AuthorMapController authorMapController;
-	private CacheController cacheController;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,7 +116,7 @@ public class FragmentProfile extends Fragment {
 			public void onClick(View v) {
 				User.loginStatus = false;
 				User.author = null;
-				getActivity().recreate();
+				checkLoginStatus();
 			}
 		});
 
