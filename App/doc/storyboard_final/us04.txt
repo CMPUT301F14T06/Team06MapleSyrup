@@ -1,0 +1,1 @@
+4: **As a user, I want to answer other users's questions. First, I go back to the mian question list and open the quesion detail interface of the question I want to answer. Then, I click on the "Add Answer" button below the question content. A new interface for answering a question will come up.**
