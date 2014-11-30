@@ -1,0 +1,2 @@
+As a user, I want browse questions.
+After I open the app, a list of all questions is displayed on the screen.
