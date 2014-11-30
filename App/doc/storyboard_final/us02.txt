@@ -1,0 +1,2 @@
+2:Then, I want to view a question and all replies and answers to that question.
+I click the question directly, then a new interface, called "Question Detail" comes up.
