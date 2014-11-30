@@ -1,0 +1,1 @@
+**3: As a user, I want to ask questions. I click the "Ask Quesion" button at the bottom of the screen: Case 1, if I don't log in yet, then the log in interface will come up; case 2, if I have logged in as an author, then the interface for adding a question will come up.**
