@@ -360,7 +360,7 @@ public class CreateQuestionActivity extends Activity {
 
 	private void showDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("Change Author Name");
+		alert.setTitle("Select get Location Method");
 
 		alert.setPositiveButton("Setting Manually",
 				new DialogInterface.OnClickListener() {
@@ -400,8 +400,8 @@ public class CreateQuestionActivity extends Activity {
 					showToast();
 				} else {
 					cacheController.saveUserCoordinates(coord);
-					cacheController.saveUserLocation(GeoCoder.toAddress(coord[0],
-							coord[1]));
+					cacheController.saveUserLocation(GeoCoder.toAddress(
+							coord[0], coord[1]));
 					locationName = cacheController.getUserLocation();
 					locationCoordinates = cacheController.getUserCoordinates();
 					locationText.setText(locationName);
@@ -419,12 +419,13 @@ public class CreateQuestionActivity extends Activity {
 		alertDialog.show();
 	}
 
-	public void showToast(){
+	public void showToast() {
 		Toast.makeText(
 				this,
 				"Sorry, Cannot find the address you provided. Please Try again!",
 				Toast.LENGTH_LONG).show();
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.new_input, menu);

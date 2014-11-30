@@ -21,7 +21,9 @@
 package ca.ualberta.app.activity;
 
 import ca.ualberta.app.ESmanager.QuestionListManager;
+import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
+import ca.ualberta.app.gps.GeoCoder;
 import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
@@ -29,6 +31,8 @@ import ca.ualberta.app.models.User;
 import ca.ualberta.app.network.InternetConnectionChecker;
 import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,6 +48,7 @@ public class CreateQuestionReplyActivity extends Activity {
 	private Reply newReply = null;
 	private QuestionListManager questionListManager;
 	private PushController pushController;
+	private CacheController cacheController;
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
 	public static String REPLY_ID = "REPLY_ID";
@@ -55,7 +60,7 @@ public class CreateQuestionReplyActivity extends Activity {
 	private double[] locationCoordinates;
 	private TextView locationText;
 	private RadioButton GPSButton = null;
-	
+
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
@@ -72,6 +77,7 @@ public class CreateQuestionReplyActivity extends Activity {
 		questionListManager = new QuestionListManager();
 		intent = getIntent();
 		pushController = new PushController(this);
+		cacheController = new CacheController(this);
 	}
 
 	@Override
@@ -89,15 +95,10 @@ public class CreateQuestionReplyActivity extends Activity {
 		}
 	}
 
-	public void addQuestionReplyLocation(View view){
-		if(locationName == null){
-			GPSButton.setChecked(true);
-			addLocation = true;
-			locationName = Location.getLocationName();
-			locationCoordinates = Location.getLocationCoordinates();
-			locationText.setText(locationName);
-		}
-		else{
+	public void addQuestionReplyLocation(View view) {
+		if (locationName == null) {
+			showDialog();
+		} else {
 			GPSButton.setChecked(false);
 			addLocation = false;
 			locationName = null;
@@ -105,7 +106,75 @@ public class CreateQuestionReplyActivity extends Activity {
 			locationText.setText("");
 		}
 	}
-	
+
+	private void showDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Select get Location Method");
+
+		alert.setPositiveButton("Setting Manually",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						GPSButton.setChecked(true);
+						addLocation = true;
+						showSelectedDialog();
+					}
+
+				});
+		alert.setNegativeButton("GPS", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				GPSButton.setChecked(true);
+				addLocation = true;
+				locationName = Location.getLocationName();
+				locationCoordinates = Location.getLocationCoordinates();
+				locationText.setText(locationName);
+			}
+		});
+		AlertDialog alertDialog = alert.create();
+		alertDialog.show();
+	}
+
+	private void showSelectedDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Set Location Manually");
+		alert.setMessage("Enter the closest city");
+
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String userLocation = input.getEditableText().toString();
+				double[] coord = GeoCoder.toLatLong(userLocation.toString());
+				if (coord[0] == 0.0 && coord[1] == 0.0) {
+					showToast();
+				} else {
+					cacheController.saveUserCoordinates(coord);
+					cacheController.saveUserLocation(GeoCoder.toAddress(
+							coord[0], coord[1]));
+					locationName = cacheController.getUserLocation();
+					locationCoordinates = cacheController.getUserCoordinates();
+					locationText.setText(locationName);
+				}
+			}
+
+		});
+		alert.setNegativeButton("CANCEL",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alertDialog = alert.create();
+		alertDialog.show();
+	}
+
+	public void showToast() {
+		Toast.makeText(
+				this,
+				"Sorry, Cannot find the address you provided. Please Try again!",
+				Toast.LENGTH_LONG).show();
+	}
+
 	public void submit_reply(View view) {
 		String content = contentText.getText().toString();
 		if (content.trim().length() == 0)
@@ -119,7 +188,7 @@ public class CreateQuestionReplyActivity extends Activity {
 					newReply = new Reply(content, User.author.getUserId());
 					newReply.setQuestionID(questionId);
 					newReply.setQuestionTitle(questionTitle);
-					if (addLocation == true){
+					if (addLocation == true) {
 						newReply.setLocationName(locationName);
 						newReply.setLocationCoordinates(locationCoordinates);
 					}

@@ -27,6 +27,7 @@ import ca.ualberta.app.ESmanager.QuestionListManager;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
+import ca.ualberta.app.gps.GeoCoder;
 import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.Answer;
 import ca.ualberta.app.models.Question;
@@ -36,6 +37,7 @@ import ca.ualberta.app.thread.UpdateQuestionThread;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -69,6 +71,7 @@ public class CreateAnswerActivity extends Activity {
 	private RadioButton GPSButton;
 	private QuestionListManager questionListManager;
 	private PushController pushController;
+	private CacheController cacheController;
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
 	public static String ANSWER_ID = "ANSWER_ID";
@@ -81,7 +84,6 @@ public class CreateAnswerActivity extends Activity {
 	private boolean addLocation = false;
 	private String locationName;
 	private double[] locationCoordinates;
-
 
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
@@ -101,21 +103,17 @@ public class CreateAnswerActivity extends Activity {
 		imageView.setVisibility(View.GONE);
 		intent = getIntent();
 		pushController = new PushController(this);
+		cacheController = new CacheController(this);
 	}
 
 	public void cancel_answer(View view) {
 		finish();
 	}
 
-	public void addAnswerLocation(View view){
-		if(locationName == null){
-			GPSButton.setChecked(true);
-			addLocation = true;
-			locationName = Location.getLocationName();
-			locationCoordinates = Location.getLocationCoordinates();
-			locationText.setText(locationName);
-		}
-		else{
+	public void addAnswerLocation(View view) {
+		if (locationName == null) {
+			showDialog();
+		} else {
 			GPSButton.setChecked(false);
 			addLocation = false;
 			locationName = null;
@@ -123,6 +121,75 @@ public class CreateAnswerActivity extends Activity {
 			locationText.setText("");
 		}
 	}
+
+	private void showDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Select get Location Method");
+
+		alert.setPositiveButton("Setting Manually",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						GPSButton.setChecked(true);
+						addLocation = true;
+						showSelectedDialog();
+					}
+
+				});
+		alert.setNegativeButton("GPS", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				GPSButton.setChecked(true);
+				addLocation = true;
+				locationName = Location.getLocationName();
+				locationCoordinates = Location.getLocationCoordinates();
+				locationText.setText(locationName);
+			}
+		});
+		AlertDialog alertDialog = alert.create();
+		alertDialog.show();
+	}
+
+	private void showSelectedDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Set Location Manually");
+		alert.setMessage("Enter the closest city");
+
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String userLocation = input.getEditableText().toString();
+				double[] coord = GeoCoder.toLatLong(userLocation.toString());
+				if (coord[0] == 0.0 && coord[1] == 0.0) {
+					showToast();
+				} else {
+					cacheController.saveUserCoordinates(coord);
+					cacheController.saveUserLocation(GeoCoder.toAddress(
+							coord[0], coord[1]));
+					locationName = cacheController.getUserLocation();
+					locationCoordinates = cacheController.getUserCoordinates();
+					locationText.setText(locationName);
+				}
+			}
+
+		});
+		alert.setNegativeButton("CANCEL",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alertDialog = alert.create();
+		alertDialog.show();
+	}
+
+	public void showToast() {
+		Toast.makeText(
+				this,
+				"Sorry, Cannot find the address you provided. Please Try again!",
+				Toast.LENGTH_LONG).show();
+	}
+
 	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
 	public void viewAnswerImage(View view) {
 		LayoutInflater inflater = LayoutInflater.from(view.getContext());
@@ -153,8 +220,8 @@ public class CreateAnswerActivity extends Activity {
 					try {
 						byte[] imageByteArray = Base64.decode(
 								extras.getByteArray(IMAGE), Base64.NO_WRAP);
-						image = BitmapFactory.decodeByteArray(imageByteArray, 0,
-								imageByteArray.length);
+						image = BitmapFactory.decodeByteArray(imageByteArray,
+								0, imageByteArray.length);
 						scaleImage(THUMBIMAGESIZE, THUMBIMAGESIZE, true);
 						imageView.setVisibility(View.VISIBLE);
 						imageView.setImageBitmap(imageThumb);
@@ -178,7 +245,7 @@ public class CreateAnswerActivity extends Activity {
 					String questionTitle = extras.getString(QUESTION_TITLE);
 					newAnswer = new Answer(content, User.author.getUserId(),
 							imageString);
-					if(addLocation == true){
+					if (addLocation == true) {
 						newAnswer.setLocationName(locationName);
 						newAnswer.setLocationCoordinates(locationCoordinates);
 					}
