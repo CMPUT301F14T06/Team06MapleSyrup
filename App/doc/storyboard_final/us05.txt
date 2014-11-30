@@ -1,0 +1,1 @@
+**5: As a user, I want to reply an answer or a question. First, I open the quesion detail interface of the question or answer I want to reply. Then, I click on the "Add Reply" button below the question content. A new interface for replying will come up.**
