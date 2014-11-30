@@ -1,0 +1,1 @@
+**8: As a user I want to set my location after adding a queston. I click the "Location" icon at the bottom of the "Add Question" interface, and I can either set location by GPS or by hand.** 
