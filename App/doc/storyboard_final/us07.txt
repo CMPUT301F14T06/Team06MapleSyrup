@@ -1,0 +1,1 @@
+**13: I want to set my user name and my profile picture. I click the "My Profile" button in the main interface, and click my current user name / profile picture. Then a dialogue window will rise, and I enter my new user name/ select my new profile picture.**
