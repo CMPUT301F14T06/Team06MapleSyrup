@@ -27,17 +27,18 @@ public class GeoCoder {
 		return myAddress;
 	}
 
-	private static String formatAddress(Address a) {
-		StringBuilder sb = new StringBuilder();
-		String aux = "";
-		aux = a.getLocality();
-		sb.append(aux != null ? (aux + ", ")
-				: (a.getSubAdminArea() != null) ? (a.getSubAdminArea() + ", ")
-						: "");
-		aux = a.getAdminArea();
-		sb.append(aux != null ? (aux + "/") : "");
-		sb.append(aux != null ? a.getCountryCode() : a.getCountryName());
-		return sb.toString();
+	private static String formatAddress(Address address) {
+		StringBuilder stringBuilder = new StringBuilder();
+		String location = "";
+		location = address.getLocality();
+		stringBuilder.append(location != null ? (location + ", ")
+				: (address.getSubAdminArea() != null) ? (address
+						.getSubAdminArea() + ", ") : "");
+		location = address.getAdminArea();
+		stringBuilder.append(location != null ? (location + ", ") : "");
+		stringBuilder.append(location != null ? address.getCountryName()
+				: address.getCountryCode());
+		return stringBuilder.toString();
 	}
 
 	public static double[] toLatLong(String strAddress) {
@@ -61,15 +62,16 @@ public class GeoCoder {
 	public static double toFindDistance(double[] coordinate1,
 			double[] coordinate2) {
 		double d = 1000000000;
-		if (coordinate1 != null && coordinate2 != null){
+		if (coordinate1 != null && coordinate2 != null) {
 			double R = 6371000; // m
 			double dLat = Math.toRadians(coordinate1[0] - coordinate2[0]);
 			double dLon = Math.toRadians(coordinate1[1] - coordinate2[1]);
 			double lat1 = Math.toRadians(coordinate1[0]);
 			double lat2 = Math.toRadians(coordinate2[0]);
-	
-			double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2)
-					* Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+
+			double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+					+ Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1)
+					* Math.cos(lat2);
 			double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 			d = R * c;
 		}
