@@ -27,6 +27,7 @@ import ca.ualberta.app.activity.R;
 import ca.ualberta.app.controller.AuthorMapController;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.controller.PushController;
+import ca.ualberta.app.gps.GeoCoder;
 import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.User;
@@ -34,6 +35,7 @@ import ca.ualberta.app.network.InternetConnectionChecker;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -311,7 +313,7 @@ public class CreateQuestionActivity extends Activity {
 			if (edit == false) {
 				newQuestion = new Question(content, User.author.getUserId(),
 						title, imageString);
-				if (addLocation == true){
+				if (addLocation == true) {
 					newQuestion.setLocationName(locationName);
 					newQuestion.setLocationCoordinates(locationCoordinates);
 				}
@@ -344,21 +346,84 @@ public class CreateQuestionActivity extends Activity {
 		}
 	}
 
-	public void addQuestionLocation(View view){
-		if(locationName == null){
-			GPSButton.setChecked(true);
-			addLocation = true;
-			locationName = Location.getLocationName();
-			locationCoordinates = Location.getLocationCoordinates();
-			locationText.setText(locationName);
-		}
-		else{
+	public void addQuestionLocation(View view) {
+		if (locationName == null) {
+			showDialog();
+		} else {
 			GPSButton.setChecked(false);
 			addLocation = false;
 			locationName = null;
 			locationCoordinates = null;
 			locationText.setText("");
 		}
+	}
+
+	private void showDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Change Author Name");
+
+		alert.setPositiveButton("Setting Manually",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						GPSButton.setChecked(true);
+						addLocation = true;
+						showSelectedDialog();
+					}
+
+				});
+		alert.setNegativeButton("GPS", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				GPSButton.setChecked(true);
+				addLocation = true;
+				locationName = Location.getLocationName();
+				locationCoordinates = Location.getLocationCoordinates();
+				locationText.setText(locationName);
+			}
+		});
+		AlertDialog alertDialog = alert.create();
+		alertDialog.show();
+	}
+
+	private void showSelectedDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Set Location Manually");
+		alert.setMessage("Enter the closest city");
+
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String userLocation = input.getEditableText().toString();
+				double[] coord = GeoCoder.toLatLong(userLocation.toString());
+				if (coord[0] == 0.0 && coord[1] == 0.0) {
+					showToast();
+				} else {
+					cacheController.saveUserCoordinates(coord);
+					cacheController.saveUserLocation(GeoCoder.toAddress(coord[0],
+							coord[1]));
+					locationName = cacheController.getUserLocation();
+					locationCoordinates = cacheController.getUserCoordinates();
+					locationText.setText(locationName);
+				}
+			}
+
+		});
+		alert.setNegativeButton("CANCEL",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alertDialog = alert.create();
+		alertDialog.show();
+	}
+
+	public void showToast(){
+		Toast.makeText(
+				this,
+				"Sorry, Cannot find the address you provided. Please Try again!",
+				Toast.LENGTH_LONG).show();
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
