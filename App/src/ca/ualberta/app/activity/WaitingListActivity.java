@@ -37,6 +37,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+/**
+ * This is the activity of the waiting list of un-posted question(s), answer(s)
+ * and reply(s). They will be post once the Internet is connected.
+ * 
+ * @author Bicheng
+ * 
+ */
 public class WaitingListActivity extends Activity {
 
 	private QuestionWaitingListAdapter questionAdapter;
@@ -64,6 +71,10 @@ public class WaitingListActivity extends Activity {
 	private ArrayList<String> typeOption;
 	private NetworkObserver networkObserver;
 
+	/**
+	 * Thread notify the adapter changes in data, and update the adapter after
+	 * an operation
+	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			questionAdapter.notifyDataSetChanged();
@@ -72,6 +83,13 @@ public class WaitingListActivity extends Activity {
 		}
 	};
 
+	/**
+	 * onCreate method Once a user enter this activity, this method will give
+	 * each view an object to help other methods set data or listeners.
+	 * 
+	 * @param savedInstanceState
+	 *            The saved instance state bundle.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,6 +101,10 @@ public class WaitingListActivity extends Activity {
 		mcontext = this;
 	}
 
+	/**
+	 * onStart method Setup the adapter for the user's question list, and setup
+	 * listener for each item (question) in the user's question list.
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -116,7 +138,18 @@ public class WaitingListActivity extends Activity {
 				.setOnItemSelectedListener(new change_category_click());
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
-
+			/**
+			 * allow user to edit these un-posted question, answer or reply
+			 * 
+			 * @param parent
+			 *            The adapter of the item in the list.
+			 * @param view
+			 *            The view.
+			 * @param pos
+			 *            The position of a question.
+			 * @param id
+			 *            The ID of a question.
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -218,8 +251,25 @@ public class WaitingListActivity extends Activity {
 			}
 		});
 
+		/**
+		 * Delete an item (a question) in the favorite list when a user long
+		 * clicks the question.
+		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
+			/**
+			 * If the user is the author of the question, and the user long
+			 * click the item (the question) in the question list, then remove
+			 * the selected question from the question list.
+			 * 
+			 * @param parent
+			 *            The adapter of the item in the list.
+			 * @param view
+			 *            The view.
+			 * @param pos
+			 *            The position of a question.
+			 * @param id
+			 *            The ID of a question.
+			 */
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -241,8 +291,17 @@ public class WaitingListActivity extends Activity {
 			}
 		});
 
+		/**
+		 * Update the current questions on screen, if a user scroll his/her
+		 * favorite question list
+		 */
 		mListView.setScrollListViewListener(new IXListViewListener() {
-
+			/**
+			 * Will called to update the content in the favorite question list
+			 * when the data is changed or sorted; also, this method will tell
+			 * the user the current interval of the question that are displayed
+			 * on the screen
+			 */
 			@Override
 			public void onRefresh() {
 				mHandler.postDelayed(new Runnable() {
@@ -254,6 +313,12 @@ public class WaitingListActivity extends Activity {
 				}, 2000);
 			}
 
+			/**
+			 * this method will be called when a user up or down scroll the
+			 * favorite question list to update the corresponding questions on
+			 * the screen; also, this method will tell the user the current
+			 * interval of the question that are displayed on the screen
+			 */
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -267,6 +332,9 @@ public class WaitingListActivity extends Activity {
 		});
 	}
 
+	/**
+	 * stop refresh and loading, reset header and the footer view.
+	 */
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
@@ -274,6 +342,9 @@ public class WaitingListActivity extends Activity {
 		mListView.setRefreshTime(timestamp.toString());
 	}
 
+	/**
+	 * will update the size of each listView
+	 */
 	private void updateCounter() {
 		typeOption.clear();
 		QuestionType = "Questions (" + waitingQuestionListController.size()
@@ -285,6 +356,9 @@ public class WaitingListActivity extends Activity {
 		typeOption.add(ReplyType);
 	}
 
+	/**
+	 * Update the content of listView whicha re the question,answer and reply
+	 */
 	public void updateList() {
 		if (InternetConnectionChecker.isNetworkAvailable() && User.loginStatus) {
 			long total = waitingQuestionListController.size()
@@ -319,7 +393,23 @@ public class WaitingListActivity extends Activity {
 		}
 	}
 
+	/**
+	 * This class represents the functions in the sorting menu in the spinner at
+	 * the top of the screen
+	 */
 	private class change_category_click implements OnItemSelectedListener {
+		/**
+		 * Based on different conditions, call different sorting functions.
+		 * 
+		 * @param parent
+		 *            The adapter of the item in the list.
+		 * @param view
+		 *            The view.
+		 * @param pos
+		 *            The position of a question.
+		 * @param id
+		 *            The ID of a question.
+		 */
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			categoryID = position;
@@ -341,7 +431,9 @@ public class WaitingListActivity extends Activity {
 			updateCounter();
 			spinAdapter.notifyDataSetChanged();
 		}
-
+		/**
+		 * Use default sort method is nothing is chosen
+		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			typeOptionSpinner.setSelection(0);
 		}

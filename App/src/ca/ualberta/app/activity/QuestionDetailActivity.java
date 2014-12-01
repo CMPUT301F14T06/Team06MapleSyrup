@@ -51,6 +51,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+/**
+ * This is the activity of each single question in all kinds of question lists
+ * in the app. This activity will be call when a item (a question) in a question
+ * list is clicked.
+ */
 public class QuestionDetailActivity extends Activity {
 	public static String QUESTION_ID = "QUESTION_ID";
 	public static String QUESTION_TITLE = "QUESTION_TITLE";
@@ -103,6 +108,12 @@ public class QuestionDetailActivity extends Activity {
 		}
 	};
 
+	/**
+	 * This method will be called when the activity is active. If a question is
+	 * selected, then all specific information (question content, title, author,
+	 * and post date etc.) will be found from the data set. This method will
+	 * also insert the adapter for the single question.
+	 */
 	private void updateUI() {
 		setButtonChecked();
 		Long userId = question.getUserId();
@@ -139,6 +150,9 @@ public class QuestionDetailActivity extends Activity {
 		updateSortedList();
 	}
 
+	/**
+	 * used to set different state of the buttons displayed on a quesiton
+	 */
 	private void setButtonChecked() {
 		if (!(save_click || upvote_click || fav_click)
 				&& !cacheController.hasSaved(mcontext, question))
@@ -162,6 +176,16 @@ public class QuestionDetailActivity extends Activity {
 
 	private static final int THUMBIMAGESIZE = 100;
 
+	/**
+	 * scale the image to fixed width and height
+	 * 
+	 * @param width
+	 *            the fixed width
+	 * @param height
+	 *            the fixed height
+	 * @param createThumb
+	 *            single to create a thumb nail of the image
+	 */
 	private void scaleImage() {
 		// Scale the pic if it is too large:
 
@@ -212,7 +236,7 @@ public class QuestionDetailActivity extends Activity {
 		fav_Rb = (RadioButton) findViewById(R.id.fav_detail_button);
 		upvote_Rb = (RadioButton) findViewById(R.id.upvote_detail_button);
 		questionLocationTextView = (TextView) findViewById(R.id.questionDetailLocation);
-		
+
 		questionImageView.setVisibility(View.GONE);
 	}
 
@@ -222,6 +246,10 @@ public class QuestionDetailActivity extends Activity {
 		checkInternet();
 	}
 
+	/**
+	 * onStart method Once the activity starts, this method will start the
+	 * thread for the current question
+	 */
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -265,7 +293,7 @@ public class QuestionDetailActivity extends Activity {
 	}
 
 	/**
-	 * 
+	 * disable upvote functionality when disconnected
 	 */
 	private void checkInternet() {
 		if (InternetConnectionChecker.isNetworkAvailable()) {
@@ -275,6 +303,9 @@ public class QuestionDetailActivity extends Activity {
 		}
 	}
 
+	/**
+	 * This class represents the functions in the sorting menu
+	 */
 	private class change_category_click implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
@@ -419,6 +450,12 @@ public class QuestionDetailActivity extends Activity {
 		}
 	}
 
+	/**
+	 * set the image to the imageView
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
 	public void viewQuestionImage(View view) {
 		LayoutInflater inflater = LayoutInflater.from(mcontext);

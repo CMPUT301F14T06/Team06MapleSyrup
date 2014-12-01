@@ -35,6 +35,20 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+/**
+ * This is the mean activity that contains 5 mean functionalities by inflating 5
+ * fragments: (1) view all questions authors have posted; (2) view users'
+ * favorite questions; (3) login as an author, and create a new question; (4)
+ * search questions which contain a given keyword; (5) view and modify user
+ * profiles.
+ * 
+ * The fragment part is from this web site:
+ * http://www.programering.com/a/MjNzIDMwATI.html
+ * 
+ * @author Anni
+ * @author Bicheng
+ * @author Xiaocong
+ */
 public class MainActivity extends FragmentActivity {
 	private Fragment[] fragments;
 	private FragmentManager fragmentManager;
@@ -43,6 +57,14 @@ public class MainActivity extends FragmentActivity {
 	private RadioButton main_Rb, add_Rb;
 	private String loginCause = "Question";
 
+	/**
+	 * onCreate method. Once the activity is created, first set the content
+	 * view, and initialize ActionBar for fragments, and a Spinner for sort
+	 * options.
+	 * 
+	 * @param savedInstanceState
+	 *            the saved instance state bundle
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,6 +83,11 @@ public class MainActivity extends FragmentActivity {
 		setFragmentIndicator();
 	}
 
+	/**
+	 * Connecting all fragment activities to the corresponding buttons in the
+	 * action bar at the bottom of the screen. Hiding the "ask a question"
+	 * fragment, until the user login as an author
+	 */
 	private void setFragmentIndicator() {
 
 		bottom_Rg = (RadioGroup) findViewById(R.id.main_menu);

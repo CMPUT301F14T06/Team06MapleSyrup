@@ -63,6 +63,19 @@ public class FragmentProfile extends Fragment {
 	private String loginCause = "Login";
 	private AuthorMapController authorMapController;
 
+	/**
+	 * Once the fragment is active, the user interface,
+	 * R.layout.fragment_profile will be load into the fragment.
+	 * 
+	 * @param inflater
+	 *            is used to find out the layout defined in the xml file.
+	 * @param container
+	 *            the view container that contains all views of an single item.
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
+	 * 
+	 * @return inflater the layout of this fragment.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -70,6 +83,13 @@ public class FragmentProfile extends Fragment {
 		return inflater.inflate(R.layout.fragment_profile, container, false);
 	}
 
+	/**
+	 * Once the fragment is created, this method will give each view an object
+	 * to help other methods set data or listener.
+	 * 
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -102,7 +122,13 @@ public class FragmentProfile extends Fragment {
 			}
 		});
 		login.setOnClickListener(new OnClickListener() {
-
+			/**
+			 * Setup the listener for the "Login" button, so that, once the
+			 * button is clicked, the login window will be displayed.
+			 * 
+			 * @param v
+			 *            The view of the button.
+			 */
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), LoginActivity.class);
 				intent.putExtra(LoginActivity.LOGINCAUSE, loginCause);
@@ -112,7 +138,14 @@ public class FragmentProfile extends Fragment {
 		});
 
 		logout.setOnClickListener(new OnClickListener() {
-
+			/**
+			 * Setup the listener for the "Logout" button, so that, once the
+			 * button is clicked, the activity will be set to the statues before
+			 * logging in.
+			 * 
+			 * @param v
+			 *            The view of the button.
+			 */
 			public void onClick(View v) {
 				User.loginStatus = false;
 				User.author = null;
@@ -121,7 +154,14 @@ public class FragmentProfile extends Fragment {
 		});
 
 		my_question.setOnClickListener(new OnClickListener() {
-
+			/**
+			 * Setup the listener for the "My Questions" button, so that, once
+			 * the button is clicked, the author's own question(s) can be
+			 * displayed.
+			 * 
+			 * @param v
+			 *            The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
@@ -132,7 +172,14 @@ public class FragmentProfile extends Fragment {
 		});
 
 		fav_question.setOnClickListener(new OnClickListener() {
-
+			/**
+			 * Setup the listener for the "Favorite Questions" button, so that,
+			 * once the button is clicked, the favorite question(s) can be
+			 * displayed.
+			 * 
+			 * @param v
+			 *            The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
@@ -143,7 +190,14 @@ public class FragmentProfile extends Fragment {
 		});
 
 		local_cache.setOnClickListener(new OnClickListener() {
-
+			/**
+			 * Setup the listener for the "My Questions" button, so that, once
+			 * the button is clicked, the author's own question(s) can be
+			 * displayed.
+			 * 
+			 * @param v
+			 *            The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), MyLocalActivity.class);
@@ -152,7 +206,14 @@ public class FragmentProfile extends Fragment {
 		});
 
 		waiting_list.setOnClickListener(new OnClickListener() {
-
+			/**
+			 * Setup the listener for the "Waiting List" button, so that, once
+			 * the button is clicked, the Offline question(s),answer(s) and
+			 * reply(s) can be displayed.
+			 * 
+			 * @param v
+			 *            The view of the button.
+			 */
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),
@@ -162,6 +223,10 @@ public class FragmentProfile extends Fragment {
 		});
 	}
 
+	/**
+	 * onResume method. Once the activity is resumed from other activities,
+	 * check the user's longing statues.
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -173,12 +238,20 @@ public class FragmentProfile extends Fragment {
 		}
 	}
 
+	/**
+	 * onPause method. Once the activity is paused, check the user's longing
+	 * statues.
+	 */
 	@Override
 	public void onPause() {
 		super.onPause();
 		checkLoginStatus();
 	}
 
+	
+	/**
+	 * will be called when user want to re-set the username
+	 */
 	private void showDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 		alert.setTitle("Change Author Name");
@@ -219,6 +292,9 @@ public class FragmentProfile extends Fragment {
 		alertDialog.show();
 	}
 
+	/**
+	 * will display the buttons only when user already login
+	 */
 	public void checkLoginStatus() {
 		if (User.loginStatus) {
 			changePhotoButton.setVisibility(View.VISIBLE);

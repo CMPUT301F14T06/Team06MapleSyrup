@@ -60,6 +60,15 @@ import android.widget.TextView;
 
 import android.widget.Toast;
 
+/**
+ * This is the activity for the mean functionality of answering a question. This
+ * activity will be acted when the "Add Answer" button in the
+ * QuestionDetailActivity.java is clicked.
+ * 
+ * @author Anni
+ * @author Bicheng
+ * 
+ */
 public class CreateAnswerActivity extends Activity {
 	private ImageView imageView;
 	private EditText contentText = null;
@@ -85,12 +94,23 @@ public class CreateAnswerActivity extends Activity {
 	private String locationName;
 	private double[] locationCoordinates;
 
+	/**
+	 * This method will be called when the user finishes answering a question to
+	 * stop the the current thread.
+	 */
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
 		}
 	};
 
+	/**
+	 * onCreate method Once the activity is created, this method will give each
+	 * view an object to help other methods set data or listeners.
+	 * 
+	 * @param savedInstanceState
+	 *            the saved instance state bundle
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,10 +126,23 @@ public class CreateAnswerActivity extends Activity {
 		cacheController = new CacheController(this);
 	}
 
+	/**
+	 * If the user cancel the current operation, then stop the current thread
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void cancel_answer(View view) {
 		finish();
 	}
 
+	/**
+	 * Will be called when user clicked add Location button, it will pop a
+	 * dialog and let user choose the method of location
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void addAnswerLocation(View view) {
 		if (locationName == null) {
 			showDialog();
@@ -122,6 +155,10 @@ public class CreateAnswerActivity extends Activity {
 		}
 	}
 
+	/**
+	 * the dialog allow user to choose get the location through GPS or set it
+	 * manually
+	 */
 	private void showDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Select get Location Method");
@@ -148,6 +185,9 @@ public class CreateAnswerActivity extends Activity {
 		alertDialog.show();
 	}
 
+	/**
+	 * the dialog allow user to type in the city manually
+	 */
 	private void showSelectedDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Set Location Manually");
@@ -176,6 +216,7 @@ public class CreateAnswerActivity extends Activity {
 		alert.setNegativeButton("CANCEL",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
+						GPSButton.setChecked(false);
 						dialog.cancel();
 					}
 				});
@@ -183,6 +224,9 @@ public class CreateAnswerActivity extends Activity {
 		alertDialog.show();
 	}
 
+	/**
+	 * will be called when user type in a city that cannot find
+	 */
 	public void showToast() {
 		Toast.makeText(
 				this,
@@ -190,6 +234,12 @@ public class CreateAnswerActivity extends Activity {
 				Toast.LENGTH_LONG).show();
 	}
 
+	/**
+	 * set the image to the imageView
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	// http://www.csdn123.com/html/mycsdn20140110/2d/2d3c6d5adb428b6708901f7060d31800.html
 	public void viewAnswerImage(View view) {
 		LayoutInflater inflater = LayoutInflater.from(view.getContext());
@@ -233,6 +283,14 @@ public class CreateAnswerActivity extends Activity {
 		}
 	}
 
+	/**
+	 * This method will be called when the current answer is submitted, then map
+	 * the thread to the corresponding question and save all details into the
+	 * question.
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void submit_answer(View view) {
 		String content = contentText.getText().toString();
 		if (content.trim().length() == 0)
@@ -284,6 +342,12 @@ public class CreateAnswerActivity extends Activity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
 	private static final int GET_IMAGE_ACTIVITY_REQUEST_CODE = 2;
 
+	/**
+	 * Create a storage for the picture in the answer
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void take_answer_pic(View view) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -312,6 +376,18 @@ public class CreateAnswerActivity extends Activity {
 		startActivityForResult(intent, GET_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 
+	/**
+	 * Display the selected photo in the answer, and notify the user if the
+	 * operation is successful
+	 * 
+	 * @param requestCode
+	 *            A code that represents the activity of adding an image.
+	 * @param resultCode
+	 *            A code that represent if the image adding process is
+	 *            committed/canceled.
+	 * @param Intent
+	 *            data The data.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -341,6 +417,9 @@ public class CreateAnswerActivity extends Activity {
 
 	}
 
+	/**
+	 * will be called when the image cannot be compressed to 64KB
+	 */
 	private void refuseUpdatePic() {
 		image = null;
 		imageThumb = null;
@@ -355,6 +434,15 @@ public class CreateAnswerActivity extends Activity {
 	// The following code is from
 	// http://hmkcode.com/android-display-selected-image-and-its-real-path/
 	// 2014-11-18
+	/**
+	 * function that user to get the image path
+	 * 
+	 * @param context
+	 *            the context
+	 * @param imageFileUri
+	 *            the imageFileUri that contains the URL of the image
+	 * @return return the imagePath of the image
+	 */
 	private String getPath(Context context, Uri imageFileUri) {
 		String[] proj = { MediaStore.Images.Media.DATA };
 		String result = null;
@@ -375,6 +463,13 @@ public class CreateAnswerActivity extends Activity {
 	private static final int THUMBIMAGESIZE = 200;
 	private static final int SCALEIMAGESIZE = 800;
 
+	/**
+	 * get the image from the imagePath and try compress the image to 64kb
+	 * 
+	 * @param imagePath
+	 *            the imagePath
+	 * @return return true if imageString is created
+	 */
 	private Boolean saveImageView(String imagePath) {
 		image = BitmapFactory.decodeFile(imagePath);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -390,6 +485,16 @@ public class CreateAnswerActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * scale the image to fixed width and height
+	 * 
+	 * @param width
+	 *            the fixed width
+	 * @param height
+	 *            the fixed height
+	 * @param createThumb
+	 *            single to create a thumb nail of the image
+	 */
 	private void scaleImage(int width, int height, boolean createThumb) {
 		// Scale the pic if it is too large:
 
@@ -411,6 +516,11 @@ public class CreateAnswerActivity extends Activity {
 
 	}
 
+	/**
+	 * compress the image to 64kb
+	 * 
+	 * @return return the imageString after compressed
+	 */
 	private String compressImage() {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -431,11 +541,21 @@ public class CreateAnswerActivity extends Activity {
 		imageView.setImageBitmap(imageThumb);
 	}
 
+	/**
+	 * Set the text to mention the user that the current answer need content
+	 */
 	public void noContentEntered() {
 		Toast.makeText(this, "Please fill in the content!", Toast.LENGTH_SHORT)
 				.show();
 	}
 
+	/**
+	 * initial the menu on the top right corner of the screen
+	 * 
+	 * @param menu
+	 *            The menu.
+	 * @return true if the menu is acted.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.new_input, menu);
@@ -461,15 +581,30 @@ public class CreateAnswerActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Add the new answer to the question details, and stop the current thread
+	 * when everything is done.
+	 */
 	class GetUpdateThread extends Thread {
 		private long id;
 		private Answer newAnswer;
 
+		/**
+		 * the constructor of the class
+		 * 
+		 * @param id
+		 *            the ID of the current answer.
+		 * @param newAnswer
+		 *            the current answer.
+		 */
 		public GetUpdateThread(long id, Answer newAnswer) {
 			this.newAnswer = newAnswer;
 			this.id = id;
 		}
 
+		/**
+		 * use the corresponding thread to update the current answer online
+		 */
 		@Override
 		public void run() {
 			Question question = questionListManager.getQuestion(id);

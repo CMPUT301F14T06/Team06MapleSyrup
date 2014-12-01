@@ -110,7 +110,6 @@ public class AuthorMapManager {
 			long from, long size, String lable) {
 		AuthorMap result = new AuthorMap();
 
-		// TODO: Implement search authors using ElasticSearch
 		if (searchString == null || "".equals(searchString)) {
 			searchString = "*";
 		}

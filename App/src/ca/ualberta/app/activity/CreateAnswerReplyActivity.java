@@ -44,6 +44,15 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This is the activity for the mean functionality of replying answer. This
+ * activity will be acted when the "Reply" button in the
+ * QuestionDetailActivity.java is clicked.
+ * 
+ * @author Anni
+ * @author Bicheng
+ * 
+ */
 public class CreateAnswerReplyActivity extends Activity {
 	private EditText contentText = null;
 	private Reply newReply = null;
@@ -64,12 +73,23 @@ public class CreateAnswerReplyActivity extends Activity {
 	private TextView locationText;
 	private RadioButton GPSButton;
 
+	/**
+	 * This method will be called when the user finishes replying an answer to
+	 * stop the the current thread.
+	 */
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
 		}
 	};
 
+	/**
+	 * onCreate method Once the activity is created, this method will give each
+	 * view an object to help other methods set data or listeners.
+	 * 
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -98,6 +118,13 @@ public class CreateAnswerReplyActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Will be called when user clicked add Location button, it will pop a
+	 * dialog and let user choose the method of location
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void addAnswerReplyLocation(View view) {
 		if (locationName == null) {
 			showDialog();
@@ -110,6 +137,10 @@ public class CreateAnswerReplyActivity extends Activity {
 		}
 	}
 
+	/**
+	 * the dialog allow user to choose get the location through GPS or set it
+	 * manually
+	 */
 	private void showDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Select get Location Method");
@@ -136,6 +167,9 @@ public class CreateAnswerReplyActivity extends Activity {
 		alertDialog.show();
 	}
 
+	/**
+	 * the dialog allow user to type in the city manually
+	 */
 	private void showSelectedDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Set Location Manually");
@@ -164,6 +198,7 @@ public class CreateAnswerReplyActivity extends Activity {
 		alert.setNegativeButton("CANCEL",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
+						GPSButton.setChecked(false);
 						dialog.cancel();
 					}
 				});
@@ -171,6 +206,9 @@ public class CreateAnswerReplyActivity extends Activity {
 		alertDialog.show();
 	}
 
+	/**
+	 * will be called when user type in a city that cannot find
+	 */
 	public void showToast() {
 		Toast.makeText(
 				this,
@@ -178,6 +216,14 @@ public class CreateAnswerReplyActivity extends Activity {
 				Toast.LENGTH_LONG).show();
 	}
 
+	/**
+	 * This method will be called when the current reply is submitted, then map
+	 * the thread to the corresponding question and save all details into the
+	 * answer of the question.
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void submit_answer_reply(View view) {
 		String content = contentText.getText().toString();
 		if (content.trim().length() == 0)
@@ -231,15 +277,31 @@ public class CreateAnswerReplyActivity extends Activity {
 
 	}
 
+	/**
+	 * If the user cancel the current operation, then stop the current thread
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void cancel_answer_reply(View view) {
 		finish();
 	}
 
+	/**
+	 * Set the text to mention the user that the current reply need content
+	 */
 	public void noContentEntered() {
 		Toast.makeText(this, "Please fill in the content!", Toast.LENGTH_SHORT)
 				.show();
 	}
 
+	/**
+	 * initial the menu on the top right corner of the screen
+	 * 
+	 * @param menu
+	 *            The menu.
+	 * @return true if the menu is acted.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.new_input, menu);
@@ -263,17 +325,32 @@ public class CreateAnswerReplyActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Add the new reply to the question details, and stop the current thread
+	 * when everything is done.
+	 */
 	class GetUpdateThread extends Thread {
 		private long id;
 		private int pos;
 		private Reply newReply;
 
+		/**
+		 * the constructor of the class
+		 * 
+		 * @param id
+		 *            the ID of the current reply.
+		 * @param newAnswer
+		 *            the current reply.
+		 */
 		public GetUpdateThread(long id, int pos, Reply newReply) {
 			this.newReply = newReply;
 			this.id = id;
 			this.pos = pos;
 		}
 
+		/**
+		 * use the corresponding thread to update the modification online
+		 */
 		@Override
 		public void run() {
 			Question question = questionListManager.getQuestion(id);

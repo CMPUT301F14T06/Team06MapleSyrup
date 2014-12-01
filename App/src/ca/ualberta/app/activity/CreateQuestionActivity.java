@@ -57,6 +57,15 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This is the activity for the mean functionality of asking a question. This
+ * activity will be acted when the "Ask Question" button in the
+ * MainActivity.java is clicked.
+ * 
+ * @author Anni
+ * @author Bicheng
+ * 
+ */
 public class CreateQuestionActivity extends Activity {
 	private ImageView imageView;
 	private EditText titleText = null;
@@ -84,12 +93,23 @@ public class CreateQuestionActivity extends Activity {
 	private String locationName = null;
 	private double[] locationCoordinates;
 
+	/**
+	 * This method will be called when the user finishes asking a question to
+	 * stop the the current thread.
+	 */
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
 			finish();
 		}
 	};
 
+	/**
+	 * onCreate method Once the activity is created, this method will give each
+	 * view an object to help other methods set data or listeners.
+	 * 
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -136,6 +156,12 @@ public class CreateQuestionActivity extends Activity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
 	private static final int GET_IMAGE_ACTIVITY_REQUEST_CODE = 2;
 
+	/**
+	 * Create a storage for the picture in the question
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void take_question_pic(View view) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -164,6 +190,18 @@ public class CreateQuestionActivity extends Activity {
 		startActivityForResult(intent, GET_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 
+	/**
+	 * Display the selected photo in the question, and notify the user if the
+	 * operation is successful
+	 * 
+	 * @param requestCode
+	 *            A code that represents the activity of adding an image.
+	 * @param resultCode
+	 *            A code that represent if the image adding process is
+	 *            committed/canceled.
+	 * @param Intent
+	 *            data The data.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -193,6 +231,9 @@ public class CreateQuestionActivity extends Activity {
 
 	}
 
+	/**
+	 * will be called when the image cannot be compressed to 64KB
+	 */
 	private void refuseUpdatePic() {
 		image = null;
 		imageThumb = null;
@@ -207,6 +248,15 @@ public class CreateQuestionActivity extends Activity {
 	// The following code is from
 	// http://hmkcode.com/android-display-selected-image-and-its-real-path/
 	// 2014-11-18
+	/**
+	 * function that user to get the image path
+	 * 
+	 * @param context
+	 *            the context
+	 * @param imageFileUri
+	 *            the imageFileUri that contains the URL of the image
+	 * @return return the imagePath of the image
+	 */
 	private String getPath(Context context, Uri imageFileUri) {
 		String[] proj = { MediaStore.Images.Media.DATA };
 		String result = null;
@@ -227,6 +277,13 @@ public class CreateQuestionActivity extends Activity {
 	private static final int THUMBIMAGESIZE = 200;
 	private static final int SCALEIMAGESIZE = 800;
 
+	/**
+	 * get the image from the imagePath and try compress the image to 64kb
+	 * 
+	 * @param imagePath
+	 *            the imagePath
+	 * @return return true if imageString is created
+	 */
 	private Boolean saveImageView(String imagePath) {
 		image = BitmapFactory.decodeFile(imagePath);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -242,6 +299,16 @@ public class CreateQuestionActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * scale the image to fixed width and height
+	 * 
+	 * @param width
+	 *            the fixed width
+	 * @param height
+	 *            the fixed height
+	 * @param createThumb
+	 *            single to create a thumb nail of the image
+	 */
 	private void scaleImage(int width, int height, boolean createThumb) {
 		// Scale the pic if it is too large:
 
@@ -263,6 +330,11 @@ public class CreateQuestionActivity extends Activity {
 
 	}
 
+	/**
+	 * compress the image to 64kb
+	 * 
+	 * @return return the imageString after compressed
+	 */
 	private String compressImage() {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -283,6 +355,13 @@ public class CreateQuestionActivity extends Activity {
 		imageView.setImageBitmap(imageThumb);
 	}
 
+	/**
+	 * If the user cancel the asking question operation, then stop the current
+	 * thread
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void cancel_question(View view) {
 		finish();
 	}
@@ -304,6 +383,14 @@ public class CreateQuestionActivity extends Activity {
 		});
 	}
 
+	/**
+	 * This method will be called when the current question is submitted, then
+	 * map the thread to the corresponding question and save all details into
+	 * the question.
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void submit_question(View view) {
 		String title = titleText.getText().toString();
 		String content = contentText.getText().toString();
@@ -346,6 +433,13 @@ public class CreateQuestionActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Will be called when user clicked add Location button, it will pop a
+	 * dialog and let user choose the method of location
+	 * 
+	 * @param view
+	 *            View passed to the activity to check which button was pressed.
+	 */
 	public void addQuestionLocation(View view) {
 		if (locationName == null) {
 			showDialog();
@@ -358,6 +452,10 @@ public class CreateQuestionActivity extends Activity {
 		}
 	}
 
+	/**
+	 * the dialog allow user to choose get the location through GPS or set it
+	 * manually
+	 */
 	private void showDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Select get Location Method");
@@ -384,6 +482,9 @@ public class CreateQuestionActivity extends Activity {
 		alertDialog.show();
 	}
 
+	/**
+	 * the dialog allow user to type in the city manually
+	 */
 	private void showSelectedDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Set Location Manually");
@@ -412,6 +513,7 @@ public class CreateQuestionActivity extends Activity {
 		alert.setNegativeButton("CANCEL",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
+						GPSButton.setChecked(false);
 						dialog.cancel();
 					}
 				});
@@ -419,6 +521,9 @@ public class CreateQuestionActivity extends Activity {
 		alertDialog.show();
 	}
 
+	/**
+	 * will be called when user type in a city that cannot find
+	 */
 	public void showToast() {
 		Toast.makeText(
 				this,
@@ -451,11 +556,18 @@ public class CreateQuestionActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Mention the user that his/her question need a title
+	 */
 	private void noTitleEntered() {
 		Toast.makeText(this, "Please fill in the Title", Toast.LENGTH_SHORT)
 				.show();
 	}
 
+	/**
+	 * Add the new question to the array list, and stop the current thread when
+	 * everything is done.
+	 */
 	class AddQuestionThread extends Thread {
 		private Question question;
 

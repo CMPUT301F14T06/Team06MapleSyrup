@@ -35,6 +35,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * This is the activity for the login functionality. Once the "Login" button is
+ * clicked or other operations that need author authority are called by a
+ * non-author user.
+ * 
+ * @author Anni
+ * @author Bicheng
+ */
 public class LoginActivity extends Activity {
 	private EditText usernameEdit;
 	private String username;
@@ -54,6 +62,14 @@ public class LoginActivity extends Activity {
 		}
 	};
 
+	/**
+	 * onCreate method Once a user enter this activity, this method will give
+	 * each view an object to help other methods set data or listener. Also, a
+	 * new thread for the current user will be created.
+	 * 
+	 * @param savedInstanceState
+	 *            the saved instance state bundle.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,11 +93,25 @@ public class LoginActivity extends Activity {
 					.show();
 	}
 
+	/**
+	 * stop the thread when cancel a login operation
+	 * 
+	 * @param view
+	 *            The view.
+	 */
 	public void cancel_login(View view) {
 		finish();
 
 	}
 
+	/**
+	 * This method will be called when the user types in a user name and want to
+	 * login. It will check if the user name has already exist in the current
+	 * data set, and give the user a response.
+	 * 
+	 * @param view
+	 *            The view.
+	 */
 	public void login(View view) {
 		authorMapController = new AuthorMapController(context);
 		username = usernameEdit.getText().toString().trim();
@@ -107,24 +137,43 @@ public class LoginActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Notify if the user has login Offline.
+	 */
 	private void notifyLoginOffLine() {
 		Toast.makeText(this, "Login Off-Line", Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Notify if the user has login before.
+	 */
 	private void notifyLogin() {
 		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Notify if the user is a new author.
+	 */
 	private void notifyAddNewAuthor() {
 		Toast.makeText(this, "Login as New Author", Toast.LENGTH_SHORT).show();
 
 	}
 
+	/**
+	 * Notify if the user doesn't enter an user name
+	 */
 	private void notifyNoUsernameEntered() {
 		Toast.makeText(this, "Please fill in the username to login",
 				Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Inflate the menu.
+	 * 
+	 * @param menu
+	 *            The menu.
+	 * @return true if the menu is acted.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);

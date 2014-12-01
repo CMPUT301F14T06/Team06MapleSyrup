@@ -1,8 +1,5 @@
 package ca.ualberta.app.gps;
 
-import java.util.Date;
-
-import android.widget.Toast;
 import ca.ualberta.app.controller.CacheController;
 import ca.ualberta.app.models.ContextProvider;
 import ca.ualberta.app.network.InternetConnectionChecker;

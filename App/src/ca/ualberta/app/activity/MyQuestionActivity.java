@@ -50,6 +50,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+/**
+ * This is the activity of the user's personal question list. It is similar to
+ * the main question list, except that only questions that asked by the current
+ * user will be shown
+ * 
+ * @author Anni
+ * @author Bicheng
+ * 
+ */
 public class MyQuestionActivity extends Activity {
 	static String sortByDate = "Sort By Date";
 	static String sortByScore = "Sort By Score";
@@ -74,6 +83,11 @@ public class MyQuestionActivity extends Activity {
 	private ScrollListView mListView;
 	private Handler mHandler;
 	protected final String cacheList = "MYQUESTION";
+
+	/**
+	 * Thread notify the adapter changes in data, and update the adapter after
+	 * an operation
+	 */
 	private Runnable doUpdateGUIList = new Runnable() {
 		public void run() {
 			adapter.applySortMethod();
@@ -82,6 +96,13 @@ public class MyQuestionActivity extends Activity {
 		}
 	};
 
+	/**
+	 * onCreate method Once a user enter this activity, this method will give
+	 * each view an object to help other methods set data or listeners.
+	 * 
+	 * @param savedInstanceState
+	 *            The saved instance state bundle.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -93,6 +114,10 @@ public class MyQuestionActivity extends Activity {
 		mcontext = this;
 	}
 
+	/**
+	 * onStart method Setup the adapter for the user's question list, and setup
+	 * listener for each item (question) in the user's question list.
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -111,9 +136,24 @@ public class MyQuestionActivity extends Activity {
 		sortOptionSpinner
 				.setOnItemSelectedListener(new change_category_click());
 		updateList();
-
+		/**
+		 * Jump to the layout of the choosen question, and show details when
+		 * click on an item (a question) in the favorite question list
+		 */
 		mListView.setOnItemClickListener(new OnItemClickListener() {
-
+			/**
+			 * display the layout of the chosen question, and show details when
+			 * click on an item (a question) in the searching result list
+			 * 
+			 * @param parent
+			 *            The adapter of the item in the list.
+			 * @param view
+			 *            The view.
+			 * @param pos
+			 *            The position of a question.
+			 * @param id
+			 *            The ID of a question.
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
@@ -127,8 +167,25 @@ public class MyQuestionActivity extends Activity {
 			}
 		});
 
+		/**
+		 * Delete an item (a question) in the favorite list when a user long
+		 * clicks the question.
+		 */
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
+			/**
+			 * If the user is the author of the question, and the user long
+			 * click the item (the question) in the question list, then remove
+			 * the selected question from the question list.
+			 * 
+			 * @param parent
+			 *            The adapter of the item in the list.
+			 * @param view
+			 *            The view.
+			 * @param pos
+			 *            The position of a question.
+			 * @param id
+			 *            The ID of a question.
+			 */
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -149,9 +206,17 @@ public class MyQuestionActivity extends Activity {
 				return true;
 			}
 		});
-
+		/**
+		 * Update the current questions on screen, if a user scroll his/her
+		 * favorite question list
+		 */
 		mListView.setScrollListViewListener(new IXListViewListener() {
-
+			/**
+			 * Will called to update the content in the favorite question list
+			 * when the data is changed or sorted; also, this method will tell
+			 * the user the current interval of the question that are displayed
+			 * on the screen
+			 */
 			@Override
 			public void onRefresh() {
 				mHandler.postDelayed(new Runnable() {
@@ -162,7 +227,13 @@ public class MyQuestionActivity extends Activity {
 					}
 				}, 2000);
 			}
-
+			
+			/**
+			 * this method will be called when a user up or down scroll the
+			 * favorite question list to update the corresponding questions on
+			 * the screen; also, this method will tell the user the current
+			 * interval of the question that are displayed on the screen
+			 */
 			@Override
 			public void onLoadMore() {
 				mHandler.postDelayed(new Runnable() {
@@ -175,16 +246,34 @@ public class MyQuestionActivity extends Activity {
 			}
 		});
 	}
-
+	
+	/**
+	 * stop refresh and loading, reset header and the footer view.
+	 */
 	private void onLoad() {
 		timestamp = new Date();
 		mListView.stopRefresh();
 		mListView.stopLoadMore();
 		mListView.setRefreshTime(timestamp.toString());
 	}
-
+	
+	/**
+	 * This class represents the functions in the sorting menu in the spinner at
+	 * the top of the screen
+	 */
 	private class change_category_click implements OnItemSelectedListener {
-
+		/**
+		 * Based on different conditions, call different sorting functions.
+		 * 
+		 * @param parent
+		 *            The adapter of the item in the list.
+		 * @param view
+		 *            The view.
+		 * @param pos
+		 *            The position of a question.
+		 * @param id
+		 *            The ID of a question.
+		 */
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			categoryID = position;
@@ -215,12 +304,18 @@ public class MyQuestionActivity extends Activity {
 			}
 			updateSortedList();
 		}
-
+		/**
+		 * Use default sort method is nothing is chosen
+		 */
 		public void onNothingSelected(AdapterView<?> parent) {
 			sortOptionSpinner.setSelection(0);
 		}
 	}
-
+	
+	/**
+	 * Update the content of the main question list by finding and loading the
+	 * new list contents from the data set (local/online server)
+	 */
 	private void updateList() {
 		myQuestionId = User.author.getAuthorQuestionId();
 		if (myQuestionId.size() == 0)
