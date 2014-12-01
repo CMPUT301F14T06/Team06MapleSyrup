@@ -21,14 +21,8 @@
 package ca.ualberta.app.adapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import ca.ualberta.app.activity.R;
-import ca.ualberta.app.comparator.AnswerDateComparator;
-import ca.ualberta.app.comparator.AnswerListUpvoteComparator;
-import ca.ualberta.app.comparator.AnswerLocationComparator;
 import ca.ualberta.app.controller.AuthorMapController;
-import ca.ualberta.app.gps.Location;
 import ca.ualberta.app.models.AuthorMap;
 import ca.ualberta.app.models.Question;
 import ca.ualberta.app.models.Reply;
@@ -47,8 +41,6 @@ import android.widget.TextView;
 public class ReplyListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<Reply> replyList = null;
 	private Context context;
-	private String sortingOption = "Sort Answer and Reply By Date";
-	private String lastSortingOption = null;
 
 	/**
 	 * Constructs the adapter and initializes its context.

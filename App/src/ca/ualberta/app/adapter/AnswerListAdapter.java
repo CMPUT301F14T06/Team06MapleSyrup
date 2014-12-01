@@ -320,6 +320,9 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 
 	private static final int THUMBIMAGESIZE = 100;
 
+	/**
+	 * Scale the pic if it is too large
+	 */
 	private void scaleImage() {
 		// Scale the pic if it is too large:
 
@@ -341,7 +344,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * 
+	 * disable upvote functionality when disconnected
 	 */
 	private void checkInternet() {
 		if (InternetConnectionChecker.isNetworkAvailable()) {

@@ -12,10 +12,24 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * Adapter for the question list in waiting list, used to display all un-posted
+ * questions.
+ */
 public class QuestionWaitingListAdapter extends ArrayAdapter<Question> {
 	private ArrayList<Question> questionList = null;
 	ViewHolder holder = null;
 
+	/**
+	 * Constructs the adapter and initializes its context.
+	 * 
+	 * @param context
+	 *            The Context in which the adapter is running.
+	 * @param textViewResourceId
+	 *            Format of an question view
+	 * @param objects
+	 *            The question list.
+	 */
 	public QuestionWaitingListAdapter(Context context, int textViewResourceId,
 			ArrayList<Question> objects) {
 		super(context, textViewResourceId, objects);
@@ -27,7 +41,8 @@ public class QuestionWaitingListAdapter extends ArrayAdapter<Question> {
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(this.getContext());
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.single_waiting_question, null);
+			convertView = inflater.inflate(R.layout.single_waiting_question,
+					null);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
@@ -56,6 +71,12 @@ public class QuestionWaitingListAdapter extends ArrayAdapter<Question> {
 		super.notifyDataSetChanged();
 	}
 
+	/**
+	 * The container of the views for a single question
+	 * 
+	 * @author Bicheng
+	 * 
+	 */
 	class ViewHolder {
 		TextView questionTitle;
 		TextView questionContent;

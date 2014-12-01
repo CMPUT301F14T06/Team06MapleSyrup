@@ -11,11 +11,25 @@ import android.widget.TextView;
 import ca.ualberta.app.activity.R;
 import ca.ualberta.app.models.Answer;
 
+/**
+ * Adapter for the answer list in waiting list, used to display all un-posted
+ * answers.
+ */
 public class AnswerWaitingListAdapter extends ArrayAdapter<Answer>{
 	private ArrayList<Answer> answerList = null;
 	ViewHolder holder = null;
 	String questionTitle;
 
+	/**
+	 * Constructs the adapter and initializes its context.
+	 * 
+	 * @param context
+	 *            The Context in which the adapter is running.
+	 * @param textViewResourceId
+	 *            Format of an answer view
+	 * @param objects
+	 *            The answer list.
+	 */
 	public AnswerWaitingListAdapter(Context context, int textViewResourceId,
 			ArrayList<Answer> objects) {
 		super(context, textViewResourceId, objects);
@@ -48,6 +62,12 @@ public class AnswerWaitingListAdapter extends ArrayAdapter<Answer>{
 		return convertView;
 	}
 	
+	/**
+	 * The container of the views for a single answer
+	 * 
+	 * @author Bicheng
+	 * 
+	 */
 	class ViewHolder {
 		TextView questionTitle;
 		TextView answerContent;
