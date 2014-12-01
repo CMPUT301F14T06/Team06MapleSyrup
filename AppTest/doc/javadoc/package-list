@@ -1,0 +1,7 @@
+ca.ualberta.app.activity.test
+ca.ualberta.app.test.ActivityTest
+ca.ualberta.app.test.ComparatorTest
+ca.ualberta.app.test.ControllerTest
+ca.ualberta.app.test.FunctionalityTest
+ca.ualberta.app.test.ManagerTest
+ca.ualberta.app.test.ModelTest
