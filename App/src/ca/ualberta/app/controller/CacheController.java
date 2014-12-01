@@ -529,7 +529,7 @@ public class CacheController {
 	 * 
 	 * @param context
 	 *            The context.
-	 * @param questionMap
+	 * @param questionId
 	 *            The question id.
 	 * @param FILENAME
 	 *            The name of the file.
@@ -584,8 +584,8 @@ public class CacheController {
 	 * 
 	 * @param context
 	 *            The context.
-	 * @param questionMap
-	 *            The question id.
+	 * @param location
+	 *            the location.
 	 * @param FILENAME
 	 *            The name of the file.
 	 */
@@ -604,22 +604,45 @@ public class CacheController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * get User Location
+	 * 
+	 * @return user's location
+	 */
 	public String getUserLocation() {
 		String location = loadStringFromFile(ContextProvider.get(),
 				USERLOCATION);
 		return location;
 	}
-	
+
+	/**
+	 * save user location to file
+	 * 
+	 * @param address
+	 *            the user location
+	 */
 	public void saveUserLocation(String address) {
 		saveStringInFile(ContextProvider.get(), address, USERLOCATION);
 	}
-	
-	public double[] getUserCoordinates(){
-		String coordinates = loadStringFromFile(ContextProvider.get(), USERCOORD);
+
+	/**
+	 * get User Coordinates
+	 * 
+	 * @return the user coordinates
+	 */
+	public double[] getUserCoordinates() {
+		String coordinates = loadStringFromFile(ContextProvider.get(),
+				USERCOORD);
 		return GeoCoder.coordinatesFromString(coordinates);
 	}
-	
+
+	/**
+	 * save User coordinates in file
+	 * 
+	 * @param coord
+	 *            the coordinates need to be saved
+	 */
 	public void saveUserCoordinates(double[] coord) {
 		String coordinates = GeoCoder.coordinatesToString(coord);
 		saveStringInFile(ContextProvider.get(), coordinates, USERCOORD);

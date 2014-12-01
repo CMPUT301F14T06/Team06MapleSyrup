@@ -223,8 +223,8 @@ public class QuestionListManager {
 	/**
 	 * Add a questionList to he online server
 	 * 
-	 * @param questionList
-	 *            The questionList.
+	 * @param answerList
+	 *            The answerList.
 	 */
 	public void addAnswerList(ArrayList<Answer> answerList) {
 		for (Answer answer : answerList) {
@@ -237,8 +237,8 @@ public class QuestionListManager {
 	/**
 	 * Add a questionList to he online server
 	 * 
-	 * @param questionList
-	 *            The questionList.
+	 * @param replyList
+	 *            The replyList.
 	 */
 	public void addReplyList(ArrayList<Reply> replyList) {
 		for (Reply reply : replyList) {

@@ -313,7 +313,7 @@ public class QuestionListController {
 	 * 
 	 * @param context
 	 *            The context.
-	 * @param question
+	 * @param questionList
 	 *            The questionList.
 	 * @param FILENAME
 	 *            The name of the file.

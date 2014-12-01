@@ -19,6 +19,9 @@ import ca.ualberta.app.thread.UpdateAuthorThread;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * Combine and define functionalities of the author map.
+ */
 public class AuthorMapController {
 	private AuthorMap authorMap;
 	private String FILENAME = "AUTHORMAP.sav";
@@ -29,6 +32,12 @@ public class AuthorMapController {
 	private String lable = "author";
 	private PushController pushController;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param context
+	 *            the context
+	 */
 	public AuthorMapController(Context context) {
 		this.context = context;
 		pushController = new PushController(context);
@@ -36,26 +45,59 @@ public class AuthorMapController {
 		authorMap = loadFromFile(context, FILENAME);
 	}
 
+	/**
+	 * clear the author map
+	 */
 	public void clear() {
 		authorMap.clear();
 	}
 
+	/**
+	 * save the search author into file
+	 * 
+	 * @param searchAuthors
+	 *            the searching result
+	 */
 	public void putAll(AuthorMap searchAuthors) {
 		authorMap.putAll(searchAuthors);
 		saveInFile(context, authorMap, FILENAME);
 
 	}
 
+	/**
+	 * get a map of author from saved file
+	 * 
+	 * @param context
+	 *            the context
+	 * @return return the author map
+	 */
 	public AuthorMap getAuthorMap(Context context) {
 		authorMap = loadFromFile(context, FILENAME);
 		return loadFromFile(context, FILENAME);
 	}
 
+	/**
+	 * check if the author is already exist in the file
+	 * 
+	 * @param context
+	 *            the context
+	 * @param username
+	 *            the user name of the author
+	 * @return return true if author already exist
+	 */
 	public boolean hasAuthor(Context context, String username) {
 		authorMap = loadFromFile(context, FILENAME);
 		return authorMap.hasAuthor(username);
 	}
 
+	/**
+	 * add a author to the map
+	 * 
+	 * @param context
+	 *            the context
+	 * @param newAuthor
+	 *            the new author
+	 */
 	public void addAuthor(Context context, Author newAuthor) {
 		if (InternetConnectionChecker.isNetworkAvailable()) {
 			Thread addThread = new AddThread(newAuthor);
@@ -70,18 +112,47 @@ public class AuthorMapController {
 		}
 	}
 
+	/**
+	 * get the author using userName
+	 * 
+	 * @param username
+	 *            the user name
+	 * @return the author object
+	 */
 	public Author getAuthor(String username) {
 		return authorMap.getAuthor(username);
 	}
 
+	/**
+	 * get the author using user ID
+	 * 
+	 * @param userId
+	 *            the user ID
+	 * @return the author object
+	 */
 	public Author getAuthor(Long userId) {
 		return authorMap.getAuthor(userId);
 	}
 
+	/**
+	 * get the author name using user ID
+	 * 
+	 * @param userId
+	 *            the user ID
+	 * @return the user name
+	 */
 	public String getAuthorName(Long userId) {
 		return authorMap.getUsername(userId);
 	}
 
+	/**
+	 * update an author
+	 * 
+	 * @param context
+	 *            the contect
+	 * @param author
+	 *            the author that need to update
+	 */
 	public void updateAuthor(Context context, Author author) {
 		Thread updateAuthor = new UpdateAuthorThread(author);
 		updateAuthor.start();

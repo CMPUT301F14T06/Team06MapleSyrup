@@ -7,6 +7,9 @@ import ca.ualberta.app.gps.GeoCoder;
 import ca.ualberta.app.models.ContextProvider;
 import ca.ualberta.app.models.Question;
 
+/**
+ * A Comparator which compare and sort 2 Question objects by distance.
+ */
 public class DistanceComparator implements Comparator<Question> {
 	private CacheController cacheController = new CacheController(
 			ContextProvider.get());

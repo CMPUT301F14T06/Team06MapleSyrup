@@ -33,9 +33,6 @@ public class InternetConnectionChecker {
 	/**
 	 * Check if the device connects the Internet
 	 * 
-	 * @param context
-	 *            The context.
-	 * 
 	 * @return true if the Internet is connected; else return false.
 	 */
 	public final static boolean isNetworkAvailable() {

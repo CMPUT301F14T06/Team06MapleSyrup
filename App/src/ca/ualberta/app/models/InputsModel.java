@@ -38,11 +38,11 @@ public abstract class InputsModel {
 	 * 
 	 * @param content
 	 *            The content.
-	 * @param userName
+	 * @param userId
 	 *            The ID of the user.
 	 * @param title
 	 *            The title of the question.
-	 * @param image
+	 * @param imageString
 	 *            The image in the question.
 	 */
 	public InputsModel(String content, Long userId, String title,
@@ -59,9 +59,9 @@ public abstract class InputsModel {
 	 * 
 	 * @param content
 	 *            The content.
-	 * @param userName
+	 * @param userId
 	 *            The ID of the user.
-	 * @param image
+	 * @param imageString
 	 *            The image in the question.
 	 */
 	public InputsModel(String content, Long userId, String imageString) {
@@ -76,7 +76,7 @@ public abstract class InputsModel {
 	 * 
 	 * @param content
 	 *            The content.
-	 * @param userName
+	 * @param userId
 	 *            The ID of the user.
 	 */
 	public InputsModel(String content, Long userId) {
@@ -98,7 +98,7 @@ public abstract class InputsModel {
 	/**
 	 * The image of the question/answer
 	 * 
-	 * @param image
+	 * @param imageByteArray
 	 *            The image of the question/answer.
 	 */
 	public void setImage(byte[] imageByteArray) {

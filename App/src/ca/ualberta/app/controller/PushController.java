@@ -45,7 +45,7 @@ import ca.ualberta.app.models.Reply;
 import ca.ualberta.app.models.User;
 
 /**
- * Will be completed in the next part of the project
+ * used to save un-posted question, answer and reply
  */
 public class PushController {
 	public Map<Long, Question> waitingListMap_Question;
@@ -65,7 +65,7 @@ public class PushController {
 	private String questionTitle;
 
 	/**
-	 * The constructor of the class load question map from local file
+	 * The constructor of the class load maps from local file
 	 * 
 	 * @param mcontext
 	 *            the context.
@@ -95,12 +95,12 @@ public class PushController {
 	}
 
 	/**
-	 * Return the question ID of the waitingList question from local file
+	 * Return the answer ID of the waitingList answer from local file
 	 * 
 	 * @param mcontext
 	 *            the context.
 	 * 
-	 * @return the question ID of the waitingList question from the local file.
+	 * @return the answer ID of the waitingList answer from the local file.
 	 */
 	public ArrayList<Long> getWaitingAnswerListId(Context mcontext) {
 		waitingListId_Answer = loadIdFromFile(mcontext, WAITID_A);
@@ -109,12 +109,12 @@ public class PushController {
 	}
 
 	/**
-	 * Return the question ID of the waitingList question from local file
+	 * Return the reply ID of the waitingList reply from local file
 	 * 
 	 * @param mcontext
 	 *            the context.
 	 * 
-	 * @return the question ID of the waitingList question from the local file.
+	 * @return the reply ID of the waitingList reply from the local file.
 	 */
 	public ArrayList<Long> getWaitingReplyListId(Context mcontext) {
 		waitingListId_Reply = loadIdFromFile(mcontext, WAITID_R);
@@ -167,14 +167,14 @@ public class PushController {
 	}
 
 	/**
-	 * Return whether the local file for local question contain the question.
+	 * Return whether the local file for waiting list contain the answer.
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
+	 * @param answer
+	 *            the answer.
 	 * 
-	 * @return true if the local file for favorite question has the question,
+	 * @return true if the local file for waiting list question has the answer,
 	 *         false if not.
 	 */
 	public boolean hasWaited_A(Context mcontext, Answer answer) {
@@ -185,15 +185,15 @@ public class PushController {
 	}
 
 	/**
-	 * Return whether the local file for local question contain the question.
+	 * Return whether the local file for waiting list contain the reply.
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
+	 * @param reply
+	 *            the reply.
 	 * 
-	 * @return true if the local file for favorite question has the question,
-	 *         false if not.
+	 * @return true if the local file for waiting list has the reply, false if
+	 *         not.
 	 */
 	public boolean hasWaited_R(Context mcontext, Reply reply) {
 		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
@@ -203,15 +203,14 @@ public class PushController {
 	}
 
 	/**
-	 * Return whether the local file for local question contain the question.
+	 * Return whether the local file for author map
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
+	 * @param userId
+	 *            the user Id.
 	 * 
-	 * @return true if the local file for favorite question has the question,
-	 *         false if not.
+	 * @return true if the local file has the author, false if not.
 	 */
 	public boolean hasWaited_Author(Context mcontext, Long userId) {
 		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
@@ -248,12 +247,12 @@ public class PushController {
 	}
 
 	/**
-	 * Save a question into the the local file of the WaitingList questions.
+	 * Save a author into the the local file.
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
+	 * @param author
+	 *            the author.
 	 */
 	public void addWaitngListAuthors(Context mcontext, Author author) {
 		waitingList_Author = loadMapFromFile_Author(mcontext, WAIT_AUTHOR);
@@ -262,12 +261,12 @@ public class PushController {
 	}
 
 	/**
-	 * Save a question into the the local file of the WaitingList questions.
+	 * Save a answer into the the local file of the WaitingList answer.
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
+	 * @param answer
+	 *            the answer.
 	 */
 	public void addWaitngListAnswers(Context mcontext, Answer answer,
 			String questionTitle) {
@@ -282,12 +281,12 @@ public class PushController {
 	}
 
 	/**
-	 * Save a question into the the local file of the WaitingList questions.
+	 * Save a reply into the the local file of the WaitingList reply.
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
+	 * @param reply
+	 *            the reply.
 	 */
 	public void addWaitngListReplies(Context mcontext, Reply reply,
 			String questionTitle) {
@@ -337,7 +336,7 @@ public class PushController {
 	}
 
 	/**
-	 * Remove a question into the the local file of the WaitingList questions.
+	 * Remove a answer into the the local file of the WaitingList answer.
 	 * 
 	 * @param mcontext
 	 *            the context.
@@ -350,7 +349,7 @@ public class PushController {
 	}
 
 	/**
-	 * Remove a question into the the local file of the WaitingList questions.
+	 * Remove a reply into the the local file of the WaitingList reply.
 	 * 
 	 * @param mcontext
 	 *            the context.
@@ -363,7 +362,7 @@ public class PushController {
 	}
 
 	/**
-	 * Remove a question into the the local file of the WaitingList questions.
+	 * Remove a author into the the local file.
 	 * 
 	 * @param mcontext
 	 *            the context.
@@ -391,12 +390,12 @@ public class PushController {
 	}
 
 	/**
-	 * Update a question in the the local file of the WaitingList questions.
+	 * Update a answer in the the local file of the WaitingList answers.
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
+	 * @param answer
+	 *            the answer.
 	 */
 	public void updateWaitingListAnswer(Context mcontext, Answer answer) {
 		waitingListMap_Answer = loadMapFromFile_A(mcontext, WAITMAP_A);
@@ -408,12 +407,12 @@ public class PushController {
 	}
 
 	/**
-	 * Update a question in the the local file of the WaitingList questions.
+	 * Update a reply in the the local file of the WaitingList reply.
 	 * 
 	 * @param mcontext
 	 *            the context.
-	 * @param question
-	 *            the question.
+	 * @param reply
+	 *            the reply.
 	 */
 	public void updateWaitingListReply(Context mcontext, Reply reply) {
 		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
@@ -450,9 +449,9 @@ public class PushController {
 	}
 
 	/**
-	 * Load and return the WaitingList answer list
+	 * Load and return the WaitingList reply list
 	 * 
-	 * @return the local answer list.
+	 * @return the local reply list.
 	 */
 	public ArrayList<Reply> getWaitingReplyList(Context mcontext) {
 		waitingListMap_Reply = loadMapFromFile_R(mcontext, WAITMAP_R);
@@ -474,14 +473,14 @@ public class PushController {
 	}
 
 	/**
-	 * Load the question ID's from the file with given name.
+	 * Load the ID's from the file with given name.
 	 * 
 	 * @param context
 	 *            The context.
 	 * @param FILENAME
 	 *            The name of the local file.
 	 * 
-	 * @return the ID of the question(s).
+	 * @return the ID.
 	 */
 	public ArrayList<Long> loadIdFromFile(Context context, String FILENAME) {
 		ArrayList<Long> questionId = null;
@@ -622,12 +621,12 @@ public class PushController {
 	}
 
 	/**
-	 * save question map to local file
+	 * save a map to local file
 	 * 
 	 * @param context
 	 *            The context.
-	 * @param questionMap
-	 *            The question map.
+	 * @param object
+	 *            The map.
 	 * @param FILENAME
 	 *            The name of the file.
 	 */
@@ -646,10 +645,21 @@ public class PushController {
 		}
 	}
 
+	/**
+	 * set the question Title
+	 * 
+	 * @param questionTitle
+	 *            the question title
+	 */
 	public void setQuestionTitle(String questionTitle) {
 		this.questionTitle = questionTitle;
 	}
 
+	/**
+	 * get the question title
+	 * 
+	 * @return the question title
+	 */
 	public String getQuestionTitle() {
 		return this.questionTitle;
 	}

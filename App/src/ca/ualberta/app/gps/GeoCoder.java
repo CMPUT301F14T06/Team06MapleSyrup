@@ -7,6 +7,15 @@ import android.location.Address;
 import android.location.Geocoder;
 
 public class GeoCoder {
+	/**
+	 * transfer the coordinate to actual address
+	 * 
+	 * @param latitude
+	 *            the latitude
+	 * @param longitude
+	 *            the longitude
+	 * @return the transfer address
+	 */
 	public static String toAddress(double latitude, double longitude) {
 		String myAddress;
 		Geocoder geocoder = new Geocoder(ContextProvider.get(),
@@ -27,6 +36,13 @@ public class GeoCoder {
 		return myAddress;
 	}
 
+	/**
+	 * Format the address
+	 * 
+	 * @param address
+	 *            the address that need to be formated
+	 * @return formated address
+	 */
 	private static String formatAddress(Address address) {
 		StringBuilder stringBuilder = new StringBuilder();
 		String location = "";
@@ -41,6 +57,13 @@ public class GeoCoder {
 		return stringBuilder.toString();
 	}
 
+	/**
+	 * transfer an address to coordinates
+	 * 
+	 * @param strAddress
+	 *            the address that need to be transfered
+	 * @return the transfered coordinates
+	 */
 	public static double[] toLatLong(String strAddress) {
 		Geocoder geocoder = new Geocoder(ContextProvider.get(),
 				Locale.getDefault());
@@ -59,6 +82,15 @@ public class GeoCoder {
 		return returnLatLong;
 	}
 
+	/**
+	 * calculate the distance between two coordinates
+	 * 
+	 * @param coordinate1
+	 *            the coordinate
+	 * @param coordinate2
+	 *            the coordinate
+	 * @return the distance between the coordinates
+	 */
 	public static double toFindDistance(double[] coordinate1,
 			double[] coordinate2) {
 		double d = 1000000000;
@@ -79,6 +111,13 @@ public class GeoCoder {
 		return d;
 	}
 
+	/**
+	 * transfer coordinates to string
+	 * 
+	 * @param coord
+	 *            the coordinate
+	 * @return the transfered String
+	 */
 	public static String coordinatesToString(double[] coord) {
 		try {
 			return String.valueOf(coord[0]) + ";" + String.valueOf(coord[1]);
@@ -87,6 +126,13 @@ public class GeoCoder {
 		}
 	}
 
+	/**
+	 * transfer the String to coordinates
+	 * 
+	 * @param coord
+	 *            the String
+	 * @return the transfered coordinates
+	 */
 	public static double[] coordinatesFromString(String coord) {
 		double[] dcoord = new double[2];
 		dcoord[0] = Double.valueOf((coord.split(";")[0]));

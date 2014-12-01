@@ -45,11 +45,11 @@ public class Question extends InputsModel {
 	 * 
 	 * @param content
 	 *            The content.
-	 * @param userName
+	 * @param userId
 	 *            The ID of the user who posted the question.
 	 * @param title
 	 *            The title of the question.
-	 * @param image
+	 * @param imageString
 	 *            The image belongs to the question.
 	 */
 	public Question(String content, Long userId, String title,

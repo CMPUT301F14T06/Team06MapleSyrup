@@ -37,15 +37,15 @@ public class Answer extends InputsModel {
 	Map<Long, Author> upvotedPerson;
 	String locationName;
 	double[] locationCoordinates;
-	
+
 	/**
 	 * The constructor of the class
 	 * 
 	 * @param content
 	 *            The content of the answer.
-	 * @param userName
-	 *            the user name of the user who answers the answer.
-	 * @param image
+	 * @param userId
+	 *            the user ID of the user who answers the answer.
+	 * @param imageString
 	 *            The image inside the answer.
 	 */
 	public Answer(String content, Long userId, String imageString) {
@@ -150,10 +150,19 @@ public class Answer extends InputsModel {
 		return this.upvoteCount_answer;
 	}
 
+	/**
+	 * Set question ID
+	 * 
+	 * @param questionID
+	 *            the question ID
+	 */
 	public void setQuestionID(long questionID) {
 		this.questionID_Answer = questionID;
 	}
 
+	/**Get the question ID
+	 * @return the question ID
+	 */
 	public long getQuestionID() {
 		return this.questionID_Answer;
 	}
@@ -169,20 +178,20 @@ public class Answer extends InputsModel {
 	public void setID(long answerID) {
 		this.ID_answer = answerID;
 	}
-	
-	public void setLocationName(String locationName){
+
+	public void setLocationName(String locationName) {
 		this.locationName = locationName;
 	}
-	
-	public String getLocationName(){
+
+	public String getLocationName() {
 		return this.locationName;
 	}
-	
-	public void setLocationCoordinates(double[] locationCoordinates){
+
+	public void setLocationCoordinates(double[] locationCoordinates) {
 		this.locationCoordinates = locationCoordinates;
 	}
-	
-	public double[] getLocationCoordinates(){
+
+	public double[] getLocationCoordinates() {
 		return this.locationCoordinates;
 	}
 }

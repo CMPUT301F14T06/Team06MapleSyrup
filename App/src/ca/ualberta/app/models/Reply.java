@@ -39,8 +39,8 @@ public class Reply extends InputsModel {
 	 * 
 	 * @param content
 	 *            The content of a reply.
-	 * @param userName
-	 *            The user name of the author of the reply.
+	 * @param userId
+	 *            The user ID of the author of the reply.
 	 */
 	public Reply(String content, Long userId) {
 		super(content, userId);

@@ -66,10 +66,12 @@ public class CustomProgressDialog extends Dialog {
 
 	/**
 	 * 
-	 * [Summary] setTitile title
+	 * Set the title of progress dialog
 	 * 
 	 * @param strTitle
-	 * @return
+	 *            the title
+	 * 
+	 * @return the dialog
 	 * 
 	 */
 	public CustomProgressDialog setTitile(String strTitle) {
@@ -78,10 +80,11 @@ public class CustomProgressDialog extends Dialog {
 
 	/**
 	 * 
-	 * [Summary] setMessage message
+	 * set the message of the dialog
 	 * 
 	 * @param strMessage
-	 * @return
+	 *            the message
+	 * @return the dialog
 	 * 
 	 */
 	public CustomProgressDialog setMessage(String strMessage) {

@@ -3,6 +3,9 @@ package ca.ualberta.app.models;
 import android.app.Application;
 import android.content.Context;
 
+/**
+ * Get the application context
+ */
 public class ContextProvider extends Application {
 	private static Context context;
 
@@ -12,6 +15,11 @@ public class ContextProvider extends Application {
 		context = getApplicationContext();
 	}
 
+	/**
+	 * get the context
+	 * 
+	 * @return the context
+	 */
 	public static Context get() {
 		return context;
 	}
