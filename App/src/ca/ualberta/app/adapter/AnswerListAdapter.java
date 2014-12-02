@@ -273,7 +273,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 		Answer answer = answerList.get(groupPosition);
 
 		if (answer != null) {
-			Long userId = question.getUserId();
+			Long userId = answer.getUserId();
 			AuthorMap authorMap = authorMapController.getAuthorMap(context);
 			answerHolder.answerContent.setText(answer.getContent());
 			answerHolder.authorName.setText(authorMap.getUsername(userId));
@@ -402,7 +402,7 @@ public class AnswerListAdapter extends BaseExpandableListAdapter {
 			Collections.sort(replyList, new ReplyDateComparator());
 		Reply reply = replyList.get(childPosition);
 		if (reply != null) {
-			Long userId = question.getUserId();
+			Long userId = reply.getUserId();
 			AuthorMap authorMap = authorMapController.getAuthorMap(context);
 			replyHolder.replyContent.setText(reply.getContent());
 			replyHolder.authorName.setText(authorMap.getUsername(userId));
